@@ -1,6 +1,6 @@
-﻿using facebook_csharp_ads_sdk.domain.Models.Attributes;
+﻿using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
-namespace facebook_csharp_ads_sdk.domain.Enums.Accounts
+namespace facebook_csharp_ads_sdk.Domain.Enums.Accounts
 {
     /// <summary>
     /// <para>Currencies enumerator with code and offset</para>

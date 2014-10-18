@@ -35,6 +35,9 @@
     <DocumentationFile>bin\Release\facebook-csharp-ads-sdk.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevUtils">
+      <HintPath>..\packages\DevUtils.1.0.4\lib\net451\DevUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -48,18 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="domain\Enums\Accounts\TaxStatus.cs" />
-    <Compile Include="domain\Enums\Accounts\AccountStatus.cs" />
-    <Compile Include="domain\Enums\Accounts\Capabilities.cs" />
-    <Compile Include="domain\Enums\Accounts\Currency.cs" />
-    <Compile Include="domain\Models\Accounts\Account.cs" />
-    <Compile Include="domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
-    <Compile Include="domain\Models\Attributes\CurrencySymbolAttribute.cs" />
-    <Compile Include="domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
-    <Compile Include="domain\Models\Attributes\FacebookNameAttribute.cs" />
-    <Compile Include="domain\Models\Attributes\IAttribute.cs" />
+    <Compile Include="Domain\Enums\Accounts\TaxStatus.cs" />
+    <Compile Include="Domain\Enums\Accounts\AccountStatus.cs" />
+    <Compile Include="Domain\Enums\Accounts\Capabilities.cs" />
+    <Compile Include="Domain\Enums\Accounts\Currency.cs" />
+    <Compile Include="Domain\Models\Accounts\Account.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Utils\WebRequests\IRequest.cs" />
+    <Compile Include="_Utils\WebRequests\Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

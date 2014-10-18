@@ -1,4 +1,4 @@
-﻿namespace facebook_csharp_ads_sdk.domain.Models.Attributes
+﻿namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
 {
     /// <summary>
     /// Interface for custom attributes

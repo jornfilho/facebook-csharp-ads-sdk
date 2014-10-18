@@ -1,4 +1,4 @@
-﻿namespace facebook_csharp_ads_sdk.domain.Enums.Accounts
+﻿namespace facebook_csharp_ads_sdk.Domain.Enums.Accounts
 {
     public enum TaxStatus
     {

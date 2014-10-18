@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using facebook_csharp_ads_sdk.domain.Enums.Accounts;
+using facebook_csharp_ads_sdk.Domain.Enums.Accounts;
 using Newtonsoft.Json;
 
-namespace facebook_csharp_ads_sdk.domain.Models.Accounts
+namespace facebook_csharp_ads_sdk.Domain.Models.Accounts
 {
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
