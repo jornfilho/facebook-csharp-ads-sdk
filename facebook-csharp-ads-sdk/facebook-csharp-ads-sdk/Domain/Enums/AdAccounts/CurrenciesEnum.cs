@@ -1,13 +1,13 @@
 ﻿using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
-namespace facebook_csharp_ads_sdk.Domain.Enums.Accounts
+namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
 {
     /// <summary>
     /// <para>Currencies enumerator with code and offset</para>
     /// <para>Web reference: http://www.xe.com/symbols.php </para>
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/currencies/ </para>
     /// </summary>
-    public enum Currency
+    public enum CurrenciesEnum
     {
         /// <summary>
         /// Undefined

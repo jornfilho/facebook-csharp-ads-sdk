@@ -57,7 +57,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Domain\Models\Accounts\UnitTest1.cs" />
+    <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppSecretTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppIdTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetDefaultApplicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="_Utils\WebRequests\PostAsyncTest.cs" />

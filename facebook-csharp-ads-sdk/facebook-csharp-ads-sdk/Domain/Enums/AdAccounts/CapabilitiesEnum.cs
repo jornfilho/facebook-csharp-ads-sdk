@@ -1,11 +1,11 @@
 ﻿using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
-namespace facebook_csharp_ads_sdk.Domain.Enums.Accounts
+namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
 {
     /// <summary>
     /// Account capabilities options
     /// </summary>
-    public enum Capabilities
+    public enum CapabilitiesEnum
     {
         Undefined = 0,
         

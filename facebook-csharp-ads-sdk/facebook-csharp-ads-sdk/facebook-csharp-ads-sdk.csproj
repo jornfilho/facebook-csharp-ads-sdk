@@ -51,16 +51,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Enums\Accounts\TaxStatus.cs" />
-    <Compile Include="Domain\Enums\Accounts\AccountStatus.cs" />
-    <Compile Include="Domain\Enums\Accounts\Capabilities.cs" />
-    <Compile Include="Domain\Enums\Accounts\Currency.cs" />
-    <Compile Include="Domain\Models\Accounts\Account.cs" />
+    <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
+    <Compile Include="Domain\Contracts\Services\IFacebookSession.cs" />
+    <Compile Include="Domain\Contracts\Services\IAdAccount.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\UserRoleEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\UserPermissionsEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\TaxStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\AdAccountStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\CapabilitiesEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\CurrenciesEnum.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount.cs" />
+    <Compile Include="Domain\Models\AdAccounts\User.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration.cs" />
+    <Compile Include="Domain\Models\AdAccounts\BusinessInformations.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccountGroup.cs" />
+    <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
+    <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />

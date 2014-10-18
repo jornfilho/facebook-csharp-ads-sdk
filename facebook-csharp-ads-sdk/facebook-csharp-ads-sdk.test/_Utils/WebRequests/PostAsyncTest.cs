@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace facebook_csharp_ads_sdk.test._Utils.WebRequests
 {
     [TestClass]
-    public class PostAsyncTest
+    public class PostAsyncTest : TestBase
     {
         private IRequest Request { get; set; }
         private string ValidUri { get; set; }
