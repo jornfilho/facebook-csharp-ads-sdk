@@ -1,6 +1,7 @@
 ﻿using System;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.App;
 using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Models.Configurations;
 
 namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 {
@@ -9,9 +10,12 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
     /// </summary>
     public class FacebookSessionRepository : IFacebookSession
     {
+        #region Properties
         private long AppId { get; set; }
         private string AppSecret { get; set; }
         private string AccessToken { get; set; }
+        private FacebookAdsApiConfiguration FacebookAdsApiConfiguration { get; set; } 
+        #endregion
 
         /// <summary>
         /// Set application data values
@@ -64,6 +68,14 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         public string GetAccessToken()
         {
             return AccessToken;
+        }
+
+        /// <summary>
+        /// Return an instance of Facebook Ads Api configuration class
+        /// </summary>
+        public FacebookAdsApiConfiguration GetFacebookAdsApiConfiguration()
+        {
+            return FacebookAdsApiConfiguration ?? (FacebookAdsApiConfiguration = new FacebookAdsApiConfiguration());
         }
     }
 }

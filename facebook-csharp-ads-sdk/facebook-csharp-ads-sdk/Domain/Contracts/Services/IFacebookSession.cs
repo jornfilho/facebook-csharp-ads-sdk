@@ -1,4 +1,5 @@
 ﻿using System;
+using facebook_csharp_ads_sdk.Domain.Models.Configurations;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.Services
 {
@@ -34,5 +35,10 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Services
         /// Get access token
         /// </summary>
         string GetAccessToken();
+
+        /// <summary>
+        /// Return an instance of Facebook Ads Api configuration class
+        /// </summary>
+        FacebookAdsApiConfiguration GetFacebookAdsApiConfiguration();
     }
 }

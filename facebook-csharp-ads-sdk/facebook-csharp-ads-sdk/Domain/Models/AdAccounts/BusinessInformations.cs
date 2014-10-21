@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -46,6 +47,35 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         #endregion
 
         /// <summary>
+        /// Set business information data
+        /// </summary>
+        public void SetBusinessInformationsData(string businessName, string businessStreet, 
+            string businessStreet2, string businessCity, string businessState, 
+            string businessZip, string businessCountryCode)
+        {
+            if (!String.IsNullOrEmpty(businessName))
+                BusinessName = businessName;
+
+            if (!String.IsNullOrEmpty(businessStreet))
+                BusinessStreet = businessStreet;
+
+            if (!String.IsNullOrEmpty(businessStreet2))
+                BusinessStreet2 = businessStreet2;
+
+            if (!String.IsNullOrEmpty(businessCity))
+                BusinessCity = businessCity;
+
+            if (!String.IsNullOrEmpty(businessState))
+                BusinessState = businessState;
+
+            if (!String.IsNullOrEmpty(businessZip))
+                BusinessZip = businessZip;
+
+            if (!String.IsNullOrEmpty(businessCountryCode))
+                BusinessCountryCode = businessCountryCode;
+        }
+
+        /// <summary>
         /// Return a list of fields of ad account business informations
         /// </summary>
         /// <returns>list of fields of ad account business informations</returns>
@@ -63,4 +93,5 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             };
         }
     }
+    
 }

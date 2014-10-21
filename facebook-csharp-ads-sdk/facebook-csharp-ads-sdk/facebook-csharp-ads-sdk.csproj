@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{518076B3-07A9-4C0C-8FC2-0E156BCECAB2}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>facebook_csharp_ads_sdk</RootNamespace>
     <AssemblyName>facebook-csharp-ads-sdk</AssemblyName>
@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\facebook-csharp-ads-sdk.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevUtils">
@@ -62,6 +65,14 @@
     <Compile Include="Domain\Enums\AdAccounts\AdAccountStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\CapabilitiesEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\CurrenciesEnum.cs" />
+    <Compile Include="Domain\Enums\Configurations\FacebookAdsApiVersionsEnum.cs" />
+    <Compile Include="Domain\Enums\FacebookSession\RequiredOnFacebookSessionEnum.cs" />
+    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAppId.cs" />
+    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAppSecret.cs" />
+    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAccessToken.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount.cs" />
     <Compile Include="Domain\Models\AdAccounts\User.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail.cs" />
@@ -75,9 +86,10 @@
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
+    <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />
     <Compile Include="_Utils\WebRequests\Request.cs" />

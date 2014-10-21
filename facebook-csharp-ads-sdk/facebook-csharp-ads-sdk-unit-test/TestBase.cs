@@ -12,15 +12,15 @@ namespace facebook_csharp_ads_sdk_unit_test
     public class TestBase
     {
         #region Web Requests
-        public IRequest Request;
+        public IRequest WebRequest;
         public string ValidUri { get; set; }
         public string InvalidUri { get; set; }
         public int InvalidRequestTimeout1 { get; set; }
         public int InvalidRequestTimeout2 { get; set; }
         public int ValidRequestTimeout { get; set; }
-        private NameValueCollection EmptyNameValueCollection { get; set; }
-        private NameValueCollection SingleValueNameValueCollection { get; set; }
-        private NameValueCollection MultipleValuesNameValueCollection { get; set; }
+        public NameValueCollection EmptyNameValueCollection { get; set; }
+        public NameValueCollection SingleValueNameValueCollection { get; set; }
+        public NameValueCollection MultipleValuesNameValueCollection { get; set; }
         #endregion
 
         #region Repositories
@@ -48,6 +48,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public void InitializeTestBase()
         {
             #region Web requests
+            WebRequest = new Request();
             ValidUri = "http://private-5eeb3-fbcsharpadssdkbasicendpoint.apiary-mock.com/basic";
             InvalidUri = "";
 
