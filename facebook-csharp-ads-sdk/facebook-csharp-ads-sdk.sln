@@ -5,9 +5,11 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk", "facebook-csharp-ads-sdk\facebook-csharp-ads-sdk.csproj", "{518076B3-07A9-4C0C-8FC2-0E156BCECAB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk.test", "facebook-csharp-ads-sdk.test\facebook-csharp-ads-sdk.test.csproj", "{28D6879A-8708-4C11-84D6-E7220080DCBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk-unit-test", "facebook-csharp-ads-sdk-unit-test\facebook-csharp-ads-sdk-unit-test.csproj", "{28D6879A-8708-4C11-84D6-E7220080DCBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk-ui.test", "facebook-csharp-ads-sdk-ui.test\facebook-csharp-ads-sdk-ui.test.csproj", "{87B5479A-8437-4F96-8FFB-B62A6D0351E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk-integration-test", "facebook-csharp-ads-sdk-integration-test\facebook-csharp-ads-sdk-integration-test.csproj", "{9D4F4C4E-329D-4318-821C-388E2F73FFDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "facebook-csharp-ads-sdk-ui-test", "facebook-csharp-ads-sdk-ui-test\facebook-csharp-ads-sdk-ui-test.csproj", "{87B5479A-8437-4F96-8FFB-B62A6D0351E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,16 @@ Global
 		{28D6879A-8708-4C11-84D6-E7220080DCBE}.Release|ARM.ActiveCfg = Release|Any CPU
 		{28D6879A-8708-4C11-84D6-E7220080DCBE}.Release|x64.ActiveCfg = Release|Any CPU
 		{28D6879A-8708-4C11-84D6-E7220080DCBE}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D4F4C4E-329D-4318-821C-388E2F73FFDF}.Release|x86.ActiveCfg = Release|Any CPU
 		{87B5479A-8437-4F96-8FFB-B62A6D0351E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{87B5479A-8437-4F96-8FFB-B62A6D0351E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87B5479A-8437-4F96-8FFB-B62A6D0351E5}.Debug|ARM.ActiveCfg = Debug|Any CPU

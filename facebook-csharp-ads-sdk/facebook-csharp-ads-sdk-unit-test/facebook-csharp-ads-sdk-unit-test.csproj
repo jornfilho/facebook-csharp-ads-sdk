@@ -6,7 +6,7 @@
     <ProjectGuid>{28D6879A-8708-4C11-84D6-E7220080DCBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>facebook_csharp_ads_sdk.test</RootNamespace>
+    <RootNamespace>facebook_csharp_ads_sdk_unit_test</RootNamespace>
     <AssemblyName>facebook-csharp-ads-sdk.test</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -38,6 +38,9 @@
     <DocumentationFile>bin\Release\facebook-csharp-ads-sdk.test.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
