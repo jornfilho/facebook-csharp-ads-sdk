@@ -11,35 +11,107 @@ namespace facebook_csharp_ads_sdk_unit_test._Utils.WebRequests
         [ExpectedException(typeof(ArgumentException))]
         public async Task CantSendEmptyUriOnFullMethod_1()
         {
-            await Request.Object.PostAsync(null,null);
+            await Request.PostAsync(null,null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public async Task CantSendEmptyUriOnFullMethod_2()
         {
-            await Request.Object.PostAsync(InvalidUri,null);
+            await Request.PostAsync(InvalidUri,null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public async Task CantSendEmptyUriOnBasicMethod_1()
         {
-            await Request.Object.PostAsync(InvalidUri, null, InvalidRequestTimeout1);
+            await Request.PostAsync(InvalidUri, null, InvalidRequestTimeout1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public async Task CantSendInvalidTimeoutOnFullMethod_1()
         {
-            await Request.Object.PostAsync(ValidUri, null, InvalidRequestTimeout1);
+            await Request.PostAsync(ValidUri, null, InvalidRequestTimeout1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public async Task CantSendInvalidTimeoutOnFullMethod_2()
         {
-            await Request.Object.PostAsync(ValidUri, null, InvalidRequestTimeout2);
+            await Request.PostAsync(ValidUri, null, InvalidRequestTimeout2);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithFullData_1()
+        {
+            string result = await Request.PostAsync(ValidUri, null, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithFullData_2()
+        {
+            string result = await Request.PostAsync(ValidUri, EmptyNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithFullData_3()
+        {
+            string result = await Request.PostAsync(ValidUri, SingleValueNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithFullData_4()
+        {
+            string result = await Request.PostAsync(ValidUri, MultipleValuesNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithBasicData_1()
+        {
+            string result = await Request.PostAsync(ValidUri, null, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithBasicData_2()
+        {
+            string result = await Request.PostAsync(ValidUri, EmptyNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithBasicData_3()
+        {
+            string result = await Request.PostAsync(ValidUri, SingleValueNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
+        }
+
+        [TestMethod]
+        public async Task CatMakeRequestsWithBasicData_4()
+        {
+            string result = await Request.PostAsync(ValidUri, MultipleValuesNameValueCollection, ValidRequestTimeout);
+            Assert.IsNotNull(result);
+            Assert.IsFalse(String.IsNullOrEmpty(result));
+            Console.WriteLine(result);
         }
     }
 }

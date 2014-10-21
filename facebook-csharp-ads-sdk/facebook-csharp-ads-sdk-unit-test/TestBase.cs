@@ -12,7 +12,7 @@ namespace facebook_csharp_ads_sdk_unit_test
     public class TestBase
     {
         #region Web Requests
-        public Mock<IRequest> Request;
+        public IRequest Request;
         public string ValidUri { get; set; }
         public string InvalidUri { get; set; }
         public int InvalidRequestTimeout1 { get; set; }
@@ -63,20 +63,6 @@ namespace facebook_csharp_ads_sdk_unit_test
                 {"param2", "value2"},
                 {"param3", "value3"}
             };
-
-            Request = new Mock<IRequest>();
-
-            Request.Setup(m => m.GetAsync(null)).Throws<ArgumentException>();
-            Request.Setup(m => m.GetAsync(InvalidUri)).Throws<ArgumentException>();
-            Request.Setup(m => m.GetAsync(InvalidUri, InvalidRequestTimeout1)).Throws<ArgumentException>();
-            Request.Setup(m => m.GetAsync(ValidUri, InvalidRequestTimeout1)).Throws<ArgumentOutOfRangeException>();
-            Request.Setup(m => m.GetAsync(ValidUri, InvalidRequestTimeout2)).Throws<ArgumentOutOfRangeException>();
-
-            Request.Setup(m => m.PostAsync(null, null)).Throws<ArgumentException>();
-            Request.Setup(m => m.PostAsync(InvalidUri, null)).Throws<ArgumentException>();
-            Request.Setup(m => m.PostAsync(InvalidUri, null, InvalidRequestTimeout1)).Throws<ArgumentException>();
-            Request.Setup(m => m.PostAsync(ValidUri, null, InvalidRequestTimeout1)).Throws<ArgumentOutOfRangeException>();
-            Request.Setup(m => m.PostAsync(ValidUri, null, InvalidRequestTimeout2)).Throws<ArgumentOutOfRangeException>();
             #endregion
 
             #region Facebook session data
