@@ -54,13 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\Contracts\Services\IFacebookSession.cs" />
     <Compile Include="Domain\Contracts\Services\IAdAccount.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FundingSourceCupon.cs" />
     <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
-    <Compile Include="Domain\Enums\AdAccounts\UserRoleEnum.cs" />
-    <Compile Include="Domain\Enums\AdAccounts\UserPermissionsEnum.cs" />
+    <Compile Include="Domain\Enums\AdUsers\UserRoleEnum.cs" />
+    <Compile Include="Domain\Enums\AdUsers\UserPermissionsEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\TaxStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\CapabilitiesEnum.cs" />

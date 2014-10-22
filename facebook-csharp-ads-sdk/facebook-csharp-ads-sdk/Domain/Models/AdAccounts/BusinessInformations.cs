@@ -9,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// </summary>
     public class BusinessInformations
     {
-        #region Params
+        #region Properties
         /// <summary>
         /// <para>The business name for the account</para>
         /// </summary>
@@ -49,7 +49,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set business information data
         /// </summary>
-        public void SetBusinessInformationsData(string businessName, string businessStreet, 
+        public BusinessInformations SetBusinessInformationsData(string businessName, string businessStreet, 
             string businessStreet2, string businessCity, string businessState, 
             string businessZip, string businessCountryCode)
         {
@@ -73,6 +73,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             if (!String.IsNullOrEmpty(businessCountryCode))
                 BusinessCountryCode = businessCountryCode;
+
+            return this;
         }
 
         /// <summary>

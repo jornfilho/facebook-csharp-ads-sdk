@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -8,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// </summary>
     public class TimezoneInformations
     {
-        #region Params
+        #region Properties
         /// <summary>
         /// <para>ID for the timezone. See at https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/851565_362033717242167_978236896_n.txt </para>
         /// </summary>
@@ -24,6 +25,28 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public int TimezoneOffsetHoursUtc { get; private set; }
         #endregion
+
+
+        /// <summary>
+        /// Set timezone informations data
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">invalid timezoneId</exception>
+        /// <exception cref="ArgumentException">invalid timezoneName</exception>
+        public TimezoneInformations SetTimezoneInformationsData(int timezoneId, string timezoneName, int timezoneOffsetHoursUtc)
+        {
+            if (timezoneId <= 0)
+                throw new ArgumentOutOfRangeException();
+
+            if(String.IsNullOrEmpty(timezoneName))
+                throw new ArgumentException();
+
+
+            TimezoneId = timezoneId;
+            TimezoneName = timezoneName;
+            TimezoneOffsetHoursUtc = timezoneOffsetHoursUtc;
+
+            return this;
+        }
 
         /// <summary>
         /// Return a list of fields of ad account timezone informations

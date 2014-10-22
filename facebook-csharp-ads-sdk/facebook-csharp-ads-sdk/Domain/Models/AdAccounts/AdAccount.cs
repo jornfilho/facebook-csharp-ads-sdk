@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
 using Newtonsoft.Json;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -9,7 +12,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// </summary>
     public class AdAccount
     {
-        #region Params
+        #region Properties
         /// <summary>
         /// <para>The string act_{ad_account_id}</para>
         /// </summary>
@@ -106,5 +109,145 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public TaxStatusEnum TaxStatus { get; private set; } 
         #endregion
+
+        public AdAccount SetAdAccountBaseData(string id, long accountId, string name, AdAccountStatusEnum accountStatus, float age, 
+            bool isPersonal, IList<CapabilitiesEnum> capabilities, long endAdvertiser, long mediaAgency, 
+            bool offsitePixelsTosAccepted, long partner, IList<long> tosAccepted, TaxStatusEnum taxStatus)
+        {
+            if (!accountId.IsValidAdAccountId())
+                throw new InvalidAdAccountId();
+
+            if (!id.IsValidAdAccountId(accountId))
+                throw new InvalidAdAccountId();
+
+            Id = id;
+            AccountId = accountId;
+            Name = name;
+            AccountStatus = accountStatus;
+            Age = age;
+            IsPersonal = isPersonal;
+            Capabilities = capabilities;
+            EndAdvertiser = endAdvertiser;
+            MediaAgency = mediaAgency;
+            OffsitePixelsTosAccepted = offsitePixelsTosAccepted;
+            Partner = partner;
+            TosAccepted = tosAccepted;
+            TaxStatus = taxStatus;
+        }
+
+        /// <summary>
+        /// Set business informations
+        /// </summary>
+        /// <exception cref="ArgumentNullException">businessInformations is null</exception>
+        /// <exception cref="ArgumentException">businessInformations has invalid data</exception>
+        public AdAccount SetAdAccountBusinessInformations(BusinessInformations businessInformations)
+        {
+            if (businessInformations == null)
+                throw new ArgumentNullException();
+
+            if (!businessInformations.IsValid())
+                throw new ArgumentException();
+
+            BusinessInformations = businessInformations;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set timezone informations
+        /// </summary>
+        /// <exception cref="ArgumentNullException">timezoneInformations is null</exception>
+        /// <exception cref="ArgumentException">timezoneInformations has invalid data</exception>
+        public AdAccount SetAdAccountTimezoneInformations(TimezoneInformations timezoneInformations)
+        {
+            if (timezoneInformations == null)
+                throw new ArgumentNullException();
+
+            if (!timezoneInformations.IsValid())
+                throw new ArgumentException();
+
+            TimezoneInformations = timezoneInformations;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set financial informations
+        /// </summary>
+        /// <exception cref="ArgumentNullException">financialInformations is null</exception>
+        /// <exception cref="ArgumentException">financialInformations has invalid data</exception>
+        public AdAccount SetAdAccountFinancialInformations(FinancialInformations financialInformations)
+        {
+            if (financialInformations == null)
+                throw new ArgumentNullException();
+
+            if (!financialInformations.IsValid())
+                throw new ArgumentException();
+
+            FinancialInformations = financialInformations;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set agency client declaration
+        /// </summary>
+        /// <exception cref="ArgumentNullException">agencyClientDeclaration is null</exception>
+        /// <exception cref="ArgumentException">agencyClientDeclaration has invalid data</exception>
+        public AdAccount SetAdAccountAgencyDeclaration(AgencyClientDeclaration agencyClientDeclaration)
+        {
+            if (agencyClientDeclaration == null)
+                throw new ArgumentNullException();
+
+            if (!agencyClientDeclaration.IsValid())
+                throw new ArgumentException();
+
+            AgencyClientDeclaration = agencyClientDeclaration;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add ad account group
+        /// </summary>
+        /// <exception cref="ArgumentNullException">accountGroup is null</exception>
+        /// <exception cref="ArgumentException">accountGroup has invalid data</exception>
+        public AdAccount SetAdAccountGroup(AdAccountGroup accountGroup)
+        {
+            if (accountGroup == null)
+                throw new ArgumentNullException();
+
+            if (!accountGroup.IsValid())
+                throw new ArgumentException();
+
+
+            if (AccountGroups == null)
+                AccountGroups = new List<AdAccountGroup>();
+
+            AccountGroups.Add(accountGroup);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add user model
+        /// </summary>
+        /// <exception cref="ArgumentNullException">user is null</exception>
+        /// <exception cref="ArgumentException">user has invalid data</exception>
+        public AdAccount SetAdAccountUser(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException();
+
+            if(!user.IsValid())
+                throw new ArgumentException();
+
+            if (Users == null)
+                Users = new List<User>();
+
+            Users.Add(user);
+
+            return this;
+        }
     }
 }

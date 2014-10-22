@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using facebook_csharp_ads_sdk.Domain.Contracts.Services;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace facebook_csharp_ads_sdk_unit_test
 {
@@ -41,8 +39,11 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAccessToken2;
         #endregion
 
-        public long InvalidAccountId;
-        public long ValidAccountId;
+        public long InvalidAdAccountId;
+        public long ValidAdAccountId;
+        public string InvalidAdAccountStrId1;
+        public string InvalidAdAccountStrId2;
+        public string ValidAdAccountStrId;
 
         [TestInitialize]
         public void InitializeTestBase()
@@ -75,8 +76,12 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidAppSecret = ValidAccessToken = "a";
             #endregion
 
-            InvalidAccountId = 0;
-            ValidAccountId = 1;
+
+            InvalidAdAccountId = 0;
+            ValidAdAccountId = 1;
+            InvalidAdAccountStrId1 = "";
+            InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId);
+            ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
 
             #region Repositories
             repositoryFacebookSession = new FacebookSessionRepository();

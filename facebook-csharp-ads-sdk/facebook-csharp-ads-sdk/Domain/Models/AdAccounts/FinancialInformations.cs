@@ -9,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// </summary>
     public class FinancialInformations
     {
-        #region Params
+        #region Properties
 
         /// <summary>
         /// <para>Current total amount spent by the account. This can be reset.</para>
@@ -53,7 +53,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial summary
         /// </summary>
-        public void SetFinancialSummary(long amountSpent, long balance, long dailySpendLimit)
+        public FinancialInformations SetFinancialSummary(long amountSpent, long balance, long dailySpendLimit)
         {
             if (amountSpent > 0)
                 AmountSpent = amountSpent;
@@ -63,40 +63,48 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             if (dailySpendLimit > 0)
                 DailySpendLimit = dailySpendLimit;
+
+            return this;
         }
 
         /// <summary>
         /// Set financial cap
         /// </summary>
-        public void SetFinancialCap(double spendCap)
+        public FinancialInformations SetFinancialCap(double spendCap)
         {
             if (spendCap >= 0)
                 SpendCap = spendCap;
+
+            return this;
         }
 
         /// <summary>
         /// Set financial currency
         /// </summary>
-        public void SetFinancialCurrency(CurrenciesEnum currency)
+        public FinancialInformations SetFinancialCurrency(CurrenciesEnum currency)
         {
             if (currency != CurrenciesEnum.UND)
                 Currency = currency;
+
+            return this;
         }
 
         /// <summary>
         /// Set financial funding source
         /// </summary>
-        public void SetFinancialFundingSource(long fundingSource)
+        public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
             if (fundingSource > 0)
                 FundingSource = fundingSource;
+
+            return this;
         }
 
         /// <summary>
         /// Set financial funding detail
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public void SetFinancialFundingDetail(FundingSourceDetail fundingSourceDetails)
+        public FinancialInformations SetFinancialFundingDetail(FundingSourceDetail fundingSourceDetails)
         {
             if (fundingSourceDetails == null)
                 throw new ArgumentNullException();
@@ -105,6 +113,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 FundingSourceDetails = new List<FundingSourceDetail>();
 
             FundingSourceDetails.Add(fundingSourceDetails);
+
+            return this;
         }
 
         /// <summary>

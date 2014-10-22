@@ -21,7 +21,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.AdAccountR
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public async Task CantReadAccountDataWhenSendInvalidAccountId()
         {
-            AdAccount adAccount = await repositoryAdAccount.Read(InvalidAccountId, null);
+            AdAccount adAccount = await repositoryAdAccount.Read(InvalidAdAccountId, null);
         }
     }
 }

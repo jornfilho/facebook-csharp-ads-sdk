@@ -1,4 +1,4 @@
-﻿namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
+﻿namespace facebook_csharp_ads_sdk.Domain.Enums.AdUsers
 {
     /// <summary>
     /// List of available user permission
