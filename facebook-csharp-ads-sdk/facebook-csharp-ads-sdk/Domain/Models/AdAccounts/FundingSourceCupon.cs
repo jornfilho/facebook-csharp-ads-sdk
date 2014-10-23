@@ -1,4 +1,5 @@
 ﻿using System;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -7,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Ad account funding source cupon class
     /// Without Facebook documentation for this model
     /// </summary>
-    public class FundingSourceCupon
+    public class FundingSourceCupon : ValidData
     {
         #region Properties
         /// <summary>
@@ -38,7 +39,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <exception cref="ArithmeticException">Invalid currency</exception>
         public FundingSourceCupon SetFundingSourceCuponData(long ammount, CurrenciesEnum currency, DateTime? expiration, string displayAmount)
         {
-            if (ammount > 0)
+            if (ammount <= 0)
                 throw new ArgumentOutOfRangeException();
 
             if(currency != CurrenciesEnum.UND)
@@ -52,6 +53,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             if (!String.IsNullOrEmpty(displayAmount))
                 DisplayAmount = displayAmount;
+
+            SetValid();
 
             return this;
         }

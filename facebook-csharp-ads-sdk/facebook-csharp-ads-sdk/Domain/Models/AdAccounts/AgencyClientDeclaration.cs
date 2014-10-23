@@ -1,11 +1,12 @@
 ﻿using System;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
     /// <summary>
     /// Class to agency client declaration
     /// </summary>
-    public class AgencyClientDeclaration
+    public class AgencyClientDeclaration : ValidData
     {
         #region Properties
         /// <summary>
@@ -80,6 +81,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             HasWrittenMandateFromAdvertiser = hasWrittenMandateFromAdvertiser;
             IsClientPayingInvoices = isClientPayingInvoices;
 
+            SetValid();
+
             return this;
         }
 
@@ -112,6 +115,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             if (!String.IsNullOrEmpty(clientCountryCode))
                 ClientCountryCode = clientCountryCode;
+
+            if (!String.IsNullOrEmpty(clientName) ||
+                !String.IsNullOrEmpty(clientEmailAddress) ||
+                !String.IsNullOrEmpty(clientStreet) ||
+                !String.IsNullOrEmpty(clientStreet2) ||
+                !String.IsNullOrEmpty(clientCity) ||
+                !String.IsNullOrEmpty(clientProvince) ||
+                !String.IsNullOrEmpty(clientPostalCode) ||
+                !String.IsNullOrEmpty(clientCountryCode))
+                SetValid();
 
             return this;
         }

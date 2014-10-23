@@ -90,6 +90,7 @@
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
+    <Compile Include="Domain\Contracts\Common\ValidData.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -7,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with financial ad account informations
     /// </summary>
-    public class FinancialInformations
+    public class FinancialInformations : ValidData
     {
         #region Properties
 
@@ -64,6 +65,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (dailySpendLimit > 0)
                 DailySpendLimit = dailySpendLimit;
 
+            if (amountSpent > 0 || balance > 0 || dailySpendLimit > 0)
+                SetValid();
+
             return this;
         }
 
@@ -73,7 +77,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public FinancialInformations SetFinancialCap(double spendCap)
         {
             if (spendCap >= 0)
+            {
                 SpendCap = spendCap;
+
+                SetValid();
+            }
 
             return this;
         }
@@ -84,7 +92,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public FinancialInformations SetFinancialCurrency(CurrenciesEnum currency)
         {
             if (currency != CurrenciesEnum.UND)
+            {
                 Currency = currency;
+
+                SetValid();
+            }
 
             return this;
         }
@@ -95,7 +107,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
             if (fundingSource > 0)
+            {
                 FundingSource = fundingSource;
+
+                SetValid();
+            }
 
             return this;
         }
@@ -103,16 +119,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding detail
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">fundingSourceDetails is null</exception>
+        /// <exception cref="ArgumentException">fundingSourceDetails has an invalid value</exception>
         public FinancialInformations SetFinancialFundingDetail(FundingSourceDetail fundingSourceDetails)
         {
             if (fundingSourceDetails == null)
                 throw new ArgumentNullException();
 
+            if (!fundingSourceDetails.IsValidData())
+                throw new ArgumentException();
+
             if (FundingSourceDetails == null)
                 FundingSourceDetails = new List<FundingSourceDetail>();
 
             FundingSourceDetails.Add(fundingSourceDetails);
+
+            SetValid();
 
             return this;
         }

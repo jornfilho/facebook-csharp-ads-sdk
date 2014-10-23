@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -7,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with ad account business informations
     /// </summary>
-    public class BusinessInformations
+    public class BusinessInformations : ValidData
     {
         #region Properties
         /// <summary>
@@ -73,6 +74,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             if (!String.IsNullOrEmpty(businessCountryCode))
                 BusinessCountryCode = businessCountryCode;
+
+            if (!String.IsNullOrEmpty(businessName) ||
+                !String.IsNullOrEmpty(businessStreet) ||
+                !String.IsNullOrEmpty(businessStreet2) ||
+                !String.IsNullOrEmpty(businessCity) ||
+                !String.IsNullOrEmpty(businessState) ||
+                !String.IsNullOrEmpty(businessZip) ||
+                !String.IsNullOrEmpty(businessCountryCode))
+                SetValid();
 
             return this;
         }

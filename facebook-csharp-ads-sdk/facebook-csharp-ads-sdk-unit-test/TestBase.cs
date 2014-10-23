@@ -1,5 +1,9 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using DevUtils.DateTimeExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,6 +49,27 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdAccountStrId2;
         public string ValidAdAccountStrId;
 
+        #region TimezoneInformations
+        public int ValidTimezoneId;
+        public int InvalidTimezoneId1;
+        public int InvalidTimezoneId2;
+        public string ValidTimezoneName;
+        public string InvalidTimezoneName1;
+        public string InvalidTimezoneName2;
+        public int ValidTimezoneOffsetHoursFromUtc; 
+        #endregion
+
+        #region User
+        public IList<UserPermissionsEnum> ValidUserPermissions;
+        public IList<UserPermissionsEnum> InvalidUserPermissions1;
+        public IList<UserPermissionsEnum> InvalidUserPermissions2;
+        public UserRoleEnum ValidUserRole;
+        public UserRoleEnum InvalidUserRole;
+        public long ValidUserUserId;
+        public long InvalidUserUserId1; 
+        public long InvalidUserUserId2; 
+        #endregion
+
         [TestInitialize]
         public void InitializeTestBase()
         {
@@ -82,6 +107,27 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountStrId1 = "";
             InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId);
             ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
+
+            #region TimezoneInformations
+            ValidTimezoneId = 25;
+            InvalidTimezoneId1 = 0;
+            InvalidTimezoneId2 = -1;
+            ValidTimezoneName = "America/Sao_Paulo";
+            InvalidTimezoneName1 = null;
+            InvalidTimezoneName2 = string.Empty;
+            ValidTimezoneOffsetHoursFromUtc = DateTime.UtcNow.Subtract(DateTime.UtcNow.ToTimezoneDate(ValidTimezoneName).SetAsUtc().AddSeconds(-1)).Hours*-1; 
+            #endregion
+
+            #region User
+            ValidUserPermissions = new List<UserPermissionsEnum> { UserPermissionsEnum.AccountAdmin };
+            InvalidUserPermissions1 = new List<UserPermissionsEnum> { UserPermissionsEnum.AccountAdmin, UserPermissionsEnum.Undefined };
+            InvalidUserPermissions2 = null;
+            ValidUserRole = UserRoleEnum.Administrator;
+            InvalidUserRole = UserRoleEnum.Undefined;
+            ValidUserUserId = 1;
+            InvalidUserUserId1 = 0; 
+            InvalidUserUserId2 = -1; 
+            #endregion
 
             #region Repositories
             repositoryFacebookSession = new FacebookSessionRepository();

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
 using Newtonsoft.Json;
@@ -10,7 +13,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
     /// </summary>
-    public class AdAccount
+    public class AdAccount : ValidData
     {
         #region Properties
         /// <summary>
@@ -31,18 +34,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>Status of the account.</para>
         /// </summary>
-        public AdAccountStatusEnum AccountStatus { get; private set; }
+        public AdAccountStatusEnum? AccountStatus { get; private set; }
 
         /// <summary>
         /// <para>Amount of time the ad account has been open, in days</para>
         /// </summary>
-        public float Age { get; private set; }
+        public float? Age { get; private set; }
 
         /// <summary>
         /// <para>If this is a personal or business account</para>
         /// </summary>
         [JsonProperty("is_personal")]
-        public bool IsPersonal { get; private set; }
+        public bool? IsPersonal { get; private set; }
 
         /// <summary>
         /// Business account information
@@ -77,22 +80,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
-        public long EndAdvertiser { get; private set; }
+        public long? EndAdvertiser { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
-        public long MediaAgency { get; private set; }
+        public long? MediaAgency { get; private set; }
 
         /// <summary>
         /// <para>Indicates whether the offsite pixel Terms Of Service contract was signed</para>
         /// </summary>
-        public bool OffsitePixelsTosAccepted { get; private set; }
+        public bool? OffsitePixelsTosAccepted { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
-        public long Partner { get; private set; }
+        public long? Partner { get; private set; }
 
         /// <summary>
         /// <para>IDs of Terms of Service contracts signed</para>
@@ -107,12 +110,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>Vat status code for the account. </para>
         /// </summary>
-        public TaxStatusEnum TaxStatus { get; private set; } 
+        public TaxStatusEnum? TaxStatus { get; private set; } 
         #endregion
 
-        public AdAccount SetAdAccountBaseData(string id, long accountId, string name, AdAccountStatusEnum accountStatus, float age, 
-            bool isPersonal, IList<CapabilitiesEnum> capabilities, long endAdvertiser, long mediaAgency, 
-            bool offsitePixelsTosAccepted, long partner, IList<long> tosAccepted, TaxStatusEnum taxStatus)
+        /// <summary>
+        /// Set base account data
+        /// </summary>
+        /// <exception cref="InvalidAdAccountId">id or accountId has an invalid value</exception>
+        /// <exception cref="InvalidEnumArgumentException">accountStatus, capabilities or taxStatus has an invalid value</exception>
+        /// <exception cref="ArgumentOutOfRangeException">age, endAdvertiser, mediaAgency, partner or tosAccepted has an invalid value</exception>
+        public AdAccount SetAdAccountBaseData(string id, long accountId, string name, AdAccountStatusEnum? accountStatus, float? age, 
+            bool? isPersonal, IList<CapabilitiesEnum> capabilities, long? endAdvertiser, long? mediaAgency, 
+            bool? offsitePixelsTosAccepted, long? partner, IList<long> tosAccepted, TaxStatusEnum? taxStatus)
         {
             if (!accountId.IsValidAdAccountId())
                 throw new InvalidAdAccountId();
@@ -120,9 +129,36 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (!id.IsValidAdAccountId(accountId))
                 throw new InvalidAdAccountId();
 
+            if(accountStatus != null && accountStatus.Value == AdAccountStatusEnum.Undefined)
+                throw new InvalidEnumArgumentException();
+
+            if (age != null && age.Value < 0)
+                throw new ArgumentOutOfRangeException();
+
+            if(capabilities != null && capabilities.Any(c=> c == CapabilitiesEnum.Undefined))
+                throw new InvalidEnumArgumentException();
+
+            if (endAdvertiser != null && endAdvertiser.Value < 0)
+                throw new ArgumentOutOfRangeException();
+
+            if (mediaAgency != null && mediaAgency.Value < 0)
+                throw new ArgumentOutOfRangeException();
+
+            if (partner != null && partner.Value < 0)
+                throw new ArgumentOutOfRangeException();
+
+            if (tosAccepted != null && tosAccepted.Any(t=> t < 0))
+                throw new ArgumentOutOfRangeException();
+
+            if(taxStatus != null && taxStatus.Value == TaxStatusEnum.Undefined)
+                throw new InvalidEnumArgumentException();
+
             Id = id;
             AccountId = accountId;
-            Name = name;
+            
+            if(!String.IsNullOrEmpty(name))
+                Name = name;
+
             AccountStatus = accountStatus;
             Age = age;
             IsPersonal = isPersonal;
@@ -133,6 +169,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             Partner = partner;
             TosAccepted = tosAccepted;
             TaxStatus = taxStatus;
+
+            SetValid();
+
+            return this;
         }
 
         /// <summary>
@@ -145,10 +185,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (businessInformations == null)
                 throw new ArgumentNullException();
 
-            if (!businessInformations.IsValid())
+            if (!businessInformations.IsValidData())
                 throw new ArgumentException();
 
             BusinessInformations = businessInformations;
+
+            SetValid();
 
             return this;
         }
@@ -163,10 +205,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (timezoneInformations == null)
                 throw new ArgumentNullException();
 
-            if (!timezoneInformations.IsValid())
+            if (!timezoneInformations.IsValidData())
                 throw new ArgumentException();
 
             TimezoneInformations = timezoneInformations;
+
+            SetValid();
 
             return this;
         }
@@ -181,10 +225,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (financialInformations == null)
                 throw new ArgumentNullException();
 
-            if (!financialInformations.IsValid())
+            if (!financialInformations.IsValidData())
                 throw new ArgumentException();
 
             FinancialInformations = financialInformations;
+
+            SetValid();
 
             return this;
         }
@@ -199,10 +245,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (agencyClientDeclaration == null)
                 throw new ArgumentNullException();
 
-            if (!agencyClientDeclaration.IsValid())
+            if (!agencyClientDeclaration.IsValidData())
                 throw new ArgumentException();
 
             AgencyClientDeclaration = agencyClientDeclaration;
+
+            SetValid();
 
             return this;
         }
@@ -217,7 +265,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (accountGroup == null)
                 throw new ArgumentNullException();
 
-            if (!accountGroup.IsValid())
+            if (!accountGroup.IsValidData())
                 throw new ArgumentException();
 
 
@@ -225,6 +273,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 AccountGroups = new List<AdAccountGroup>();
 
             AccountGroups.Add(accountGroup);
+
+            SetValid();
 
             return this;
         }
@@ -239,13 +289,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (user == null)
                 throw new ArgumentNullException();
 
-            if(!user.IsValid())
+            if(!user.IsValidData())
                 throw new ArgumentException();
 
             if (Users == null)
                 Users = new List<User>();
 
             Users.Add(user);
+
+            SetValid();
 
             return this;
         }

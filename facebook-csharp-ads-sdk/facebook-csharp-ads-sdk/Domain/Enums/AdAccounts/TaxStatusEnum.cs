@@ -2,6 +2,7 @@
 {
     public enum TaxStatusEnum
     {
+        Undefined,
         Unknown = 0,
         VatNotRequiredUsCa = 1,
         VarInformationRequired = 2,

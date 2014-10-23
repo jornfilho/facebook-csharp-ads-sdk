@@ -1,4 +1,5 @@
 ﻿using System;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -7,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Class to ad account group
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/adaccountgroup/ </para>
     /// </summary>
-    public class AdAccountGroup
+    public class AdAccountGroup : ValidData
     {
         #region Properties
         /// <summary>
@@ -24,11 +25,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// Determines whether the account has a status of active (1) or deleted (2)
         /// </summary>
         public AdAccountGroupsStatusEnum Status { get; private set; }
-
-        /// <summary>
-        /// Set true id has valid data
-        /// </summary>
-        private bool ValidData { get; set; }
         #endregion
 
         /// <summary>
@@ -52,17 +48,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             Name = name;
             Status = status;
 
-            ValidData = true;
+            SetValid();
 
             return this;
-        }
-
-        /// <summary>
-        /// Return true if has valid data 
-        /// </summary>
-        public bool IsValid()
-        {
-            return ValidData;
         }
     }
 }

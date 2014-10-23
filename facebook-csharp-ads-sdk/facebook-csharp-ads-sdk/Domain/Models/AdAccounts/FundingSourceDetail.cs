@@ -1,5 +1,5 @@
 ﻿using System;
-using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -7,7 +7,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Ad account funding source details class
     /// Without Facebook documentation for this model
     /// </summary>
-    public class FundingSourceDetail
+    public class FundingSourceDetail : ValidData
     {
         #region Properties
         /// <summary>
@@ -41,7 +41,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <exception cref="ArgumentOutOfRangeException">id or type invalid</exception>
         public FundingSourceDetail SetFundingSourceDetailData(long id, string displayString, int type)
         {
-            if (id < 0)
+            if (id <= 0)
                 throw new ArgumentOutOfRangeException();
 
             if (type <= 0)
@@ -53,6 +53,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 DisplayString = displayString;
 
             Type = type;
+
+            if (id > 0 || String.IsNullOrEmpty(displayString) || type > 0)
+                SetValid();
 
             return this;
         }
@@ -67,10 +70,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (cupon == null)
                 throw new ArgumentNullException();
 
-            if (cupon.Currency == CurrenciesEnum.UND)
+            if (!cupon.IsValidData())
                 throw new ArgumentException();
 
             Cupon = cupon;
+
+            SetValid();
 
             return this;
         }

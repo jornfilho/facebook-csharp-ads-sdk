@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -10,7 +11,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <para>Class to ad account users</para>
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/aduser </para>
     /// </summary>
-    public class User
+    public class User : ValidData
     {
         #region Properties
         /// <summary>
@@ -27,11 +28,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// User permission role
         /// </summary>
         public UserRoleEnum Role { get; private set; }
-
-        /// <summary>
-        /// Set true id has valid data
-        /// </summary>
-        private bool ValidData { get; set; }
         #endregion
 
         /// <summary>
@@ -42,7 +38,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <exception cref="InvalidEnumArgumentException">permissions or role has an invalid option value</exception>
         public User SetUserData(long id, IList<UserPermissionsEnum> permissions, UserRoleEnum role)
         {
-            if (id < 0)
+            if (id <= 0)
                 throw new ArgumentOutOfRangeException();
 
             if (permissions == null)
@@ -58,17 +54,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             Permissions = permissions;
             Role = role;
             
-            ValidData = true;
+            SetValid();
             
             return this;
-        }
-
-        /// <summary>
-        /// Return true if has valid data 
-        /// </summary>
-        public bool IsValid()
-        {
-            return ValidData;
         }
     }
 }

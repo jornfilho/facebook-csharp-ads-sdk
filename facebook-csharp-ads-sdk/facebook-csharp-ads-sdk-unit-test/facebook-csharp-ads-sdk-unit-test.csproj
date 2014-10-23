@@ -40,6 +40,10 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevUtils, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevUtils.1.0.4\lib\net451\DevUtils.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -69,6 +73,9 @@
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\TimezoneInformations\SetTimezoneInformationsDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\TimezoneInformations\GetFieldsTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\User\SetUserDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\GetFieldsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\SetBusinessInformationsDataTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />

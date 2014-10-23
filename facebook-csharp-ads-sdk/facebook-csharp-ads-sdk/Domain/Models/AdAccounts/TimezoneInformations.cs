@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -7,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with timezone ad account informations
     /// </summary>
-    public class TimezoneInformations
+    public class TimezoneInformations : ValidData
     {
         #region Properties
         /// <summary>
@@ -44,6 +45,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             TimezoneId = timezoneId;
             TimezoneName = timezoneName;
             TimezoneOffsetHoursUtc = timezoneOffsetHoursUtc;
+
+            SetValid();
 
             return this;
         }

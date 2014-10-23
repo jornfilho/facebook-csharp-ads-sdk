@@ -16,12 +16,5 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.AdAccountR
         {
             repositoryAdAccount = new AdAccountRespository(null);
         }
-        
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public async Task CantReadAccountDataWhenSendInvalidAccountId()
-        {
-            AdAccount adAccount = await repositoryAdAccount.Read(InvalidAdAccountId, null);
-        }
     }
 }
