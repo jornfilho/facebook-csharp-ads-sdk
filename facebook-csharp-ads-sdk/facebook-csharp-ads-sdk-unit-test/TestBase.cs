@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using DevUtils.DateTimeExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
@@ -48,6 +49,19 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdAccountStrId1;
         public string InvalidAdAccountStrId2;
         public string ValidAdAccountStrId;
+
+        #region FundingSourceCupon
+        public long ValidFundingSourceCuponAmmount;
+        public long InvalidFundingSourceCuponAmmount1;
+        public long InvalidFundingSourceCuponAmmount2;
+        public CurrenciesEnum ValidFundingSourceCuponCurrency;
+        public CurrenciesEnum InvalidFundingSourceCuponCurrency;
+        public DateTime ValidFundingSourceCuponExpirationDate;
+        public DateTime InvalidFundingSourceCuponExpirationDate;
+        public string ValidFundingSourceCuponDisplayAmmount;
+        public string InvalidFundingSourceCuponDisplayAmmount1;
+        public string InvalidFundingSourceCuponDisplayAmmount2; 
+        #endregion
 
         #region TimezoneInformations
         public int ValidTimezoneId;
@@ -107,6 +121,19 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountStrId1 = "";
             InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId);
             ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
+
+            #region FundingSourceCupon
+            ValidFundingSourceCuponAmmount = 1;
+            InvalidFundingSourceCuponAmmount1 = 0;
+            InvalidFundingSourceCuponAmmount2 = -1;
+            ValidFundingSourceCuponCurrency = CurrenciesEnum.USD;
+            InvalidFundingSourceCuponCurrency = CurrenciesEnum.UND;
+            ValidFundingSourceCuponExpirationDate = DateTime.UtcNow;
+            InvalidFundingSourceCuponExpirationDate = new DateTime();
+            ValidFundingSourceCuponDisplayAmmount = "a";
+            InvalidFundingSourceCuponDisplayAmmount1 = string.Empty;
+            InvalidFundingSourceCuponDisplayAmmount2 = null; 
+            #endregion
 
             #region TimezoneInformations
             ValidTimezoneId = 25;
