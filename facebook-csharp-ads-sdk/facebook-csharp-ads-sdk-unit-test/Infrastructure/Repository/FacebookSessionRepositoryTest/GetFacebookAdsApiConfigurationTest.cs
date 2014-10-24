@@ -12,14 +12,14 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanGetFacebookAdsApiConfiguration()
         {
-            Configuration = repositoryFacebookSession.GetFacebookAdsApiConfiguration();
+            Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
             Assert.IsNotNull(Configuration);
         }
 
         [TestMethod]
         public void CanGetFacebookAdsApiVersionFromConfiguration()
         {
-            Configuration = repositoryFacebookSession.GetFacebookAdsApiConfiguration();
+            Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
             var version = Configuration.Version;
             Assert.IsNotNull(version);
         }
@@ -27,7 +27,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanGetGraphApiUrlFromConfiguration()
         {
-            Configuration = repositoryFacebookSession.GetFacebookAdsApiConfiguration();
+            Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
             var graphApiUrl = Configuration.GraphApiUrl;
             Assert.IsNotNull(graphApiUrl);
         }
@@ -35,7 +35,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanGetAdAccountFieldsListFromConfiguration()
         {
-            Configuration = repositoryFacebookSession.GetFacebookAdsApiConfiguration();
+            Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
             var adAccountFields = Configuration.AdAccountFields;
             Assert.IsNotNull(adAccountFields);
             Assert.IsTrue(adAccountFields.Any());
@@ -44,7 +44,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanGetAdAccountReadDataUrlFromConfiguration()
         {
-            Configuration = repositoryFacebookSession.GetFacebookAdsApiConfiguration();
+            Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
             var adAccountReadDataUrl = Configuration.AdAccountReadDataUrl;
             Assert.IsNotNull(adAccountReadDataUrl);
         }

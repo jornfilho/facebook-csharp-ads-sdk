@@ -10,27 +10,27 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CatSetApplicationDataBecauseAppIdIsInvalid()
         {
-            repositoryFacebookSession.SetDefaultApplication(InvalidAppId, null);
+            RepositoryFacebookSession.SetDefaultApplication(InvalidAppId, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void CatSetApplicationDataBecauseAppSecretIsInvalid_1()
         {
-            repositoryFacebookSession.SetDefaultApplication(ValidAppId, InvalidAppSecret1);
+            RepositoryFacebookSession.SetDefaultApplication(ValidAppId, InvalidAppSecret1);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void CatSetApplicationDataBecauseAppSecretIsInvalid_2()
         {
-            repositoryFacebookSession.SetDefaultApplication(ValidAppId, InvalidAppSecret2);
+            RepositoryFacebookSession.SetDefaultApplication(ValidAppId, InvalidAppSecret2);
         }
 
         [TestMethod]
         public void CanSetApplicationData()
         {
-            repositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
+            RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
         }
     }
 }

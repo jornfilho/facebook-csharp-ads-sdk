@@ -5,6 +5,7 @@ using DevUtils.DateTimeExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Services;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
+using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -27,8 +28,8 @@ namespace facebook_csharp_ads_sdk_unit_test
         #endregion
 
         #region Repositories
-        public IFacebookSession repositoryFacebookSession; 
-        public IAdAccount repositoryAdAccount; 
+        public IFacebookSession RepositoryFacebookSession; 
+        public IAdAccount RepositoryAdAccount; 
         #endregion
 
         #region Facebook session data
@@ -61,6 +62,21 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string ValidFundingSourceCuponDisplayAmmount;
         public string InvalidFundingSourceCuponDisplayAmmount1;
         public string InvalidFundingSourceCuponDisplayAmmount2; 
+        #endregion
+
+        #region FundingSourceDetail
+        public long ValidFundingSourceDetailId;
+        public long InvalidFundingSourceDetailId1;
+        public long InvalidFundingSourceDetailId2;
+        public string ValidFundingSourceDetailString;
+        public string InvalidFundingSourceDetailString1;
+        public string InvalidFundingSourceDetailString2;
+        public int ValidFundingSourceDetailType;
+        public int InvalidFundingSourceDetailType1;
+        public int InvalidFundingSourceDetailType2;
+        public FundingSourceCupon ValidFundingSourceDetailCupon;
+        public FundingSourceCupon InvalidFundingSourceDetailCupon1;
+        public FundingSourceCupon InvalidFundingSourceDetailCupon2;
         #endregion
 
         #region TimezoneInformations
@@ -135,6 +151,27 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidFundingSourceCuponDisplayAmmount2 = null; 
             #endregion
 
+            #region FundingSourceDetail
+            ValidFundingSourceDetailId = 1;
+            InvalidFundingSourceDetailId1 = 0;
+            InvalidFundingSourceDetailId2 = -1;
+            ValidFundingSourceDetailString = "a";
+            InvalidFundingSourceDetailString1 = string.Empty;
+            InvalidFundingSourceDetailString2 = null;
+            ValidFundingSourceDetailType = 1;
+            InvalidFundingSourceDetailType1 = 0;
+            InvalidFundingSourceDetailType2 = -1;
+            ValidFundingSourceDetailCupon = new FundingSourceCupon()
+                .SetFundingSourceCuponData(
+                    ValidAdAccountId, 
+                    ValidFundingSourceCuponCurrency, 
+                    ValidFundingSourceCuponExpirationDate, 
+                    ValidFundingSourceCuponDisplayAmmount
+                );
+            InvalidFundingSourceDetailCupon1 = new FundingSourceCupon();
+            InvalidFundingSourceDetailCupon2 = null;
+            #endregion
+
             #region TimezoneInformations
             ValidTimezoneId = 25;
             InvalidTimezoneId1 = 0;
@@ -157,11 +194,11 @@ namespace facebook_csharp_ads_sdk_unit_test
             #endregion
 
             #region Repositories
-            repositoryFacebookSession = new FacebookSessionRepository();
-            repositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
-            repositoryFacebookSession.SetAccessToken(ValidAccessToken);
+            RepositoryFacebookSession = new FacebookSessionRepository();
+            RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
+            RepositoryFacebookSession.SetAccessToken(ValidAccessToken);
 
-            repositoryAdAccount = new AdAccountRespository(repositoryFacebookSession); 
+            RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession); 
             #endregion
         }
     }

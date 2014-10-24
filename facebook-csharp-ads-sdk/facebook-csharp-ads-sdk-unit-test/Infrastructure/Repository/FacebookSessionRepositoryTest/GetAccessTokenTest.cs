@@ -8,9 +8,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanSetAnGetValueOfAccessToken()
         {
-            repositoryFacebookSession.SetAccessToken(ValidAccessToken);
+            RepositoryFacebookSession.SetAccessToken(ValidAccessToken);
 
-            var accessToken = repositoryFacebookSession.GetAccessToken();
+            var accessToken = RepositoryFacebookSession.GetAccessToken();
             
             Assert.AreEqual(accessToken, ValidAccessToken);
         }

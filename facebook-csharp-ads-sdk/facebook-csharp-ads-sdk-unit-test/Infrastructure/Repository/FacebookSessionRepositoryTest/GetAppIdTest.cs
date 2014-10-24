@@ -8,9 +8,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         [TestMethod]
         public void CanSetAnGetValueOfAppId()
         {
-            repositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
+            RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
 
-            var appId = repositoryFacebookSession.GetAppId();
+            var appId = RepositoryFacebookSession.GetAppId();
             
             Assert.AreEqual(appId, ValidAppId);
         }
