@@ -68,9 +68,9 @@ namespace facebook_csharp_ads_sdk_unit_test
         public long ValidFundingSourceDetailId;
         public long InvalidFundingSourceDetailId1;
         public long InvalidFundingSourceDetailId2;
-        public string ValidFundingSourceDetailString;
-        public string InvalidFundingSourceDetailString1;
-        public string InvalidFundingSourceDetailString2;
+        public string ValidFundingSourceDetailDisplayString;
+        public string InvalidFundingSourceDetailDisplayString1;
+        public string InvalidFundingSourceDetailDisplayString2;
         public int ValidFundingSourceDetailType;
         public int InvalidFundingSourceDetailType1;
         public int InvalidFundingSourceDetailType2;
@@ -155,9 +155,9 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidFundingSourceDetailId = 1;
             InvalidFundingSourceDetailId1 = 0;
             InvalidFundingSourceDetailId2 = -1;
-            ValidFundingSourceDetailString = "a";
-            InvalidFundingSourceDetailString1 = string.Empty;
-            InvalidFundingSourceDetailString2 = null;
+            ValidFundingSourceDetailDisplayString = "a";
+            InvalidFundingSourceDetailDisplayString1 = string.Empty;
+            InvalidFundingSourceDetailDisplayString2 = null;
             ValidFundingSourceDetailType = 1;
             InvalidFundingSourceDetailType1 = 0;
             InvalidFundingSourceDetailType2 = -1;

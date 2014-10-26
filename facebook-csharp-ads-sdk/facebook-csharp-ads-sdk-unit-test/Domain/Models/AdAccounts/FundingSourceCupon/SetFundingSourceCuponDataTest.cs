@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSourceDetail
+namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSourceCupon
 {
     [TestClass]
-    public class FundingSourceDetailTest : TestBase
+    public class SetFundingSourceCuponDataTest : TestBase
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
