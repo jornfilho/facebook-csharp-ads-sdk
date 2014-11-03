@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
@@ -32,17 +33,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// All fields are required.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Invalid accountGroupId</exception>
-        /// <exception cref="ArgumentException">Invalid name or status</exception>
+        /// <exception cref="InvalidEnumArgumentException">Invalid name or status</exception>
         public AdAccountGroup SetAdAccountGroupData(long accountGroupId, string name, AdAccountGroupsStatusEnum status)
         {
-            if (AccountGroupId <= 0)
+            if (accountGroupId <= 0)
                 throw new ArgumentOutOfRangeException();
 
             if(String.IsNullOrEmpty(name))
                 throw new ArgumentException();
 
             if(status == AdAccountGroupsStatusEnum.Undefined)
-                throw new ArgumentException();
+                throw new InvalidEnumArgumentException();
 
             AccountGroupId = accountGroupId;
             Name = name;

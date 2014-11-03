@@ -51,6 +51,28 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdAccountStrId2;
         public string ValidAdAccountStrId;
 
+        #region AdAccountGroup
+        public long InvalidAdAccountGroupId1;
+        public long InvalidAdAccountGroupId2;
+        public long ValidAdAccountGroupId;
+        public string InvalidAdAccountGroupName1;
+        public string InvalidAdAccountGroupName2;
+        public string ValidAdAccountGroupName;
+        public AdAccountGroupsStatusEnum InvalidAdAccountGroupStatus;
+        public AdAccountGroupsStatusEnum ValidAdAccountGroupStatus; 
+        #endregion
+
+        #region AgencyClientDeclaration
+        public string ValidClientCity;
+        public string ValidClientCountryCode;
+        public string ValidClientEmailAddress;
+        public string ValidClientName;
+        public string ValidClientPostalCode;
+        public string ValidClientProvince;
+        public string ValidClientStreet;
+        public string ValidClientStreet2;
+        #endregion
+
         #region FundingSourceCupon
         public long ValidFundingSourceCuponAmmount;
         public long InvalidFundingSourceCuponAmmount1;
@@ -137,6 +159,28 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountStrId1 = "";
             InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId);
             ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
+
+            #region AdAccountGroup
+            InvalidAdAccountGroupId1 = 0;
+            InvalidAdAccountGroupId2 = -1;
+            ValidAdAccountGroupId = 1;
+            InvalidAdAccountGroupName1 = null;
+            InvalidAdAccountGroupName2 = string.Empty;
+            ValidAdAccountGroupName = "a";
+            InvalidAdAccountGroupStatus = AdAccountGroupsStatusEnum.Undefined;
+            ValidAdAccountGroupStatus = AdAccountGroupsStatusEnum.Active; 
+            #endregion
+
+            #region AgencyClientDeclaration
+            ValidClientCity = "a";
+            ValidClientCountryCode = "b";
+            ValidClientEmailAddress = "test@test.com";
+            ValidClientName = "d";
+            ValidClientPostalCode = "e";
+            ValidClientProvince = "f";
+            ValidClientStreet = "g";
+            ValidClientStreet2 = "h";
+            #endregion
 
             #region FundingSourceCupon
             ValidFundingSourceCuponAmmount = 1;

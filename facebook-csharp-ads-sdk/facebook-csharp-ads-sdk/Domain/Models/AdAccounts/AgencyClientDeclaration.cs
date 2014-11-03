@@ -89,13 +89,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set address informations data
         /// </summary>
+        /// <exception cref="ArgumentException">Exception when all params are null or empty</exception>
         public AgencyClientDeclaration SetClientAddressInformationsData(string clientCity, string clientCountryCode, string clientEmailAddress, string clientName, 
             string clientPostalCode, string clientProvince, string clientStreet, string clientStreet2)
         {
             if (!String.IsNullOrEmpty(clientName))
                 ClientName = clientName;
 
-            if (!String.IsNullOrEmpty(clientEmailAddress))
+            if (!String.IsNullOrEmpty(clientEmailAddress) && DevUtils.Validators.Email.IsEmailValid(clientEmailAddress))
                 ClientEmailAddress = clientEmailAddress;
 
             if (!String.IsNullOrEmpty(clientStreet))
@@ -116,15 +117,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (!String.IsNullOrEmpty(clientCountryCode))
                 ClientCountryCode = clientCountryCode;
 
-            if (!String.IsNullOrEmpty(clientName) ||
-                !String.IsNullOrEmpty(clientEmailAddress) ||
-                !String.IsNullOrEmpty(clientStreet) ||
-                !String.IsNullOrEmpty(clientStreet2) ||
-                !String.IsNullOrEmpty(clientCity) ||
-                !String.IsNullOrEmpty(clientProvince) ||
-                !String.IsNullOrEmpty(clientPostalCode) ||
-                !String.IsNullOrEmpty(clientCountryCode))
+            if (!String.IsNullOrEmpty(ClientName) ||
+                !String.IsNullOrEmpty(ClientEmailAddress) ||
+                !String.IsNullOrEmpty(ClientStreet) ||
+                !String.IsNullOrEmpty(ClientStreet2) ||
+                !String.IsNullOrEmpty(ClientCity) ||
+                !String.IsNullOrEmpty(ClientProvince) ||
+                !String.IsNullOrEmpty(ClientPostalCode) ||
+                !String.IsNullOrEmpty(ClientCountryCode))
                 SetValid();
+            else
+                throw new ArgumentException();
 
             return this;
         }
