@@ -74,6 +74,7 @@
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccountGroup\SetAdAccountGroupDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountBaseDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientAddressInformationsDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientSummaryInformationsDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail\SetFundingSourceDetailDataTest.cs" />

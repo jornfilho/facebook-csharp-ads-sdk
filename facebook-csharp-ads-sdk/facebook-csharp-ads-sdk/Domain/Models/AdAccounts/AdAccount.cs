@@ -129,28 +129,28 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (!id.IsValidAdAccountId(accountId))
                 throw new InvalidAdAccountId();
 
-            if(accountStatus != null && accountStatus.Value == AdAccountStatusEnum.Undefined)
+            if (accountStatus != null && accountStatus.Value.Equals(AdAccountStatusEnum.Undefined))
                 throw new InvalidEnumArgumentException();
 
-            if (age != null && age.Value < 0)
+            if (age != null && age.Value <= 0)
                 throw new ArgumentOutOfRangeException();
 
-            if(capabilities != null && capabilities.Any(c=> c == CapabilitiesEnum.Undefined))
+            if (capabilities != null && capabilities.Any(c => c.Equals(CapabilitiesEnum.Undefined)))
                 throw new InvalidEnumArgumentException();
 
-            if (endAdvertiser != null && endAdvertiser.Value < 0)
+            if (endAdvertiser != null && endAdvertiser.Value <= 0)
                 throw new ArgumentOutOfRangeException();
 
-            if (mediaAgency != null && mediaAgency.Value < 0)
+            if (mediaAgency != null && mediaAgency.Value <= 0)
                 throw new ArgumentOutOfRangeException();
 
-            if (partner != null && partner.Value < 0)
+            if (partner != null && partner.Value <= 0)
                 throw new ArgumentOutOfRangeException();
 
-            if (tosAccepted != null && tosAccepted.Any(t=> t < 0))
+            if (tosAccepted != null && tosAccepted.Any(t=> t <= 0))
                 throw new ArgumentOutOfRangeException();
 
-            if(taxStatus != null && taxStatus.Value == TaxStatusEnum.Undefined)
+            if (taxStatus != null && taxStatus.Value.Equals(TaxStatusEnum.Undefined))
                 throw new InvalidEnumArgumentException();
 
             Id = id;

@@ -45,11 +45,37 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAccessToken2;
         #endregion
 
-        public long InvalidAdAccountId;
+        #region AdAccount
+        public long InvalidAdAccountId1;
+        public long InvalidAdAccountId2;
         public long ValidAdAccountId;
         public string InvalidAdAccountStrId1;
         public string InvalidAdAccountStrId2;
         public string ValidAdAccountStrId;
+        public string ValidAdAccountName;
+        public AdAccountStatusEnum InvalidAdAccountStatus;
+        public AdAccountStatusEnum ValidAdAccountStatus;
+        public float InvalidAdAccountAge1;
+        public float InvalidAdAccountAge2;
+        public float ValidAdAccountAge;
+        public IList<CapabilitiesEnum> InvalidAdAccountCapabilities;
+        public IList<CapabilitiesEnum> ValidAdAccountCapabilities;
+        public long InvalidAdAccountEndAdvertiser1;
+        public long InvalidAdAccountEndAdvertiser2;
+        public long ValidAdAccountEndAdvertiser;
+        public long InvalidAdAccountMediaAgency1;
+        public long InvalidAdAccountMediaAgency2;
+        public long ValidAdAccountMediaAgency;
+        public long InvalidAdAccountPartner1;
+        public long InvalidAdAccountPartner2;
+        public long ValidAdAccountPartner;
+        public IList<long> InvalidAdAccountTosAccepted1;
+        public IList<long> InvalidAdAccountTosAccepted2;
+        public IList<long> ValidAdAccountTosAccepted;
+        public TaxStatusEnum InvalidAdAccountTaxStatus;
+        public TaxStatusEnum InvalidAdAccountTaxStatus2;
+        public TaxStatusEnum ValidAdAccountTaxStatus; 
+        #endregion
 
         #region AdAccountGroup
         public long InvalidAdAccountGroupId1;
@@ -154,11 +180,36 @@ namespace facebook_csharp_ads_sdk_unit_test
             #endregion
 
 
-            InvalidAdAccountId = 0;
+            #region AdAccount
+            InvalidAdAccountId1 = 0;
+            InvalidAdAccountId2 = -1;
             ValidAdAccountId = 1;
             InvalidAdAccountStrId1 = "";
-            InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId);
+            InvalidAdAccountStrId1 = string.Format("act_{0}", InvalidAdAccountId1);
             ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
+            ValidAdAccountName = "a";
+            InvalidAdAccountStatus = AdAccountStatusEnum.Undefined;
+            ValidAdAccountStatus = AdAccountStatusEnum.Active;
+            InvalidAdAccountAge1 = -1;
+            InvalidAdAccountAge2 = 0;
+            ValidAdAccountAge = 1;
+            InvalidAdAccountCapabilities = new List<CapabilitiesEnum> { CapabilitiesEnum.CustomAudienceFolders, CapabilitiesEnum.Undefined };
+            ValidAdAccountCapabilities = new List<CapabilitiesEnum> { CapabilitiesEnum.CustomAudienceFolders, CapabilitiesEnum.Pemium };
+            InvalidAdAccountEndAdvertiser1 = 0;
+            InvalidAdAccountEndAdvertiser2 = -1;
+            ValidAdAccountEndAdvertiser = 1;
+            InvalidAdAccountMediaAgency1 = 0;
+            InvalidAdAccountMediaAgency2 = -1;
+            ValidAdAccountMediaAgency = 1;
+            InvalidAdAccountPartner1 = 0;
+            InvalidAdAccountPartner2 = -1;
+            ValidAdAccountPartner = 1;
+            InvalidAdAccountTosAccepted1 = new List<long> { -1, 1, 2 };
+            InvalidAdAccountTosAccepted2 = new List<long> { 0, 1, 2 };
+            ValidAdAccountTosAccepted = new List<long> { 1, 2, 3 };
+            InvalidAdAccountTaxStatus = TaxStatusEnum.Undefined;
+            ValidAdAccountTaxStatus = TaxStatusEnum.AccountIsAPersonalAccount; 
+            #endregion
 
             #region AdAccountGroup
             InvalidAdAccountGroupId1 = 0;
