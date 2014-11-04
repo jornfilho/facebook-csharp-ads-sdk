@@ -24,14 +24,14 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.BusinessRules.AdAccounts.Basi
         [TestMethod]
         public void CanTestIfAdAccountIdHasAnInvalidValueWithNotNullableValue()
         {
-            var result = InvalidAdAccountId.IsValidAdAccountId();
+            var result = InvalidAdAccountId1.IsValidAdAccountId();
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void CanTestIfAdAccountIdHasAnInvalidValueWithNullableValue()
         {
-            long? invalidAdAccountIdNullable = InvalidAdAccountId;
+            long? invalidAdAccountIdNullable = InvalidAdAccountId1;
             var result = invalidAdAccountIdNullable.IsValidAdAccountId();
             Assert.IsFalse(result);
         }
@@ -46,7 +46,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.BusinessRules.AdAccounts.Basi
         [TestMethod]
         public void CanTestIfAdAccountStrIdHasAnInvalidValue_1()
         {
-            var result = ValidAdAccountStrId.IsValidAdAccountId(InvalidAdAccountId);
+            var result = ValidAdAccountStrId.IsValidAdAccountId(InvalidAdAccountId1);
             Assert.IsFalse(result);
         }
 

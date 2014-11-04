@@ -85,6 +85,10 @@
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingSourceTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingDetailTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialSummaryTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccountGroup\SetAdAccountGroupDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountBaseDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientAddressInformationsDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientSummaryInformationsDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail\SetFundingSourceDetailDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCupon\SetFundingSourceCuponDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail\SetFundingSourceCuponTest.cs" />
