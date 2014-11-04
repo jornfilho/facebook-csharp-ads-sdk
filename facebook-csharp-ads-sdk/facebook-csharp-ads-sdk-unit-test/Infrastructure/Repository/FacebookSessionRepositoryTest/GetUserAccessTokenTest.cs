@@ -3,14 +3,14 @@
 namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSessionRepositoryTest
 {
     [TestClass]
-    public class GetAccessTokenTest : TestBase
+    public class GetUserAccessTokenTest : TestBase
     {
         [TestMethod]
-        public void CanSetAnGetValueOfAccessToken()
+        public void CanSetAnGetValueOfUserAccessToken()
         {
-            RepositoryFacebookSession.SetAccessToken(ValidAccessToken);
+            RepositoryFacebookSession.SetUserAccessToken(ValidAccessToken);
 
-            var accessToken = RepositoryFacebookSession.GetAccessToken();
+            var accessToken = RepositoryFacebookSession.GetUserAccessToken();
             
             Assert.AreEqual(accessToken, ValidAccessToken);
         }

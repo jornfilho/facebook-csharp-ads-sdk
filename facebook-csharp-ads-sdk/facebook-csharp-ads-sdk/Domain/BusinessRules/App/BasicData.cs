@@ -34,7 +34,7 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.App
         /// <summary>
         /// Test if accessToken has a vaid value
         /// </summary>
-        public static bool IsValidAccessToken(this string accessToken)
+        public static bool IsValidAppAccessToken(this string accessToken)
         {
             return !String.IsNullOrEmpty(accessToken);
         }

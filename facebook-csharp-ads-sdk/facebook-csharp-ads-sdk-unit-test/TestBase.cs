@@ -429,7 +429,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         {
             RepositoryFacebookSession = new FacebookSessionRepository();
             RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
-            RepositoryFacebookSession.SetAccessToken(ValidAccessToken);
+            RepositoryFacebookSession.SetAppAccessToken(ValidAccessToken);
 
             RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession);
         }

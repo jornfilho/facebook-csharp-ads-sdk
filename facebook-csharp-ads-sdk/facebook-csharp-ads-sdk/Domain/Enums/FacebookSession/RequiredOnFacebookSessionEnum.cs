@@ -6,9 +6,9 @@
     public enum RequiredOnFacebookSessionEnum
     {
         /// <summary>
-        /// Required valid access token
+        /// Required valid app access token
         /// </summary>
-        AccessToken,
+        AppAccessToken,
 
         /// <summary>
         /// Required valid app secret
@@ -18,6 +18,11 @@
         /// <summary>
         /// Required valid app id
         /// </summary>
-        AppId
+        AppId,
+
+        /// <summary>
+        /// Required valid user access token
+        /// </summary>
+        UserAccessToken,
     }
 }

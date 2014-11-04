@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace facebook_csharp_ads_sdk.Domain.Exceptions.FacebookConfig
+namespace facebook_csharp_ads_sdk.Domain.Exceptions.App
 {
     public class InvalidAppSecret : Exception
     {

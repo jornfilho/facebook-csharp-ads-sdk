@@ -54,14 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Api.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
+    <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
     <Compile Include="Domain\Contracts\Services\IFacebookSession.cs" />
     <Compile Include="Domain\Contracts\Services\IAdAccount.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
+    <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCupon.cs" />
     <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
     <Compile Include="Domain\Enums\AdUsers\UserRoleEnum.cs" />
@@ -72,9 +75,9 @@
     <Compile Include="Domain\Enums\AdAccounts\CurrenciesEnum.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookAdsApiVersionsEnum.cs" />
     <Compile Include="Domain\Enums\FacebookSession\RequiredOnFacebookSessionEnum.cs" />
-    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAppId.cs" />
-    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAppSecret.cs" />
-    <Compile Include="Domain\Exceptions\FacebookConfig\InvalidAccessToken.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppId.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppSecret.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppAccessToken.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions.cs" />

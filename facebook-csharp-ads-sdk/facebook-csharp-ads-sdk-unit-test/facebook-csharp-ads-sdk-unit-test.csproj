@@ -76,6 +76,7 @@
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAccessTokenTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppSecretTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppIdTest.cs" />
+    <Compile Include="Domain\BusinessRules\Users\UserAccessToken\IsValidUserAccessTokenTest.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
@@ -103,11 +104,13 @@
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\GetFieldsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\SetBusinessInformationsDataTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
-    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppSecretTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppIdTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetFacebookAdsApiConfigurationTest.cs" />
-    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetUserAccessTokenTest.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetAppAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\SetDefaultApplicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />

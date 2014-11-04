@@ -16,14 +16,14 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.BusinessRules.App.BasicData
         [TestMethod]
         public void CanTestIfAccessTokenHasAInvalidValue_1()
         {
-            var result = InvalidAccessToken1.IsValidAccessToken();
+            var result = InvalidAccessToken1.IsValidAppAccessToken();
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void CanTestIfAccessTokenHasAInvalidValue_2()
         {
-            var result = InvalidAccessToken1.IsValidAccessToken();
+            var result = InvalidAccessToken1.IsValidAppAccessToken();
             Assert.IsFalse(result);
         }
     }
