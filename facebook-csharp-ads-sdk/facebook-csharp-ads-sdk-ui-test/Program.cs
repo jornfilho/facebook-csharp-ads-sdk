@@ -5,7 +5,7 @@ using facebook_csharp_ads_sdk.Infrastructure.Repository;
 
 namespace facebook_csharp_ads_sdk_ui_test
 {
-    class Program : PersonalData
+    class Program : PersonalData.PersonalData
     {
         static void Main(string[] args)
         {
