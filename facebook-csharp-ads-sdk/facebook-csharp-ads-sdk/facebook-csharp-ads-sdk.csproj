@@ -59,6 +59,7 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Services\IApi.cs" />
     <Compile Include="Domain\Contracts\Services\IFacebookSession.cs" />
     <Compile Include="Domain\Contracts\Services\IAdAccount.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
@@ -109,7 +110,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Infrastructure\Parsers\AdAccount\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

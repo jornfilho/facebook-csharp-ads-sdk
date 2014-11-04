@@ -46,14 +46,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         private void SetGlobalConfigurations()
         {
-            Version = FacebookAdsApiVersionsEnum.V201;
+            Version = FacebookAdsApiVersionsEnum.V21;
             GraphApiUrl = string.Format("https://graph.facebook.com/{0}/", Version.GetFacebookName());
         }
 
         private void SetAdAccountConfigurations()
         {
-            AdAccountFields = AdAccountFieldsExtensions.GetAdAccountFieldsList();
-            AdAccountEndpoint = GraphApiUrl + "act_{0}/";
+            AdAccountFields = AdAccountFieldsExtensions.GetAllAdAccountFieldsList();
+            AdAccountEndpoint = GraphApiUrl + "act_{0}/access_token={1}&fields={2}";
         }
     }
 }

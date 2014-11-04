@@ -5,11 +5,14 @@ using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.Services
 {
+    /// <summary>
+    /// Facebook AdAccount interface
+    /// </summary>
     public interface IAdAccount
     {
-        //IList<Account> ReadAll(string accessToken, IList<AdAccountFieldsEnum> fields);
-
         Task<AdAccount> Read(long accountId, IList<AdAccountFieldsEnum> fields);
+
+        //IList<Account> ReadAll(string accessToken, IList<AdAccountFieldsEnum> fields);
 
         //Account UpdateAgencyDeclaration(long accountId, AgencyClientDeclaration agencyClientDeclaration);
 

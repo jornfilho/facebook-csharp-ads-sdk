@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Attribute;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
 {
@@ -12,13 +15,42 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
         /// <summary>
         /// Get a list of available ad account fields
         /// </summary>
-        public static IList<AdAccountFieldsEnum> GetAdAccountFieldsList()
+        public static IList<AdAccountFieldsEnum> GetAllAdAccountFieldsList()
         {
             IList<AdAccountFieldsEnum> result = new List<AdAccountFieldsEnum>();
             foreach (AdAccountFieldsEnum field in Enum.GetValues(typeof (AdAccountFieldsEnum)))
             {
                 result.Add(field);
             }
+            return result;
+        }
+
+        /// <summary>
+        /// Get string list of facebook fields name
+        /// </summary>
+        public static string GetAdAccountFieldsName(this IList<AdAccountFieldsEnum> accountFieldsList)
+        {
+            if (accountFieldsList == null)
+                return null;
+
+            if (!accountFieldsList.Any())
+                return null;
+
+            var result = "";
+
+            var accountListCount = accountFieldsList.Count;
+            for (var index = 0; index < accountListCount; index++)
+            {
+                var currentName = accountFieldsList[index].GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
+                if (String.IsNullOrEmpty(currentName))
+                    continue;
+
+                if (!String.IsNullOrEmpty(result))
+                    result += ",";
+
+                result += currentName;
+            }
+
             return result;
         }
     }
