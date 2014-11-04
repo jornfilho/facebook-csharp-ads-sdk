@@ -45,7 +45,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.FacebookSe
         public void CanGetAdAccountReadDataUrlFromConfiguration()
         {
             Configuration = RepositoryFacebookSession.GetFacebookAdsApiConfiguration();
-            var adAccountReadDataUrl = Configuration.AdAccountReadDataUrl;
+            var adAccountReadDataUrl = Configuration.AdAccountEndpoint;
             Assert.IsNotNull(adAccountReadDataUrl);
         }
     }

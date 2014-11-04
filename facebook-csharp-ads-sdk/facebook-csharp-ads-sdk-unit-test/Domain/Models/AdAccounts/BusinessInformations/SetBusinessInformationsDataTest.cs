@@ -37,6 +37,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.BusinessInf
             Assert.AreNotEqual(model.BusinessState, string.Empty);
             Assert.AreNotEqual(model.BusinessZip, string.Empty);
             Assert.AreNotEqual(model.BusinessCountryCode, string.Empty);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]

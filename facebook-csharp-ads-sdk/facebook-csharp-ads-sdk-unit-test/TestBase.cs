@@ -27,11 +27,6 @@ namespace facebook_csharp_ads_sdk_unit_test
         public NameValueCollection MultipleValuesNameValueCollection { get; set; }
         #endregion
 
-        #region Repositories
-        public IFacebookSession RepositoryFacebookSession; 
-        public IAdAccount RepositoryAdAccount; 
-        #endregion
-
         #region Facebook session data
         public long InvalidAppId;
         public long ValidAppId;
@@ -45,6 +40,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAccessToken2;
         #endregion
 
+        #region AdAccount and related
         #region AdAccount
         public long InvalidAdAccountId1;
         public long InvalidAdAccountId2;
@@ -74,7 +70,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public IList<long> ValidAdAccountTosAccepted;
         public TaxStatusEnum InvalidAdAccountTaxStatus;
         public TaxStatusEnum InvalidAdAccountTaxStatus2;
-        public TaxStatusEnum ValidAdAccountTaxStatus; 
+        public TaxStatusEnum ValidAdAccountTaxStatus;
         #endregion
 
         #region AdAccountGroup
@@ -85,7 +81,12 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdAccountGroupName2;
         public string ValidAdAccountGroupName;
         public AdAccountGroupsStatusEnum InvalidAdAccountGroupStatus;
-        public AdAccountGroupsStatusEnum ValidAdAccountGroupStatus; 
+        public AdAccountGroupsStatusEnum ValidAdAccountGroupStatus;
+        public AdAccountGroup ValidAdAccountGroup;
+        #endregion
+
+        #region BusinessInformations
+        public BusinessInformations ValidBusinessInformations;
         #endregion
 
         #region AgencyClientDeclaration
@@ -97,10 +98,10 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string ValidClientProvince;
         public string ValidClientStreet;
         public string ValidClientStreet2;
+        public AgencyClientDeclaration ValidAgencyClientDeclaration;
         #endregion
 
         #region FinancialInformations
-
         public long InvalidAdAccountAmountSpent1;
         public long InvalidAdAccountAmountSpent2;
         public long ValidAdAccountAmountSpent;
@@ -125,6 +126,8 @@ namespace facebook_csharp_ads_sdk_unit_test
         public FundingSourceDetail InvalidFundingSourceDetail1;
         public FundingSourceDetail InvalidFundingSourceDetail2;
         public FundingSourceDetail ValidFundingSourceDetail;
+
+        public FinancialInformations ValidFinancialInformations;
         #endregion
 
         #region FundingSourceCupon
@@ -137,7 +140,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public DateTime InvalidFundingSourceCuponExpirationDate;
         public string ValidFundingSourceCuponDisplayAmount;
         public string InvalidFundingSourceCuponDisplayAmount1;
-        public string InvalidFundingSourceCuponDisplayAmount2; 
+        public string InvalidFundingSourceCuponDisplayAmount2;
         #endregion
 
         #region FundingSourceDetail
@@ -162,7 +165,8 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string ValidTimezoneName;
         public string InvalidTimezoneName1;
         public string InvalidTimezoneName2;
-        public int ValidTimezoneOffsetHoursFromUtc; 
+        public int ValidTimezoneOffsetHoursFromUtc;
+        public TimezoneInformations ValidTimezoneInformations;
         #endregion
 
         #region User
@@ -172,14 +176,27 @@ namespace facebook_csharp_ads_sdk_unit_test
         public UserRoleEnum ValidUserRole;
         public UserRoleEnum InvalidUserRole;
         public long ValidUserUserId;
-        public long InvalidUserUserId1; 
-        public long InvalidUserUserId2; 
+        public long InvalidUserUserId1;
+        public long InvalidUserUserId2;
+        #endregion 
+        #endregion
+
+        #region Repositories
+        public IFacebookSession RepositoryFacebookSession;
+        public IAdAccount RepositoryAdAccount;
         #endregion
 
         [TestInitialize]
         public void InitializeTestBase()
         {
-            #region Web requests
+            WebRequests();
+            FacebookSessionData();
+            AdAccountAndRelateds();
+            Repositories();
+        }
+
+        private void WebRequests()
+        {
             WebRequest = new Request();
             ValidUri = "http://private-5eeb3-fbcsharpadssdkbasicendpoint.apiary-mock.com/basic";
             InvalidUri = "";
@@ -196,19 +213,34 @@ namespace facebook_csharp_ads_sdk_unit_test
                 {"param2", "value2"},
                 {"param3", "value3"}
             };
-            #endregion
+        }
 
-            #region Facebook session data
+        private void FacebookSessionData()
+        {
             InvalidAppId = 0;
             ValidAppId = 1;
 
             InvalidAppSecret1 = InvalidAccessToken1 = null;
             InvalidAppSecret2 = InvalidAccessToken2 = "";
             ValidAppSecret = ValidAccessToken = "a";
-            #endregion
+        }
 
+        #region AdAccountAndRelateds
+        private void AdAccountAndRelateds()
+        {
+            AdAccount();
+            AdAccountGroup();
+            BusinessInformations();
+            AgencyClientDeclaration();
+            FundingSourceCupon();
+            FundingSourceDetail();
+            FinancialInformations();
+            TimezoneInformations();
+            User();
+        }
 
-            #region AdAccount
+        private void AdAccount()
+        {
             InvalidAdAccountId1 = 0;
             InvalidAdAccountId2 = -1;
             ValidAdAccountId = 1;
@@ -236,10 +268,11 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountTosAccepted2 = new List<long> { 0, 1, 2 };
             ValidAdAccountTosAccepted = new List<long> { 1, 2, 3 };
             InvalidAdAccountTaxStatus = TaxStatusEnum.Undefined;
-            ValidAdAccountTaxStatus = TaxStatusEnum.AccountIsAPersonalAccount; 
-            #endregion
+            ValidAdAccountTaxStatus = TaxStatusEnum.AccountIsAPersonalAccount;
+        }
 
-            #region AdAccountGroup
+        private void AdAccountGroup()
+        {
             InvalidAdAccountGroupId1 = 0;
             InvalidAdAccountGroupId2 = -1;
             ValidAdAccountGroupId = 1;
@@ -247,10 +280,22 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountGroupName2 = string.Empty;
             ValidAdAccountGroupName = "a";
             InvalidAdAccountGroupStatus = AdAccountGroupsStatusEnum.Undefined;
-            ValidAdAccountGroupStatus = AdAccountGroupsStatusEnum.Active; 
-            #endregion
+            ValidAdAccountGroupStatus = AdAccountGroupsStatusEnum.Active;
+            ValidAdAccountGroup = new AdAccountGroup().SetAdAccountGroupData(
+                ValidAdAccountGroupId,
+                ValidAdAccountGroupName,
+                ValidAdAccountGroupStatus
+            );
+        }
 
-            #region AgencyClientDeclaration
+        private void BusinessInformations()
+        {
+            ValidBusinessInformations = new BusinessInformations()
+                .SetBusinessInformationsData("a", "b", "c", "d", "e", "f", "g");
+        }
+
+        private void AgencyClientDeclaration()
+        {
             ValidClientCity = "a";
             ValidClientCountryCode = "b";
             ValidClientEmailAddress = "test@test.com";
@@ -259,9 +304,22 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidClientProvince = "f";
             ValidClientStreet = "g";
             ValidClientStreet2 = "h";
-            #endregion
+            ValidAgencyClientDeclaration = new AgencyClientDeclaration()
+                .SetClientSummaryInformationsData(true, true, true, true)
+                .SetClientAddressInformationsData(
+                    ValidClientCity,
+                    ValidClientCountryCode,
+                    ValidClientEmailAddress,
+                    ValidClientName,
+                    ValidClientPostalCode,
+                    ValidClientProvince,
+                    ValidClientStreet,
+                    ValidClientStreet2
+                );
+        }
 
-            #region FundingSourceCupon
+        private void FundingSourceCupon()
+        {
             ValidFundingSourceCuponAmount = 1;
             InvalidFundingSourceCuponAmount1 = 0;
             InvalidFundingSourceCuponAmount2 = -1;
@@ -271,10 +329,11 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidFundingSourceCuponExpirationDate = new DateTime();
             ValidFundingSourceCuponDisplayAmount = "a";
             InvalidFundingSourceCuponDisplayAmount1 = string.Empty;
-            InvalidFundingSourceCuponDisplayAmount2 = null; 
-            #endregion
+            InvalidFundingSourceCuponDisplayAmount2 = null;
+        }
 
-            #region FundingSourceDetail
+        private void FundingSourceDetail()
+        {
             ValidFundingSourceDetailId = 1;
             InvalidFundingSourceDetailId1 = 0;
             InvalidFundingSourceDetailId2 = -1;
@@ -286,16 +345,17 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidFundingSourceDetailType2 = -1;
             ValidFundingSourceDetailCupon = new FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidAdAccountId, 
-                    ValidFundingSourceCuponCurrency, 
-                    ValidFundingSourceCuponExpirationDate, 
+                    ValidAdAccountId,
+                    ValidFundingSourceCuponCurrency,
+                    ValidFundingSourceCuponExpirationDate,
                     ValidFundingSourceCuponDisplayAmount
                 );
             InvalidFundingSourceDetailCupon1 = new FundingSourceCupon();
             InvalidFundingSourceDetailCupon2 = null;
-            #endregion
+        }
 
-            #region FinancialInformations
+        private void FinancialInformations()
+        {
             InvalidAdAccountAmountSpent1 = -1;
             InvalidAdAccountAmountSpent2 = 0;
             ValidAdAccountAmountSpent = 1;
@@ -325,36 +385,53 @@ namespace facebook_csharp_ads_sdk_unit_test
                     ValidFundingSourceDetailDisplayString,
                     ValidFundingSourceDetailType
                 );
-            #endregion
 
-            #region TimezoneInformations
+            ValidFinancialInformations = new FinancialInformations()
+                .SetFinancialSummary(ValidAdAccountAmountSpent, ValidAdAccountBalance, ValidAdAccountDailySpendLimit)
+                .SetFinancialSpendCap(ValidAdAccountSpendCap)
+                .SetFinancialFundingSource(ValidAdAccountFundingSourceId)
+                .SetFinancialFundingDetail(ValidFundingSourceDetail)
+                .SetFinancialCurrency(ValidFinancialInformationsCurrency);
+        }
+
+        private void TimezoneInformations()
+        {
             ValidTimezoneId = 25;
             InvalidTimezoneId1 = 0;
             InvalidTimezoneId2 = -1;
             ValidTimezoneName = "America/Sao_Paulo";
             InvalidTimezoneName1 = null;
             InvalidTimezoneName2 = string.Empty;
-            ValidTimezoneOffsetHoursFromUtc = DateTime.UtcNow.Subtract(DateTime.UtcNow.ToTimezoneDate(ValidTimezoneName).SetAsUtc().AddSeconds(-1)).Hours*-1; 
-            #endregion
+            ValidTimezoneOffsetHoursFromUtc =
+                DateTime.UtcNow.Subtract(DateTime.UtcNow.ToTimezoneDate(ValidTimezoneName).SetAsUtc().AddSeconds(-1)).Hours * -1;
+            ValidTimezoneInformations = new TimezoneInformations()
+                .SetTimezoneInformationsData(ValidTimezoneId, ValidTimezoneName, ValidTimezoneOffsetHoursFromUtc);
+        }
 
-            #region User
+        private void User()
+        {
             ValidUserPermissions = new List<UserPermissionsEnum> { UserPermissionsEnum.AccountAdmin };
-            InvalidUserPermissions1 = new List<UserPermissionsEnum> { UserPermissionsEnum.AccountAdmin, UserPermissionsEnum.Undefined };
+            InvalidUserPermissions1 = new List<UserPermissionsEnum>
+            {
+                UserPermissionsEnum.AccountAdmin,
+                UserPermissionsEnum.Undefined
+            };
             InvalidUserPermissions2 = null;
             ValidUserRole = UserRoleEnum.Administrator;
             InvalidUserRole = UserRoleEnum.Undefined;
             ValidUserUserId = 1;
-            InvalidUserUserId1 = 0; 
-            InvalidUserUserId2 = -1; 
-            #endregion
+            InvalidUserUserId1 = 0;
+            InvalidUserUserId2 = -1;
+        } 
+        #endregion
 
-            #region Repositories
+        private void Repositories()
+        {
             RepositoryFacebookSession = new FacebookSessionRepository();
             RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
             RepositoryFacebookSession.SetAccessToken(ValidAccessToken);
 
-            RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession); 
-            #endregion
+            RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession);
         }
     }
 }

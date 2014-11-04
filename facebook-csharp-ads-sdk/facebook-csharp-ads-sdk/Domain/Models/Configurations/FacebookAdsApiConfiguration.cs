@@ -32,7 +32,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// <summary>
         /// Uri to read single account data
         /// </summary>
-        public string AdAccountReadDataUrl { get; private set; } 
+        public string AdAccountEndpoint { get; private set; } 
         #endregion
 
         /// <summary>
@@ -53,9 +53,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         private void SetAdAccountConfigurations()
         {
             AdAccountFields = AdAccountFieldsExtensions.GetAdAccountFieldsList();
-            AdAccountReadDataUrl = GraphApiUrl + "act_{0}/?access_token={1}&fields={2}";
+            AdAccountEndpoint = GraphApiUrl + "act_{0}/";
         }
-
-
     }
 }
