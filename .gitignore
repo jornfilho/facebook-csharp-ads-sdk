@@ -183,4 +183,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # Ignore personal file
-facebook-csharp-ads-sdk-ui-test/PersonalData.cs
+PersonalData.cs
