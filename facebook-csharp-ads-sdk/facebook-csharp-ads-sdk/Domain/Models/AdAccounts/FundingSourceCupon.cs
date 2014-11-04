@@ -15,7 +15,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Facebook name: amount
         /// </summary>
-        public long Ammount { get; private set; }
+        public long Amount { get; private set; }
 
         /// <summary>
         /// Facebook name: currency
@@ -36,17 +36,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set cupon data
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Invalid ammount</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Invalid amount</exception>
         /// <exception cref="InvalidEnumArgumentException">Invalid currency</exception>
-        public FundingSourceCupon SetFundingSourceCuponData(long ammount, CurrenciesEnum currency, DateTime? expiration, string displayAmount)
+        public FundingSourceCupon SetFundingSourceCuponData(long amount, CurrenciesEnum currency, DateTime? expiration, string displayAmount)
         {
-            if (ammount <= 0)
+            if (amount <= 0)
                 throw new ArgumentOutOfRangeException();
 
             if (currency.Equals(CurrenciesEnum.UND))
                 throw new InvalidEnumArgumentException();
 
-            Ammount = ammount;
+            Amount = amount;
             Currency = currency;
 
             if (expiration != DateTime.MinValue)

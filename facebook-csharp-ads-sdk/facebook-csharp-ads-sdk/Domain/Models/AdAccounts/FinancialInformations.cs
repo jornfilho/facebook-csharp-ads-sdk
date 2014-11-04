@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 
@@ -23,16 +25,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public long Balance { get; private set; }
 
         /// <summary>
+        /// <para>The account's limit for daily spend, based on the corresponding value in the account settings</para>
+        /// </summary>
+        public long DailySpendLimit { get; private set; }
+
+        /// <summary>
         /// <para>The maximum that can be spent by this account after which campaigns will be paused.</para>
         /// <para>A value of 0 signifies no spending-cap and setting a new spend cap only applies to spend AFTER the time at which you set it.</para>
         /// <para>Value specified in basic unit of the currency, e.g. dollars for USD</para>
         /// </summary>
         public double SpendCap { get; private set; }
-
-        /// <summary>
-        /// <para>The account's limit for daily spend, based on the corresponding value in the account settings</para>
-        /// </summary>
-        public long DailySpendLimit { get; private set; }
 
         /// <summary>
         /// <para>The currency used for the account, based on the corresponding value in the account settings.</para>
@@ -43,7 +45,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>ID of the funding source</para>
         /// </summary>
-        public long FundingSource { get; private set; }
+        public long FundingSourceId { get; private set; }
 
         /// <summary>
         /// <para>The details of funding source</para>
@@ -56,16 +58,27 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialSummary(long amountSpent, long balance, long dailySpendLimit)
         {
-            if (amountSpent > 0)
+            bool isValid = false;
+
+            if (amountSpent.IsValidAdAccountAmountSpent())
+            {
                 AmountSpent = amountSpent;
+                isValid = true;
+            }
 
-            if (balance > 0)
+            if (balance.IsValidAdAccountBalance())
+            {
                 Balance = balance;
+                isValid = true;
+            }
 
-            if (dailySpendLimit > 0)
+            if (dailySpendLimit.IsValidAdAccountDailySpendLimit())
+            {
                 DailySpendLimit = dailySpendLimit;
+                isValid = true;
+            }
 
-            if (amountSpent > 0 || balance > 0 || dailySpendLimit > 0)
+            if (isValid)
                 SetValid();
 
             return this;
@@ -74,14 +87,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial cap
         /// </summary>
-        public FinancialInformations SetFinancialCap(double spendCap)
+        /// <exception cref="ArgumentOutOfRangeException">When spendCap has invalid value</exception>
+        public FinancialInformations SetFinancialSpendCap(double spendCap)
         {
-            if (spendCap >= 0)
-            {
-                SpendCap = spendCap;
+            if (!spendCap.IsValidAdAccountSpendCap())
+                throw new ArgumentOutOfRangeException();
 
-                SetValid();
-            }
+            SpendCap = spendCap;
+            SetValid();
 
             return this;
         }
@@ -91,12 +104,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialCurrency(CurrenciesEnum currency)
         {
-            if (currency != CurrenciesEnum.UND)
-            {
-                Currency = currency;
+            if (!currency.IsValidAdAccountCurrency())
+                throw new InvalidEnumArgumentException();
 
-                SetValid();
-            }
+            Currency = currency;
+            SetValid();
 
             return this;
         }
@@ -104,14 +116,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding source
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">When fundingSource has invalid value</exception>
         public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
-            if (fundingSource > 0)
-            {
-                FundingSource = fundingSource;
+            if (!fundingSource.IsValidAdAccountFundingSourceId())
+                throw new ArgumentOutOfRangeException();
 
-                SetValid();
-            }
+            FundingSourceId = fundingSource;
+            SetValid();
 
             return this;
         }

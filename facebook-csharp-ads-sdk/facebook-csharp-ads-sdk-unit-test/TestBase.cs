@@ -51,17 +51,45 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdAccountStrId2;
         public string ValidAdAccountStrId;
 
+        #region FinancialInformations
+
+        public long InvalidAdAccountAmountSpent1;
+        public long InvalidAdAccountAmountSpent2;
+        public long ValidAdAccountAmountSpent;
+        public long InvalidAdAccountBalance1;
+        public long InvalidAdAccountBalance2;
+        public long ValidAdAccountBalance;
+        public long InvalidAdAccountDailySpendLimit1;
+        public long InvalidAdAccountDailySpendLimit2;
+        public long ValidAdAccountDailySpendLimit;
+
+        public double InvalidAdAccountSpendCap1;
+        public double InvalidAdAccountSpendCap2;
+        public double ValidAdAccountSpendCap;
+
+        public CurrenciesEnum InvalidFinancialInformationsCurrency;
+        public CurrenciesEnum ValidFinancialInformationsCurrency;
+
+        public long InvalidAdAccountFundingSourceId1;
+        public long InvalidAdAccountFundingSourceId2;
+        public long ValidAdAccountFundingSourceId;
+
+        public FundingSourceDetail InvalidFundingSourceDetail1;
+        public FundingSourceDetail InvalidFundingSourceDetail2;
+        public FundingSourceDetail ValidFundingSourceDetail;
+        #endregion
+
         #region FundingSourceCupon
-        public long ValidFundingSourceCuponAmmount;
-        public long InvalidFundingSourceCuponAmmount1;
-        public long InvalidFundingSourceCuponAmmount2;
+        public long ValidFundingSourceCuponAmount;
+        public long InvalidFundingSourceCuponAmount1;
+        public long InvalidFundingSourceCuponAmount2;
         public CurrenciesEnum ValidFundingSourceCuponCurrency;
         public CurrenciesEnum InvalidFundingSourceCuponCurrency;
         public DateTime ValidFundingSourceCuponExpirationDate;
         public DateTime InvalidFundingSourceCuponExpirationDate;
-        public string ValidFundingSourceCuponDisplayAmmount;
-        public string InvalidFundingSourceCuponDisplayAmmount1;
-        public string InvalidFundingSourceCuponDisplayAmmount2; 
+        public string ValidFundingSourceCuponDisplayAmount;
+        public string InvalidFundingSourceCuponDisplayAmount1;
+        public string InvalidFundingSourceCuponDisplayAmount2; 
         #endregion
 
         #region FundingSourceDetail
@@ -139,16 +167,16 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidAdAccountStrId = string.Format("act_{0}", ValidAdAccountId);
 
             #region FundingSourceCupon
-            ValidFundingSourceCuponAmmount = 1;
-            InvalidFundingSourceCuponAmmount1 = 0;
-            InvalidFundingSourceCuponAmmount2 = -1;
+            ValidFundingSourceCuponAmount = 1;
+            InvalidFundingSourceCuponAmount1 = 0;
+            InvalidFundingSourceCuponAmount2 = -1;
             ValidFundingSourceCuponCurrency = CurrenciesEnum.USD;
             InvalidFundingSourceCuponCurrency = CurrenciesEnum.UND;
             ValidFundingSourceCuponExpirationDate = DateTime.UtcNow;
             InvalidFundingSourceCuponExpirationDate = new DateTime();
-            ValidFundingSourceCuponDisplayAmmount = "a";
-            InvalidFundingSourceCuponDisplayAmmount1 = string.Empty;
-            InvalidFundingSourceCuponDisplayAmmount2 = null; 
+            ValidFundingSourceCuponDisplayAmount = "a";
+            InvalidFundingSourceCuponDisplayAmount1 = string.Empty;
+            InvalidFundingSourceCuponDisplayAmount2 = null; 
             #endregion
 
             #region FundingSourceDetail
@@ -166,10 +194,42 @@ namespace facebook_csharp_ads_sdk_unit_test
                     ValidAdAccountId, 
                     ValidFundingSourceCuponCurrency, 
                     ValidFundingSourceCuponExpirationDate, 
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
             InvalidFundingSourceDetailCupon1 = new FundingSourceCupon();
             InvalidFundingSourceDetailCupon2 = null;
+            #endregion
+
+            #region FinancialInformations
+            InvalidAdAccountAmountSpent1 = -1;
+            InvalidAdAccountAmountSpent2 = 0;
+            ValidAdAccountAmountSpent = 1;
+            InvalidAdAccountBalance1 = -1;
+            InvalidAdAccountBalance2 = 0;
+            ValidAdAccountBalance = 1;
+            InvalidAdAccountDailySpendLimit1 = -1;
+            InvalidAdAccountDailySpendLimit2 = 0;
+            ValidAdAccountDailySpendLimit = 1;
+
+            InvalidAdAccountSpendCap1 = -1;
+            InvalidAdAccountSpendCap2 = 0;
+            ValidAdAccountSpendCap = 1;
+
+            InvalidFinancialInformationsCurrency = CurrenciesEnum.UND;
+            ValidFinancialInformationsCurrency = CurrenciesEnum.AED;
+
+            InvalidAdAccountFundingSourceId1 = -1;
+            InvalidAdAccountFundingSourceId2 = 0;
+            ValidAdAccountFundingSourceId = 1;
+
+            InvalidFundingSourceDetail1 = null;
+            InvalidFundingSourceDetail2 = new FundingSourceDetail();
+            ValidFundingSourceDetail = new FundingSourceDetail()
+                .SetFundingSourceDetailData(
+                    ValidFundingSourceDetailId,
+                    ValidFundingSourceDetailDisplayString,
+                    ValidFundingSourceDetailType
+                );
             #endregion
 
             #region TimezoneInformations

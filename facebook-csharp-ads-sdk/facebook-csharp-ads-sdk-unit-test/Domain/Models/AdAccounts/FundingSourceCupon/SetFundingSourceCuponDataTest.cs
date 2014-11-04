@@ -9,29 +9,29 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void CantSetInvalidFundingSourceCuponAmmount_1()
+        public void CantSetInvalidFundingSourceCuponAmount_1()
         {
             new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    InvalidFundingSourceCuponAmmount1,
+                    InvalidFundingSourceCuponAmount1,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void CantSetInvalidFundingSourceCuponAmmount_2()
+        public void CantSetInvalidFundingSourceCuponAmount_2()
         {
             new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    InvalidFundingSourceCuponAmmount2,
+                    InvalidFundingSourceCuponAmount2,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
         }
 
@@ -42,10 +42,10 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidFundingSourceCuponAmmount,
+                    ValidFundingSourceCuponAmount,
                     InvalidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
         }
         
@@ -55,17 +55,17 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidFundingSourceCuponAmmount,
+                    ValidFundingSourceCuponAmount,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
             
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.Ammount, ValidFundingSourceCuponAmmount);
+            Assert.AreEqual(model.Amount, ValidFundingSourceCuponAmount);
             Assert.AreEqual(model.Currency, ValidFundingSourceCuponCurrency);
             Assert.AreEqual(model.Expiration, ValidFundingSourceCuponExpirationDate);
-            Assert.AreEqual(model.DisplayAmount, ValidFundingSourceCuponDisplayAmmount);
+            Assert.AreEqual(model.DisplayAmount, ValidFundingSourceCuponDisplayAmount);
         }
 
         [TestMethod]
@@ -74,55 +74,55 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidFundingSourceCuponAmmount,
+                    ValidFundingSourceCuponAmount,
                     ValidFundingSourceCuponCurrency,
                     InvalidFundingSourceCuponExpirationDate,
-                    ValidFundingSourceCuponDisplayAmmount
+                    ValidFundingSourceCuponDisplayAmount
                 );
 
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.Ammount, ValidFundingSourceCuponAmmount);
+            Assert.AreEqual(model.Amount, ValidFundingSourceCuponAmount);
             Assert.AreEqual(model.Currency, ValidFundingSourceCuponCurrency);
             Assert.IsNull(model.Expiration);
-            Assert.AreEqual(model.DisplayAmount, ValidFundingSourceCuponDisplayAmmount);
+            Assert.AreEqual(model.DisplayAmount, ValidFundingSourceCuponDisplayAmount);
         }
 
         [TestMethod]
-        public void CanSetAllPropertiesData_InvalidDisplayAmmount_1()
+        public void CanSetAllPropertiesData_InvalidDisplayAmount_1()
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidFundingSourceCuponAmmount,
+                    ValidFundingSourceCuponAmount,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    InvalidFundingSourceCuponDisplayAmmount1
+                    InvalidFundingSourceCuponDisplayAmount1
                 );
 
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.Ammount, ValidFundingSourceCuponAmmount);
+            Assert.AreEqual(model.Amount, ValidFundingSourceCuponAmount);
             Assert.AreEqual(model.Currency, ValidFundingSourceCuponCurrency);
             Assert.AreEqual(model.Expiration, ValidFundingSourceCuponExpirationDate);
             Assert.IsNull(model.DisplayAmount);
         }
 
         [TestMethod]
-        public void CanSetAllPropertiesData_InvalidDisplayAmmount_2()
+        public void CanSetAllPropertiesData_InvalidDisplayAmount_2()
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCupon()
                 .SetFundingSourceCuponData(
-                    ValidFundingSourceCuponAmmount,
+                    ValidFundingSourceCuponAmount,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
-                    InvalidFundingSourceCuponDisplayAmmount2
+                    InvalidFundingSourceCuponDisplayAmount2
                 );
 
             Assert.IsNotNull(model);
-            Assert.AreEqual(model.Ammount, ValidFundingSourceCuponAmmount);
+            Assert.AreEqual(model.Amount, ValidFundingSourceCuponAmount);
             Assert.AreEqual(model.Currency, ValidFundingSourceCuponCurrency);
             Assert.AreEqual(model.Expiration, ValidFundingSourceCuponExpirationDate);
-            Assert.AreEqual(model.DisplayAmount, InvalidFundingSourceCuponDisplayAmmount2);
+            Assert.AreEqual(model.DisplayAmount, InvalidFundingSourceCuponDisplayAmount2);
         }
 
         [TestMethod]
@@ -133,15 +133,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             Assert.IsNotNull(model);
             Assert.IsFalse(model.IsValidData());
 
-            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmmount, ValidFundingSourceCuponCurrency, null, null);
+            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, null, null);
             Assert.IsTrue(model.IsValidData());
             RenewModel(out model);
 
-            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmmount, ValidFundingSourceCuponCurrency, ValidFundingSourceCuponExpirationDate, null);
+            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, ValidFundingSourceCuponExpirationDate, null);
             Assert.IsTrue(model.IsValidData());
             RenewModel(out model);
 
-            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmmount, ValidFundingSourceCuponCurrency, null, ValidFundingSourceCuponDisplayAmmount);
+            model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, null, ValidFundingSourceCuponDisplayAmount);
             Assert.IsTrue(model.IsValidData());
             RenewModel(out model);
         }

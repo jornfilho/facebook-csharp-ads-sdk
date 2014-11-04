@@ -66,6 +66,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountDailySpentLimitTest.cs" />
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountBalanceTest.cs" />
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountCurrencyTest.cs" />
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountAmountSpentTest.cs" />
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountSpendCapTest.cs" />
+    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountFundingSourceTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData\IsValidAdAccountIdTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAccessTokenTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppSecretTest.cs" />
@@ -73,6 +79,12 @@
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\GetFieldsTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialCurrencyTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialCapTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingSourceTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingDetailTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialSummaryTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail\SetFundingSourceDetailDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCupon\SetFundingSourceCuponDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail\SetFundingSourceCuponTest.cs" />

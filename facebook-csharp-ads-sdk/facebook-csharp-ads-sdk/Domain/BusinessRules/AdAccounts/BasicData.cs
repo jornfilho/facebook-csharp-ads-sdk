@@ -1,10 +1,13 @@
-﻿namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
+﻿using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+
+namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
 {
     /// <summary>
     /// Class with business rules of ad account basic data
     /// </summary>
     public static class BasicData
     {
+        #region Ad account id
         /// <summary>
         /// Test if ad account id has a vaid value
         /// </summary>
@@ -26,7 +29,8 @@
         /// </summary>
         public static bool IsValidAdAccountId(this string strId, long adAccountId)
         {
-            return adAccountId.IsValidAdAccountId() && string.Format("act_{0}",adAccountId).Equals(strId);
-        }
+            return adAccountId.IsValidAdAccountId() && string.Format("act_{0}", adAccountId).Equals(strId);
+        } 
+        #endregion
     }
 }
