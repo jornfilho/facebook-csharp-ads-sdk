@@ -7,11 +7,11 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
     /// </summary>
     public enum AdAccountFieldsEnum
     {
-        #region Params
         /// <summary>
         /// <para>Container for the ID, name, and status of the account's account groups</para>
         /// </summary>
         [FacebookName("account_groups")]
+        [IsParentObject(true)]
         AccountGroups,
 
         /// <summary>
@@ -36,6 +36,7 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
         /// <para>Details of the agency advertising on behalf of this client account, if applicable.</para>
         /// </summary>
         [FacebookName("agency_client_declaration")]
+        [IsParentObject(true)]
         AgencyClientDeclaration,
 
         /// <summary>
@@ -200,6 +201,7 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
         /// <summary>
         /// <para>Container for the user ID, permissions, and role</para>
         /// </summary>
+        [IsParentObject(true)]
         [FacebookName("users")]
         Users,
 
@@ -207,7 +209,6 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
         /// <para>Vat status code for the account. </para>
         /// </summary>
         [FacebookName("tax_id_status")]
-        TaxStatus, 
-        #endregion
+        TaxStatus
     }
 }

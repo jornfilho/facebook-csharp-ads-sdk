@@ -10,6 +10,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
     {
         private readonly int _value;
 
+        /// <summary>
+        /// Basic constructor with attribute value
+        /// </summary>
         public CurrencyOffsetAttribute(int value)
         {
             _value = value;

@@ -10,6 +10,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
     {
         private readonly string _value;
 
+        /// <summary>
+        /// Basic constructor with attribute value
+        /// </summary>
         public CurrencyGlobalNameAttribute(string value)
         {
             _value = value;

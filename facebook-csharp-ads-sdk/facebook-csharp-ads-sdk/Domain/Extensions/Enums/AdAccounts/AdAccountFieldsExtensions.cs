@@ -26,6 +26,18 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
         }
 
         /// <summary>
+        /// Get list of default ad account fields
+        /// </summary>
+        public static IList<AdAccountFieldsEnum> GetDefaultsAdAccountFieldsList()
+        {
+            return new List<AdAccountFieldsEnum>
+            {
+                AdAccountFieldsEnum.Id,
+                AdAccountFieldsEnum.AccountId
+            };
+        }
+
+        /// <summary>
         /// Get string list of facebook fields name
         /// </summary>
         public static string GetAdAccountFieldsName(this IList<AdAccountFieldsEnum> accountFieldsList)
@@ -52,6 +64,14 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Test if ad account field is a primitive or object value
+        /// </summary>
+        public static bool IsAdAccountFieldPrimitive(this AdAccountFieldsEnum accountField)
+        {
+            return !accountField.GetCustomEnumAttributeValue<IsParentObjectAttribute, bool>();
         }
     }
 }

@@ -11,11 +11,11 @@ namespace facebook_csharp_ads_sdk_ui_test
         {
 
             IFacebookSession facebookSession = new FacebookSessionRepository()
-                .SetUserAccessToken("a");
+                .SetUserAccessToken(UserToken);
 
             var api = new facebook_csharp_ads_sdk.Api.Api(facebookSession);
 
-            var adAccount = api.AdAccount().Read(1, new List<AdAccountFieldsEnum>()).Result;
+            var adAccount = api.AdAccount().Read(AccountId, new List<AdAccountFieldsEnum>()).Result;
         }
     }
 }

@@ -38,11 +38,8 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         {
             _facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
 
-            if (fields == null)
-                fields = AdAccountFieldsExtensions.GetAllAdAccountFieldsList();
-
-            if(!fields.Any())
-                fields = AdAccountFieldsExtensions.GetAllAdAccountFieldsList();
+            if (fields == null || !fields.Any())
+                fields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
 
             var fieldNames = fields.GetAdAccountFieldsName();
             

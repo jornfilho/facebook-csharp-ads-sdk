@@ -44,7 +44,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>If this is a personal or business account</para>
         /// </summary>
-        [JsonProperty("is_personal")]
         public bool? IsPersonal { get; private set; }
 
         /// <summary>

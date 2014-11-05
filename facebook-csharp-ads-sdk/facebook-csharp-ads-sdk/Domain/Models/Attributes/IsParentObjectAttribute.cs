@@ -3,24 +3,24 @@
 namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
 {
     /// <summary>
-    /// Class for custom attibutes used to get Facebook properties name
+    /// Class for custom attibutes used to get flag if field has an object or primitive value
     /// </summary>
     [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
-    public class FacebookNameAttribute : Attribute, IAttribute<string>
+    public class IsParentObjectAttribute : Attribute, IAttribute<bool>
     {
-        private readonly string _value;
-
         /// <summary>
         /// Basic constructor with attribute value
         /// </summary>
-        public FacebookNameAttribute(string value)
+        public IsParentObjectAttribute(bool value)
         {
             _value = value;
         }
 
-        public string Value
+        public bool Value
         {
             get { return _value; }
         }
+
+        private readonly bool _value;
     }
 }
