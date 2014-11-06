@@ -6,12 +6,12 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.BusinessRules.AdAccounts.Fina
     [TestClass]
     public class IsValidAdAccountSpendCapTest
     {
-        private double? _nullableInvalidValue1;
-        private double? _nullableInvalidValue2;
-        private double? _nullableValidValue;
-        private double _notNullableInvalidValue1;
-        private double _notNullableInvalidValue2;
-        private double _notNullableValidValue;
+        private long? _nullableInvalidValue1;
+        private long? _nullableInvalidValue2;
+        private long? _nullableValidValue;
+        private long _notNullableInvalidValue1;
+        private long _notNullableInvalidValue2;
+        private long _notNullableValidValue;
 
         [TestInitialize]
         public void Initialize()

@@ -1,5 +1,7 @@
 ﻿using System;
+using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -32,50 +34,79 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Facebook name: coupon
         /// </summary>
-        public FundingSourceCupon Cupon { get; private set; }
+        public FundingSourceCoupon Coupon { get; private set; }
         #endregion
 
         /// <summary>
         /// Set funding source values
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">id or type invalid</exception>
         public FundingSourceDetail SetFundingSourceDetailData(long id, string displayString, int type)
         {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException();
-
-            if (type <= 0)
-                throw new ArgumentOutOfRangeException();
+            if (id <= 0 || type <= 0)
+                return this;
 
             Id = id;
-
             if (!String.IsNullOrEmpty(displayString))
                 DisplayString = displayString;
-
             Type = type;
 
-            if (id > 0 || String.IsNullOrEmpty(displayString) || type > 0)
-                SetValid();
+            SetValid();
 
             return this;
         }
 
         /// <summary>
-        /// Set funding source cupon model
+        /// Set funding source coupon model
         /// </summary>
-        /// <exception cref="ArgumentNullException">cupon is null</exception>
-        /// <exception cref="ArgumentException">cupon has invalid value</exception>
-        public FundingSourceDetail SetFundingSourceCupon(FundingSourceCupon cupon)
+        /// <exception cref="ArgumentNullException">coupon is null</exception>
+        /// <exception cref="ArgumentException">coupon has invalid value</exception>
+        public FundingSourceDetail SetFundingSourceCoupon(FundingSourceCoupon coupon)
         {
-            if (cupon == null)
+            if (coupon == null)
                 throw new ArgumentNullException();
 
-            if (!cupon.IsValidData())
+            if (!coupon.IsValidData())
                 throw new ArgumentException();
 
-            Cupon = cupon;
+            Coupon = coupon;
 
             SetValid();
+
+            return this;
+        }
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public FundingSourceDetail ParseApiResponse(JToken jsonResult)
+        {
+            if (jsonResult == null)
+                return this;
+
+            #region Summary
+            long id = 0;
+            if (jsonResult["id"] != null && jsonResult["id"].Type == JTokenType.Integer)
+                id = jsonResult["id"].ToString().TryParseLong();
+
+            string displayString = null;
+            if (jsonResult["display_string"] != null && jsonResult["display_string"].Type == JTokenType.String)
+                displayString = jsonResult["display_string"].ToString();
+
+            int type = 0;
+            if (jsonResult["type"] != null && jsonResult["type"].Type == JTokenType.Integer)
+                type = jsonResult["type"].ToString().TryParseInt();
+
+            SetFundingSourceDetailData(id, displayString, type);
+            #endregion
+
+            #region Coupon
+            if (jsonResult["coupon"] != null && jsonResult["coupon"].Type == JTokenType.Object)
+            {
+                var coupon = new FundingSourceCoupon().ParseApiResponse(jsonResult["coupon"]);
+                if (coupon.IsValidData())
+                    SetFundingSourceCoupon(coupon);
+            }
+            #endregion
 
             return this;
         }

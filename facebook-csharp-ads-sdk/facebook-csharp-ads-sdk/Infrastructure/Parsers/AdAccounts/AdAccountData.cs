@@ -48,10 +48,25 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
         {
             var result = new AdAccount();
 
+            var businesInformations = new BusinessInformations();
+            var businessFields = businesInformations.GetFields();
+            var hasBusinessInformationsFields = false;
+            
+            var timezoneInformations = new TimezoneInformations();
+            var timezoneFields = timezoneInformations.GetFields();
+            var hasTimezoneInformationsFields = false;
+
             var fieldsCount = adAccountFields.Count;
             for (var index = 0; index < fieldsCount; index++)
             {
                 var currentField = adAccountFields[index];
+
+                if (businessFields.Contains(currentField))
+                    hasBusinessInformationsFields = true;
+
+                if (timezoneFields.Contains(currentField))
+                    hasTimezoneInformationsFields = true;
+
                 if (currentField.IsAdAccountFieldPrimitive())
                     continue;
 
@@ -65,7 +80,14 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
 
                         var groupCount = adAccountGroups.Count;
                         for (var groupIndex = 0; groupIndex < groupCount; groupIndex++)
-                            result.SetAdAccountGroup(adAccountGroups[groupIndex]);
+                        {
+                            var currentGroup = adAccountGroups[groupIndex];
+                            if (!currentGroup.IsValidData())
+                                continue;
+
+                            result.SetAdAccountGroup(currentGroup);
+                        }
+                            
 
                         break; 
                         #endregion
@@ -73,7 +95,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
                     case AdAccountFieldsEnum.AgencyClientDeclaration:
                         #region Parse Agency Client Declaration
                         var agency = AgencyClientDeclaration(adAccountData);
-                        if (agency == null)
+                        if (agency == null || !agency.IsValidData())
                             break;
 
                         result.SetAdAccountAgencyDeclaration(agency);
@@ -88,16 +110,41 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
 
                         var usersCount = users.Count;
                         for (var userIndex = 0; userIndex < usersCount; userIndex++)
-                            result.SetAdAccountUser(users[usersCount]);
+                        {
+                            var currentUser = users[usersCount];
+                            if (!currentUser.IsValidData())
+                                continue;
+
+                            result.SetAdAccountUser(currentUser);
+                        }
+                            
 
                         break; 
                         #endregion
                 }
             }
 
+            if (hasBusinessInformationsFields)
+            {
+                businesInformations = BusinessInformations(adAccountData);
+                if (businesInformations != null && !businesInformations.IsValidData())
+                    result.SetAdAccountBusinessInformations(businesInformations);
+            }
 
+            if (hasTimezoneInformationsFields)
+            {
+                timezoneInformations = TimezoneInformations(adAccountData);
+                if (timezoneInformations != null && !timezoneInformations.IsValidData())
+                    result.SetAdAccountTimezoneInformations(timezoneInformations);
+            }
 
-            return adAccountObject;
+            var financialInformations = new FinancialInformations().ParseApiResponse(adAccountData);
+            if (financialInformations != null && financialInformations.IsValidData())
+                result.SetAdAccountFinancialInformations(financialInformations);
+            
+            BasicData(adAccountData, ref result);
+            
+            return result;
         }
 
         private static IList<AdAccountGroup> AccountGroups(JToken jsonResult)
@@ -121,6 +168,21 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
         }
 
         private static User User(JToken jsonResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static BusinessInformations BusinessInformations(JToken jsonResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static TimezoneInformations TimezoneInformations(JToken jsonResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void BasicData(JToken jsonResult, ref AdAccount adAccount)
         {
             throw new NotImplementedException();
         }

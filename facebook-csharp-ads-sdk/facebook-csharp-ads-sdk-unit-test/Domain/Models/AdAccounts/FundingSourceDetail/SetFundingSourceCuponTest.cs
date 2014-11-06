@@ -12,7 +12,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
         {
             new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
-                .SetFundingSourceCupon(InvalidFundingSourceDetailCupon1);
+                .SetFundingSourceCoupon(InvalidFundingSourceDetailCupon1);
         }
 
         [TestMethod]
@@ -21,7 +21,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
         {
             new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
-                .SetFundingSourceCupon(InvalidFundingSourceDetailCupon2);
+                .SetFundingSourceCoupon(InvalidFundingSourceDetailCupon2);
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
-                .SetFundingSourceCupon(ValidFundingSourceDetailCupon);
+                .SetFundingSourceCoupon(ValidFundingSourceDetailCoupon);
             
             Assert.IsTrue(model.IsValidData());
         }

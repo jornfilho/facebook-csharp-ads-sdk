@@ -112,9 +112,9 @@ namespace facebook_csharp_ads_sdk_unit_test
         public long InvalidAdAccountDailySpendLimit2;
         public long ValidAdAccountDailySpendLimit;
 
-        public double InvalidAdAccountSpendCap1;
-        public double InvalidAdAccountSpendCap2;
-        public double ValidAdAccountSpendCap;
+        public long InvalidAdAccountSpendCap1;
+        public long InvalidAdAccountSpendCap2;
+        public long ValidAdAccountSpendCap;
 
         public CurrenciesEnum InvalidFinancialInformationsCurrency;
         public CurrenciesEnum ValidFinancialInformationsCurrency;
@@ -130,7 +130,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public FinancialInformations ValidFinancialInformations;
         #endregion
 
-        #region FundingSourceCupon
+        #region FundingSourceCoupon
         public long ValidFundingSourceCuponAmount;
         public long InvalidFundingSourceCuponAmount1;
         public long InvalidFundingSourceCuponAmount2;
@@ -153,9 +153,9 @@ namespace facebook_csharp_ads_sdk_unit_test
         public int ValidFundingSourceDetailType;
         public int InvalidFundingSourceDetailType1;
         public int InvalidFundingSourceDetailType2;
-        public FundingSourceCupon ValidFundingSourceDetailCupon;
-        public FundingSourceCupon InvalidFundingSourceDetailCupon1;
-        public FundingSourceCupon InvalidFundingSourceDetailCupon2;
+        public FundingSourceCoupon ValidFundingSourceDetailCoupon;
+        public FundingSourceCoupon InvalidFundingSourceDetailCupon1;
+        public FundingSourceCoupon InvalidFundingSourceDetailCupon2;
         #endregion
 
         #region TimezoneInformations
@@ -343,14 +343,14 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidFundingSourceDetailType = 1;
             InvalidFundingSourceDetailType1 = 0;
             InvalidFundingSourceDetailType2 = -1;
-            ValidFundingSourceDetailCupon = new FundingSourceCupon()
+            ValidFundingSourceDetailCoupon = new FundingSourceCoupon()
                 .SetFundingSourceCuponData(
                     ValidAdAccountId,
                     ValidFundingSourceCuponCurrency,
                     ValidFundingSourceCuponExpirationDate,
                     ValidFundingSourceCuponDisplayAmount
                 );
-            InvalidFundingSourceDetailCupon1 = new FundingSourceCupon();
+            InvalidFundingSourceDetailCupon1 = new FundingSourceCoupon();
             InvalidFundingSourceDetailCupon2 = null;
         }
 

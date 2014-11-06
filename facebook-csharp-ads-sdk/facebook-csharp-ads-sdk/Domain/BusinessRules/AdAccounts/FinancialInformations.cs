@@ -53,7 +53,7 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
         /// <summary>
         /// Test if ad account financial spend cap has a vaid value
         /// </summary>
-        public static bool IsValidAdAccountSpendCap(this double spendCap)
+        public static bool IsValidAdAccountSpendCap(this long spendCap)
         {
             return spendCap > 0;
         }
@@ -61,7 +61,7 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
         /// <summary>
         /// Test if ad account financial spend cap has a vaid value
         /// </summary>
-        public static bool IsValidAdAccountSpendCap(this double? spendCap)
+        public static bool IsValidAdAccountSpendCap(this long? spendCap)
         {
             if (spendCap == null)
                 spendCap = 0;
