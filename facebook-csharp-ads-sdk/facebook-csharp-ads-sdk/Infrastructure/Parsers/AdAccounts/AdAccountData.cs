@@ -52,10 +52,6 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
             var businessFields = businesInformations.GetFields();
             var hasBusinessInformationsFields = false;
             
-            var timezoneInformations = new TimezoneInformations();
-            var timezoneFields = timezoneInformations.GetFields();
-            var hasTimezoneInformationsFields = false;
-
             var fieldsCount = adAccountFields.Count;
             for (var index = 0; index < fieldsCount; index++)
             {
@@ -63,9 +59,6 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
 
                 if (businessFields.Contains(currentField))
                     hasBusinessInformationsFields = true;
-
-                if (timezoneFields.Contains(currentField))
-                    hasTimezoneInformationsFields = true;
 
                 if (currentField.IsAdAccountFieldPrimitive())
                     continue;
@@ -131,12 +124,9 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
                     result.SetAdAccountBusinessInformations(businesInformations);
             }
 
-            if (hasTimezoneInformationsFields)
-            {
-                timezoneInformations = TimezoneInformations(adAccountData);
-                if (timezoneInformations != null && !timezoneInformations.IsValidData())
-                    result.SetAdAccountTimezoneInformations(timezoneInformations);
-            }
+            var timezoneInformations = new TimezoneInformations().ParseApiResponse(adAccountData);
+            if (timezoneInformations != null && timezoneInformations.IsValidData())
+                result.SetAdAccountTimezoneInformations(timezoneInformations);
 
             var financialInformations = new FinancialInformations().ParseApiResponse(adAccountData);
             if (financialInformations != null && financialInformations.IsValidData())

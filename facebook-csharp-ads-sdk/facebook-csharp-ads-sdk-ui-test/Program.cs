@@ -9,7 +9,6 @@ namespace facebook_csharp_ads_sdk_ui_test
     {
         static void Main(string[] args)
         {
-
             IFacebookSession facebookSession = new FacebookSessionRepository()
                 .SetUserAccessToken(UserToken);
 
