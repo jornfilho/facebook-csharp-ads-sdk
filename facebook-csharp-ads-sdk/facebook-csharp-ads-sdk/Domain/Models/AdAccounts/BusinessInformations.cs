@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -103,6 +104,45 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 AdAccountFieldsEnum.BusinessZip, 
                 AdAccountFieldsEnum.BusinessCountryCode
             };
+        }
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public BusinessInformations ParseApiResponse(JToken jsonResult)
+        {
+            if (jsonResult == null)
+                return this;
+
+            string businessName = null, businessStreet = null, businessStreet2 = null;
+            string businessCity = null, businessState = null, businessZip = null;
+            string businessCountryCode = null;
+
+            if (jsonResult["business_name"] != null && jsonResult["business_name"].Type == JTokenType.String)
+                businessName = jsonResult["business_name"].ToString();
+
+            if (jsonResult["business_street"] != null && jsonResult["business_street"].Type == JTokenType.String)
+                businessStreet = jsonResult["business_street"].ToString();
+            
+            if (jsonResult["business_street2"] != null && jsonResult["business_street2"].Type == JTokenType.String)
+                businessStreet2 = jsonResult["business_street2"].ToString();
+
+            if (jsonResult["business_city"] != null && jsonResult["business_city"].Type == JTokenType.String)
+                businessCity = jsonResult["business_city"].ToString();
+
+            if (jsonResult["business_state"] != null && jsonResult["business_state"].Type == JTokenType.String)
+                businessState = jsonResult["business_state"].ToString();
+
+            if (jsonResult["business_zip"] != null && jsonResult["business_zip"].Type == JTokenType.String)
+                businessZip = jsonResult["business_zip"].ToString();
+
+            if (jsonResult["business_country_code"] != null && jsonResult["business_country_code"].Type == JTokenType.String)
+                businessCountryCode = jsonResult["business_country_code"].ToString();
+
+            SetBusinessInformationsData(businessName, businessStreet, businessStreet2, businessCity, businessState,
+                businessZip, businessCountryCode);
+
+            return this;
         }
     }
     

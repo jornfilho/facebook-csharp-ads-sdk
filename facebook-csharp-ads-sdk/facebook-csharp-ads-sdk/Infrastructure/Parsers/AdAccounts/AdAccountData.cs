@@ -48,17 +48,10 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
         {
             var result = new AdAccount();
 
-            var businesInformations = new BusinessInformations();
-            var businessFields = businesInformations.GetFields();
-            var hasBusinessInformationsFields = false;
-            
             var fieldsCount = adAccountFields.Count;
             for (var index = 0; index < fieldsCount; index++)
             {
                 var currentField = adAccountFields[index];
-
-                if (businessFields.Contains(currentField))
-                    hasBusinessInformationsFields = true;
 
                 if (currentField.IsAdAccountFieldPrimitive())
                     continue;
@@ -117,13 +110,10 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
                 }
             }
 
-            if (hasBusinessInformationsFields)
-            {
-                businesInformations = BusinessInformations(adAccountData);
-                if (businesInformations != null && !businesInformations.IsValidData())
-                    result.SetAdAccountBusinessInformations(businesInformations);
-            }
-
+            var businesInformations = new BusinessInformations().ParseApiResponse(adAccountData);
+            if (businesInformations != null && businesInformations.IsValidData())
+                result.SetAdAccountBusinessInformations(businesInformations);
+            
             var timezoneInformations = new TimezoneInformations().ParseApiResponse(adAccountData);
             if (timezoneInformations != null && timezoneInformations.IsValidData())
                 result.SetAdAccountTimezoneInformations(timezoneInformations);
@@ -161,17 +151,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
         {
             throw new NotImplementedException();
         }
-
-        private static BusinessInformations BusinessInformations(JToken jsonResult)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static TimezoneInformations TimezoneInformations(JToken jsonResult)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         private static void BasicData(JToken jsonResult, ref AdAccount adAccount)
         {
             throw new NotImplementedException();
