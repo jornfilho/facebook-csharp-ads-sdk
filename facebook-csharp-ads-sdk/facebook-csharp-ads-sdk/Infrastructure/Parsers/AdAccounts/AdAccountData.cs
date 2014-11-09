@@ -78,9 +78,12 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
 
                     case AdAccountFieldsEnum.AgencyClientDeclaration:
                         #region Parse Agency Client Declaration
-                        var agency = AgencyClientDeclaration(adAccountData);
-                        if (agency == null || !agency.IsValidData())
+                        if (adAccountData["agency_client_declaration"] == null || adAccountData["agency_client_declaration"].Type != JTokenType.Object)
                             break;
+
+                        var agency = new AgencyClientDeclaration().ParseApiResponse(adAccountData["agency_client_declaration"]);
+                        if (!agency.IsValidData())
+                            continue;
 
                         result.SetAdAccountAgencyDeclaration(agency);
                         break; 
@@ -134,11 +137,6 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
         }
 
         private static AdAccountGroup AccountGroup(JToken jsonResult)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static AgencyClientDeclaration AgencyClientDeclaration(JToken jsonResult)
         {
             throw new NotImplementedException();
         }

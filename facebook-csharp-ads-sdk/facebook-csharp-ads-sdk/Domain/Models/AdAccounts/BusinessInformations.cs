@@ -55,34 +55,51 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             string businessStreet2, string businessCity, string businessState, 
             string businessZip, string businessCountryCode)
         {
+            bool isValid = false;
+
             if (!String.IsNullOrEmpty(businessName))
+            {
                 BusinessName = businessName;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessStreet))
+            {
                 BusinessStreet = businessStreet;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessStreet2))
+            {
                 BusinessStreet2 = businessStreet2;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessCity))
+            {
                 BusinessCity = businessCity;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessState))
+            {
                 BusinessState = businessState;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessZip))
+            {
                 BusinessZip = businessZip;
+                isValid = true;
+            }
 
             if (!String.IsNullOrEmpty(businessCountryCode))
+            {
                 BusinessCountryCode = businessCountryCode;
+                isValid = true;
+            }
 
-            if (!String.IsNullOrEmpty(businessName) ||
-                !String.IsNullOrEmpty(businessStreet) ||
-                !String.IsNullOrEmpty(businessStreet2) ||
-                !String.IsNullOrEmpty(businessCity) ||
-                !String.IsNullOrEmpty(businessState) ||
-                !String.IsNullOrEmpty(businessZip) ||
-                !String.IsNullOrEmpty(businessCountryCode))
+            if (isValid)
                 SetValid();
 
             return this;
