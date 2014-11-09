@@ -108,6 +108,11 @@
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
+    <Compile Include="Michel_Test\Domain\AdAccount.cs" />
+    <Compile Include="Michel_Test\Domain\BaseObject.cs" />
+    <Compile Include="Michel_Test\Interface\Repository\IAccountRepository.cs" />
+    <Compile Include="Michel_Test\Interface\Repository\IBaseRepository.cs" />
+    <Compile Include="Michel_Test\Repository\AccountRepository.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />

@@ -5,7 +5,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
     /// <summary>
     /// Class for custom attibutes used to get Facebook properties name
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
     public class FacebookNameAttribute : Attribute, IAttribute<string>
     {
         private readonly string _value;
