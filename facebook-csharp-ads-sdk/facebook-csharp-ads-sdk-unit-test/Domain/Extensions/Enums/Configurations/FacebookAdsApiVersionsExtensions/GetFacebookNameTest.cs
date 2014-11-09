@@ -15,7 +15,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Extensions.Enums.Configuratio
             var attributeValue = enumOption.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
 
             Assert.IsNotNull(attributeValue);
-            Assert.AreEqual(attributeValue, "v2.01");
+            Assert.AreEqual(attributeValue, "v2.1");
         }
     }
 }

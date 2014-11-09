@@ -1,7 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
+using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -32,24 +34,49 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// Set ad account group data.
         /// All fields are required.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Invalid accountGroupId</exception>
-        /// <exception cref="InvalidEnumArgumentException">Invalid name or status</exception>
         public AdAccountGroup SetAdAccountGroupData(long accountGroupId, string name, AdAccountGroupsStatusEnum status)
         {
             if (accountGroupId <= 0)
-                throw new ArgumentOutOfRangeException();
+                return this;
 
             if(String.IsNullOrEmpty(name))
-                throw new ArgumentException();
+                return this;
 
             if(status == AdAccountGroupsStatusEnum.Undefined)
-                throw new InvalidEnumArgumentException();
+                return this;
 
             AccountGroupId = accountGroupId;
             Name = name;
             Status = status;
 
             SetValid();
+
+            return this;
+        }
+
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public AdAccountGroup ParseApiResponse(JToken jsonResult)
+        {
+            if (jsonResult == null)
+                return this;
+
+            long groupId = 0;
+            string name = null;
+            var status = AdAccountGroupsStatusEnum.Undefined;
+
+            if (jsonResult["account_group_id"] != null && jsonResult["account_group_id"].Type == JTokenType.Integer)
+                groupId = jsonResult["account_group_id"].ToString().TryParseLong();
+
+            if (jsonResult["name"] != null && jsonResult["name"].Type == JTokenType.String)
+                name = jsonResult["name"].ToString();
+
+            if (jsonResult["status"] != null && jsonResult["status"].Type == JTokenType.Integer)
+                status = jsonResult["status"].ToString().TryParseInt().GetAdAccountGroupsStatusEnum();
+
+            SetAdAccountGroupData(groupId, name, status);
 
             return this;
         }
