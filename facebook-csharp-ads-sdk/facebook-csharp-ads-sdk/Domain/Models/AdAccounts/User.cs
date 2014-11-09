@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -38,24 +41,90 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <exception cref="InvalidEnumArgumentException">permissions or role has an invalid option value</exception>
         public User SetUserData(long id, IList<UserPermissionsEnum> permissions, UserRoleEnum role)
         {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException();
+            var isValid = false;
 
-            if (permissions == null)
-                throw new ArgumentNullException();
+            if (id > 0)
+            {
+                Id = id;
+                isValid = true;
+            }
 
-            if (permissions.Any(p=> p == UserPermissionsEnum.Undefined))
-                throw new InvalidEnumArgumentException();
+            if (permissions != null && permissions.Any())
+            {
+                var permissionCount = permissions.Count();
+                for (var permissionIndex = 0; permissionIndex < permissionCount; permissionIndex++)
+                {
+                    var currentPermission = permissions[permissionIndex];
+                    if(currentPermission == UserPermissionsEnum.Undefined)
+                        continue;
 
-            if(role == UserRoleEnum.Undefined)
-                throw new InvalidEnumArgumentException();
+                    if(Permissions == null)
+                        Permissions = new List<UserPermissionsEnum>();
 
-            Id = id;
-            Permissions = permissions;
-            Role = role;
+                    Permissions.Add(currentPermission);
+                }
+
+                if (Permissions != null && Permissions.Any())
+                    isValid = true;
+            }
+
+            if (role != UserRoleEnum.Undefined)
+            {
+                Role = role;
+                isValid = true;
+            }
             
-            SetValid();
+            if(isValid)
+                SetValid();
             
+            return this;
+        }
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public User ParseApiResponse(JToken jsonResult)
+        {
+            if (jsonResult == null)
+                return this;
+
+            long id = 0;
+            IList<UserPermissionsEnum> permissions = null;
+            var role = UserRoleEnum.Undefined;
+
+            if (jsonResult["uid"] != null && jsonResult["uid"].Type == JTokenType.Integer)
+                id = jsonResult["uid"].ToString().TryParseLong();
+
+            if (jsonResult["permissions"] != null && 
+                jsonResult["permissions"].Type == JTokenType.Array &&
+                jsonResult["permissions"].Any())
+            {
+                var permissionCount = jsonResult["permissions"].Count();
+                for (var permissionIndex = 0; permissionIndex < permissionCount; permissionIndex++)
+                {
+                    if(jsonResult["permissions"][permissionIndex] == null)
+                        continue;
+
+                    var currentPermission = jsonResult["permissions"][permissionIndex]
+                        .ToString()
+                        .TryParseInt()
+                        .GetUserPermissionEnum();
+
+                    if (currentPermission == UserPermissionsEnum.Undefined) 
+                        continue;
+
+                    if (permissions == null)
+                        permissions = new List<UserPermissionsEnum>();
+
+                    permissions.Add(currentPermission);
+                }
+            }
+
+            if (jsonResult["role"] != null && jsonResult["role"].Type == JTokenType.Integer)
+                role = jsonResult["role"].ToString().TryParseInt().GetUserRoleEnum();
+
+            SetUserData(id, permissions, role);
+
             return this;
         }
     }

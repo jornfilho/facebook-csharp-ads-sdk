@@ -5,6 +5,9 @@ using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
 {
+    /// <summary>
+    /// Extensions for CurrenciesEnum enum
+    /// </summary>
     public static class CurrenciesEnumExtensions
     {
         /// <summary>

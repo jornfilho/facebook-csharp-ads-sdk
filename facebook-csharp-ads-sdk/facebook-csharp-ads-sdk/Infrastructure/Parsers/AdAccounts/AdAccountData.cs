@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
@@ -90,22 +88,25 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
 
                     case AdAccountFieldsEnum.Users:
                         #region Parse Users
-                        var users = Users(adAccountData);
-                        if (users == null || !users.Any())
+                        if(adAccountData["users"] == null || adAccountData["users"].Type != JTokenType.Array)
                             break;
 
-                        var usersCount = users.Count;
+                        var usersCount = adAccountData["users"].Count();
+                        if(usersCount < 0)
+                            break;
+
                         for (var userIndex = 0; userIndex < usersCount; userIndex++)
                         {
-                            var currentUser = users[usersCount];
-                            if (!currentUser.IsValidData())
+                            var currentUser = adAccountData["users"][userIndex];
+                            if (currentUser == null || currentUser.Type != JTokenType.Object)
                                 continue;
 
-                            result.SetAdAccountUser(currentUser);
-                        }
-                            
+                            var userData = new User().ParseApiResponse(currentUser);
+                            if(!userData.IsValidData())
+                                continue;
 
-                        break; 
+                            result.SetAdAccountUser(userData);
+                        }
                         #endregion
                 }
             }
@@ -142,16 +143,6 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Parsers.AdAccounts
             throw new NotImplementedException();
         }
 
-        private static IList<User> Users(JToken jsonResult)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static User User(JToken jsonResult)
-        {
-            throw new NotImplementedException();
-        }
-        
         private static void BasicData(JToken jsonResult, ref AdAccount adAccount)
         {
             throw new NotImplementedException();

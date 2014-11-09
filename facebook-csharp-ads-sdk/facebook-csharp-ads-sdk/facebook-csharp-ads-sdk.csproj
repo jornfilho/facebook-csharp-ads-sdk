@@ -66,6 +66,8 @@
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\UserRoleEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\UserPermissionsEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\CurrenciesEnumExtensions.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCoupon.cs" />
     <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
