@@ -39,6 +39,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 return this;
 
             AccountGroupId = accountGroupId;
+
+            if(String.IsNullOrEmpty(name))
+                return this;
+
+            if(status == AdAccountGroupsStatusEnum.Undefined)
+                return this;
+
+            
             Name = name;
             Status = status;
 
