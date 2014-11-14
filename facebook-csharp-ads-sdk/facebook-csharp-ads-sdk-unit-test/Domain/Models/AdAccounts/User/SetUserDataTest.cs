@@ -1,5 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Linq;
+using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.User
@@ -15,43 +16,52 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.User
                 .SetUserData(InvalidUserUserId2, ValidUserPermissions, ValidUserRole);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.AreEqual(model.Id, default(long));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidUserId_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .User()
                 .SetUserData(InvalidUserUserId1, ValidUserPermissions, ValidUserRole);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Id, default(long));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void CantSetInvalidUserPermission_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .User()
                 .SetUserData(ValidUserUserId, InvalidUserPermissions2, ValidUserRole);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Permissions, default(IList<UserPermissionsEnum>));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidUserPermission_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .User()
                 .SetUserData(ValidUserUserId, InvalidUserPermissions1, ValidUserRole);
+
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.Permissions);
+            Assert.IsFalse(model.Permissions.Any(p => p.Equals(default(UserPermissionsEnum))));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidUserRole()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .User()
                 .SetUserData(ValidUserUserId, ValidUserPermissions, InvalidUserRole);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.Role, default(UserRoleEnum));
         }
         
         [TestMethod]

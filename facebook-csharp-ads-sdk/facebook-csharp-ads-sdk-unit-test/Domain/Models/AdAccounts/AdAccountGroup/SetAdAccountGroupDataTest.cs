@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccountGroup
@@ -8,68 +9,81 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccountGr
     public class SetAdAccountGroupDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAccountGroupIdOnAdAccountGroup_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccountGroup()
                 .SetAdAccountGroupData(
                     InvalidAdAccountGroupId1,
                     ValidAdAccountGroupName,
                     ValidAdAccountGroupStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAccountGroupIdOnAdAccountGroup_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccountGroup()
                 .SetAdAccountGroupData(
                     InvalidAdAccountGroupId2,
                     ValidAdAccountGroupName,
                     ValidAdAccountGroupStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidNameOnAdAccountGroup_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccountGroup()
                 .SetAdAccountGroupData(
                     ValidAdAccountGroupId,
                     InvalidAdAccountGroupName1,
                     ValidAdAccountGroupStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsTrue(model.IsValidData());
+            Assert.AreEqual(model.Name, default(string));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidNameOnAdAccountGroup_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccountGroup()
                 .SetAdAccountGroupData(
                     ValidAdAccountGroupId,
                     InvalidAdAccountGroupName2,
                     ValidAdAccountGroupStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsTrue(model.IsValidData());
+            Assert.AreEqual(model.Name, InvalidAdAccountGroupName2);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidStatusOnAdAccountGroup_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccountGroup()
                 .SetAdAccountGroupData(
                     ValidAdAccountGroupId,
                     ValidAdAccountGroupName,
                     InvalidAdAccountGroupStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsTrue(model.IsValidData());
+            Assert.AreEqual(model.Status, default(AdAccountGroupsStatusEnum));
         }
 
         [TestMethod]

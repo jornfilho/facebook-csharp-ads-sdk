@@ -7,39 +7,47 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.TimezoneInf
     public class SetTimezoneInformationsDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidTimezoneId_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .TimezoneInformations()
                 .SetTimezoneInformationsData(InvalidTimezoneId1, ValidTimezoneName, ValidTimezoneOffsetHoursFromUtc);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.TimezoneId, default(int));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidTimezoneId_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .TimezoneInformations()
                 .SetTimezoneInformationsData(InvalidTimezoneId2, ValidTimezoneName, ValidTimezoneOffsetHoursFromUtc);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.TimezoneId, default(int));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidTimezoneName_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .TimezoneInformations()
                 .SetTimezoneInformationsData(ValidTimezoneId, InvalidTimezoneName1, ValidTimezoneOffsetHoursFromUtc);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.TimezoneName, default(string));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidTimezoneName_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .TimezoneInformations()
                 .SetTimezoneInformationsData(ValidTimezoneId, InvalidTimezoneName2, ValidTimezoneOffsetHoursFromUtc);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.TimezoneName, default(string));
         }
 
         [TestMethod]
