@@ -43,11 +43,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         {
             var isValid = false;
 
-            if (id > 0)
-            {
-                Id = id;
-                isValid = true;
-            }
+            if (id <= 0)
+                return this;
+
+            Id = id;
 
             if (permissions != null && permissions.Any())
             {

@@ -7,22 +7,26 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
     public class SetClientAddressInformationsDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetClientAddressInformationsDataWhenAllFieldsAreNullOrEmpty_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AgencyClientDeclaration()
                 .SetClientAddressInformationsData(null, null, null, null, null, null, null, null);
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetClientAddressInformationsDataWhenAllFieldsAreNullOrEmpty_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AgencyClientDeclaration()
                 .SetClientAddressInformationsData(string.Empty, string.Empty, string.Empty, string.Empty,
                     string.Empty, string.Empty, string.Empty, string.Empty);
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
