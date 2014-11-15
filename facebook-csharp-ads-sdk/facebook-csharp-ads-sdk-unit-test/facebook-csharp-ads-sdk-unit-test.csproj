@@ -71,6 +71,7 @@
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppSecretTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppIdTest.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken\IsValidUserAccessTokenTest.cs" />
+    <Compile Include="Domain\Contracts\Commons\ValidDataTest.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
