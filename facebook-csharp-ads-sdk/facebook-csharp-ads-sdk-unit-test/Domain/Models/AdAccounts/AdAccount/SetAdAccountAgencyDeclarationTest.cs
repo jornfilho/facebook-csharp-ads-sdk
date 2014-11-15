@@ -7,23 +7,27 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     public class SetAdAccountAgencyDeclarationTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void CantSetNullAgencyClientDeclarationOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountAgencyDeclaration(null);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.AgencyClientDeclaration);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidAgencyClientDeclarationOnAdAccountData()
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AgencyClientDeclaration();
 
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountAgencyDeclaration(invalidData);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.AgencyClientDeclaration);
         }
 
         [TestMethod]

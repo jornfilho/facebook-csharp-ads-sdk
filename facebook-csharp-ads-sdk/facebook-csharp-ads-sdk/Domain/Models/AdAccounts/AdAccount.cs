@@ -228,18 +228,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set agency client declaration
         /// </summary>
-        /// <exception cref="ArgumentNullException">agencyClientDeclaration is null</exception>
-        /// <exception cref="ArgumentException">agencyClientDeclaration has invalid data</exception>
         public AdAccount SetAdAccountAgencyDeclaration(AgencyClientDeclaration agencyClientDeclaration)
         {
-            if (agencyClientDeclaration == null)
-                throw new ArgumentNullException();
-
-            if (!agencyClientDeclaration.IsValidData())
-                throw new ArgumentException();
+            if (agencyClientDeclaration == null || !agencyClientDeclaration.IsValidData())
+            {
+                AgencyClientDeclaration = null;
+                return this;
+            }
 
             AgencyClientDeclaration = agencyClientDeclaration;
-
             SetValid();
 
             return this;
