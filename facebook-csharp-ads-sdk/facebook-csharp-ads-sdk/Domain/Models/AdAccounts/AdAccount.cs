@@ -176,18 +176,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set business informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">businessInformations is null</exception>
-        /// <exception cref="ArgumentException">businessInformations has invalid data</exception>
         public AdAccount SetAdAccountBusinessInformations(BusinessInformations businessInformations)
         {
-            if (businessInformations == null)
-                throw new ArgumentNullException();
-
-            if (!businessInformations.IsValidData())
-                throw new ArgumentException();
+            if (businessInformations == null || !businessInformations.IsValidData())
+            {
+                BusinessInformations = null;
+                return this;
+            }
 
             BusinessInformations = businessInformations;
-
             SetValid();
 
             return this;
