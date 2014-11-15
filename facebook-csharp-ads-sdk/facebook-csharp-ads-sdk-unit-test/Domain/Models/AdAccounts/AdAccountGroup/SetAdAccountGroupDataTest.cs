@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccountGroup
 {
@@ -82,8 +79,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccountGr
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
-            Assert.AreEqual(model.Status, default(AdAccountGroupsStatusEnum));
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]

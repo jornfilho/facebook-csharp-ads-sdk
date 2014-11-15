@@ -45,34 +45,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public FundingSourceCoupon SetFundingSourceCuponData(long amount, CurrenciesEnum currency, DateTime? expiration, string displayAmount)
         {
 
-            bool isValid = false;
+            if (amount <= 0)
+                return this;
 
-            if (amount > 0)
-            {
-                Amount = amount;
-                isValid = true;
-            }
+            if (currency == CurrenciesEnum.UND)
+                return this;
 
-            if (currency != CurrenciesEnum.UND)
-            {
-                Currency = currency;
-                isValid = true;
-            }
 
-            if (expiration != null && expiration != DateTime.MinValue)
-            {
+            Amount = amount;
+            Currency = currency;
+
+            if (expiration != DateTime.MinValue)
                 Expiration = expiration;
-                isValid = true;
-            }
 
-            if (!String.IsNullOrEmpty(displayAmount))
-            {
-                DisplayAmount = displayAmount;
-                isValid = true;
-            }
+            DisplayAmount = displayAmount;
 
-            if(isValid)
-                SetValid();
+            SetValid();
 
             return this;
         }

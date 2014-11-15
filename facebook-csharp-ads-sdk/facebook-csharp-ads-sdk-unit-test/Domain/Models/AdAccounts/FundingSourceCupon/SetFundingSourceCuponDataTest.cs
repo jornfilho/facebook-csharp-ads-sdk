@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSourceCupon
 {
@@ -8,10 +6,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
     public class SetFundingSourceCuponDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingSourceCuponAmount_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCoupon()
                 .SetFundingSourceCuponData(
                     InvalidFundingSourceCuponAmount1,
@@ -19,13 +16,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                     ValidFundingSourceCuponExpirationDate,
                     ValidFundingSourceCuponDisplayAmount
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingSourceCuponAmount_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCoupon()
                 .SetFundingSourceCuponData(
                     InvalidFundingSourceCuponAmount2,
@@ -33,13 +32,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                     ValidFundingSourceCuponExpirationDate,
                     ValidFundingSourceCuponDisplayAmount
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidFundingSourceCuponCurrency_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCoupon()
                 .SetFundingSourceCuponData(
                     ValidFundingSourceCuponAmount,
@@ -47,6 +48,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                     ValidFundingSourceCuponExpirationDate,
                     ValidFundingSourceCuponDisplayAmount
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
         
         [TestMethod]
@@ -103,7 +107,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             Assert.AreEqual(model.Amount, ValidFundingSourceCuponAmount);
             Assert.AreEqual(model.Currency, ValidFundingSourceCuponCurrency);
             Assert.AreEqual(model.Expiration, ValidFundingSourceCuponExpirationDate);
-            Assert.IsNull(model.DisplayAmount);
+            Assert.AreEqual(model.DisplayAmount, InvalidFundingSourceCuponDisplayAmount1);
         }
 
         [TestMethod]

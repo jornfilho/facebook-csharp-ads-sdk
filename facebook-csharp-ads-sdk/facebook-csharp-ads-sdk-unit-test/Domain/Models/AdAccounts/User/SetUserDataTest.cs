@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
-using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.User
