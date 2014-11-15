@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
@@ -75,7 +74,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 isValid = true;
             }
 
-            if (dailySpendLimit.IsValidAdAccountDailySpendLimit())
+            if (IsValidAdAccountDailySpendLimit(dailySpendLimit))
             {
                 DailySpendLimit = dailySpendLimit;
                 isValid = true;
@@ -273,6 +272,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountBalance(long balance)
         {
             return balance > 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial daily spend limit has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountDailySpendLimit(long dailySpendLimit)
+        {
+            return dailySpendLimit > 0;
         }
     }
 }
