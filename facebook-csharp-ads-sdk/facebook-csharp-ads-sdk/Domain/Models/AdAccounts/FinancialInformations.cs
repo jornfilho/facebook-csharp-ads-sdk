@@ -63,7 +63,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         {
             bool isValid = false;
 
-            if (amountSpent.IsValidAdAccountAmountSpent())
+            if (IsValidAdAccountAmountSpent(amountSpent))
             {
                 AmountSpent = amountSpent;
                 isValid = true;
@@ -257,6 +257,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountSpendCap(long spendCap)
         {
             return spendCap > 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial amount spent has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountAmountSpent(long amountSpent)
+        {
+            return amountSpent > 0;
         }
     }
 }

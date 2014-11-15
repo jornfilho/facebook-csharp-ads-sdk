@@ -1,33 +1,10 @@
-﻿using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
-
-namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
+﻿namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
 {
     /// <summary>
     /// Class with business rules of ad account financial data
     /// </summary>
     public static class FinancialInformations
     {
-        #region Amount spent
-        /// <summary>
-        /// Test if ad account financial amount spent has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountAmountSpent(this long amountSpent)
-        {
-            return amountSpent > 0;
-        }
-
-        /// <summary>
-        /// Test if ad account financial amount spent has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountAmountSpent(this long? amountSpent)
-        {
-            if (amountSpent == null)
-                amountSpent = 0;
-
-            return amountSpent.Value.IsValidAdAccountAmountSpent();
-        }
-        #endregion
-
         #region Balance
         /// <summary>
         /// Test if ad account financial balance has a vaid value
