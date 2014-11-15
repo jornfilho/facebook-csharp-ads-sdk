@@ -121,7 +121,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <exception cref="ArgumentOutOfRangeException">When fundingSource has invalid value</exception>
         public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
-            if (!fundingSource.IsValidAdAccountFundingSourceId())
+            if (!IsValidAdAccountFundingSourceId(fundingSource))
                 throw new ArgumentOutOfRangeException();
 
             FundingSourceId = fundingSource;
@@ -241,6 +241,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountCurrency(CurrenciesEnum currency)
         {
             return !currency.Equals(CurrenciesEnum.UND);
+        }
+
+        /// <summary>
+        /// Test if ad account financial funding source id has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountFundingSourceId(long fundingSourceId)
+        {
+            return fundingSourceId > 0;
         }
     }
 }

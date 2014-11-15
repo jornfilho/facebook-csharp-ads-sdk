@@ -7,27 +7,6 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
     /// </summary>
     public static class FinancialInformations
     {
-        #region Funding source
-        /// <summary>
-        /// Test if ad account financial funding source id has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountFundingSourceId(this long fundingSourceId)
-        {
-            return fundingSourceId > 0;
-        }
-
-        /// <summary>
-        /// Test if ad account financial funding source id has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountFundingSourceId(this long? fundingSourceId)
-        {
-            if (fundingSourceId == null)
-                fundingSourceId = 0;
-
-            return fundingSourceId.Value.IsValidAdAccountFundingSourceId();
-        }
-        #endregion
-
         #region Spend Cap
         /// <summary>
         /// Test if ad account financial spend cap has a vaid value
