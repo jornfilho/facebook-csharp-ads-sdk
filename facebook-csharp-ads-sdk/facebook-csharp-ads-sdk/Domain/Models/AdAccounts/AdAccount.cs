@@ -193,18 +193,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set timezone informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">timezoneInformations is null</exception>
-        /// <exception cref="ArgumentException">timezoneInformations has invalid data</exception>
         public AdAccount SetAdAccountTimezoneInformations(TimezoneInformations timezoneInformations)
         {
-            if (timezoneInformations == null)
-                throw new ArgumentNullException();
-
-            if (!timezoneInformations.IsValidData())
-                throw new ArgumentException();
+            if (timezoneInformations == null || !timezoneInformations.IsValidData())
+            {
+                TimezoneInformations = null;
+                return this;
+            }
 
             TimezoneInformations = timezoneInformations;
-
             SetValid();
 
             return this;
