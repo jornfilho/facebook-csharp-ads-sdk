@@ -92,7 +92,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialSpendCap(long spendCap)
         {
-            if (!spendCap.IsValidAdAccountSpendCap())
+            if (!IsValidAdAccountSpendCap(spendCap))
                 return this;
 
             SpendCap = spendCap;
@@ -249,6 +249,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountFundingSourceId(long fundingSourceId)
         {
             return fundingSourceId > 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial spend cap has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountSpendCap(long spendCap)
+        {
+            return spendCap > 0;
         }
     }
 }

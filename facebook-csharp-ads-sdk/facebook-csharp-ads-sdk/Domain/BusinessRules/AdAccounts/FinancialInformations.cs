@@ -7,27 +7,6 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
     /// </summary>
     public static class FinancialInformations
     {
-        #region Spend Cap
-        /// <summary>
-        /// Test if ad account financial spend cap has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountSpendCap(this long spendCap)
-        {
-            return spendCap > 0;
-        }
-
-        /// <summary>
-        /// Test if ad account financial spend cap has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountSpendCap(this long? spendCap)
-        {
-            if (spendCap == null)
-                spendCap = 0;
-
-            return spendCap.Value.IsValidAdAccountSpendCap();
-        }
-        #endregion
-
         #region Amount spent
         /// <summary>
         /// Test if ad account financial amount spent has a vaid value
