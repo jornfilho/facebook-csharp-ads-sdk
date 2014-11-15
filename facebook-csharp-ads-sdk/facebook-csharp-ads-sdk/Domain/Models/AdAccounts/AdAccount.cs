@@ -210,15 +210,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">financialInformations is null</exception>
-        /// <exception cref="ArgumentException">financialInformations has invalid data</exception>
         public AdAccount SetAdAccountFinancialInformations(FinancialInformations financialInformations)
         {
-            if (financialInformations == null)
-                throw new ArgumentNullException();
-
-            if (!financialInformations.IsValidData())
-                throw new ArgumentException();
+            if (financialInformations == null || !financialInformations.IsValidData())
+            {
+                FinancialInformations = null;
+                return this;
+            }
 
             FinancialInformations = financialInformations;
 
