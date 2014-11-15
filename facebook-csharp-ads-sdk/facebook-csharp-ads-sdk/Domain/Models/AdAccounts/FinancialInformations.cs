@@ -69,7 +69,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 isValid = true;
             }
 
-            if (balance.IsValidAdAccountBalance())
+            if (IsValidAdAccountBalance(balance))
             {
                 Balance = balance;
                 isValid = true;
@@ -265,6 +265,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountAmountSpent(long amountSpent)
         {
             return amountSpent > 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial balance has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountBalance(long balance)
+        {
+            return balance > 0;
         }
     }
 }
