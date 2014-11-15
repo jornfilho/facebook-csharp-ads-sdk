@@ -106,7 +106,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialCurrency(CurrenciesEnum currency)
         {
-            if (!currency.IsValidAdAccountCurrency())
+            if (!IsValidAdAccountCurrency(currency))
                 return this;
 
             Currency = currency;
@@ -233,6 +233,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
             
             return this;
+        }
+
+        /// <summary>
+        /// Test if ad account currency has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountCurrency(CurrenciesEnum currency)
+        {
+            return !currency.Equals(CurrenciesEnum.UND);
         }
     }
 }

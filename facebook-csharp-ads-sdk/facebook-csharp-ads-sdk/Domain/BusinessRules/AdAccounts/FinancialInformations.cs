@@ -7,27 +7,6 @@ namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
     /// </summary>
     public static class FinancialInformations
     {
-        #region Currency
-        /// <summary>
-        /// Test if ad account currency has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountCurrency(this CurrenciesEnum currency)
-        {
-            return !currency.Equals(CurrenciesEnum.UND);
-        }
-
-        /// <summary>
-        /// Test if ad account currency has a vaid value
-        /// </summary>
-        public static bool IsValidAdAccountCurrency(this CurrenciesEnum? currency)
-        {
-            if (currency == null)
-                currency = CurrenciesEnum.UND;
-
-            return currency.Value.IsValidAdAccountCurrency();
-        }
-        #endregion
-
         #region Funding source
         /// <summary>
         /// Test if ad account financial funding source id has a vaid value

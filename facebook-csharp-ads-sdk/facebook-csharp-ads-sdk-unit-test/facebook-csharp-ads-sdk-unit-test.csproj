@@ -68,7 +68,6 @@
   <ItemGroup>
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountDailySpentLimitTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountBalanceTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountCurrencyTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountAmountSpentTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountSpendCapTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountFundingSourceTest.cs" />
