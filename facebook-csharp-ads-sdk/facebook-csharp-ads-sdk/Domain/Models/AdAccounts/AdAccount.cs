@@ -250,17 +250,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public AdAccount SetAdAccountGroup(AdAccountGroup accountGroup)
         {
             if (accountGroup == null)
-                throw new ArgumentNullException();
+            {
+                AccountGroups = null;
+                return this;
+            }
 
             if (!accountGroup.IsValidData())
-                throw new ArgumentException();
-
+                return this;
 
             if (AccountGroups == null)
                 AccountGroups = new List<AdAccountGroup>();
 
             AccountGroups.Add(accountGroup);
-
             SetValid();
 
             return this;

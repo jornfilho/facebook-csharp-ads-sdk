@@ -7,21 +7,27 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     public class SetAdAccountGroupTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void CantSetNullAdAccountGroupOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount().SetAdAccountGroup(null);
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+                .AdAccount()
+                .SetAdAccountGroup(null);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.AccountGroups);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidAdAccountGroupOnAdAccountData()
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccountGroup();
+            
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+                .AdAccount()
+                .SetAdAccountGroup(invalidData);
 
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount().SetAdAccountGroup(invalidData);
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.AccountGroups);
         }
 
         [TestMethod]
