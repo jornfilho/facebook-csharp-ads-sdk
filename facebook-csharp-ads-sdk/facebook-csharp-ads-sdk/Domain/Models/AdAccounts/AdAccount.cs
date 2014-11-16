@@ -299,6 +299,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         public AdAccount ParseSingleResult(string stringData, IList<AdAccountFieldsEnum> adAccountFields)
         {
             #region Test result and parse json
+
             if (String.IsNullOrEmpty(stringData))
                 return null;
 
@@ -311,16 +312,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (jsonResult["error"] != null)
             {
                 var errorModel = new ApiErrorModelV22().ParseApiResponse(jsonResult);
+                this.SetInvalid();
                 this.SetApiErrorResonse(errorModel);
 
                 return this;
             }
+            this.SetApiErrorResonse(null);
             #endregion
 
             if (adAccountFields == null)
                 adAccountFields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
 
-            var adAccountData = jsonResult["data"];
+            var adAccountData = jsonResult;
 
             var fieldsCount = adAccountFields.Count;
             for (var index = 0; index < fieldsCount; index++)
