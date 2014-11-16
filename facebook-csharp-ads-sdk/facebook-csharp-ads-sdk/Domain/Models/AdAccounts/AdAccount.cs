@@ -245,8 +245,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Add ad account group
         /// </summary>
-        /// <exception cref="ArgumentNullException">accountGroup is null</exception>
-        /// <exception cref="ArgumentException">accountGroup has invalid data</exception>
         public AdAccount SetAdAccountGroup(AdAccountGroup accountGroup)
         {
             if (accountGroup == null)
@@ -270,15 +268,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Add user model
         /// </summary>
-        /// <exception cref="ArgumentNullException">user is null</exception>
-        /// <exception cref="ArgumentException">user has invalid data</exception>
         public AdAccount SetAdAccountUser(User user)
         {
             if (user == null)
-                throw new ArgumentNullException();
+            {
+                Users = null;
+                return this;
+            }
 
-            if(!user.IsValidData())
-                throw new ArgumentException();
+            if (!user.IsValidData())
+                return this;
 
             if (Users == null)
                 Users = new List<User>();

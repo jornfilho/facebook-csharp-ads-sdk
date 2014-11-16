@@ -178,6 +178,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public long ValidUserUserId;
         public long InvalidUserUserId1;
         public long InvalidUserUserId2;
+        public User ValidAdAccountUser;
         #endregion 
         #endregion
 
@@ -422,6 +423,14 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidUserUserId = 1;
             InvalidUserUserId1 = 0;
             InvalidUserUserId2 = -1;
+            ValidAdAccountUser = new User().SetUserData(
+                1,
+                new List<UserPermissionsEnum>
+                {
+                    UserPermissionsEnum.BillingRead, 
+                    UserPermissionsEnum.BillingWrite
+                },
+                UserRoleEnum.Administrator);
         } 
         #endregion
 
