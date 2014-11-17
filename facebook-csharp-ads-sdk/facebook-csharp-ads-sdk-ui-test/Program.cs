@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using facebook_csharp_ads_sdk.Domain.Contracts.Services;
-using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Services;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 
 namespace facebook_csharp_ads_sdk_ui_test

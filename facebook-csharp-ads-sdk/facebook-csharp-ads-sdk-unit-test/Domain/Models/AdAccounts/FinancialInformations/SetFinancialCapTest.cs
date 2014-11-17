@@ -13,7 +13,11 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
                 .SetFinancialSpendCap(InvalidAdAccountSpendCap1);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+
+            if (InvalidAdAccountSpendCap1 >= 0)
+                Assert.IsTrue(model.IsValidData());
+            else
+                Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
@@ -24,7 +28,10 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
                 .SetFinancialSpendCap(InvalidAdAccountSpendCap2);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            if (InvalidAdAccountSpendCap2 >= 0)
+                Assert.IsTrue(model.IsValidData());
+            else
+                Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]

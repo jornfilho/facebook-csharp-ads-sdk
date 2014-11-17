@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
@@ -60,7 +59,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialSummary(long amountSpent, long balance, long dailySpendLimit)
         {
-            bool isValid = false;
+            var isValid = false;
 
             if (IsValidAdAccountAmountSpent(amountSpent))
             {
@@ -117,11 +116,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding source
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When fundingSource has invalid value</exception>
         public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
             if (!IsValidAdAccountFundingSourceId(fundingSource))
-                throw new ArgumentOutOfRangeException();
+                return this;
 
             FundingSourceId = fundingSource;
             SetValid();
@@ -132,15 +130,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding detail
         /// </summary>
-        /// <exception cref="ArgumentNullException">fundingSourceDetails is null</exception>
-        /// <exception cref="ArgumentException">fundingSourceDetails has an invalid value</exception>
         public FinancialInformations SetFinancialFundingDetail(FundingSourceDetail fundingSourceDetails)
         {
             if (fundingSourceDetails == null)
-                throw new ArgumentNullException();
+            {
+                FundingSourceDetails = null;
+                return this;
+            }
+
 
             if (!fundingSourceDetails.IsValidData())
-                throw new ArgumentException();
+                return this;
 
             if (FundingSourceDetails == null)
                 FundingSourceDetails = new List<FundingSourceDetail>();
@@ -247,7 +247,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private static bool IsValidAdAccountFundingSourceId(long fundingSourceId)
         {
-            return fundingSourceId > 0;
+            return fundingSourceId >= 0;
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private static bool IsValidAdAccountSpendCap(long spendCap)
         {
-            return spendCap > 0;
+            return spendCap >= 0;
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private static bool IsValidAdAccountAmountSpent(long amountSpent)
         {
-            return amountSpent > 0;
+            return amountSpent >= 0;
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private static bool IsValidAdAccountBalance(long balance)
         {
-            return balance > 0;
+            return balance >= 0;
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private static bool IsValidAdAccountDailySpendLimit(long dailySpendLimit)
         {
-            return dailySpendLimit > 0;
+            return dailySpendLimit >= 0;
         }
     }
 }

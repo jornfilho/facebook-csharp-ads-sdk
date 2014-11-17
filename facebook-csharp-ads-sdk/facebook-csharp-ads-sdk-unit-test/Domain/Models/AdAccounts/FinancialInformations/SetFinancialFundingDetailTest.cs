@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialInformations
@@ -7,21 +7,43 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
     public class SetFinancialFundingDetailTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void CantSendNullFundingSourceDetailToSetFinancialFundingDetail()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FinancialInformations()
                 .SetFinancialFundingDetail(InvalidFundingSourceDetail1);
+
+            Assert.IsNotNull(model);
+            if (InvalidFundingSourceDetail1 == null)
+            {
+                Assert.IsNull(model.FundingSourceDetails);
+                return;
+            }
+
+            if (!InvalidFundingSourceDetail1.IsValidData())
+                return;
+
+            Assert.AreEqual(model.FundingSourceDetails.FirstOrDefault(), InvalidFundingSourceDetail1);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSendInvalidFundingSourceDetailToSetFinancialFundingDetail()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FinancialInformations()
                 .SetFinancialFundingDetail(InvalidFundingSourceDetail2);
+
+            Assert.IsNotNull(model);
+            if (InvalidFundingSourceDetail2 == null)
+            {
+                Assert.IsNull(model.FundingSourceDetails);
+                return;
+            }
+
+            if (!InvalidFundingSourceDetail2.IsValidData())
+                return;
+
+            Assert.AreEqual(model.FundingSourceDetails.FirstOrDefault(), InvalidFundingSourceDetail2);
         }
 
         [TestMethod]
