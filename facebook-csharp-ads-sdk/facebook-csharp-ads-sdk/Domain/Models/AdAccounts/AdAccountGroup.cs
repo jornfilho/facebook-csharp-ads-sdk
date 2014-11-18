@@ -1,5 +1,4 @@
 ﻿using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
@@ -10,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Class to ad account group
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/adaccountgroup/ </para>
     /// </summary>
-    public class AdAccountGroup : ValidData
+    public class AdAccountGroup : BaseObject<AdAccountGroup>
     {
         #region Properties
         /// <summary>
@@ -75,6 +74,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             SetAdAccountGroupData(groupId, name, status);
 
             return this;
+        }
+
+        public override AdAccountGroup Read(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override AdAccountGroup ParseFacebookResponse(string response)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

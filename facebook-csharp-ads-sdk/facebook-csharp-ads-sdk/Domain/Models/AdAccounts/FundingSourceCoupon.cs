@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using DevUtils.DateTimeExtensions;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
@@ -13,7 +12,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Ad account funding source cupon class
     /// Without Facebook documentation for this model
     /// </summary>
-    public class FundingSourceCoupon : ValidData
+    public class FundingSourceCoupon : BaseObject<FundingSourceCoupon>
     {
         #region Properties
         /// <summary>
@@ -94,6 +93,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
             
             return this;
+        }
+
+        public override FundingSourceCoupon Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override FundingSourceCoupon ParseFacebookResponse(string response)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -102,12 +102,11 @@
     <Compile Include="Domain\Models\Attributes\IsParentObjectAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
-    <Compile Include="Domain\Contracts\Common\ValidData.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Michel_Test\Domain\AdAccount.cs" />
-    <Compile Include="Michel_Test\Domain\BaseObject.cs" />
+    <Compile Include="Domain\Models\BaseObject.cs" />
     <Compile Include="Michel_Test\Interface\Repository\IAccountRepository.cs" />
     <Compile Include="Michel_Test\Interface\Repository\IBaseRepository.cs" />
     <Compile Include="Michel_Test\Repository\AccountRepository.cs" />

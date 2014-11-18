@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
@@ -11,7 +10,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with financial ad account informations
     /// </summary>
-    public class FinancialInformations : ValidData
+    public class FinancialInformations : BaseObject<FinancialInformations>
     {
         #region Properties
 
@@ -280,6 +279,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         private static bool IsValidAdAccountDailySpendLimit(long dailySpendLimit)
         {
             return dailySpendLimit >= 0;
+        }
+
+        public override FinancialInformations Read(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override FinancialInformations ParseFacebookResponse(string response)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

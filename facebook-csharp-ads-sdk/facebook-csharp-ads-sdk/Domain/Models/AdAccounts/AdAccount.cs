@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
@@ -15,7 +14,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
     /// </summary>
-    public class AdAccount : ValidData
+    public class AdAccount : BaseObject<AdAccount>
     {
         #region Properties
         /// <summary>
@@ -294,7 +293,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// 
         /// </summary>
         /// <param name="stringData"></param>
-        /// <param name="adAccountFields"></param>
         /// <returns></returns>
         public AdAccount ParseSingleResult(string stringData)
         {
@@ -487,5 +485,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 mediaAgency, offsitePixelsTosAccepted, partner, tosAccepted, taxStatus);
         } 
         #endregion
+
+        public override AdAccount Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AdAccount ParseFacebookResponse(string response)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

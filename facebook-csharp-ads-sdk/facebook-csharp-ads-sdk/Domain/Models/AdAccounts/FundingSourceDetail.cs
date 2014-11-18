@@ -1,6 +1,5 @@
 ﻿using System;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -9,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Ad account funding source details class
     /// Without Facebook documentation for this model
     /// </summary>
-    public class FundingSourceDetail : ValidData
+    public class FundingSourceDetail : BaseObject<FundingSourceDetail>
     {
         #region Properties
         /// <summary>
@@ -108,6 +107,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
 
             return this;
+        }
+
+        public override FundingSourceDetail Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override FundingSourceDetail ParseFacebookResponse(string response)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,13 +1,15 @@
 ﻿using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 
-namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
+namespace facebook_csharp_ads_sdk.Domain.Models
 {
     /// <summary>
-    /// Class to indicate if class properties has valid data or only a new instance of class
+    ///     Base object to models 
     /// </summary>
-    public abstract class ValidData
+    /// <typeparam name="T"> Model </typeparam>
+    public abstract class BaseObject<T>
     {
         #region Properties
+
         /// <summary>
         /// Api error response model
         /// </summary>
@@ -16,7 +18,8 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
         /// <summary>
         /// Set true id has valid data
         /// </summary>
-        private bool IsValid { get; set; } 
+        private bool IsValid { get; set; }
+
         #endregion
 
         /// <summary>
@@ -64,5 +67,19 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
         {
             ApiErrorResponseData = errorResponse;
         }
+
+        /// <summary>
+        ///     Read a T in Facebook
+        /// </summary>
+        /// <param name="id"> Id of the object </param>
+        /// <returns> Entity with the passed id  </returns>
+        public abstract T Read(long id);
+
+        /// <summary>
+        ///     Does parse the response from Facebook
+        /// </summary>
+        /// <param name="response"> Model Json response </param>
+        /// <returns> Entity </returns>
+        public abstract T ParseFacebookResponse(string response);
     }
 }

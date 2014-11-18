@@ -1,6 +1,5 @@
 ﻿using System;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -8,7 +7,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class to agency client declaration
     /// </summary>
-    public class AgencyClientDeclaration : ValidData
+    public class AgencyClientDeclaration : BaseObject<AgencyClientDeclaration>
     {
         #region Properties
         /// <summary>
@@ -227,6 +226,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
 
             return this;
+        }
+
+        public override AgencyClientDeclaration Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AgencyClientDeclaration ParseFacebookResponse(string response)
+        {
+            throw new NotImplementedException();
         }
     }
 }
