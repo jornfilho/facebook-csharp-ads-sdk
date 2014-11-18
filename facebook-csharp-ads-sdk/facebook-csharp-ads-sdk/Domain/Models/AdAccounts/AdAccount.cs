@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
@@ -16,7 +17,30 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// </summary>
     public class AdAccount : BaseObject<AdAccount>
     {
+        #region Dependencies
+
+        /// <summary>
+        ///     Repository of the account interface
+        /// </summary>
+        private readonly IAccountRepository repository;
+
+        #endregion Dependencies
+
+        #region Constructor
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="repository"> Implementation of the account interface repository </param>
+        public AdAccount(IAccountRepository repository)
+        {
+            this.repository = repository;
+        }
+
+        #endregion Constructor
+
         #region Properties
+
         /// <summary>
         /// <para>The string act_{ad_account_id}</para>
         /// </summary>
@@ -486,6 +510,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         } 
         #endregion
 
+        
         public override AdAccount Read(long id)
         {
             throw new NotImplementedException();

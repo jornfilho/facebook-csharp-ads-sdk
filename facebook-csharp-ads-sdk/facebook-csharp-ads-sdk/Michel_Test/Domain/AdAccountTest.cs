@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevUtils.PrimitivesExtensions;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
-using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Attribute;
 using facebook_csharp_ads_sdk.Domain.Models;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
-using facebook_csharp_ads_sdk.Michel_Test.Interface.Repository;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Michel_Test.Domain
@@ -14,7 +13,7 @@ namespace facebook_csharp_ads_sdk.Michel_Test.Domain
     /// <summary>
     ///     Facebook Ad Account
     /// </summary>
-    public class AdAccount : BaseObject<AdAccount>
+    public class AdAccountTest : BaseObject<AdAccountTest>
     {
         #region Dependencies
         
@@ -31,7 +30,7 @@ namespace facebook_csharp_ads_sdk.Michel_Test.Domain
         ///     Constructor
         /// </summary>
         /// <param name="accountRepository"> Interface of ad account repository </param>
-        public AdAccount(IAccountRepository accountRepository)
+        public AdAccountTest(IAccountRepository accountRepository)
         {
             this.accountRepository = accountRepository;
         }
@@ -39,7 +38,7 @@ namespace facebook_csharp_ads_sdk.Michel_Test.Domain
         /// <summary>
         ///     Constructor
         /// </summary>
-        public AdAccount()
+        public AdAccountTest()
         {
         }
 
@@ -151,12 +150,12 @@ namespace facebook_csharp_ads_sdk.Michel_Test.Domain
         /// </summary>
         /// <param name="accountId"> Account id </param>
         /// <returns> New object of adAccount </returns>
-        public override AdAccount Read(long accountId)
+        public override AdAccountTest Read(long accountId)
         {
-            return this.accountRepository.Read(accountId);
+            throw new NotImplementedException();
         }
 
-        public override AdAccount ParseFacebookResponse(string response)
+        public override AdAccountTest ParseFacebookResponse(string response)
         {
             JObject facebookResponse = JObject.Parse(response);
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.FacebookSession;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
@@ -14,7 +14,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
     /// <summary>
     /// Implement Facebook AdAccount interface methods
     /// </summary>
-    public class AdAccountRespository : IAdAccount
+    public class AdAccountRespository : IAccountRepository
     {
         #region Properties
         private readonly IFacebookSession _facebookSession; 
@@ -34,7 +34,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         } 
         #endregion
 
-        public async Task<AdAccount> Read(long accountId, IList<AdAccountFieldsEnum> fields)
+        public async Task<AdAccount> Read(long id, IList<AdAccountFieldsEnum> fields)
         {
             _facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
 
@@ -44,7 +44,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             var fieldNames = fields.GetAdAccountFieldsName();
             
             var getEndpoint = _facebookSession.GetFacebookAdsApiConfiguration().AdAccountEndpoint;
-            getEndpoint = string.Format(getEndpoint, accountId, _facebookSession.GetUserAccessToken(), fieldNames);
+            getEndpoint = string.Format(getEndpoint, id, _facebookSession.GetUserAccessToken(), fieldNames);
 
             IRequest webRequest = new Request();
             var getRequest = await webRequest.GetAsync(getEndpoint);
@@ -54,7 +54,10 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
             throw new NotImplementedException();
         }
-    }
 
-    
+        public async Task<AdAccount> Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
