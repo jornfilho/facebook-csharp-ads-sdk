@@ -1,16 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
     [TestClass]
     public class SetAdAccountGroupTest : TestBase
     {
+        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository);
+        }
+
         [TestMethod]
         public void CantSetNullAdAccountGroupOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountGroup(null);
+            model.SetAdAccountGroup(null);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
@@ -21,9 +30,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccountGroup();
             
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountGroup(invalidData);
+            model.SetAdAccountGroup(invalidData);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
@@ -32,9 +39,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetSingleAdAccountGroupOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountGroup(ValidAdAccountGroup);
+            model.SetAdAccountGroup(ValidAdAccountGroup);
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.AccountGroups);
@@ -45,9 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetMultipleAdAccountGroupOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountGroup(ValidAdAccountGroup)
+            model.SetAdAccountGroup(ValidAdAccountGroup)
                 .SetAdAccountGroup(ValidAdAccountGroup);
 
             Assert.IsNotNull(model);

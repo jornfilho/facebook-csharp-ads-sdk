@@ -1,16 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
     [TestClass]
     public class SetAdAccountUserTest : TestBase
     {
+        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository);
+        }
+
         [TestMethod]
         public void CantSetNullAdAccountUserOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountUser(null);
+            model.SetAdAccountUser(null);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
@@ -21,9 +30,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.User();
             
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountUser(invalidData);
+            model.SetAdAccountUser(invalidData);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
@@ -32,9 +39,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetSingleAdAccountUserOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountUser(ValidAdAccountUser);
+            model.SetAdAccountUser(ValidAdAccountUser);
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.Users);
@@ -45,9 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetMultipleAdAccountUserOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountUser(ValidAdAccountUser)
+            model.SetAdAccountUser(ValidAdAccountUser)
                 .SetAdAccountUser(ValidAdAccountUser);
 
             Assert.IsNotNull(model);

@@ -1,11 +1,11 @@
-﻿using facebook_csharp_ads_sdk.Domain.Contracts.Common;
+﻿using facebook_csharp_ads_sdk.Domain.Models;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
 {
     [TestClass]
-    public class ValidDataTest : ValidData
+    public class BaseObjectTest : BaseObject<BaseObjectTest>
     {
         [TestMethod]
         public void SetInvalidTest()
@@ -55,6 +55,16 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             Assert.IsFalse(this.IsValidData());
             Assert.IsNotNull(this.GetApiErrorResonse());
 
+        }
+
+        public override BaseObjectTest Read(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override BaseObjectTest ParseFacebookResponse(string response)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

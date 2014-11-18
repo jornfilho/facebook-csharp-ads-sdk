@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using DevUtils.DateTimeExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
@@ -189,7 +189,7 @@ namespace facebook_csharp_ads_sdk_unit_test
 
         #region Repositories
         public IFacebookSession RepositoryFacebookSession;
-        public IAdAccount RepositoryAdAccount;
+        public IAccountRepository RepositoryAdAccount;
         #endregion
 
         [TestInitialize]

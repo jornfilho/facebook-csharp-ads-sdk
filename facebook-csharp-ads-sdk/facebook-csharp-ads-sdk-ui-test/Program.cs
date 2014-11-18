@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using facebook_csharp_ads_sdk.Domain.Contracts.Services;
-using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
-using facebook_csharp_ads_sdk.Michel_Test.Domain;
-using facebook_csharp_ads_sdk.Michel_Test.Interface.Repository;
-using facebook_csharp_ads_sdk.Michel_Test.Repository;
 
 namespace facebook_csharp_ads_sdk_ui_test
 {
@@ -23,7 +19,7 @@ namespace facebook_csharp_ads_sdk_ui_test
                 "CAADMSrKzEFUBAIpm5GqBA4fNNXNYdTZBqJtKxks0QSBt3k3ZBUsPLQhZB7DFvVKLZA4mZCjOTzIsJ7wx4rCZBs6ZAWrbn6GrqmMeTJZC24C46fYG764KzHAyqBQoc7PSW4SUgKFOdm8h8pdvhBwN3FLyLuqfxQhtfMndeWPl4JEOw2ZBZC426GfQuV22KPGPQJsaAL3m1i8yDH2fhVS3UAIHXe";
 
             IFacebookSession facebookSession = new FacebookSessionRepository().SetUserAccessToken(token);
-            IAccountRepository accountRepository = new AccountRepository(facebookSession);
+            IAccountRepository accountRepository = new AdAccountRespository(facebookSession);
 
             var account = new AdAccount(accountRepository).Read(100690260075287);
 
