@@ -3,57 +3,57 @@
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
     [TestClass]
-    public class SetAdAccountGroupTest : TestBase
+    public class SetAdAccountUserTest : TestBase
     {
         [TestMethod]
-        public void CantSetNullAdAccountGroupOnAdAccountData()
+        public void CantSetNullAdAccountUserOnAdAccountData()
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
-                .SetAdAccountGroup(null);
+                .SetAdAccountUser(null);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
         }
 
         [TestMethod]
-        public void CantSetInvalidAdAccountGroupOnAdAccountData()
+        public void CantSetInvalidAdAccountUserOnAdAccountData()
         {
-            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccountGroup();
+            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.User();
             
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
-                .SetAdAccountGroup(invalidData);
+                .SetAdAccountUser(invalidData);
 
             Assert.IsNotNull(model);
             Assert.IsNull(model.AccountGroups);
         }
 
         [TestMethod]
-        public void CantSetSingleAdAccountGroupOnAdAccountData()
+        public void CantSetSingleAdAccountUserOnAdAccountData()
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
-                .SetAdAccountGroup(ValidAdAccountGroup);
+                .SetAdAccountUser(ValidAdAccountUser);
 
             Assert.IsNotNull(model);
-            Assert.IsNotNull(model.AccountGroups);
+            Assert.IsNotNull(model.Users);
             Assert.IsTrue(model.IsValidData());
-            Assert.AreEqual(model.AccountGroups.Count, 1);
+            Assert.AreEqual(model.Users.Count, 1);
         }
 
         [TestMethod]
-        public void CantSetMultipleAdAccountGroupOnAdAccountData()
+        public void CantSetMultipleAdAccountUserOnAdAccountData()
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
-                .SetAdAccountGroup(ValidAdAccountGroup)
-                .SetAdAccountGroup(ValidAdAccountGroup);
+                .SetAdAccountUser(ValidAdAccountUser)
+                .SetAdAccountUser(ValidAdAccountUser);
 
             Assert.IsNotNull(model);
-            Assert.IsNotNull(model.AccountGroups);
+            Assert.IsNotNull(model.Users);
             Assert.IsTrue(model.IsValidData());
-            Assert.AreEqual(model.AccountGroups.Count, 2);
+            Assert.AreEqual(model.Users.Count, 2);
         }
     }
 }

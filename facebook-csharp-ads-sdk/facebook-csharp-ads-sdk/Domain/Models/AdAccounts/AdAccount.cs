@@ -176,18 +176,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set business informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">businessInformations is null</exception>
-        /// <exception cref="ArgumentException">businessInformations has invalid data</exception>
         public AdAccount SetAdAccountBusinessInformations(BusinessInformations businessInformations)
         {
-            if (businessInformations == null)
-                throw new ArgumentNullException();
-
-            if (!businessInformations.IsValidData())
-                throw new ArgumentException();
+            if (businessInformations == null || !businessInformations.IsValidData())
+            {
+                BusinessInformations = null;
+                return this;
+            }
 
             BusinessInformations = businessInformations;
-
             SetValid();
 
             return this;
@@ -196,18 +193,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set timezone informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">timezoneInformations is null</exception>
-        /// <exception cref="ArgumentException">timezoneInformations has invalid data</exception>
         public AdAccount SetAdAccountTimezoneInformations(TimezoneInformations timezoneInformations)
         {
-            if (timezoneInformations == null)
-                throw new ArgumentNullException();
-
-            if (!timezoneInformations.IsValidData())
-                throw new ArgumentException();
+            if (timezoneInformations == null || !timezoneInformations.IsValidData())
+            {
+                TimezoneInformations = null;
+                return this;
+            }
 
             TimezoneInformations = timezoneInformations;
-
             SetValid();
 
             return this;
@@ -216,15 +210,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial informations
         /// </summary>
-        /// <exception cref="ArgumentNullException">financialInformations is null</exception>
-        /// <exception cref="ArgumentException">financialInformations has invalid data</exception>
         public AdAccount SetAdAccountFinancialInformations(FinancialInformations financialInformations)
         {
-            if (financialInformations == null)
-                throw new ArgumentNullException();
-
-            if (!financialInformations.IsValidData())
-                throw new ArgumentException();
+            if (financialInformations == null || !financialInformations.IsValidData())
+            {
+                FinancialInformations = null;
+                return this;
+            }
 
             FinancialInformations = financialInformations;
 
@@ -236,18 +228,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set agency client declaration
         /// </summary>
-        /// <exception cref="ArgumentNullException">agencyClientDeclaration is null</exception>
-        /// <exception cref="ArgumentException">agencyClientDeclaration has invalid data</exception>
         public AdAccount SetAdAccountAgencyDeclaration(AgencyClientDeclaration agencyClientDeclaration)
         {
-            if (agencyClientDeclaration == null)
-                throw new ArgumentNullException();
-
-            if (!agencyClientDeclaration.IsValidData())
-                throw new ArgumentException();
+            if (agencyClientDeclaration == null || !agencyClientDeclaration.IsValidData())
+            {
+                AgencyClientDeclaration = null;
+                return this;
+            }
 
             AgencyClientDeclaration = agencyClientDeclaration;
-
             SetValid();
 
             return this;
@@ -256,22 +245,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Add ad account group
         /// </summary>
-        /// <exception cref="ArgumentNullException">accountGroup is null</exception>
-        /// <exception cref="ArgumentException">accountGroup has invalid data</exception>
         public AdAccount SetAdAccountGroup(AdAccountGroup accountGroup)
         {
             if (accountGroup == null)
-                throw new ArgumentNullException();
+            {
+                AccountGroups = null;
+                return this;
+            }
 
             if (!accountGroup.IsValidData())
-                throw new ArgumentException();
-
+                return this;
 
             if (AccountGroups == null)
                 AccountGroups = new List<AdAccountGroup>();
 
             AccountGroups.Add(accountGroup);
-
             SetValid();
 
             return this;
@@ -280,15 +268,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Add user model
         /// </summary>
-        /// <exception cref="ArgumentNullException">user is null</exception>
-        /// <exception cref="ArgumentException">user has invalid data</exception>
         public AdAccount SetAdAccountUser(User user)
         {
             if (user == null)
-                throw new ArgumentNullException();
+            {
+                Users = null;
+                return this;
+            }
 
-            if(!user.IsValidData())
-                throw new ArgumentException();
+            if (!user.IsValidData())
+                return this;
 
             if (Users == null)
                 Users = new List<User>();
@@ -307,9 +296,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <param name="stringData"></param>
         /// <param name="adAccountFields"></param>
         /// <returns></returns>
-        public AdAccount ParseSingleResult(string stringData, IList<AdAccountFieldsEnum> adAccountFields)
+        public AdAccount ParseSingleResult(string stringData)
         {
             #region Test result and parse json
+
             if (String.IsNullOrEmpty(stringData))
                 return null;
 
@@ -322,92 +312,67 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (jsonResult["error"] != null)
             {
                 var errorModel = new ApiErrorModelV22().ParseApiResponse(jsonResult);
+                this.SetInvalid();
                 this.SetApiErrorResonse(errorModel);
 
                 return this;
             }
+            this.SetApiErrorResonse(null);
             #endregion
 
-            if (adAccountFields == null)
-                adAccountFields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
+            var adAccountData = jsonResult;
 
-            var adAccountData = jsonResult["data"];
-
-            var fieldsCount = adAccountFields.Count;
-            for (var index = 0; index < fieldsCount; index++)
+            #region Parse Ad Account Groups
+            if (adAccountData["account_groups"] != null &&
+                    adAccountData["account_groups"].Type == JTokenType.Array &&
+                    adAccountData["account_groups"].Any())
             {
-                var currentField = adAccountFields[index];
-
-                if (currentField.IsAdAccountFieldPrimitive())
-                    continue;
-
-                switch (currentField)
+                var groupsCount = adAccountData["account_groups"].Count();
+                for (var groupIndex = 0; groupIndex < groupsCount; groupIndex++)
                 {
-                    case AdAccountFieldsEnum.AccountGroups:
-                        #region Parse Ad Account Groups
-                        if (adAccountData["account_groups"] == null || adAccountData["account_groups"].Type != JTokenType.Array)
-                            break;
+                    var currentGroup = adAccountData["account_groups"][groupIndex];
+                    if (currentGroup == null || currentGroup.Type != JTokenType.Object)
+                        continue;
 
-                        var groupsCount = adAccountData["account_groups"].Count();
-                        if (groupsCount < 0)
-                            break;
+                    var groupData = new AdAccountGroup().ParseApiResponse(currentGroup);
+                    if (!groupData.IsValidData())
+                        continue;
 
-                        for (var groupIndex = 0; groupIndex < groupsCount; groupIndex++)
-                        {
-                            var currentGroup = adAccountData["account_groups"][groupIndex];
-                            if (currentGroup == null || currentGroup.Type != JTokenType.Object)
-                                continue;
-
-                            var groupData = new AdAccountGroup().ParseApiResponse(currentGroup);
-                            if (!groupData.IsValidData())
-                                continue;
-
-                            this.SetAdAccountGroup(groupData);
-                        }
-
-                        break;
-                        #endregion
-
-                    case AdAccountFieldsEnum.AgencyClientDeclaration:
-                        #region Parse Agency Client Declaration
-                        if (adAccountData["agency_client_declaration"] == null || adAccountData["agency_client_declaration"].Type != JTokenType.Object)
-                            break;
-
-                        var agency = new AgencyClientDeclaration().ParseApiResponse(adAccountData["agency_client_declaration"]);
-                        if (!agency.IsValidData())
-                            continue;
-
-                        this.SetAdAccountAgencyDeclaration(agency);
-
-                        break;
-                        #endregion
-
-                    case AdAccountFieldsEnum.Users:
-                        #region Parse Users
-                        if (adAccountData["users"] == null || adAccountData["users"].Type != JTokenType.Array)
-                            break;
-
-                        var usersCount = adAccountData["users"].Count();
-                        if (usersCount < 0)
-                            break;
-
-                        for (var userIndex = 0; userIndex < usersCount; userIndex++)
-                        {
-                            var currentUser = adAccountData["users"][userIndex];
-                            if (currentUser == null || currentUser.Type != JTokenType.Object)
-                                continue;
-
-                            var userData = new User().ParseApiResponse(currentUser);
-                            if (!userData.IsValidData())
-                                continue;
-
-                            this.SetAdAccountUser(userData);
-                        }
-
-                        break;
-                        #endregion
+                    this.SetAdAccountGroup(groupData);
                 }
-            }
+            } 
+            #endregion
+
+            #region Parse Agency Client Declaration
+            if (adAccountData["agency_client_declaration"] != null &&
+                    adAccountData["agency_client_declaration"].Type == JTokenType.Object)
+            {
+                var agency = new AgencyClientDeclaration().ParseApiResponse(adAccountData["agency_client_declaration"]);
+                if (agency.IsValidData())
+                    this.SetAdAccountAgencyDeclaration(agency);
+            } 
+            #endregion
+
+            #region Parse Users
+            if (adAccountData["users"] != null &&
+                    adAccountData["users"].Type != JTokenType.Array &&
+                    adAccountData["users"].Any())
+            {
+                var usersCount = adAccountData["users"].Count();
+                for (var userIndex = 0; userIndex < usersCount; userIndex++)
+                {
+                    var currentUser = adAccountData["users"][userIndex];
+                    if (currentUser == null || currentUser.Type != JTokenType.Object)
+                        continue;
+
+                    var userData = new User().ParseApiResponse(currentUser);
+                    if (!userData.IsValidData())
+                        continue;
+
+                    this.SetAdAccountUser(userData);
+                }
+            } 
+            #endregion
 
             var businesInformations = new BusinessInformations().ParseApiResponse(adAccountData);
             if (businesInformations != null && businesInformations.IsValidData())
@@ -447,7 +412,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (jsonResult["id"] != null && jsonResult["id"].Type == JTokenType.String)
                 id = jsonResult["id"].ToString();
 
-            if (jsonResult["account_id"] != null && jsonResult["account_id"].Type == JTokenType.Integer)
+            if (jsonResult["account_id"] != null && (jsonResult["account_id"].Type == JTokenType.Integer || jsonResult["account_id"].Type == JTokenType.String))
                 accountId = jsonResult["account_id"].ToString().TryParseLong();
 
             if (jsonResult["name"] != null && jsonResult["name"].Type == JTokenType.String)
@@ -486,16 +451,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 }
             }
 
-            if (jsonResult["end_advertiser"] != null && jsonResult["end_advertiser"].Type == JTokenType.Integer)
+            if (jsonResult["end_advertiser"] != null && (jsonResult["end_advertiser"].Type == JTokenType.Integer || jsonResult["end_advertiser"].Type == JTokenType.String))
                 endAdvertiser = jsonResult["end_advertiser"].ToString().TryParseLong();
 
-            if (jsonResult["media_agency"] != null && jsonResult["media_agency"].Type == JTokenType.Integer)
+            if (jsonResult["media_agency"] != null && (jsonResult["media_agency"].Type == JTokenType.Integer || jsonResult["media_agency"].Type == JTokenType.String))
                 mediaAgency = jsonResult["media_agency"].ToString().TryParseLong();
 
             if (jsonResult["offsite_pixels_tos_accepted"] != null && jsonResult["offsite_pixels_tos_accepted"].Type == JTokenType.Boolean)
                 offsitePixelsTosAccepted = jsonResult["offsite_pixels_tos_accepted"].ToString().TryParseBool();
 
-            if (jsonResult["partner"] != null && jsonResult["partner"].Type == JTokenType.Integer)
+            if (jsonResult["partner"] != null && (jsonResult["partner"].Type == JTokenType.Integer || jsonResult["partner"].Type == JTokenType.String))
                 partner = jsonResult["partner"].ToString().TryParseLong();
 
             if (jsonResult["tos_accepted"] != null &&

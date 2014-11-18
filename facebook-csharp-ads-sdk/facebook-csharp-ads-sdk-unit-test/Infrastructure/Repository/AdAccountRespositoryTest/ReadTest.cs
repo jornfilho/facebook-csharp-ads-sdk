@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

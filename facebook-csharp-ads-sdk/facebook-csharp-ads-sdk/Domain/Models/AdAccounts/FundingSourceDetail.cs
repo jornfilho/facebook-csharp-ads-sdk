@@ -46,8 +46,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 return this;
 
             Id = id;
-            if (!String.IsNullOrEmpty(displayString))
-                DisplayString = displayString;
+            DisplayString = displayString;    
             Type = type;
 
             SetValid();

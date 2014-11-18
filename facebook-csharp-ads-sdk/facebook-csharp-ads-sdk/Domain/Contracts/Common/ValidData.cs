@@ -39,13 +39,22 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
         }
 
         /// <summary>
+        /// Set data invalid
+        /// </summary>
+        public void SetInvalid()
+        {
+            if (!IsValid)
+                return;
+
+            IsValid = false;
+        }
+
+        /// <summary>
         /// Get api error response data model
         /// </summary>
         public ApiErrorModelV22 GetApiErrorResonse()
         {
-            return IsValid 
-                ? null 
-                : ApiErrorResponseData;
+            return ApiErrorResponseData;
         }
 
         /// <summary>
@@ -53,7 +62,6 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
         /// </summary>
         public void SetApiErrorResonse(ApiErrorModelV22 errorResponse)
         {
-            IsValid = false;
             ApiErrorResponseData = errorResponse;
         }
     }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
@@ -9,10 +6,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     public class SetAdAccountBaseDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(InvalidAdAccountId))]
         public void CantSetOnlyAdAccounId()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     null,
@@ -29,13 +25,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof (InvalidAdAccountId))]
         public void CantSetInvalidAdAccountIdOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -52,13 +50,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidAdAccountId))]
         public void CantSetInvalidAdAccountIdOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -75,13 +75,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidAdAccountId))]
         public void CantSetInvalidStringAdAccountIdOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     InvalidAdAccountStrId1,
@@ -98,13 +100,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidAdAccountId))]
         public void CantSetInvalidStringAdAccountIdOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     InvalidAdAccountStrId2,
@@ -121,13 +125,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidAdAccountStatusOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -144,13 +150,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountAgeOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -167,13 +175,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountAgeOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -190,13 +200,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidAdAccountCapabilitiesOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -213,13 +225,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountEndAdvertiserOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -236,13 +250,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountEndAdvertiserOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -259,13 +275,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountMediaAgencyOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -282,13 +300,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountMediaAgencyOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -305,13 +325,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountPartnerOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -328,13 +350,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountPartnerOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -351,13 +375,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountTosAcceptedOnAdAccountData_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -374,13 +400,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     InvalidAdAccountTosAccepted1,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidAdAccountTosAcceptedOnAdAccountData_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -397,13 +425,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     InvalidAdAccountTosAccepted1,
                     null
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidEnumArgumentException))]
         public void CantSetInvalidAdAccountTaxStatusOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountBaseData(
                     ValidAdAccountStrId,
@@ -420,6 +450,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                     null,
                     InvalidAdAccountTaxStatus
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]

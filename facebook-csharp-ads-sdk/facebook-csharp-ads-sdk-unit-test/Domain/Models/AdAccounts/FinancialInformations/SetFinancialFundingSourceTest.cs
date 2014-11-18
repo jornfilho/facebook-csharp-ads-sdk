@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialInformations
 {
@@ -7,21 +6,29 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
     public class SetFinancialFundingSourceTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingSourceIdToFinancialInformations_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FinancialInformations()
                 .SetFinancialFundingSource(InvalidAdAccountFundingSourceId1);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.FundingSourceId, InvalidAdAccountFundingSourceId1 > 0 
+                ? InvalidAdAccountFundingSourceId1 
+                : default(long));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingSourceIdToFinancialInformations_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FinancialInformations()
                 .SetFinancialFundingSource(InvalidAdAccountFundingSourceId2);
+
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.FundingSourceId, InvalidAdAccountFundingSourceId2 > 0
+                ? InvalidAdAccountFundingSourceId2
+                : default(long));
         }
 
         [TestMethod]

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
@@ -7,23 +6,27 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     public class SetAdAccountTimezoneInformationsTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void CantSetNullTimezoneInformationsOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountTimezoneInformations(null);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.TimezoneInformations);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidTimezoneInformationsAdAccountData()
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.TimezoneInformations();
 
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountTimezoneInformations(invalidData);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.TimezoneInformations);
         }
 
         [TestMethod]

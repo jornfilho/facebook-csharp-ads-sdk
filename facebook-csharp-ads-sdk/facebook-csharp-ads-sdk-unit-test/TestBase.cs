@@ -71,6 +71,11 @@ namespace facebook_csharp_ads_sdk_unit_test
         public TaxStatusEnum InvalidAdAccountTaxStatus;
         public TaxStatusEnum InvalidAdAccountTaxStatus2;
         public TaxStatusEnum ValidAdAccountTaxStatus;
+        public string ValidAdAccountSingleResultResponse1;
+        public string InvalidAdAccountSingleResultResponse1;
+        public string InvalidAdAccountSingleResultResponse2;
+        public string InvalidAdAccountSingleResultResponse3;
+
         #endregion
 
         #region AdAccountGroup
@@ -178,6 +183,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         public long ValidUserUserId;
         public long InvalidUserUserId1;
         public long InvalidUserUserId2;
+        public User ValidAdAccountUser;
         #endregion 
         #endregion
 
@@ -269,6 +275,10 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidAdAccountTosAccepted = new List<long> { 1, 2, 3 };
             InvalidAdAccountTaxStatus = TaxStatusEnum.Undefined;
             ValidAdAccountTaxStatus = TaxStatusEnum.AccountIsAPersonalAccount;
+            ValidAdAccountSingleResultResponse1 = "{\"tax_id_status\": 5, \"tos_accepted\": {\"0123\": 1}, \"end_advertiser\": {\"category\": \"Company\",\"name\": \"Lorem ipsum\",\"id\": \"123456\"},\"account_groups\":[{\"account_group_id\":1,\"name\":\"Active group\",\"status\":1},{\"account_group_id\":2,\"name\":\"Deleted group\",\"status\":2}],\"account_id\":\"987654321\",\"account_status\":1,\"age\":31.161550925926,\"amount_spent\":11203,\"balance\":0,\"business_city\":\"Sorocaba\",\"business_country_code\":\"BR\",\"business_name\":\"Lorem ipsum dolor sit amet\",\"business_state\":\"SP\",\"business_street\":\"A. Lorem ipsum, 1422\",\"business_street2\":\"Dolor sit amet\",\"business_zip\":\"12345678\",\"capabilities\":[\"PREMIUM\",\"NEW_CAMPAIGN_STRUCTURE\",\"MOBILE_ADVERTISER_ID_UPLOAD\",\"LOOKALIKE_ADVANCED_CONFIG\",\"PRORATED_BUDGET\",\"OFFSITE_CONVERSION_HIGH_BID\",\"MOBILE_APP_REENGAGEMENT_ADS\",\"NEKO_DESKTOP_CANVAS_APP_ADS\",\"MOBILE_APP_VIDEO_ADS\",\"CAN_USE_IMPROVED_GEO\",\"HAS_AVAILABLE_PAYMENT_METHODS\",\"CAN_USE_OLD_AD_TYPES\",\"HAS_AD_SET_TARGETING\",\"CAN_USE_VIDEO_METRICS_BREAKDOWN\"],\"currency\":\"BRL\",\"daily_spend_limit\":11342,\"funding_source\":102030405060,\"funding_source_details\":{\"id\":\"102030405060\",\"type\":1,\"display_string\":\"MasterCard *1573\",\"coupon\":{\"amount\":7218,\"currency\":\"BRL\",\"expiration\":1418630400,\"display_amount\":\"R$72.18 BRL\"}},\"id\":\"act_987654321\",\"is_personal\":0,\"name\":\"Lorem ipsum dolor sit amet\",\"offsite_pixels_tos_accepted\":false,\"timezone_id\":25,\"timezone_name\":\"America/Sao_Paulo\",\"timezone_offset_hours_utc\":-2,\"users\":[{\"uid\":123,\"permissions\":[1,2,3,4,5,7],\"role\":1001},{\"uid\":456,\"permissions\":[2,3,4,7],\"role\":1002},{\"uid\":789,\"permissions\":[2,3,4,7],\"role\":1003}]}";
+            InvalidAdAccountSingleResultResponse1 = null;
+            InvalidAdAccountSingleResultResponse2 = "";
+            InvalidAdAccountSingleResultResponse3 = "{\"error\": {\"message\": \"Unsupported get request. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\",\"type\": \"GraphMethodException\",\"code\": 100}}";
         }
 
         private void AdAccountGroup()
@@ -422,6 +432,14 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidUserUserId = 1;
             InvalidUserUserId1 = 0;
             InvalidUserUserId2 = -1;
+            ValidAdAccountUser = new User().SetUserData(
+                1,
+                new List<UserPermissionsEnum>
+                {
+                    UserPermissionsEnum.BillingRead, 
+                    UserPermissionsEnum.BillingWrite
+                },
+                UserRoleEnum.Administrator);
         } 
         #endregion
 

@@ -1,6 +1,4 @@
-﻿using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
-
-namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
+﻿namespace facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts
 {
     /// <summary>
     /// Class with business rules of ad account basic data

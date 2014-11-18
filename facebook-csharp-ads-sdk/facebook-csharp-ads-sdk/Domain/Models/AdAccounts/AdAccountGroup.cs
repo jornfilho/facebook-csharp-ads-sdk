@@ -1,5 +1,4 @@
-﻿using System;
-using DevUtils.PrimitivesExtensions;
+﻿using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
@@ -39,10 +38,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (accountGroupId <= 0)
                 return this;
 
-            if(String.IsNullOrEmpty(name))
-                return this;
-
-            if(status == AdAccountGroupsStatusEnum.Undefined)
+            if (status == AdAccountGroupsStatusEnum.Undefined)
                 return this;
 
             AccountGroupId = accountGroupId;

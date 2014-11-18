@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSourceDetail
 {
@@ -7,29 +6,33 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
     public class SetFundingSourceDetailDataTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingDetailId_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
                 .SetFundingSourceDetailData(
                     InvalidFundingSourceDetailId1,
                     ValidFundingSourceDetailDisplayString,
                     ValidFundingSourceDetailType
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingDetailId_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
                 .SetFundingSourceDetailData(
                     InvalidFundingSourceDetailId2,
                     ValidFundingSourceDetailDisplayString,
                     ValidFundingSourceDetailType
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
@@ -43,7 +46,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                     ValidFundingSourceDetailType
                 );
 
-            Assert.IsNull(model.DisplayString);
+            Assert.IsNotNull(model);
+            Assert.AreEqual(model.DisplayString, InvalidFundingSourceDetailDisplayString1);
         }
 
         [TestMethod]
@@ -61,29 +65,33 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingDetailType_1()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
                 .SetFundingSourceDetailData(
                     ValidFundingSourceDetailId,
                     ValidFundingSourceDetailDisplayString,
                     InvalidFundingSourceDetailType1
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CantSetInvalidFundingDetailType_2()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail()
                 .SetFundingSourceDetailData(
                     ValidFundingSourceDetailId,
                     ValidFundingSourceDetailDisplayString,
                     InvalidFundingSourceDetailType2
                 );
+
+            Assert.IsNotNull(model);
+            Assert.IsFalse(model.IsValidData());
         }
         
         [TestMethod]

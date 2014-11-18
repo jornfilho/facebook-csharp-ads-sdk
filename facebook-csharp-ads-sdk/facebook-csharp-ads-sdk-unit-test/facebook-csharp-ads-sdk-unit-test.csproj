@@ -66,21 +66,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountDailySpentLimitTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountBalanceTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountCurrencyTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountAmountSpentTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountSpendCapTest.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations\IsValidAdAccountFundingSourceTest.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData\IsValidAdAccountIdTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAccessTokenTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppSecretTest.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppIdTest.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken\IsValidUserAccessTokenTest.cs" />
+    <Compile Include="Domain\Contracts\Commons\ValidDataTest.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount\ParseSingleResultTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountBusinessInformationsTest.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountUserTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountTimezoneInformationsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountFinancialInformationsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountAgencyDeclarationTest.cs" />

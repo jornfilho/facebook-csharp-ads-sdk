@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
@@ -7,23 +6,27 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     public class SetAdAccountFinancialInformationsTest : TestBase
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void CantSetNullFinancialInformationsOnAdAccountData()
         {
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountFinancialInformations(null);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.FinancialInformations);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void CantSetInvalidFinancialInformationsOnAdAccountData()
         {
             var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.FinancialInformations();
 
-            new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
+            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AdAccount()
                 .SetAdAccountFinancialInformations(invalidData);
+
+            Assert.IsNotNull(model);
+            Assert.IsNull(model.FinancialInformations);
         }
 
         [TestMethod]

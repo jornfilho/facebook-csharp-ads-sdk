@@ -54,9 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Api.cs" />
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
-    <Compile Include="Domain\BusinessRules\AdAccounts\FinancialInformations.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
     <Compile Include="Domain\Contracts\Services\IApi.cs" />

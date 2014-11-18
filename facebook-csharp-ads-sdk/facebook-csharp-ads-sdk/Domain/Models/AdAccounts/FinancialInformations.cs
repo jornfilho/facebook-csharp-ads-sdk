@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
@@ -61,21 +59,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialSummary(long amountSpent, long balance, long dailySpendLimit)
         {
-            bool isValid = false;
+            var isValid = false;
 
-            if (amountSpent.IsValidAdAccountAmountSpent())
+            if (IsValidAdAccountAmountSpent(amountSpent))
             {
                 AmountSpent = amountSpent;
                 isValid = true;
             }
 
-            if (balance.IsValidAdAccountBalance())
+            if (IsValidAdAccountBalance(balance))
             {
                 Balance = balance;
                 isValid = true;
             }
 
-            if (dailySpendLimit.IsValidAdAccountDailySpendLimit())
+            if (IsValidAdAccountDailySpendLimit(dailySpendLimit))
             {
                 DailySpendLimit = dailySpendLimit;
                 isValid = true;
@@ -92,7 +90,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialSpendCap(long spendCap)
         {
-            if (!spendCap.IsValidAdAccountSpendCap())
+            if (!IsValidAdAccountSpendCap(spendCap))
                 return this;
 
             SpendCap = spendCap;
@@ -106,7 +104,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public FinancialInformations SetFinancialCurrency(CurrenciesEnum currency)
         {
-            if (!currency.IsValidAdAccountCurrency())
+            if (!IsValidAdAccountCurrency(currency))
                 return this;
 
             Currency = currency;
@@ -118,11 +116,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding source
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">When fundingSource has invalid value</exception>
         public FinancialInformations SetFinancialFundingSource(long fundingSource)
         {
-            if (!fundingSource.IsValidAdAccountFundingSourceId())
-                throw new ArgumentOutOfRangeException();
+            if (!IsValidAdAccountFundingSourceId(fundingSource))
+                return this;
 
             FundingSourceId = fundingSource;
             SetValid();
@@ -133,15 +130,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// Set financial funding detail
         /// </summary>
-        /// <exception cref="ArgumentNullException">fundingSourceDetails is null</exception>
-        /// <exception cref="ArgumentException">fundingSourceDetails has an invalid value</exception>
         public FinancialInformations SetFinancialFundingDetail(FundingSourceDetail fundingSourceDetails)
         {
             if (fundingSourceDetails == null)
-                throw new ArgumentNullException();
+            {
+                FundingSourceDetails = null;
+                return this;
+            }
+
 
             if (!fundingSourceDetails.IsValidData())
-                throw new ArgumentException();
+                return this;
 
             if (FundingSourceDetails == null)
                 FundingSourceDetails = new List<FundingSourceDetail>();
@@ -233,6 +232,54 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
             
             return this;
+        }
+
+        /// <summary>
+        /// Test if ad account currency has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountCurrency(CurrenciesEnum currency)
+        {
+            return !currency.Equals(CurrenciesEnum.UND);
+        }
+
+        /// <summary>
+        /// Test if ad account financial funding source id has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountFundingSourceId(long fundingSourceId)
+        {
+            return fundingSourceId >= 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial spend cap has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountSpendCap(long spendCap)
+        {
+            return spendCap >= 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial amount spent has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountAmountSpent(long amountSpent)
+        {
+            return amountSpent >= 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial balance has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountBalance(long balance)
+        {
+            return balance >= 0;
+        }
+
+        /// <summary>
+        /// Test if ad account financial daily spend limit has a vaid value
+        /// </summary>
+        private static bool IsValidAdAccountDailySpendLimit(long dailySpendLimit)
+        {
+            return dailySpendLimit >= 0;
         }
     }
 }
