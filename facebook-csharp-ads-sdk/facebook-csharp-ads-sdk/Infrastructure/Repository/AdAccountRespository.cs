@@ -17,10 +17,16 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
     public class AdAccountRespository : IAccountRepository
     {
         #region Properties
-        private readonly IFacebookSession _facebookSession; 
+        
+        /// <summary>
+        ///     Instance of the facebook session
+        /// </summary>
+        private readonly IFacebookSession facebookSession;
+
         #endregion
 
         #region Constructor
+
         /// <summary>
         /// Repository constructor with an instance of Facebook Session
         /// </summary>
@@ -30,34 +36,45 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             if (facebookSession == null)
                 throw new ArgumentNullException();
 
-            _facebookSession = facebookSession;
+            this.facebookSession = facebookSession;
         } 
+
         #endregion
 
-        public async Task<AdAccount> Read(long id, IList<AdAccountFieldsEnum> fields)
-        {
-            _facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
-
-            if (fields == null || !fields.Any())
-                fields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
-
-            var fieldNames = fields.GetAdAccountFieldsName();
-            
-            var getEndpoint = _facebookSession.GetFacebookAdsApiConfiguration().AdAccountEndpoint;
-            getEndpoint = string.Format(getEndpoint, id, _facebookSession.GetUserAccessToken(), fieldNames);
-
-            IRequest webRequest = new Request();
-            var getRequest = await webRequest.GetAsync(getEndpoint);
-            
-
-
-
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        ///     Read a account by id
+        /// </summary>
+        /// <param name="id"> Id of the account </param>
+        /// <returns> Account with id and accountId fields </returns>
         public async Task<AdAccount> Read(long id)
         {
-            throw new NotImplementedException();
+            IList<AdAccountFieldsEnum> fields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
+            var accountResult = await this.Read(id, fields);
+            return accountResult;
+        }
+
+        /// <summary>
+        ///     Read a account by id and fields
+        /// </summary>
+        /// <param name="id"> Id of the account </param>
+        /// <param name="fields"> List of fields </param>
+        /// <returns> Account has passed fields, or null if there are problems </returns>
+        public async Task<AdAccount> Read(long id, IList<AdAccountFieldsEnum> fields)
+        {
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            if (fields == null || !fields.Any())
+            {
+                fields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
+            }
+
+            string fieldNames = fields.GetAdAccountFieldsName();
+            string accountEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdAccountEndpoint;
+            accountEndpoint = string.Format(accountEndpoint, id, this.facebookSession.GetUserAccessToken(), fieldNames);
+
+            IRequest webRequest = new Request();
+            var getRequest = await webRequest.GetAsync(accountEndpoint);
+            var account = new AdAccount(this).ParseFacebookResponse(getRequest);
+            return account;
         }
     }
 }
