@@ -15,7 +15,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
     /// </summary>
-    public class AdAccount : BaseObject<AdAccount>
+    public class AdAccount : BaseCrudObject<AdAccount>
     {
         #region Dependencies
 

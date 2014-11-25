@@ -7,7 +7,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class to agency client declaration
     /// </summary>
-    public class AgencyClientDeclaration : BaseObject<AgencyClientDeclaration>
+    public class AgencyClientDeclaration : BaseObject
     {
         #region Properties
         /// <summary>
@@ -226,16 +226,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
 
             return this;
-        }
-
-        public override AgencyClientDeclaration Read(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AgencyClientDeclaration ParseFacebookResponse(string response)
-        {
-            throw new NotImplementedException();
         }
     }
 }

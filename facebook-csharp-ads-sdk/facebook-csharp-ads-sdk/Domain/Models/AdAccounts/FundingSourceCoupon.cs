@@ -12,7 +12,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Ad account funding source cupon class
     /// Without Facebook documentation for this model
     /// </summary>
-    public class FundingSourceCoupon : BaseObject<FundingSourceCoupon>
+    public class FundingSourceCoupon : BaseObject
     {
         #region Properties
         /// <summary>
@@ -93,16 +93,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
             
             return this;
-        }
-
-        public override FundingSourceCoupon Read(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override FundingSourceCoupon ParseFacebookResponse(string response)
-        {
-            throw new NotImplementedException();
         }
     }
 }

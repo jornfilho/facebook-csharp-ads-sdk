@@ -8,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with ad account business informations
     /// </summary>
-    public class BusinessInformations : BaseObject<BusinessInformations>
+    public class BusinessInformations : BaseObject
     {
         #region Properties
         /// <summary>
@@ -159,16 +159,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 businessZip, businessCountryCode);
 
             return this;
-        }
-
-        public override BusinessInformations Read(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override BusinessInformations ParseFacebookResponse(string response)
-        {
-            throw new NotImplementedException();
         }
     }
     

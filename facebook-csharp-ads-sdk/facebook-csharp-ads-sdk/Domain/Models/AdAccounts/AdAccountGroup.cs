@@ -9,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// Class to ad account group
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/adaccountgroup/ </para>
     /// </summary>
-    public class AdAccountGroup : BaseObject<AdAccountGroup>
+    public class AdAccountGroup : BaseCrudObject<AdAccountGroup>
     {
         #region Properties
         /// <summary>

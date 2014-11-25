@@ -9,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with timezone ad account informations
     /// </summary>
-    public class TimezoneInformations : BaseObject<TimezoneInformations>
+    public class TimezoneInformations : BaseObject
     {
         #region Properties
         /// <summary>
@@ -95,16 +95,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             SetTimezoneInformationsData(timezoneId, timezoneName, timezoneOffsetHoursFromUtc);
 
             return this;
-        }
-
-        public override TimezoneInformations Read(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override TimezoneInformations ParseFacebookResponse(string response)
-        {
-            throw new NotImplementedException();
         }
     }
 }

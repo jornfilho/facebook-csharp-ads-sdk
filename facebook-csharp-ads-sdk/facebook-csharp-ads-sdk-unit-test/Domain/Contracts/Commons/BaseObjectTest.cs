@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
 {
     [TestClass]
-    public class BaseObjectTest : BaseObject<BaseObjectTest>
+    public class BaseObjectTest : BaseCrudObject<BaseObjectTest>
     {
         [TestMethod]
         public void SetInvalidTest()

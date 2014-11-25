@@ -13,7 +13,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <para>Class to ad account users</para>
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/aduser </para>
     /// </summary>
-    public class User : BaseObject<User>
+    public class User : BaseCrudObject<User>
     {
         #region Properties
         /// <summary>
