@@ -5,8 +5,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
     /// <summary>
     ///     Base object to models 
     /// </summary>
-    /// <typeparam name="T"> Model </typeparam>
-    public abstract class BaseObject<T>
+    public abstract class BaseObject
     {
         #region Properties
 
@@ -67,19 +66,5 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         {
             ApiErrorResponseData = errorResponse;
         }
-
-        /// <summary>
-        ///     Read a T in Facebook
-        /// </summary>
-        /// <param name="id"> Id of the object </param>
-        /// <returns> Entity with the passed id  </returns>
-        public abstract T Read(long id);
-
-        /// <summary>
-        ///     Does parse the response from Facebook
-        /// </summary>
-        /// <param name="response"> Model Json response </param>
-        /// <returns> Entity </returns>
-        public abstract T ParseFacebookResponse(string response);
     }
 }
