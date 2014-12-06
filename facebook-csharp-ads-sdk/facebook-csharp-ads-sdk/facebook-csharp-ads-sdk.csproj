@@ -57,9 +57,7 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
-    <Compile Include="Domain\Contracts\Services\IApi.cs" />
-    <Compile Include="Domain\Contracts\Services\IFacebookSession.cs" />
-    <Compile Include="Domain\Contracts\Services\IAdAccount.cs" />
+    <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
@@ -102,10 +100,13 @@
     <Compile Include="Domain\Models\Attributes\IsParentObjectAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
-    <Compile Include="Domain\Contracts\Common\ValidData.cs" />
+    <Compile Include="Domain\Models\BaseCrudObject.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
+    <Compile Include="Domain\Models\BaseObject.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\IBaseRepository.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />

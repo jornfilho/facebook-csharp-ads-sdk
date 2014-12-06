@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
@@ -14,7 +13,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <para>Class to ad account users</para>
     /// <para>Facebook reference: https://developers.facebook.com/docs/reference/ads-api/aduser </para>
     /// </summary>
-    public class User : ValidData
+    public class User : BaseCrudObject<User>
     {
         #region Properties
         /// <summary>
@@ -125,6 +124,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             SetUserData(id, permissions, role);
 
             return this;
+        }
+
+        public override User Read(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override User ParseFacebookResponse(string response)
+        {
+            throw new NotImplementedException();
         }
     }
 }

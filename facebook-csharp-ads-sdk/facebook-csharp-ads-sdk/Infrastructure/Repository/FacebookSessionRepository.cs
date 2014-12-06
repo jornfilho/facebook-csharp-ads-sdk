@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.App;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.Users;
-using facebook_csharp_ads_sdk.Domain.Contracts.Services;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.FacebookSession;
 using facebook_csharp_ads_sdk.Domain.Exceptions.App;
 using facebook_csharp_ads_sdk.Domain.Exceptions.Users;

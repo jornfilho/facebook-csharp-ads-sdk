@@ -5,7 +5,7 @@ using facebook_csharp_ads_sdk.Domain.Exceptions.App;
 using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
 using facebook_csharp_ads_sdk.Domain.Models.Configurations;
 
-namespace facebook_csharp_ads_sdk.Domain.Contracts.Services
+namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
 {
     /// <summary>
     /// Repository for Facebook sessions data

@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
 
-namespace facebook_csharp_ads_sdk.Domain.Contracts.Services
+namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
 {
     /// <summary>
-    /// Facebook AdAccount interface
+    ///     The account repository interface
     /// </summary>
-    public interface IAdAccount
+    public interface IAccountRepository : IBaseRepository<AdAccount>
     {
         Task<AdAccount> Read(long accountId, IList<AdAccountFieldsEnum> fields);
 

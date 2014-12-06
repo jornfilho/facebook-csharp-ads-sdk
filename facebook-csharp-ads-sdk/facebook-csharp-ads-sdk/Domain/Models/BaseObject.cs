@@ -1,13 +1,14 @@
 ﻿using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 
-namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
+namespace facebook_csharp_ads_sdk.Domain.Models
 {
     /// <summary>
-    /// Class to indicate if class properties has valid data or only a new instance of class
+    ///     Base object to models 
     /// </summary>
-    public abstract class ValidData
+    public abstract class BaseObject
     {
         #region Properties
+
         /// <summary>
         /// Api error response model
         /// </summary>
@@ -16,7 +17,8 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Common
         /// <summary>
         /// Set true id has valid data
         /// </summary>
-        private bool IsValid { get; set; } 
+        private bool IsValid { get; set; }
+
         #endregion
 
         /// <summary>

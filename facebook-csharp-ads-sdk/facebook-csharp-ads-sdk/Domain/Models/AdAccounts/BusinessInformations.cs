@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
 
@@ -9,7 +8,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// Class with ad account business informations
     /// </summary>
-    public class BusinessInformations : ValidData
+    public class BusinessInformations : BaseObject
     {
         #region Properties
         /// <summary>

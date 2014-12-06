@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
-using facebook_csharp_ads_sdk.Domain.Contracts.Common;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
@@ -15,9 +15,32 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
     /// </summary>
-    public class AdAccount : ValidData
+    public class AdAccount : BaseCrudObject<AdAccount>
     {
+        #region Dependencies
+
+        /// <summary>
+        ///     Repository of the account interface
+        /// </summary>
+        private readonly IAccountRepository repository;
+
+        #endregion Dependencies
+
+        #region Constructor
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="repository"> Implementation of the account interface repository </param>
+        public AdAccount(IAccountRepository repository)
+        {
+            this.repository = repository;
+        }
+
+        #endregion Constructor
+
         #region Properties
+
         /// <summary>
         /// <para>The string act_{ad_account_id}</para>
         /// </summary>
@@ -151,25 +174,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (taxStatus != null && taxStatus.Value.Equals(TaxStatusEnum.Undefined))
                 return this;
 
-            Id = id;
-            AccountId = accountId;
-            
-            if(!String.IsNullOrEmpty(name))
-                Name = name;
+            this.Id = id;
+            this.AccountId = accountId;
+            this.Name = name;
+            this.AccountStatus = accountStatus;
+            this.Age = age;
+            this.IsPersonal = isPersonal;
+            this.Capabilities = capabilities;
+            this.EndAdvertiser = endAdvertiser;
+            this.MediaAgency = mediaAgency;
+            this.OffsitePixelsTosAccepted = offsitePixelsTosAccepted;
+            this.Partner = partner;
+            this.TosAccepted = tosAccepted;
+            this.TaxStatus = taxStatus;
 
-            AccountStatus = accountStatus;
-            Age = age;
-            IsPersonal = isPersonal;
-            Capabilities = capabilities;
-            EndAdvertiser = endAdvertiser;
-            MediaAgency = mediaAgency;
-            OffsitePixelsTosAccepted = offsitePixelsTosAccepted;
-            Partner = partner;
-            TosAccepted = tosAccepted;
-            TaxStatus = taxStatus;
-
-            SetValid();
-
+            this.SetValid();
             return this;
         }
 
@@ -288,13 +307,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             return this;
         }
-
-        #region Parser
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="stringData"></param>
-        /// <param name="adAccountFields"></param>
         /// <returns></returns>
         public AdAccount ParseSingleResult(string stringData)
         {
@@ -387,9 +404,62 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 this.SetAdAccountFinancialInformations(financialInformations);
 
             this.ParseBasicDataResponse(adAccountData);
-
             return this;
         }
+        
+        /// <summary>
+        ///     Read a account by id and fields
+        /// </summary>
+        /// <param name="id"> Id of the account </param>
+        /// <param name="fields"> List of fields </param>
+        /// <returns> Account has passed fields, or null if there are problems </returns>
+        public AdAccount Read(long id, IList<AdAccountFieldsEnum> fields)
+        {
+            try
+            {
+                if (!id.IsValidAdAccountId())
+                {
+                    return this;
+                }
+
+                return this.repository.Read(id, fields).Result;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     Read a account by id
+        /// </summary>
+        /// <param name="id"> Id of the account </param>
+        /// <returns> Account with id and accountId fields </returns>
+        public override AdAccount Read(long id)
+        {
+            try
+            {
+                return !id.IsValidAdAccountId() ? this : this.repository.Read(id).Result;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
+        }
+        
+        /// <summary>
+        ///     Parse Facebook response to Model
+        /// </summary>
+        /// <param name="response"> Facebook response </param>
+        /// <returns> Instance with fields from Facebook response </returns>
+        public override AdAccount ParseFacebookResponse(string response)
+        {
+            var jsonResult = JObject.Parse(response);
+            this.ParseBasicDataResponse(jsonResult);
+            return this;
+        }
+
+        #region Private methods
 
         /// <summary>
         /// Parse Facebook Api response to model
@@ -399,12 +469,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (jsonResult == null)
                 return;
 
-            string id = null, name = null;
+            string id = null;
+            string name = null;
             long accountId = 0;
-            long? endAdvertiser = null, mediaAgency = null, partner = null;
+            long? endAdvertiser = null;
+            long? mediaAgency = null;
+            long? partner = null;
             float? age = null;
-            bool? isPersonal = null, offsitePixelsTosAccepted = null;
-            AdAccountStatusEnum? accountStatus = AdAccountStatusEnum.Undefined;
+            bool? isPersonal = null;
+            bool? offsitePixelsTosAccepted = null;
+            AdAccountStatusEnum? accountStatus = null;
             TaxStatusEnum? taxStatus = null;
             IList<CapabilitiesEnum> capabilities = null;
             IList<long> tosAccepted = null;
@@ -485,7 +559,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 
             this.SetAdAccountBaseData(id, accountId, name, accountStatus, age, isPersonal, capabilities, endAdvertiser,
                 mediaAgency, offsitePixelsTosAccepted, partner, tosAccepted, taxStatus);
-        } 
-        #endregion
+        }
+
+        #endregion Private methods
     }
 }

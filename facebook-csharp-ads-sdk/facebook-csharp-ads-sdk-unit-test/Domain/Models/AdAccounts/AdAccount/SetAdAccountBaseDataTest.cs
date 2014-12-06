@@ -1,16 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
     [TestClass]
     public class SetAdAccountBaseDataTest : TestBase
     {
+        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository);
+        }
+
         [TestMethod]
         public void CantSetOnlyAdAccounId()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     null,
                     ValidAdAccountId,
                     null,
@@ -33,9 +42,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountIdOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     InvalidAdAccountId1,
                     null,
@@ -58,9 +65,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountIdOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     InvalidAdAccountId2,
                     null,
@@ -83,9 +88,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidStringAdAccountIdOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     InvalidAdAccountStrId1,
                     ValidAdAccountId,
                     null,
@@ -108,9 +111,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidStringAdAccountIdOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     InvalidAdAccountStrId2,
                     ValidAdAccountId,
                     null,
@@ -133,9 +134,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountStatusOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -158,9 +157,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountAgeOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -183,9 +180,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountAgeOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -208,9 +203,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountCapabilitiesOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -233,9 +226,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountEndAdvertiserOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -258,9 +249,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountEndAdvertiserOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -283,9 +272,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountMediaAgencyOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -308,9 +295,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountMediaAgencyOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -333,9 +318,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountPartnerOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -358,9 +341,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountPartnerOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -383,9 +364,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountTosAcceptedOnAdAccountData_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -408,9 +387,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountTosAcceptedOnAdAccountData_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -433,9 +410,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountTaxStatusOnAdAccountData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     null,
@@ -458,9 +433,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CanSetAllPropertiesData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .SetAdAccountBaseData(
+            model.SetAdAccountBaseData(
                     ValidAdAccountStrId,
                     ValidAdAccountId,
                     ValidAdAccountName,
@@ -496,8 +469,6 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CanValidateData()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount();
             Assert.IsNotNull(model);
             Assert.IsFalse(model.IsValidData());
 
@@ -509,7 +480,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model)
         {
-            model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount();
+            model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(new AdAccountRespository(new FacebookSessionRepository()));
             Assert.IsFalse(model.IsValidData());
         }
     }

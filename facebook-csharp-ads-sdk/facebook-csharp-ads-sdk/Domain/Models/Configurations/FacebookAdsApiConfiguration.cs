@@ -53,7 +53,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         private void SetAdAccountConfigurations()
         {
             AdAccountFields = AdAccountFieldsExtensions.GetAllAdAccountFieldsList();
-            AdAccountEndpoint = GraphApiUrl + "act_{0}/access_token={1}&fields={2}";
+            AdAccountEndpoint = GraphApiUrl + "act_{0}?access_token={1}&fields={2}";
         }
     }
 }

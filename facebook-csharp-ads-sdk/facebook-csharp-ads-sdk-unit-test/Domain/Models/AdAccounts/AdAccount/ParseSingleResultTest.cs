@@ -1,17 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 {
     [TestClass]
     public class ParseSingleResultTest : TestBase
     {
+        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository);
+        }
+
         [TestMethod]
         public void CantParseInvalidSingleAdAccountFacebookResponse_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .ParseSingleResult(InvalidAdAccountSingleResultResponse1);
-
+            model.ParseSingleResult(InvalidAdAccountSingleResultResponse1);
             Assert.IsNull(model);
 
         }
@@ -19,10 +27,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantParseInvalidSingleAdAccountFacebookResponse_2()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .ParseSingleResult(InvalidAdAccountSingleResultResponse2);
-
+            model.ParseSingleResult(InvalidAdAccountSingleResultResponse2);
             Assert.IsNull(model);
 
         }
@@ -30,9 +35,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CanParseSingleAdAccountFacebookErrorResponse()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .ParseSingleResult(InvalidAdAccountSingleResultResponse3);
+            model.ParseSingleResult(InvalidAdAccountSingleResultResponse3);
 
             Assert.IsNotNull(model);
             Assert.IsFalse(model.IsValidData());
@@ -43,9 +46,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CanParseSingleAdAccountFacebookResponse_allFields_1()
         {
-            var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
-                .AdAccount()
-                .ParseSingleResult(ValidAdAccountSingleResultResponse1);
+            model.ParseSingleResult(ValidAdAccountSingleResultResponse1);
 
             Assert.IsNotNull(model);
             Assert.IsTrue(model.IsValidData());
