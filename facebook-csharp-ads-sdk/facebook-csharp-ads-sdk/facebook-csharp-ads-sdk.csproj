@@ -57,9 +57,13 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignBuyingType.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjective.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatus.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
@@ -94,6 +98,7 @@
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Domain\Utils\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
+    <Compile Include="Infrastructure\Repository\CampaignRepository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Domain\Models\BaseObject.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />

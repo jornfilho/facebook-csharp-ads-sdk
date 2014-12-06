@@ -1,5 +1,6 @@
 ﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 
 namespace facebook_csharp_ads_sdk_ui_test
@@ -14,13 +15,21 @@ namespace facebook_csharp_ads_sdk_ui_test
             //var api = new facebook_csharp_ads_sdk.Api.Api(facebookSession);
 
             //var adAccount = api.AdAccount().Read(AccountId, new List<AdAccountFieldsEnum>()).Result;
-                
 
-            IFacebookSession facebookSession = new FacebookSessionRepository().SetUserAccessToken("you_token");
+            string token =
+                "token";
+
+            IFacebookSession facebookSession = new FacebookSessionRepository().SetUserAccessToken(token);
             IAccountRepository accountRepository = new AdAccountRespository(facebookSession);
 
             var account = new AdAccount(accountRepository).ReadSingle(100690260075287);
 
+
+            
+
+            ICampaignRepository campaignRepository = new CampaignRepository(facebookSession);
+
+            var campaign = new AdCampaign(campaignRepository).ReadSingle(6015077391188);
 
         }
     }
