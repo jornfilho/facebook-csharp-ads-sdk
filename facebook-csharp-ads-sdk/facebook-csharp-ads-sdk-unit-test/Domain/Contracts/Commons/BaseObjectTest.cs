@@ -57,12 +57,12 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
 
         }
 
-        public override BaseObjectTest Read(long id)
+        public override BaseObjectTest ReadSingle(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public override BaseObjectTest ParseFacebookResponse(string response)
+        public override BaseObjectTest ParseSingleResponse(string response)
         {
             throw new System.NotImplementedException();
         }

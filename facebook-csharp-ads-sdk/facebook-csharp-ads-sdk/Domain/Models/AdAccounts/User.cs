@@ -126,12 +126,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             return this;
         }
 
-        public override User Read(long id)
+        public override User ReadSingle(long id)
         {
             throw new NotImplementedException();
         }
 
-        public override User ParseFacebookResponse(string response)
+        public override User ParseSingleResponse(string response)
         {
             throw new NotImplementedException();
         }

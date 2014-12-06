@@ -19,7 +19,7 @@ namespace facebook_csharp_ads_sdk_ui_test
             IFacebookSession facebookSession = new FacebookSessionRepository().SetUserAccessToken("you_token");
             IAccountRepository accountRepository = new AdAccountRespository(facebookSession);
 
-            var account = new AdAccount(accountRepository).Read(100690260075287);
+            var account = new AdAccount(accountRepository).ReadSingle(100690260075287);
 
 
         }

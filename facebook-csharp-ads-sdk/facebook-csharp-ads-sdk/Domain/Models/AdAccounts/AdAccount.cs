@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
@@ -22,7 +23,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         ///     Repository of the account interface
         /// </summary>
-        private readonly IAccountRepository repository;
+        private readonly IAccountRepository _repository;
 
         #endregion Dependencies
 
@@ -34,106 +35,124 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <param name="repository"> Implementation of the account interface repository </param>
         public AdAccount(IAccountRepository repository)
         {
-            this.repository = repository;
+            this._repository = repository;
         }
 
         #endregion Constructor
 
         #region Properties
-
         /// <summary>
         /// <para>The string act_{ad_account_id}</para>
         /// </summary>
+        [DefaultValue(null)]
         public string Id { get; private set; }
 
         /// <summary>
         /// <para>The ID of the ad account</para> 
         /// </summary>
+        [DefaultValue(0L)]
         public long AccountId { get; private set; }
 
         /// <summary>
         /// <para>Name of the account; note that many accounts are unnamed, so this field may be empty</para>
         /// </summary>
+        [DefaultValue(null)]
         public string Name { get; private set; }
 
         /// <summary>
         /// <para>Status of the account.</para>
         /// </summary>
+        [DefaultValue(null)]
         public AdAccountStatusEnum? AccountStatus { get; private set; }
 
         /// <summary>
         /// <para>Amount of time the ad account has been open, in days</para>
         /// </summary>
+        [DefaultValue(null)]
         public float? Age { get; private set; }
 
         /// <summary>
         /// <para>If this is a personal or business account</para>
         /// </summary>
+        [DefaultValue(null)]
         public bool? IsPersonal { get; private set; }
 
         /// <summary>
         /// Business account information
         /// </summary>
+        [DefaultValue(null)]
         public BusinessInformations BusinessInformations { get; private set; }
 
         /// <summary>
         /// Account timezone informations
         /// </summary>
+        [DefaultValue(null)]
         public TimezoneInformations TimezoneInformations { get; private set; }
         
         /// <summary>
         /// <para>Container for the ID, name, and status of the account's account groups</para>
         /// </summary>
+        [DefaultValue(null)]
         public IList<AdAccountGroup> AccountGroups { get; private set; }
 
         /// <summary>
         /// Financial account informations
         /// </summary>
+        [DefaultValue(null)]
         public FinancialInformations FinancialInformations { get; private set; }
 
         /// <summary>
         /// <para>Details of the agency advertising on behalf of this client account, if applicable.</para>
         /// </summary>
+        [DefaultValue(null)]
         public AgencyClientDeclaration AgencyClientDeclaration { get; private set; }
 
         /// <summary>
         /// <para>Zip code for business address</para>
         /// </summary>
+        [DefaultValue(null)]
         public IList<CapabilitiesEnum> Capabilities { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
+        [DefaultValue(null)]
         public long? EndAdvertiser { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
+        [DefaultValue(null)]
         public long? MediaAgency { get; private set; }
 
         /// <summary>
         /// <para>Indicates whether the offsite pixel Terms Of Service contract was signed</para>
         /// </summary>
+        [DefaultValue(null)]
         public bool? OffsitePixelsTosAccepted { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
+        [DefaultValue(null)]
         public long? Partner { get; private set; }
 
         /// <summary>
         /// <para>IDs of Terms of Service contracts signed</para>
         /// </summary>
+        [DefaultValue(null)]
         public IList<long> TosAccepted { get; private set; }
 
         /// <summary>
         /// <para>Container for the user ID, permissions, and role</para>
         /// </summary>
+        [DefaultValue(null)]
         public IList<User> Users { get; private set; }
 
         /// <summary>
         /// <para>Vat status code for the account. </para>
         /// </summary>
+        [DefaultValue(null)]
         public TaxStatusEnum? TaxStatus { get; private set; } 
         #endregion
 
@@ -422,7 +441,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                     return this;
                 }
 
-                return this.repository.Read(id, fields).Result;
+                return this._repository.Read(id, fields).Result;
             }
             catch (Exception)
             {
@@ -435,11 +454,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         /// <param name="id"> Id of the account </param>
         /// <returns> Account with id and accountId fields </returns>
-        public override AdAccount Read(long id)
+        public override AdAccount ReadSingle(long id)
         {
             try
             {
-                return !id.IsValidAdAccountId() ? this : this.repository.Read(id).Result;
+                return !id.IsValidAdAccountId() ? this : this._repository.Read(id).Result;
             }
             catch (Exception)
             {
@@ -452,7 +471,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         /// <param name="response"> Facebook response </param>
         /// <returns> Instance with fields from Facebook response </returns>
-        public override AdAccount ParseFacebookResponse(string response)
+        public override AdAccount ParseSingleResponse(string response)
         {
             var jsonResult = JObject.Parse(response);
             this.ParseBasicDataResponse(jsonResult);

@@ -11,13 +11,13 @@
         /// </summary>
         /// <param name="id"> Id of the object </param>
         /// <returns> Entity with the passed id  </returns>
-        public abstract T Read(long id);
+        public abstract T ReadSingle(long id);
 
         /// <summary>
         ///     Does parse the response from Facebook
         /// </summary>
         /// <param name="response"> Model Json response </param>
         /// <returns> Entity </returns>
-        public abstract T ParseFacebookResponse(string response);
+        public abstract T ParseSingleResponse(string response);
     }
 }
