@@ -60,6 +60,7 @@
     <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountGroupsStatusEnumExtensions.cs" />
@@ -97,11 +98,13 @@
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\FacebookFieldTypeAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IsParentObjectAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
     <Compile Include="Domain\Models\BaseCrudObject.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
+    <Compile Include="Domain\Utils\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Domain\Models\BaseObject.cs" />

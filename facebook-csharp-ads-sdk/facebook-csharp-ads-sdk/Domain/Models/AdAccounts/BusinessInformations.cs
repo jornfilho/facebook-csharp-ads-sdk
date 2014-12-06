@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -14,36 +16,50 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>The business name for the account</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_name")]
         public string BusinessName { get; private set; }
 
         /// <summary>
         /// <para>First line of the business street address for the account</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_street")]
         public string BusinessStreet { get; private set; }
 
         /// <summary>
         /// <para>Second line of the business street address for the account</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_street2")]
         public string BusinessStreet2 { get; private set; }
 
         /// <summary>
         /// <para>City for business address</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_city")]
         public string BusinessCity { get; private set; }
 
         /// <summary>
         /// <para>State abbreviation for business address</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_state")]
         public string BusinessState { get; private set; }
 
         /// <summary>
         /// <para>Zip code for business address</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_zip")]
         public string BusinessZip { get; private set; }
 
         /// <summary>
         /// <para>Country code for the business address</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("business_country_code")]
         public string BusinessCountryCode { get; private set; }
         #endregion
 

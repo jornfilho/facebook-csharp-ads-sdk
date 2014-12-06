@@ -20,7 +20,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         public void CantParseInvalidSingleAdAccountFacebookResponse_1()
         {
             model.ParseSingleResult(InvalidAdAccountSingleResultResponse1);
-            Assert.IsNull(model);
+            Assert.IsFalse(model.IsValidData());
 
         }
 
@@ -28,7 +28,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         public void CantParseInvalidSingleAdAccountFacebookResponse_2()
         {
             model.ParseSingleResult(InvalidAdAccountSingleResultResponse2);
-            Assert.IsNull(model);
+            Assert.IsFalse(model.IsValidData());
 
         }
 
