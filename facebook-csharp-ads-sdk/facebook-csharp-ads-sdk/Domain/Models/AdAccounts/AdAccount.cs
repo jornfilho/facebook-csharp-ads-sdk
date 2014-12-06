@@ -9,6 +9,7 @@ using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -45,36 +46,42 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <para>The string act_{ad_account_id}</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("id")]
         public string Id { get; private set; }
 
         /// <summary>
         /// <para>The ID of the ad account</para> 
         /// </summary>
         [DefaultValue(0L)]
+        [FacebookName("account_id")]
         public long AccountId { get; private set; }
 
         /// <summary>
         /// <para>Name of the account; note that many accounts are unnamed, so this field may be empty</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("name")]
         public string Name { get; private set; }
 
         /// <summary>
         /// <para>Status of the account.</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("account_status")]
         public AdAccountStatusEnum? AccountStatus { get; private set; }
 
         /// <summary>
         /// <para>Amount of time the ad account has been open, in days</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("age")]
         public float? Age { get; private set; }
 
         /// <summary>
         /// <para>If this is a personal or business account</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("is_personal")]
         public bool? IsPersonal { get; private set; }
 
         /// <summary>
@@ -93,6 +100,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <para>Container for the ID, name, and status of the account's account groups</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("account_groups")]
         public IList<AdAccountGroup> AccountGroups { get; private set; }
 
         /// <summary>
@@ -105,54 +113,63 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <para>Details of the agency advertising on behalf of this client account, if applicable.</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("agency_client_declaration")]
         public AgencyClientDeclaration AgencyClientDeclaration { get; private set; }
 
         /// <summary>
         /// <para>Zip code for business address</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("capabilities")]
         public IList<CapabilitiesEnum> Capabilities { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("end_advertiser")]
         public long? EndAdvertiser { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("media_agency")]
         public long? MediaAgency { get; private set; }
 
         /// <summary>
         /// <para>Indicates whether the offsite pixel Terms Of Service contract was signed</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("offsite_pixels_tos_accepted")]
         public bool? OffsitePixelsTosAccepted { get; private set; }
 
         /// <summary>
         /// <para>The ID of a Facebook Page or Facebook App</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("partner")]
         public long? Partner { get; private set; }
 
         /// <summary>
         /// <para>IDs of Terms of Service contracts signed</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("tos_accepted")]
         public IList<long> TosAccepted { get; private set; }
 
         /// <summary>
         /// <para>Container for the user ID, permissions, and role</para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("users")]
         public IList<User> Users { get; private set; }
 
         /// <summary>
         /// <para>Vat status code for the account. </para>
         /// </summary>
         [DefaultValue(null)]
+        [FacebookName("tax_id_status")]
         public TaxStatusEnum? TaxStatus { get; private set; } 
         #endregion
 
@@ -370,7 +387,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                     if (currentGroup == null || currentGroup.Type != JTokenType.Object)
                         continue;
 
-                    var groupData = new AdAccountGroup().ParseApiResponse(currentGroup);
+                    var groupData = new AdAccountGroup();
+                    groupData.ParseSingleResponse(currentGroup);
+
                     if (!groupData.IsValidData())
                         continue;
 

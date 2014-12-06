@@ -1,6 +1,8 @@
-﻿using DevUtils.PrimitivesExtensions;
+﻿using System;
+using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
-using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -15,25 +17,37 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// The account group ID, required for updating an account group
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("account_group_id")]
+        [FacebookFieldType(FacebookFieldType.Int64)]
         public long AccountGroupId { get; private set; }
 
         /// <summary>
         /// Name for the account group, and required when creating an account group; need not be unique; can be changed
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("name")]
+        [FacebookFieldType(FacebookFieldType.String)]
         public string Name { get; private set; }
 
         /// <summary>
         /// Determines whether the account has a status of active (1) or deleted (2)
         /// </summary>
+        [DefaultValue(AdAccountGroupsStatusEnum.Undefined)]
+        [FacebookName("status")]
+        [FacebookFieldType(FacebookFieldType.AdAccountGroupsStatusEnum)]
         public AdAccountGroupsStatusEnum Status { get; private set; }
         #endregion
 
+        #region Método de atribuição dos dados da classe
         /// <summary>
         /// Set ad account group data.
         /// All fields are required.
         /// </summary>
         public AdAccountGroup SetAdAccountGroupData(long accountGroupId, string name, AdAccountGroupsStatusEnum status)
         {
+            SetDefaultValues();
+
             if (accountGroupId <= 0)
                 return this;
 
@@ -47,43 +61,35 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             SetValid();
 
             return this;
-        }
+        } 
+        #endregion
 
-
+        #region Métodos para parse das respostas do Facebook
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public AdAccountGroup ParseApiResponse(JToken jsonResult)
+        public override AdAccountGroup ParseSingleResponse(string response)
         {
-            if (jsonResult == null)
+            SetDefaultValues();
+
+            if (String.IsNullOrEmpty(response))
                 return this;
 
-            long groupId = 0;
-            string name = null;
-            var status = AdAccountGroupsStatusEnum.Undefined;
+            var jsonObject = JObject.Parse(response);
+            if (jsonObject == null)
+                return this;
 
-            if (jsonResult["account_group_id"] != null && jsonResult["account_group_id"].Type == JTokenType.Integer)
-                groupId = jsonResult["account_group_id"].ToString().TryParseLong();
-
-            if (jsonResult["name"] != null && jsonResult["name"].Type == JTokenType.String)
-                name = jsonResult["name"].ToString();
-
-            if (jsonResult["status"] != null && jsonResult["status"].Type == JTokenType.Integer)
-                status = jsonResult["status"].ToString().TryParseInt().GetAdAccountGroupsStatusEnum();
-
-            SetAdAccountGroupData(groupId, name, status);
-
+            ParseSingleResponse(jsonObject);
             return this;
         }
+        #endregion
+
 
         public override AdAccountGroup ReadSingle(long id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public override AdAccountGroup ParseSingleResponse(string response)
-        {
-            throw new System.NotImplementedException();
-        }
+        
     }
 }
