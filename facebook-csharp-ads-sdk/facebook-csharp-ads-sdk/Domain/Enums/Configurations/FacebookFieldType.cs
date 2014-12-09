@@ -25,6 +25,9 @@
         /// </summary>
         Int64,
 
+        /// <summary>
+        /// Enum do status de um grupo de contas
+        /// </summary>
         AdAccountGroupsStatusEnum
     }
 }

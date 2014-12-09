@@ -21,7 +21,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// <summary>
         ///     Instance of the facebook session
         /// </summary>
-        private readonly IFacebookSession facebookSession;
+        private readonly IFacebookSession _facebookSession;
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             if (facebookSession == null)
                 throw new ArgumentNullException();
 
-            this.facebookSession = facebookSession;
+            this._facebookSession = facebookSession;
         } 
 
         #endregion
@@ -61,15 +61,13 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// <returns> Account has passed fields, or null if there are problems </returns>
         public async Task<AdAccount> Read(long id, IList<AdAccountFieldsEnum> fields)
         {
-            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            this._facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
             if (fields == null || !fields.Any())
-            {
                 fields = AdAccountFieldsExtensions.GetDefaultsAdAccountFieldsList();
-            }
 
             string fieldNames = fields.GetAdAccountFieldsName();
-            string accountEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdAccountEndpoint;
-            accountEndpoint = string.Format(accountEndpoint, id, this.facebookSession.GetUserAccessToken(), fieldNames);
+            string accountEndpoint = this._facebookSession.GetFacebookAdsApiConfiguration().AdAccountEndpoint;
+            accountEndpoint = string.Format(accountEndpoint, id, this._facebookSession.GetUserAccessToken(), fieldNames);
 
             IRequest webRequest = new Request();
             var getRequest = await webRequest.GetAsync(accountEndpoint);
