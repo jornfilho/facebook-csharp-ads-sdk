@@ -34,9 +34,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public void SetValid()
         {
-            if (IsValid)
-                return;
-
             IsValid = true;
         }
 
@@ -45,9 +42,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public void SetInvalid()
         {
-            if (!IsValid)
-                return;
-
             IsValid = false;
         }
 
@@ -64,6 +58,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public void SetApiErrorResonse(ApiErrorModelV22 errorResponse)
         {
+            this.SetInvalid();
             ApiErrorResponseData = errorResponse;
         }
     }

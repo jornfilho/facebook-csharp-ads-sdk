@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
@@ -12,6 +13,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
     public class FacebookAdsApiConfiguration
     {
         #region Global properties
+
         /// <summary>
         /// Currend Facebook Ads Api version
         /// </summary>
@@ -21,6 +23,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// Base Facebook graph api url
         /// </summary>
         public string GraphApiUrl { get; private set; } 
+        
         #endregion
 
         #region Ad account properties
@@ -32,8 +35,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// <summary>
         /// Uri to read single account data
         /// </summary>
-        public string AdAccountEndpoint { get; private set; } 
+        public string AdAccountEndpoint { get; private set; }
+        
         #endregion
+
+        #region Ad campaign
+        
+        /// <summary>
+        ///     Endpoint of the ad campaign
+        /// </summary>
+        public string AdCampaignEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}&fields={2}"); }
+        }
+
+        #endregion Ad campaign
 
         /// <summary>
         /// Base constructor
@@ -46,7 +62,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         private void SetGlobalConfigurations()
         {
-            Version = FacebookAdsApiVersionsEnum.V21;
+            Version = FacebookAdsApiVersionsEnum.V22;
             GraphApiUrl = string.Format("https://graph.facebook.com/{0}/", Version.GetFacebookName());
         }
 

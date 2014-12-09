@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
+using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
 using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
@@ -12,7 +15,17 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         ///     <para> Get the ad campaign by id </para>
         /// </summary>
         /// <param name="campaignId"> Id of the campaign </param>
-        /// <returns> Task async with ad campaign </returns>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Ad campaign with id </returns>
         Task<AdCampaign> Read(long campaignId);
+
+        /// <summary>
+        ///     <para> Get the ad campaign by field list </para>
+        /// </summary>
+        /// <param name="campaignId"> Id of the campaign </param>
+        /// <param name="fields"> Field list you wish to retrieve </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Ad campaign has passed fields </returns>
+        Task<AdCampaign> Read(long campaignId, IList<AdCampaignFieldsEnum> fields);
     }
 }

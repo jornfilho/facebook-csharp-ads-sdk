@@ -3,9 +3,9 @@
 namespace facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns
 {
     /// <summary>
-    ///     Status of the campaign
+    ///     StatusEnum of the campaign
     /// </summary>
-    public enum AdCampaignStatus
+    public enum AdCampaignStatusEnum
     {
         /// <summary>
         ///     Undefined

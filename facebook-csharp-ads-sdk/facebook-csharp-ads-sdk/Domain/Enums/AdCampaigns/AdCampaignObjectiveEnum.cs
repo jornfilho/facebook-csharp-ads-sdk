@@ -3,9 +3,9 @@
 namespace facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns
 {
     /// <summary>
-    ///     Objective of the ad campaign
+    ///     ObjectiveEnum of the ad campaign
     /// </summary>
-    public enum AdCampaignObjective
+    public enum AdCampaignObjectiveEnum
     {
         [FacebookName("")]
         Undefined = 0,

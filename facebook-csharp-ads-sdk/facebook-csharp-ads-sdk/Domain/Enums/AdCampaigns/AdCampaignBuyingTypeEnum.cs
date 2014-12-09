@@ -5,7 +5,7 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns
     /// <summary>
     ///     Buying type of the campaign
     /// </summary>
-    public enum AdCampaignBuyingType
+    public enum AdCampaignBuyingTypeEnum
     {
         [FacebookName("")]
         Undefined = 0,
