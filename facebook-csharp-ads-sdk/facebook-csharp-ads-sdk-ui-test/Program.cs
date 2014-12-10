@@ -16,8 +16,8 @@ namespace facebook_csharp_ads_sdk_ui_test
 
             //var adAccount = api.AdAccount().Read(AccountId, new List<AdAccountFieldsEnum>()).Result;
 
-            string token =
-                "token";
+            string token = "sad";
+                //"CAADMSrKzEFUBAIpm5GqBA4fNNXNYdTZBqJtKxks0QSBt3k3ZBUsPLQhZB7DFvVKLZA4mZCjOTzIsJ7wx4rCZBs6ZAWrbn6GrqmMeTJZC24C46fYG764KzHAyqBQoc7PSW4SUgKFOdm8h8pdvhBwN3FLyLuqfxQhtfMndeWPl4JEOw2ZBZC426GfQuV22KPGPQJsaAL3m1i8yDH2fhVS3UAIHXe";
 
             IFacebookSession facebookSession = new FacebookSessionRepository().SetUserAccessToken(token);
             IAccountRepository accountRepository = new AdAccountRespository(facebookSession);

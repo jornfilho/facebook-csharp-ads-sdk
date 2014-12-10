@@ -107,6 +107,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         {
             try
             {
+                if (String.IsNullOrEmpty(response))
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
                 var jsonResult = JObject.Parse(response);
 
                 #region Api error
@@ -181,7 +187,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             JToken jTokenObjective = jsonResult[this.GetFacebookNameFromProperty("Objective")];
             if (jTokenObjective != null && jTokenObjective.Type == JTokenType.String)
             {
-                this.Objective = jTokenObjective.ToString().GetAdCampaignObjective();
+                this.Objective = jTokenObjective.ToString().GetCampaignObjective();
             }
         }
 

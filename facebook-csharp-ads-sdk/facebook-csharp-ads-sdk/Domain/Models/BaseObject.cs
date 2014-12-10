@@ -12,7 +12,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Api error response model
         /// </summary>
-        private ApiErrorModelV22 ApiErrorResponseData { get; set; }
+        public ApiErrorModelV22 ApiErrorResponseData { get; private set; }
 
         /// <summary>
         /// Set true id has valid data
@@ -43,14 +43,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         public void SetInvalid()
         {
             IsValid = false;
-        }
-
-        /// <summary>
-        /// Get api error response data model
-        /// </summary>
-        public ApiErrorModelV22 GetApiErrorResonse()
-        {
-            return ApiErrorResponseData;
         }
 
         /// <summary>

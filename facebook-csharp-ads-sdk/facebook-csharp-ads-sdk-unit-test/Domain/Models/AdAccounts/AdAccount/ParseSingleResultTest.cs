@@ -39,7 +39,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsFalse(model.IsValidData());
-            Assert.IsNotNull(model.GetApiErrorResonse());
+            Assert.IsNotNull(model.ApiErrorResponseData);
 
         }
 
@@ -50,7 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsTrue(model.IsValidData());
-            Assert.IsNull(model.GetApiErrorResonse());
+            Assert.IsNull(model.ApiErrorResponseData);
 
         }
     }

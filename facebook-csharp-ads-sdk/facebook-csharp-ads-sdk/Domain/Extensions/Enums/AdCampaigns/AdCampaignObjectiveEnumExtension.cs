@@ -15,7 +15,7 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns
         /// </summary>
         /// <param name="objectiveName"> Objective name </param>
         /// <returns> Enum with name </returns>
-        public static AdCampaignObjectiveEnum GetAdCampaignObjective(this string objectiveName)
+        public static AdCampaignObjectiveEnum GetCampaignObjective(this string objectiveName)
         {
             if (String.IsNullOrEmpty(objectiveName))
             {
@@ -38,6 +38,16 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns
             }
 
             return AdCampaignObjectiveEnum.Undefined;
+        }
+
+        /// <summary>
+        ///     Get Facebook name of the objective enum
+        /// </summary>
+        /// <param name="campaignObjectiveEnum"> Objective type enum </param>
+        /// <returns> Facebook name </returns>
+        public static string GetCampaignObjectiveFacebookName(this AdCampaignObjectiveEnum campaignObjectiveEnum)
+        {
+            return campaignObjectiveEnum.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
         }
     }
 }

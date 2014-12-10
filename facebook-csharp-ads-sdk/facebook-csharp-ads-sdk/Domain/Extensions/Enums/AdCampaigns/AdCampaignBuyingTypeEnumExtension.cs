@@ -39,5 +39,15 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns
 
             return AdCampaignBuyingTypeEnum.Undefined;
         }
+
+        /// <summary>
+        ///     Get Facebook name of the buying type enum
+        /// </summary>
+        /// <param name="buyingTypeEnum"> Buying tupe enum </param>
+        /// <returns> Facebook name </returns>
+        public static string GetBuyingTypeFacebookName(this AdCampaignBuyingTypeEnum buyingTypeEnum)
+        {
+            return buyingTypeEnum.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
+        }
     }
 }

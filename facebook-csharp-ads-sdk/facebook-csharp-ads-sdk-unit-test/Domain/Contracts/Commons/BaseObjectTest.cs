@@ -42,7 +42,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             this.SetApiErrorResonse(null);
             
             Assert.IsFalse(this.IsValidData());
-            Assert.IsNull(this.GetApiErrorResonse());
+            Assert.IsNull(this.ApiErrorResponseData);
 
         }
 
@@ -53,7 +53,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             this.SetApiErrorResonse(model);
 
             Assert.IsFalse(this.IsValidData());
-            Assert.IsNotNull(this.GetApiErrorResonse());
+            Assert.IsNotNull(this.ApiErrorResponseData);
 
         }
 
