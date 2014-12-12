@@ -8,6 +8,7 @@ using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;

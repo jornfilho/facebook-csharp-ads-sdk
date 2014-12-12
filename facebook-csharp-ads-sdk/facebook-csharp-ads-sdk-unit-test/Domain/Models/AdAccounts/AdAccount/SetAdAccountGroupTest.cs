@@ -28,7 +28,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountGroupOnAdAccountData()
         {
-            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccountGroup();
+            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup.AdAccountGroup();
             
             model.SetAdAccountGroup(invalidData);
 

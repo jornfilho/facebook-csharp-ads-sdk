@@ -72,6 +72,11 @@
     <Compile Include="Domain\BusinessRules\App\BasicData\IsValidAppIdTest.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken\IsValidUserAccessTokenTest.cs" />
     <Compile Include="Domain\Contracts\Commons\BaseObjectTest.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions\GetAdAccountGroupFieldsEnumTest.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions\GetAllAdAccountFieldsListTest.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions\GetDefaultsAdAccountFieldsListTest.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions\GetFacebookNamesListTest.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
@@ -88,7 +93,7 @@
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingSourceTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialFundingDetailTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations\SetFinancialSummaryTest.cs" />
-    <Compile Include="Domain\Models\AdAccounts\AdAccountGroup\SetAdAccountGroupDataTest.cs" />
+    <Compile Include="Domain\Models\AdAccountGroup\SetAdAccountGroupDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountBaseDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientAddressInformationsDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration\SetClientSummaryInformationsDataTest.cs" />
