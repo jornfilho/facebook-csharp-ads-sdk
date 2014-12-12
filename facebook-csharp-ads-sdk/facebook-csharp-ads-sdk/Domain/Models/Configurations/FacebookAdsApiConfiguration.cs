@@ -56,6 +56,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// </summary>
         public string AdAccountGroupAllEndpoint { get; private set; }
 
+        /// <summary>
+        ///     Delete endpoint
+        /// </summary>
+        public string DeleteEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}"); }
+        }
+
         #region Ad campaign
         
         /// <summary>

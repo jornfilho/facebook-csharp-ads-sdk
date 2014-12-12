@@ -486,6 +486,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
         }
 
+        public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Delete(long id)
         {
             throw new NotImplementedException();

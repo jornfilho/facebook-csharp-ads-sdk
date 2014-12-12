@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
@@ -80,6 +79,24 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             var account = new AdCampaign(this);
             account.ParseReadSingleesponse(getRequest);
             return account;
+        }
+
+        /// <summary>
+        ///     Delete the ad campaign
+        /// </summary>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Success </returns>
+        public async Task<bool> Delete(long id)
+        {
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            string deleteEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().DeleteEndpoint;
+            deleteEndpoint = String.Format(deleteEndpoint, id, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string deleteRequest = await webRequest.DeleteAsync(deleteEndpoint);
+            var account = new AdCampaign(this);
+            
+            return account.ParseDeleteResponse(deleteRequest);
         }
 
         #region Private methods

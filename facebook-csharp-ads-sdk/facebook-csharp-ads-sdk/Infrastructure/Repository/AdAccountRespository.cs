@@ -53,6 +53,11 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             return accountResult;
         }
 
+        public Task<bool> Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///     Read a account by id and fields
         /// </summary>

@@ -23,6 +23,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         ///     Delete the object in facebook
         /// </summary>
+        /// <returns> Success </returns>
+        public abstract bool Delete();
+
+        /// <summary>
+        ///     Delete the object in facebook
+        /// </summary>
         /// <param name="id"> Id of the object </param>
         /// <returns> Success </returns>
         public abstract bool Delete(long id);
