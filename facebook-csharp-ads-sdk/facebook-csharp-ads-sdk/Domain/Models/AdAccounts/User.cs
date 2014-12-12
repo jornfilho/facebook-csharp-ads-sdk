@@ -131,7 +131,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
-        public override User ParseSingleResponse(string response)
+        public override bool Delete(long id)
         {
             throw new NotImplementedException();
         }

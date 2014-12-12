@@ -55,7 +55,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// Url para leitura de todos os grupos de conta de um token
         /// </summary>
         public string AdAccountGroupAllEndpoint { get; private set; }
-        #endregion
 
         #region Ad campaign
         

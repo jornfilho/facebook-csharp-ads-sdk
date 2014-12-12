@@ -56,7 +56,7 @@ namespace facebook_csharp_ads_sdk_integration_test.Infrastructure.Repository.AdA
                 Assert.Inconclusive("Nenhum grupo de anúncio encontrado para análise");
 
             foreach (var item in data)
-                Assert.IsTrue(item.IsValidData());
+                Assert.IsTrue(item.IsValid);
         }
     }
 }

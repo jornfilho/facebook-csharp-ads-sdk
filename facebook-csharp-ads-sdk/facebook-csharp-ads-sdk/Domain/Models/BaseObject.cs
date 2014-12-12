@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Reflection;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using facebook_csharp_ads_sdk._Utils.Parser;
@@ -21,17 +24,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Set true id has valid data
         /// </summary>
-        private bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
 
         #endregion
-
-        /// <summary>
-        /// Return true if has valid data 
-        /// </summary>
-        public bool IsValidData()
-        {
-            return IsValid;
-        }
 
         /// <summary>
         /// Set data valid
@@ -61,36 +56,75 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public void ParseSingleResponse(JToken jsonResult)
+        public virtual void ParseReadSingleesponse(string facebookResponse)
         {
-            SetDefaultValues();
-
-            if (jsonResult == null)
-                return;
-
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+            try
             {
-                var facebookAttributeName = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
-                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-                var defaultValueAttribute = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
-                if (facebookAttributeName == null || facebookAttributeType == null)
-                    continue;
+                if (String.IsNullOrEmpty(facebookResponse))
+                {
+                    this.SetInvalid();
+                }
 
-                var property = this.GetType().GetProperty(prop.Name);
-                if (property == null)
-                    continue;
-
-                var defaultValue = defaultValueAttribute != null
-                    ? defaultValueAttribute.Value
-                    : null;
-
-                var facebookName = facebookAttributeName.Value;
-                var facebookType = facebookAttributeType.Value;
-
-                property.SetValue(this, jsonResult.GetValue(facebookName, facebookType, defaultValue), null);
+                var response = JObject.Parse(facebookResponse);
+                this.ParseReadSingleesponse(response);
             }
+            catch (Exception)
+            {
+                this.SetInvalid();
+            }
+        }
 
-            SetValid();
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public virtual void ParseReadSingleesponse(JToken facebookResponse)
+        {
+            try
+            {
+                SetDefaultValues();
+
+                if (facebookResponse == null)
+                    return;
+
+                #region Api error
+
+                if (facebookResponse["error"] != null)
+                {
+                    var errorModel = new ApiErrorModelV22().ParseApiResponse(facebookResponse);
+                    this.SetApiErrorResonse(errorModel);
+                    return;
+                }
+
+                #endregion
+
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+                {
+                    var facebookAttributeName = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                    var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+                    var defaultValueAttribute = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
+                    if (facebookAttributeName == null || facebookAttributeType == null)
+                        continue;
+
+                    PropertyInfo property = this.GetType().GetProperty(prop.Name);
+                    if (property == null)
+                        continue;
+
+                    var defaultValue = defaultValueAttribute != null
+                        ? defaultValueAttribute.Value
+                        : null;
+
+                    string facebookName = facebookAttributeName.Value;
+                    FacebookFieldType facebookType = facebookAttributeType.Value;
+
+                    property.SetValue(this, facebookResponse.GetValue(facebookName, facebookType, defaultValue), null);
+                }
+
+                this.SetValid();
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+            }
         }
 
         /// <summary>

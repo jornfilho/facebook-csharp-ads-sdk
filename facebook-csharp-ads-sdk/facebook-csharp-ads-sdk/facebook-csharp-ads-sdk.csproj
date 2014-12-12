@@ -111,6 +111,7 @@
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookFieldTypeAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\IsFacebookCreateResponseAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IsParentObjectAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\IAttribute.cs" />

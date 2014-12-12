@@ -21,13 +21,43 @@
         Int32,
 
         /// <summary>
+        /// Int type array
+        /// </summary>
+        Int32Array,
+
+        /// <summary>
         /// Long type
         /// </summary>
         Int64,
 
         /// <summary>
-        /// Enum do status de um grupo de contas
+        /// Long type array
         /// </summary>
-        AdAccountGroupsStatusEnum
+        Int64Array,
+
+        /// <summary>
+        /// DateTime type
+        /// </summary>
+        DateTime,
+
+        /// <summary>
+        ///     Enum status of a group of accounts
+        /// </summary>
+        AdAccountGroupsStatusEnum,
+
+        /// <summary>
+        ///     Ad campaign objective enum
+        /// </summary>
+        AdCampaignObjectiveEnum,
+
+        /// <summary>
+        ///     Ad campaign status enum
+        /// </summary>
+        AdCampaignStatusEnum,
+
+        /// <summary>
+        ///     Ad campaign buying type enum
+        /// </summary>
+        AdCampaignBuyingTypeEnum
     }
 }

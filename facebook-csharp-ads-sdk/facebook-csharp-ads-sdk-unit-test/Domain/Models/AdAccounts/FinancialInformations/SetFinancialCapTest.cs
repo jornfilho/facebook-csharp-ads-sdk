@@ -15,9 +15,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
 
             if (InvalidAdAccountSpendCap1 >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -29,9 +29,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             if (InvalidAdAccountSpendCap2 >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.SpendCap, ValidAdAccountSpendCap);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

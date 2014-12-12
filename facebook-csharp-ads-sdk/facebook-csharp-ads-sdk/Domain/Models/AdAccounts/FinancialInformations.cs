@@ -154,7 +154,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
 
 
-            if (!fundingSourceDetails.IsValidData())
+            if (!fundingSourceDetails.IsValid)
                 return this;
 
             if (FundingSourceDetails == null)
@@ -240,7 +240,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 for (var index = 0; index < fundingSourceDetailCount; index++)
                 {
                     var fundingSourceDetail = new FundingSourceDetail().ParseApiResponse(jsonResult["funding_source_details"]);
-                    if (fundingSourceDetail.IsValidData())
+                    if (fundingSourceDetail.IsValid)
                         SetFinancialFundingDetail(fundingSourceDetail); 
                 }
             }

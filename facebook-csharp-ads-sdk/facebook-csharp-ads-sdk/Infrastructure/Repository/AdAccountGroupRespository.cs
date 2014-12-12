@@ -58,7 +58,8 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
             IRequest webRequest = new Request();
             var getRequest = webRequest.Get(accountEndpoint);
-            var accountGroup = new AdAccountGroup().ParseSingleResponse(getRequest);
+            var accountGroup = new AdAccountGroup();
+            accountGroup.ParseReadSingleesponse(getRequest);
             return accountGroup;
         }
 

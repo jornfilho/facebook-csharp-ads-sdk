@@ -36,7 +36,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -151,7 +151,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -174,7 +174,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -197,7 +197,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -220,7 +220,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -243,7 +243,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -266,7 +266,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -289,7 +289,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -312,7 +312,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -335,7 +335,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -358,7 +358,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -381,7 +381,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -404,7 +404,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -427,7 +427,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -450,7 +450,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.Id, ValidAdAccountStrId);
             Assert.AreEqual(model.AccountId, ValidAdAccountId);
             Assert.AreEqual(model.Name, ValidAdAccountName);
@@ -470,18 +470,18 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         public void CanValidateData()
         {
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
             model.SetAdAccountBaseData(ValidAdAccountStrId, ValidAdAccountId, 
                 null, null, null, null, null, null, null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
         }
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model)
         {
             model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(new AdAccountRespository(new FacebookSessionRepository()));
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
                 .SetFinancialCurrency(InvalidFinancialInformationsCurrency);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Currency, ValidFinancialInformationsCurrency);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

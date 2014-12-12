@@ -13,7 +13,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientAddressInformationsData(null, null, null, null, null, null, null, null);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                     string.Empty, string.Empty, string.Empty, string.Empty);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.ClientCity, ValidClientCity);
             Assert.AreEqual(model.ClientCountryCode, ValidClientCountryCode);
             Assert.AreEqual(model.ClientEmailAddress, ValidClientEmailAddress);
@@ -62,45 +62,45 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .AgencyClientDeclaration();
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
             model.SetClientAddressInformationsData(ValidClientCity, null, null, null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, ValidClientCountryCode, null, null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, ValidClientEmailAddress, null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, null, ValidClientName, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, null, null, ValidClientPostalCode, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, null, null, null, ValidClientProvince, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, null, null, null, null, ValidClientStreet, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetClientAddressInformationsData(null, null, null, null, null, null, null, ValidClientStreet2);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
         }
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AgencyClientDeclaration model)
         {
             model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AgencyClientDeclaration();
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
     }
 }
