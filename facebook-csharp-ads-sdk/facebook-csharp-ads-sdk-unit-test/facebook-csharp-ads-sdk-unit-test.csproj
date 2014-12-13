@@ -108,6 +108,7 @@
     <Compile Include="Domain\Models\AdAccounts\User\SetUserDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\GetFieldsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\SetBusinessInformationsDataTest.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaignCreateTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignDeleteTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignReadParseTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />

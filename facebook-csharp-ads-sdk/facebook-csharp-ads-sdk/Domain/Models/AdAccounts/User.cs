@@ -126,6 +126,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             return this;
         }
 
+        public override User Create()
+        {
+            throw new NotImplementedException();
+        }
+
         public override User ReadSingle(long id)
         {
             throw new NotImplementedException();

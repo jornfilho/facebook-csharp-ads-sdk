@@ -14,6 +14,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models
     public abstract class BaseCrudObject<T> : BaseObject
     {
         /// <summary>
+        ///     Indicates whether the model is ready to be created on facebook
+        /// </summary>
+        public bool CreateModelIsReady { get; private set; }
+
+        /// <summary>
+        ///     Indicates whether the model is ready to be updated on facebook
+        /// </summary>
+        public bool UpdateModelIsReady { get; private set; }
+
+        /// <summary>
+        ///     Create a entity on Facebook
+        /// </summary>
+        /// <returns> Entity created </returns>
+        public abstract T Create();
+
+        /// <summary>
         ///     Read a T in Facebook
         /// </summary>
         /// <param name="id"> Id of the object </param>
@@ -68,7 +84,43 @@ namespace facebook_csharp_ads_sdk.Domain.Models
                     jsonResult["success"].Type == JTokenType.Integer) &&
                    jsonResult["success"].ToString().TryParseBool();
         }
-        
+
+        #region Protected methods
+
+        /// <summary>
+        ///     Invalidate model for creation on Facebook
+        /// </summary>
+        protected void SetInvalidCreateModel()
+        {
+            this.CreateModelIsReady = false;
+        }
+
+        /// <summary>
+        ///     Validate model for creation on Facebook
+        /// </summary>
+        protected void SetValidCreateModel()
+        {
+            this.CreateModelIsReady = true;
+        }
+
+        /// <summary>
+        ///     Invalidate model for update on Facebook
+        /// </summary>
+        protected void SetInvalidUpdateModel()
+        {
+            this.UpdateModelIsReady = false;
+        }
+
+        /// <summary>
+        ///     Validate model for update on Facebook
+        /// </summary>
+        protected void SetValidUpdateModel()
+        {
+            this.UpdateModelIsReady = true;
+        }
+
+        #endregion Protected methods
+
         #region Private methods
 
         /// <summary>

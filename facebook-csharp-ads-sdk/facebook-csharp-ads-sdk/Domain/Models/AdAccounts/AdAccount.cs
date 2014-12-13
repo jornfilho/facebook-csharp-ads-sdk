@@ -469,6 +469,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
         }
 
+        public override AdAccount Create()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///     Read a account by id
         /// </summary>

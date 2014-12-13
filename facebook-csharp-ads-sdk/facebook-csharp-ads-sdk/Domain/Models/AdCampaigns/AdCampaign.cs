@@ -6,6 +6,7 @@ using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
@@ -59,6 +60,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookName("name")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
+        [CanCreateOnFacebook(true)]
         public string Name { get; private set; }
 
         /// <summary>
@@ -67,6 +69,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookName("objective")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdCampaignObjectiveEnum)]
+        [CanCreateOnFacebook(true)]
         public AdCampaignObjectiveEnum? Objective { get; private set; }
 
         /// <summary>
@@ -75,6 +78,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookName("campaign_group_status")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdCampaignStatusEnum)]
+        [CanCreateOnFacebook(true)]
         public AdCampaignStatusEnum? Status { get; private set; }
 
         /// <summary>
@@ -83,6 +87,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookName("buying_type")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdCampaignBuyingTypeEnum)]
+        [CanCreateOnFacebook(true)]
         public AdCampaignBuyingTypeEnum? BuyingType { get; private set; }
 
         /// <summary>
@@ -93,7 +98,29 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookFieldType(FacebookFieldType.Int64Array)]
         public IList<long> AdGroups { get; private set; }
 
+        /// <summary>
+        ///     Execute options on Facebook create and update
+        /// </summary>
+        [CanCreateOnFacebook(true)]
+        [DefaultValue(null)]
+        [FacebookName("execution_options")]
+        public ExecutionOptionsEnum? ExecutionOptions { get; private set; }
+
         #endregion Properties
+
+        /// <summary>
+        ///     Create a ad campaign on Facebook
+        /// </summary>
+        /// <returns> This instance with id created </returns>
+        public override AdCampaign Create()
+        {
+            if (!this.CreateModelIsReady)
+            {
+                return this;
+            }
+
+            return this;
+        }
 
         /// <summary>
         ///     <para> Read ad campaign by id </para>
@@ -198,6 +225,48 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                     }
                 }
             }
+        }
+
+        /// <summary>
+        ///     Set the attributes to create a ad campaign
+        /// </summary>
+        /// <param name="name"> Ad campaign name </param>
+        /// <param name="buyingType"> Ad campaign buying type </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        /// <returns> This instance </returns>
+        public AdCampaign SetCreateData(string name, AdCampaignBuyingTypeEnum? buyingType, AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status, ExecutionOptionsEnum? executionOptions)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                this.SetInvalidCreateModel();
+                return this;
+            }
+
+            if (status == AdCampaignStatusEnum.Undefined)
+            {
+                this.SetInvalidCreateModel();
+                return this;
+            }
+
+            if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+            {
+                buyingType = null;
+            }
+
+            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            {
+                objective = null;
+            }
+
+            this.BuyingType = buyingType;
+            this.Name = name;
+            this.Objective = objective;
+            this.Status = status;
+            this.ExecutionOptions = executionOptions;
+
+            this.SetValidCreateModel();
+            return this;
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
+﻿using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
