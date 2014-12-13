@@ -11,10 +11,10 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         public void SetInvalidTest()
         {
             this.SetValid();
-            Assert.IsTrue(this.IsValidData());
+            Assert.IsTrue(this.IsValid);
 
             this.SetInvalid();
-            Assert.IsFalse(this.IsValidData());
+            Assert.IsFalse(this.IsValid);
             
         }
         
@@ -22,7 +22,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         public void IsValidDataTest_false()
         {
             this.SetInvalid();
-            var isValid = this.IsValidData();
+            var isValid = this.IsValid;
             Assert.IsFalse(isValid);
             
         }
@@ -31,7 +31,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         public void IsValidDataTest_true()
         {
             this.SetValid();
-            var isValid = this.IsValidData();
+            var isValid = this.IsValid;
             Assert.IsTrue(isValid);
 
         }
@@ -41,7 +41,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         {
             this.SetApiErrorResonse(null);
             
-            Assert.IsFalse(this.IsValidData());
+            Assert.IsFalse(this.IsValid);
             Assert.IsNull(this.ApiErrorResponseData);
 
         }
@@ -52,7 +52,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             var model = new ApiErrorModelV22();
             this.SetApiErrorResonse(model);
 
-            Assert.IsFalse(this.IsValidData());
+            Assert.IsFalse(this.IsValid);
             Assert.IsNotNull(this.ApiErrorResponseData);
 
         }
@@ -62,7 +62,12 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             throw new System.NotImplementedException();
         }
 
-        public override BaseObjectTest ParseSingleResponse(string response)
+        public override bool Delete()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool Delete(long id)
         {
             throw new System.NotImplementedException();
         }

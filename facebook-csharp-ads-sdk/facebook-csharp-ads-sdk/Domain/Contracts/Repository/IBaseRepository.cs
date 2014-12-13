@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
 {
@@ -17,7 +18,12 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         /// <returns> Instance of entity object </returns>
         Task<T> Read(long id);
 
-        //bool Delete(long id);
+        /// <summary>
+        ///     Delete the ad campaign
+        /// </summary>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Success </returns>
+        Task<bool> Delete(long id);
 
         //bool Update(T entity);
     }

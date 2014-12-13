@@ -40,7 +40,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.FundingSourceId, ValidAdAccountFundingSourceId);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

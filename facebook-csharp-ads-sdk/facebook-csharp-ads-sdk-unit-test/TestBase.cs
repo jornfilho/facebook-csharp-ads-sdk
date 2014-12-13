@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using DevUtils.DateTimeExtensions;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup;
 using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,9 +23,9 @@ namespace facebook_csharp_ads_sdk_unit_test
         public int InvalidRequestTimeout1 { get; set; }
         public int InvalidRequestTimeout2 { get; set; }
         public int ValidRequestTimeout { get; set; }
-        public NameValueCollection EmptyNameValueCollection { get; set; }
-        public NameValueCollection SingleValueNameValueCollection { get; set; }
-        public NameValueCollection MultipleValuesNameValueCollection { get; set; }
+        public Dictionary<string,string> EmptyNameValueCollection { get; set; }
+        public Dictionary<string, string> SingleValueNameValueCollection { get; set; }
+        public Dictionary<string, string> MultipleValuesNameValueCollection { get; set; }
         #endregion
 
         #region Facebook session data
@@ -211,9 +212,9 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidRequestTimeout1 = 0;
             InvalidRequestTimeout2 = -1000;
 
-            EmptyNameValueCollection = new NameValueCollection();
-            SingleValueNameValueCollection = new NameValueCollection { { "param1", "value1" } };
-            MultipleValuesNameValueCollection = new NameValueCollection
+            EmptyNameValueCollection = new Dictionary<string, string>();
+            SingleValueNameValueCollection = new Dictionary<string, string> { { "param1", "value1" } };
+            MultipleValuesNameValueCollection = new Dictionary<string, string>
             {
                 {"param1", "value1"},
                 {"param2", "value2"},

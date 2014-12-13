@@ -60,7 +60,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.TimezoneInf
             Assert.AreEqual(model.TimezoneId, ValidTimezoneId);
             Assert.AreEqual(model.TimezoneName,ValidTimezoneName);
             Assert.AreEqual(model.TimezoneOffsetHoursUtc, ValidTimezoneOffsetHoursFromUtc);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

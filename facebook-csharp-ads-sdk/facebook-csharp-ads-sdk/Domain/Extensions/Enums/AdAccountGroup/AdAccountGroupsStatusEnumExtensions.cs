@@ -1,7 +1,7 @@
 ﻿using System;
-using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
 
-namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts
+namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccountGroup
 {
     /// <summary>
     /// Extensions for AdAccountGroupsStatusEnum enum

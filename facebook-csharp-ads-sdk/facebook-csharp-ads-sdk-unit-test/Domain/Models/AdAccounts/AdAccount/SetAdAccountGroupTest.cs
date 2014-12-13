@@ -28,7 +28,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         [TestMethod]
         public void CantSetInvalidAdAccountGroupOnAdAccountData()
         {
-            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccountGroup();
+            var invalidData = new facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup.AdAccountGroup();
             
             model.SetAdAccountGroup(invalidData);
 
@@ -43,7 +43,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.AccountGroups);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.AccountGroups.Count, 1);
         }
 
@@ -55,7 +55,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.AccountGroups);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.AccountGroups.Count, 2);
         }
     }

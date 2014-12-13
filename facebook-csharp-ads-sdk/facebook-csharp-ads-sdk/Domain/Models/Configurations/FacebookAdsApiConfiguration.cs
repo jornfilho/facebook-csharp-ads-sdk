@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Configurations;
 
@@ -39,9 +41,33 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         
         #endregion
 
+        /// <summary>
+        /// Available ad account group fields
+        /// </summary>
+        public IList<AdAccountGroupFieldsEnum> AdAccountGroupFields { get; private set; }
+
+        /// <summary>
+        /// Uri to read single account group data
+        /// </summary>
+        public string AdAccountGroupSingleEndpoint { get; private set; }
+
+        /// <summary>
+        /// Url para leitura de todos os grupos de conta de um token
+        /// </summary>
+        public string AdAccountGroupAllEndpoint { get; private set; }
+
+        /// <summary>
+        ///     Delete endpoint
+        /// </summary>
+        public string DeleteEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}"); }
+        }
+
         #region Ad campaign
         
         /// <summary>
+
         ///     Endpoint of the ad campaign
         /// </summary>
         public string AdCampaignEndpoint
@@ -58,6 +84,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         {
             SetGlobalConfigurations();
             SetAdAccountConfigurations();
+            SetAdAccountGroupConfigurations();
         }
 
         private void SetGlobalConfigurations()
@@ -70,6 +97,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         {
             AdAccountFields = AdAccountFieldsExtensions.GetAllAdAccountFieldsList();
             AdAccountEndpoint = GraphApiUrl + "act_{0}?access_token={1}&fields={2}";
+        }
+
+        private void SetAdAccountGroupConfigurations()
+        {
+            AdAccountGroupFields = AdAccountGroupFieldsEnumExtensions.GetAllAdAccountGroupFieldsList();
+            AdAccountGroupSingleEndpoint = GraphApiUrl + "{0}?access_token={1}&fields={2}";
+            AdAccountGroupAllEndpoint = GraphApiUrl + "me/adaccountgroups?access_token={0}&fields={1}";
         }
     }
 }

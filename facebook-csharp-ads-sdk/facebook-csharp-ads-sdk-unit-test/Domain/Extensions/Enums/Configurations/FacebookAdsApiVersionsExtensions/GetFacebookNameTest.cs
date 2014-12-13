@@ -11,11 +11,11 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Extensions.Enums.Configuratio
         [TestMethod]
         public void CanGetFacebookAdApiVersionFromEnumOption()
         {
-            const FacebookAdsApiVersionsEnum enumOption = FacebookAdsApiVersionsEnum.V21;
+            const FacebookAdsApiVersionsEnum enumOption = FacebookAdsApiVersionsEnum.V22;
             var attributeValue = enumOption.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
 
             Assert.IsNotNull(attributeValue);
-            Assert.AreEqual(attributeValue, "v2.1");
+            Assert.AreEqual(attributeValue, "v2.2");
         }
     }
 }

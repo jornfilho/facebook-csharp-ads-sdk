@@ -9,16 +9,8 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
     /// <summary>
     ///     Interface of the campaign repository
     /// </summary>
-    public interface ICampaignRepository
+    public interface ICampaignRepository : IBaseRepository<AdCampaign>
     {
-        /// <summary>
-        ///     <para> Get the ad campaign by id </para>
-        /// </summary>
-        /// <param name="campaignId"> Id of the campaign </param>
-        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
-        /// <returns> Ad campaign with id </returns>
-        Task<AdCampaign> Read(long campaignId);
-
         /// <summary>
         ///     <para> Get the ad campaign by field list </para>
         /// </summary>

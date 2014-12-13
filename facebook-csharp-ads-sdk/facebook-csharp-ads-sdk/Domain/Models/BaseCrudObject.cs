@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using DevUtils.PrimitivesExtensions;
+using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
-using facebook_csharp_ads_sdk.Domain.Utils;
+using facebook_csharp_ads_sdk._Utils.Parser;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models
@@ -19,24 +21,104 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         public abstract T ReadSingle(long id);
 
         /// <summary>
-        ///     Does parse the response from Facebook
+        ///     Delete the object in facebook
         /// </summary>
-        /// <param name="response"> Model Json response </param>
-        /// <returns> Entity </returns>
-        public abstract T ParseSingleResponse(string response);
+        /// <returns> Success </returns>
+        public abstract bool Delete();
 
         /// <summary>
-        /// Parse Facebook Api response to model
+        ///     Delete the object in facebook
         /// </summary>
-        public void ParseSingleResponse(JToken jsonResult)
-        {
-            SetDefaultValues();
+        /// <param name="id"> Id of the object </param>
+        /// <returns> Success </returns>
+        public abstract bool Delete(long id);
 
+        /// <summary>
+        /// Parse create response from Facebook Api
+        /// </summary>
+        public void ParseCreateResponse(JToken jsonResult)
+        {
+            AutoSetResponsePropertiesValue(jsonResult, true);
+        }
+
+        /// <summary>
+        /// Parse update response from Facebook Api
+        /// </summary>
+        public bool ParseUpdateResponse(JToken jsonResult)
+        {
+            if (IsValidResponse(jsonResult))
+                return false;
+
+            return jsonResult["success"] != null &&
+                   (jsonResult["success"].Type == JTokenType.Boolean || jsonResult["success"].Type == JTokenType.String ||
+                    jsonResult["success"].Type == JTokenType.Integer) &&
+                   jsonResult["success"].ToString().TryParseBool();
+        }
+
+        /// <summary>
+        /// Parse delete response from Facebook Api
+        /// </summary>
+        public bool ParseDeleteResponse(JToken jsonResult)
+        {
+            if (IsValidResponse(jsonResult))
+                return false;
+
+            return jsonResult["success"] != null &&
+                   (jsonResult["success"].Type == JTokenType.Boolean || jsonResult["success"].Type == JTokenType.String ||
+                    jsonResult["success"].Type == JTokenType.Integer) &&
+                   jsonResult["success"].ToString().TryParseBool();
+        }
+        
+        #region Private methods
+
+        /// <summary>
+        /// Realiza validação base de resposta do facebook
+        /// </summary>
+        private bool IsValidResponse(JToken jsonResult)
+        {
+            if (jsonResult == null || jsonResult.Type != JTokenType.Object)
+                return false;
+
+            return !HasResponseError(jsonResult);
+        }
+
+        /// <summary>
+        /// Verifica se tem erro na resposta do facebook
+        /// Caso haja, faz parse do erro
+        /// </summary>
+        private bool HasResponseError(JToken jsonResult)
+        {
             if (jsonResult == null)
-                return;
+                return false;
+
+            if (jsonResult["error"] == null)
+                return false;
+
+            SetDefaultValues();
+            SetApiErrorResonse(new ApiErrorModelV22().ParseApiResponse(jsonResult["error"]));
+            return true;
+        }
+
+        /// <summary>
+        /// Método para atribuição automática dos dados recebidos pelo facebook
+        /// </summary>
+        private bool AutoSetResponsePropertiesValue(JToken jsonResult, bool isCreateMethod)
+        {
+            if (IsValidResponse(jsonResult))
+                return false;
 
             foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
             {
+                if (isCreateMethod)
+                {
+                    var isFacebookCreationReturnPropertie = (IsFacebookCreateResponseAttribute)prop.Attributes[typeof(IsFacebookCreateResponseAttribute)];
+                    if (isFacebookCreationReturnPropertie == null)
+                        continue;
+
+                    if (!isFacebookCreationReturnPropertie.Value)
+                        continue;
+                }
+
                 var facebookAttributeName = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
                 var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
                 var defaultValueAttribute = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
@@ -57,29 +139,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models
                 property.SetValue(this, jsonResult.GetValue(facebookName, facebookType, defaultValue), null);
             }
 
-            SetValid();
+            return true;
         }
 
-        #region Método privado para atribuição dos dados default de todas as propriedades da classe
-        /// <summary>
-        /// Set default properties value
-        /// </summary>
-        protected void SetDefaultValues()
-        {
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
-            {
-                var attr = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
-                if (attr == null)
-                    continue;
-
-                var attrValue = attr.Value;
-                var property = this.GetType().GetProperty(prop.Name);
-                if (property != null)
-                    property.SetValue(this, attrValue, null);
-            }
-
-            SetInvalid();
-        }
-        #endregion
+        #endregion Private methods
     }
 }
