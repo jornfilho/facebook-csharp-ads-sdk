@@ -116,10 +116,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         {
             if (!this.CreateModelIsReady)
             {
+                this.SetInvalid();
                 return this;
             }
 
-            return this;
+            return this.campaignRepository.Create(this);
         }
 
         /// <summary>
@@ -234,8 +235,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <param name="buyingType"> Ad campaign buying type </param>
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
+        /// <param name="executionOptions"> Execute options on Facebook create and update </param>
         /// <returns> This instance </returns>
-        public AdCampaign SetCreateData(string name, AdCampaignBuyingTypeEnum? buyingType, AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status, ExecutionOptionsEnum? executionOptions)
+        public AdCampaign SetCreateData(string name, AdCampaignBuyingTypeEnum? buyingType,
+                                        AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
+                                        ExecutionOptionsEnum? executionOptions)
         {
             if (String.IsNullOrEmpty(name))
             {

@@ -43,6 +43,16 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         #endregion
 
         /// <summary>
+        ///     Create the ad campaign on Facebook
+        /// </summary>
+        /// <param name="adCampaign"> Ad campaign to create </param>
+        /// <returns> Ad campaign created with id </returns>
+        public AdCampaign Create(AdCampaign adCampaign)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         ///     <para> Get the ad campaign by id </para>
         /// </summary>
         /// <param name="campaignId"> Id of the campaign </param>
@@ -80,7 +90,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             account.ParseReadSingleesponse(getRequest);
             return account;
         }
-
+        
         /// <summary>
         ///     Delete the ad campaign
         /// </summary>

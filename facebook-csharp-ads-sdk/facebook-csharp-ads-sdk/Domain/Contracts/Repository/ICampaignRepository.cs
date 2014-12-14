@@ -9,7 +9,7 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
     /// <summary>
     ///     Interface of the campaign repository
     /// </summary>
-    public interface ICampaignRepository : IBaseRepository<AdCampaign>
+    public interface ICampaignRepository : IBaseCrudRepository<AdCampaign>
     {
         /// <summary>
         ///     <para> Get the ad campaign by field list </para>
