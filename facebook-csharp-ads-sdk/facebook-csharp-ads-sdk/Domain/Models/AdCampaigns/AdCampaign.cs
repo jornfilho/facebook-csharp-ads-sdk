@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using DevUtils.Enum;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
@@ -44,6 +48,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [FacebookName("id")]
         [DefaultValue(0L)]
         [FacebookFieldType(FacebookFieldType.Int64)]
+        [IsFacebookCreateResponseAttribute(true)]
         public long Id { get; private set; }
 
         /// <summary>
@@ -104,7 +109,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [CanCreateOnFacebook(true)]
         [DefaultValue(null)]
         [FacebookName("execution_options")]
-        public ExecutionOptionsEnum? ExecutionOptions { get; private set; }
+        [FacebookFieldType(FacebookFieldType.ExecutionOptionsEnumList)]
+        public IList<ExecutionOptionsEnum> ExecutionOptionsList { get; private set; }
 
         #endregion Properties
 
@@ -120,7 +126,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 return this;
             }
 
-            return this.campaignRepository.Create(this);
+            return this.campaignRepository.Create(this).Result;
         }
 
         /// <summary>
@@ -231,46 +237,151 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Set the attributes to create a ad campaign
         /// </summary>
+        /// <param name="accountId"> Account id </param>
         /// <param name="name"> Ad campaign name </param>
         /// <param name="buyingType"> Ad campaign buying type </param>
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
-        /// <param name="executionOptions"> Execute options on Facebook create and update </param>
+        /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
         /// <returns> This instance </returns>
-        public AdCampaign SetCreateData(string name, AdCampaignBuyingTypeEnum? buyingType,
+        public AdCampaign SetCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
                                         AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
-                                        ExecutionOptionsEnum? executionOptions)
+                                        IList<ExecutionOptionsEnum> executionOptionsList)
         {
-            if (String.IsNullOrEmpty(name))
+            try
+            {
+                if (!accountId.IsValidAdAccountId())
+                {
+                    this.SetInvalidCreateModel();
+                    return this;
+                }
+
+                if (String.IsNullOrEmpty(name))
+                {
+                    this.SetInvalidCreateModel();
+                    return this;
+                }
+
+                if (status == AdCampaignStatusEnum.Undefined)
+                {
+                    this.SetInvalidCreateModel();
+                    return this;
+                }
+
+                if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+                {
+                    buyingType = null;
+                }
+
+                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+                {
+                    objective = null;
+                }
+
+                this.AccountId = accountId;
+                this.BuyingType = buyingType;
+                this.Name = name;
+                this.Objective = objective;
+                this.Status = status;
+                this.ExecutionOptionsList = executionOptionsList;
+
+                this.SetValidCreateModel();
+                return this;
+            }
+            catch (Exception)
             {
                 this.SetInvalidCreateModel();
                 return this;
             }
+        }
 
-            if (status == AdCampaignStatusEnum.Undefined)
+        /// <summary>
+        ///     Monta string com os dados para criacao de uma nova campanha
+        /// </summary>
+        public override Dictionary<string, string> GetSingleCreateParams()
+        {
+            if (!this.CreateModelIsReady)
             {
-                this.SetInvalidCreateModel();
-                return this;
+                return null;
             }
 
-            if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+            var createQuery = new Dictionary<string, string>();
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
             {
-                buyingType = null;
+                var defaultValueAttribute = (DefaultValueAttribute) prop.Attributes[typeof (DefaultValueAttribute)];
+                var facebookNameAttribute = (FacebookNameAttribute) prop.Attributes[typeof (FacebookNameAttribute)];
+                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute) prop.Attributes[typeof (CanCreateOnFacebookAttribute)];
+                
+                if (defaultValueAttribute == null || 
+                    facebookNameAttribute == null ||
+                    facebookAttributeType == null ||
+                    canCreateOnFacebookAttribute == null)
+                {
+                    continue;
+                }
+
+                if (canCreateOnFacebookAttribute.Value == false)
+                {
+                    continue;
+                }
+
+                string facebookName = facebookNameAttribute.Value;
+                if (String.IsNullOrEmpty(facebookName))
+                {
+                    continue;
+                }
+                
+                FacebookFieldType facebookType = facebookAttributeType.Value;
+                object currentValue = prop.GetValue(this);
+
+                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
+                if (String.IsNullOrEmpty(currentValueString))
+                {
+                    continue;
+                }
+
+                createQuery.Add(facebookName, currentValueString);
             }
 
-            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            return createQuery;
+        }
+
+        /// <summary>
+        ///     Converte valores de string para enum e em seguida utiliza o nome utilizado pelo facebook.
+        ///     Caso não seja enum, retorna proprio valor
+        /// </summary>
+        private string GetObjectFacebookValue(FacebookFieldType fieldType, object currentValue)
+        {
+            switch (fieldType)
             {
-                objective = null;
+                case FacebookFieldType.Int32:
+                case FacebookFieldType.Int64:
+                case FacebookFieldType.String:
+                    return currentValue.ToString();
+
+                case FacebookFieldType.AdCampaignObjectiveEnum:
+                    return currentValue.ToString().ToEnum<AdCampaignObjectiveEnum>().GetCampaignObjectiveFacebookName();
+
+                case FacebookFieldType.AdCampaignStatusEnum:
+                    return currentValue.ToString().ToEnum<AdCampaignStatusEnum>().GetCampaignStatusFacebookName();
+
+                case FacebookFieldType.AdCampaignBuyingTypeEnum:
+                    return currentValue.ToString().ToEnum<AdCampaignBuyingTypeEnum>().GetBuyingTypeFacebookName();
+
+                case FacebookFieldType.ExecutionOptionsEnumList:
+                    if (this.ExecutionOptionsList == null)
+                    {
+                        return string.Empty;
+                    }
+
+                    return String.Format("[{0}]",
+                        string.Join(",",
+                            this.ExecutionOptionsList.Select(
+                                u => "\"" + u.ToEnum<ExecutionOptionsEnum>().GetExecutionOptionsFacebookName() + "\"")));
             }
 
-            this.BuyingType = buyingType;
-            this.Name = name;
-            this.Objective = objective;
-            this.Status = status;
-            this.ExecutionOptions = executionOptions;
-
-            this.SetValidCreateModel();
-            return this;
+            return string.Empty;
         }
     }
 }

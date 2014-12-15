@@ -83,6 +83,7 @@
     <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignBuyingTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignObjectiveEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignStatusEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\Global\ExecutionOptionsEnumExtension.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCoupon.cs" />
     <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
     <Compile Include="Domain\Enums\AdUsers\UserRoleEnum.cs" />

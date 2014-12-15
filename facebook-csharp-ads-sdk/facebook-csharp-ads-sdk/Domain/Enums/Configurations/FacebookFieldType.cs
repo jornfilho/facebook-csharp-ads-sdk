@@ -58,6 +58,11 @@
         /// <summary>
         ///     Ad campaign buying type enum
         /// </summary>
-        AdCampaignBuyingTypeEnum
+        AdCampaignBuyingTypeEnum,
+
+        /// <summary>
+        ///     Facebook execution options enum list
+        /// </summary>
+        ExecutionOptionsEnumList
     }
 }

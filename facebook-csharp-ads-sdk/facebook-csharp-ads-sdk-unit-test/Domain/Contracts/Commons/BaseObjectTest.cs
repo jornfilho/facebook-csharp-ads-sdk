@@ -1,4 +1,5 @@
-﻿using facebook_csharp_ads_sdk.Domain.Models;
+﻿using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Models;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -58,6 +59,11 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         }
 
         public override BaseObjectTest Create()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleCreateParams()
         {
             throw new System.NotImplementedException();
         }

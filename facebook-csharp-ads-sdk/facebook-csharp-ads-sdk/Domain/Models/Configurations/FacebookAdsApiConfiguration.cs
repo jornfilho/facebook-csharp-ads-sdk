@@ -68,11 +68,19 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         
         /// <summary>
 
-        ///     Endpoint of the ad campaign
+        ///     Endpoint of the read ad campaign
         /// </summary>
-        public string AdCampaignEndpoint
+        public string AdCampaignReadEndpoint
         {
             get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}&fields={2}"); }
+        }
+
+        /// <summary>
+        ///     Endpoint of the create ad campaign
+        /// </summary>
+        public string AdCampaignCreateEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "act_{0}/adcampaign_groups?access_token={1}"); }
         }
 
         #endregion Ad campaign

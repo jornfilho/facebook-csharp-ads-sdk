@@ -46,10 +46,26 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         ///     Create the ad campaign on Facebook
         /// </summary>
         /// <param name="adCampaign"> Ad campaign to create </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
         /// <returns> Ad campaign created with id </returns>
-        public AdCampaign Create(AdCampaign adCampaign)
+        public async Task<AdCampaign> Create(AdCampaign adCampaign)
         {
-            throw new NotImplementedException();
+            if (adCampaign == null)
+            {
+                return null;
+            }
+
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            Dictionary<string, string> paramsToCreate = adCampaign.GetSingleCreateParams();
+
+            string campaignCreateEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdCampaignCreateEndpoint;
+            campaignCreateEndpoint = String.Format(campaignCreateEndpoint, adCampaign.AccountId, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string requestResult = await webRequest.PostAsync(campaignCreateEndpoint, paramsToCreate);
+
+            adCampaign.ParseCreateResponse(requestResult);
+            return adCampaign;
         }
 
         /// <summary>
@@ -60,7 +76,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// <returns> Ad campaign with id </returns>
         public async Task<AdCampaign> Read(long campaignId)
         {
-            var fieldList = new List<AdCampaignFieldsEnum> { AdCampaignFieldsEnum.Id, AdCampaignFieldsEnum.Name, AdCampaignFieldsEnum.AccountId, AdCampaignFieldsEnum.Adgroups, AdCampaignFieldsEnum.BuyingType, AdCampaignFieldsEnum.Objective, AdCampaignFieldsEnum.Status  };
+            var fieldList = new List<AdCampaignFieldsEnum> { AdCampaignFieldsEnum.Id };
             AdCampaign campaignResult = await this.Read(campaignId, fieldList);
             return campaignResult;
         }
@@ -81,11 +97,11 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             }
 
             string fieldNameList = this.GetFieldNameQueryString(fields);
-            string campaignEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdCampaignEndpoint;
+            string campaignEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdCampaignReadEndpoint;
             campaignEndpoint = String.Format(campaignEndpoint, campaignId, this.facebookSession.GetUserAccessToken(), fieldNameList);
 
             IRequest webRequest = new Request();
-            var getRequest = await webRequest.GetAsync(campaignEndpoint);
+            string getRequest = await webRequest.GetAsync(campaignEndpoint);
             var account = new AdCampaign(this);
             account.ParseReadSingleesponse(getRequest);
             return account;

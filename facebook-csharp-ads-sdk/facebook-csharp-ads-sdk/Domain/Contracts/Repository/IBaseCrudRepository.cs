@@ -13,8 +13,9 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         ///     Create the instance on Facebook
         /// </summary>
         /// <param name="entity"> Entity to create </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
         /// <returns> Entity created with id </returns>
-        T Create(T entity);
+        Task<T> Create(T entity);
 
         /// <summary>
         ///     Delete the ad campaign
