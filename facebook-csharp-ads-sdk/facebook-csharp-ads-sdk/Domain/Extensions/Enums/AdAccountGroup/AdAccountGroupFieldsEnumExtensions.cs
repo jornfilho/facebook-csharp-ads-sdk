@@ -17,6 +17,9 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccountGroup
         /// </summary>
         public static AdAccountGroupFieldsEnum GetAdAccountGroupFieldsEnum(this string facebookName)
         {
+            if (String.IsNullOrEmpty(facebookName))
+                return AdAccountGroupFieldsEnum.Undefined;
+
             foreach (AdAccountGroupFieldsEnum field in Enum.GetValues(typeof(AdAccountGroupFieldsEnum)))
                 if (field.GetFacebookName() == facebookName)
                     return field;
