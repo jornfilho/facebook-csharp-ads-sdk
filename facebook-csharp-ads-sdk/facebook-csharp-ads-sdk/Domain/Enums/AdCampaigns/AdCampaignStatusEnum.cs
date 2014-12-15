@@ -23,6 +23,18 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns
         ///     Campaign paused
         /// </summary>
         [FacebookName("PAUSED")]
-        Paused
+        Paused,
+
+        /// <summary>
+        ///     Campaign archived
+        /// </summary>
+        [FacebookName("ARCHIVED")]
+        Archived,
+
+        /// <summary>
+        ///     Campaign delete
+        /// </summary>
+        [FacebookName("DELETED")]
+        Delete
     }
 }

@@ -262,7 +262,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                     return this;
                 }
 
-                if (status == AdCampaignStatusEnum.Undefined)
+                if (status == AdCampaignStatusEnum.Undefined || 
+                    status == AdCampaignStatusEnum.Archived || 
+                    status == AdCampaignStatusEnum.Delete)
                 {
                     this.SetInvalidCreateModel();
                     return this;

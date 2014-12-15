@@ -13,6 +13,9 @@ using Moq;
 
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
 {
+    /// <summary>
+    ///     Unit teste for the ad campaign create method
+    /// </summary>
     [TestClass]
     public class AdCampaignCreateTest
     {
@@ -56,6 +59,28 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignStatusUndefinedToSetCreationData()
         {
             this.campaignStatus = AdCampaignStatusEnum.Undefined;
+            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+                campaignObjective, campaignStatus, executionOptions);
+
+            Assert.AreEqual(0, campaign.Id);
+            Assert.IsFalse(campaign.CreateModelIsReady);
+        }
+
+        [TestMethod]
+        public void ShouldReturnErrorIfCampaignStatusArchivedToSetCreationData()
+        {
+            this.campaignStatus = AdCampaignStatusEnum.Archived;
+            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+                campaignObjective, campaignStatus, executionOptions);
+
+            Assert.AreEqual(0, campaign.Id);
+            Assert.IsFalse(campaign.CreateModelIsReady);
+        }
+
+        [TestMethod]
+        public void ShouldReturnErrorIfCampaignStatusDeleteToSetCreationData()
+        {
+            this.campaignStatus = AdCampaignStatusEnum.Delete;
             var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
