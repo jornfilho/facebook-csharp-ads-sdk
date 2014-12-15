@@ -66,6 +66,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
         [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public string Name { get; private set; }
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdCampaignObjectiveEnum)]
         [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public AdCampaignObjectiveEnum? Objective { get; private set; }
 
         /// <summary>
@@ -84,6 +86,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdCampaignStatusEnum)]
         [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public AdCampaignStatusEnum? Status { get; private set; }
 
         /// <summary>
@@ -106,10 +109,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Execute options on Facebook create and update
         /// </summary>
-        [CanCreateOnFacebook(true)]
         [DefaultValue(null)]
         [FacebookName("execution_options")]
         [FacebookFieldType(FacebookFieldType.ExecutionOptionsEnumList)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public IList<ExecutionOptionsEnum> ExecutionOptionsList { get; private set; }
 
         #endregion Properties
@@ -120,13 +124,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <returns> This instance with id created </returns>
         public override AdCampaign Create()
         {
-            if (!this.CreateModelIsReady)
+            try
+            {
+                if (!this.CreateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.campaignRepository.Create(this).Result;
+            }
+            catch (Exception)
             {
                 this.SetInvalid();
                 return this;
             }
-
-            return this.campaignRepository.Create(this).Result;
         }
 
         /// <summary>
@@ -146,6 +158,29 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
         }
 
+        /// <summary>
+        ///     Update a ad campaign on Facebook
+        /// </summary>
+        /// <returns> Ad campaign updated </returns>
+        public override AdCampaign Update()
+        {
+            try
+            {
+                if (!this.UpdateModelIsReady || !this.Id.IsValidAdCampaignId())
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.campaignRepository.Update(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
+        }
+        
         /// <summary>
         ///     Delete the ad campaign in facebook
         /// </summary>
@@ -200,40 +235,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             this.GetAdGroupIdListFromFacebookResponse(facebookResponse);
         }
-
-        /// <summary>
-        ///     Get ids list of ad group by facebook response
-        /// </summary>
-        /// <param name="jsonResult"> Facebook response </param>
-        private void GetAdGroupIdListFromFacebookResponse(string jsonResult)
-        {
-            var facebookResponse = JObject.Parse(jsonResult);
-
-            JToken jTokenAdGroups = facebookResponse["adgroups"];
-            if (jTokenAdGroups != null && jTokenAdGroups.Type == JTokenType.Object)
-            {
-                var adGroupList = JObject.Parse(facebookResponse["adgroups"].ToString());
-
-                JToken adGroupIds = adGroupList["data"];
-                if (adGroupIds != null && adGroupIds.Type == JTokenType.Array)
-                {
-                    this.AdGroups = new List<long>();
-                    foreach (var jTokenAdGroupId in adGroupIds)
-                    {
-                        JToken id = jTokenAdGroupId["id"];
-                        if (id != null && id.Type == JTokenType.String)
-                        {
-                            long adGroupId = id.ToString().TryParseLong();
-                            if (adGroupId > 0)
-                            {
-                                this.AdGroups.Add(adGroupId.ToString().TryParseLong());
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+        
         /// <summary>
         ///     Set the attributes to create a ad campaign
         /// </summary>
@@ -298,7 +300,65 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         }
 
         /// <summary>
-        ///     Monta string com os dados para criacao de uma nova campanha
+        ///     Set the attributes to update a ad campaign
+        /// </summary>
+        /// <param name="accountId"> Account id </param>
+        /// <param name="name"> Ad campaign name </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <returns> This instance </returns>
+        public AdCampaign SetUpdateData(long accountId, string name, AdCampaignObjectiveEnum? objective,
+                                        AdCampaignStatusEnum? status,
+                                        IList<ExecutionOptionsEnum> executionOptionsList)
+        {
+            try
+            {
+                if (!accountId.IsValidAdAccountId())
+                {
+                    this.SetInvalidCreateModel();
+                    return this;
+                }
+                
+                if (String.IsNullOrEmpty(name) &&
+                    objective == null && 
+                    status == null && 
+                    (executionOptionsList == null || !executionOptionsList.Any()))
+                {
+                    this.SetInvalidUpdateModel();
+                    return this;
+                }
+
+                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+                {
+                    this.SetInvalidUpdateModel();
+                    return this;
+                }
+
+                if (status != null && status == AdCampaignStatusEnum.Undefined)
+                {
+                    this.SetInvalidUpdateModel();
+                    return this;
+                }
+
+                this.AccountId = accountId;
+                this.Name = name;
+                this.Objective = objective;
+                this.Status = status;
+                this.ExecutionOptionsList = executionOptionsList;
+
+                this.SetValidUpdateModel();
+                return this;
+            }
+            catch (Exception)
+            {
+                this.SetInvalidUpdateModel();
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     Mounts string with data for creation of a new campaign
         /// </summary>
         public override Dictionary<string, string> GetSingleCreateParams()
         {
@@ -310,13 +370,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             var createQuery = new Dictionary<string, string>();
             foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
             {
-                var defaultValueAttribute = (DefaultValueAttribute) prop.Attributes[typeof (DefaultValueAttribute)];
                 var facebookNameAttribute = (FacebookNameAttribute) prop.Attributes[typeof (FacebookNameAttribute)];
                 var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
                 var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute) prop.Attributes[typeof (CanCreateOnFacebookAttribute)];
                 
-                if (defaultValueAttribute == null || 
-                    facebookNameAttribute == null ||
+                if (facebookNameAttribute == null ||
                     facebookAttributeType == null ||
                     canCreateOnFacebookAttribute == null)
                 {
@@ -336,6 +394,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 
                 FacebookFieldType facebookType = facebookAttributeType.Value;
                 object currentValue = prop.GetValue(this);
+                if (currentValue == null)
+                {
+                    continue;
+                }
 
                 string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
                 if (String.IsNullOrEmpty(currentValueString))
@@ -350,8 +412,98 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         }
 
         /// <summary>
-        ///     Converte valores de string para enum e em seguida utiliza o nome utilizado pelo facebook.
-        ///     Caso não seja enum, retorna proprio valor
+        ///     Mount a dictionary with parameters and values to update
+        /// </summary>
+        /// <returns> Dictionary with facebook name and value </returns>
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            if (!this.UpdateModelIsReady)
+            {
+                return null;
+            }
+
+            var createQuery = new Dictionary<string, string>();
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+            {
+                var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+                var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)prop.Attributes[typeof(CanUpdateOnFacebookAttribute)];
+
+                if (facebookNameAttribute == null ||
+                    facebookAttributeType == null ||
+                    canUpdateOnFacebookAttribute == null)
+                {
+                    continue;
+                }
+
+                if (canUpdateOnFacebookAttribute.Value == false)
+                {
+                    continue;
+                }
+
+                string facebookName = facebookNameAttribute.Value;
+                if (String.IsNullOrEmpty(facebookName))
+                {
+                    continue;
+                }
+
+                FacebookFieldType facebookType = facebookAttributeType.Value;
+                object currentValue = prop.GetValue(this);
+
+                if (currentValue == null)
+                {
+                    continue;
+                }
+
+                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
+                if (String.IsNullOrEmpty(currentValueString))
+                {
+                    continue;
+                }
+
+                createQuery.Add(facebookName, currentValueString);
+            }
+
+            return createQuery;
+        }
+
+        #region Private methods
+
+        /// <summary>
+        ///     Get ids list of ad group by facebook response
+        /// </summary>
+        /// <param name="jsonResult"> Facebook response </param>
+        private void GetAdGroupIdListFromFacebookResponse(string jsonResult)
+        {
+            var facebookResponse = JObject.Parse(jsonResult);
+
+            JToken jTokenAdGroups = facebookResponse["adgroups"];
+            if (jTokenAdGroups != null && jTokenAdGroups.Type == JTokenType.Object)
+            {
+                var adGroupList = JObject.Parse(facebookResponse["adgroups"].ToString());
+
+                JToken adGroupIds = adGroupList["data"];
+                if (adGroupIds != null && adGroupIds.Type == JTokenType.Array)
+                {
+                    this.AdGroups = new List<long>();
+                    foreach (var jTokenAdGroupId in adGroupIds)
+                    {
+                        JToken id = jTokenAdGroupId["id"];
+                        if (id != null && id.Type == JTokenType.String)
+                        {
+                            long adGroupId = id.ToString().TryParseLong();
+                            if (adGroupId > 0)
+                            {
+                                this.AdGroups.Add(adGroupId.ToString().TryParseLong());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Get the property value
         /// </summary>
         private string GetObjectFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
@@ -385,5 +537,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             return string.Empty;
         }
+
+        #endregion Private methods
     }
 }

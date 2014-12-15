@@ -73,6 +73,16 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             throw new System.NotImplementedException();
         }
 
+        public override BaseObjectTest Update()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override bool Delete()
         {
             throw new System.NotImplementedException();

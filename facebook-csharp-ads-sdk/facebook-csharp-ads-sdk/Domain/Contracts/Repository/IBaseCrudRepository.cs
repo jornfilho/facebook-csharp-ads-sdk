@@ -24,6 +24,12 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         /// <returns> Success </returns>
         Task<bool> Delete(long id);
 
-        //bool Update(T entity);
+        /// <summary>
+        ///     Updated the instance on Facebook
+        /// </summary>
+        /// <param name="entity"> Entity to update </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Entity updated </returns>
+        Task<T> Update(T entity);
     }
 }

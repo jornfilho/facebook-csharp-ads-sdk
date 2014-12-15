@@ -47,6 +47,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         public abstract T ReadSingle(long id);
 
         /// <summary>
+        ///     Update a entity on Facebook
+        /// </summary>
+        /// <returns> Entity updated </returns>
+        public abstract T Update();
+
+        /// <summary>
+        ///     Mount a dictionary with parameters and values to update
+        /// </summary>
+        /// <returns> Dictionary with facebook name and value </returns>
+        public abstract Dictionary<string, string> GetSingleUpdateParams();
+
+        /// <summary>
         ///     Delete the object in facebook
         /// </summary>
         /// <returns> Success </returns>
@@ -100,8 +112,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
                 }
 
                 var jsonResult = JObject.Parse(facebookResponse);
-
-                if (IsValidResponse(jsonResult))
+                if (!IsValidResponse(jsonResult))
                     return false;
 
                 this.SetValid();

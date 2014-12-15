@@ -141,6 +141,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
+        public override User Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

@@ -125,6 +125,32 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             return account.ParseDeleteResponse(deleteRequest);
         }
 
+        /// <summary>
+        ///     Updated the ad campaign on Facebook
+        /// </summary>
+        /// <param name="campaign"> Entity to update </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Campaign updated </returns>
+        public async Task<AdCampaign> Update(AdCampaign campaign)
+        {
+            if (campaign == null)
+            {
+                return null;
+            }
+
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            Dictionary<string, string> paramsToUpdate = campaign.GetSingleUpdateParams();
+
+            string campaignUpdateEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdCampaignUpdateEndpoint;
+            campaignUpdateEndpoint = String.Format(campaignUpdateEndpoint, campaign.Id, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string requestResult = await webRequest.PostAsync(campaignUpdateEndpoint, paramsToUpdate);
+
+            campaign.ParseUpdateResponse(requestResult);
+            return campaign;
+        }
+
         #region Private methods
         
         /// <summary>

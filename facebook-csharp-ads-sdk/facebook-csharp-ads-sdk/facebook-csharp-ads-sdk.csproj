@@ -111,6 +111,7 @@
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />

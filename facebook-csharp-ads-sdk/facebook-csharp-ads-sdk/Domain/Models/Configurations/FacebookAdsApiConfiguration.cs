@@ -82,6 +82,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         {
             get { return String.Format("{0}{1}", this.GraphApiUrl, "act_{0}/adcampaign_groups?access_token={1}"); }
         }
+        
+        /// <summary>
+        ///     Endpoint of the update ad campaign
+        /// </summary>
+        public string AdCampaignUpdateEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}"); }
+        }
 
         #endregion Ad campaign
 
