@@ -367,47 +367,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 return null;
             }
 
-            var createQuery = new Dictionary<string, string>();
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
-            {
-                var facebookNameAttribute = (FacebookNameAttribute) prop.Attributes[typeof (FacebookNameAttribute)];
-                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute) prop.Attributes[typeof (CanCreateOnFacebookAttribute)];
-                
-                if (facebookNameAttribute == null ||
-                    facebookAttributeType == null ||
-                    canCreateOnFacebookAttribute == null)
-                {
-                    continue;
-                }
-
-                if (canCreateOnFacebookAttribute.Value == false)
-                {
-                    continue;
-                }
-
-                string facebookName = facebookNameAttribute.Value;
-                if (String.IsNullOrEmpty(facebookName))
-                {
-                    continue;
-                }
-                
-                FacebookFieldType facebookType = facebookAttributeType.Value;
-                object currentValue = prop.GetValue(this);
-                if (currentValue == null)
-                {
-                    continue;
-                }
-
-                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
-                if (String.IsNullOrEmpty(currentValueString))
-                {
-                    continue;
-                }
-
-                createQuery.Add(facebookName, currentValueString);
-            }
-
+            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Create);
             return createQuery;
         }
 
@@ -422,48 +382,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 return null;
             }
 
-            var createQuery = new Dictionary<string, string>();
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
-            {
-                var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
-                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-                var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)prop.Attributes[typeof(CanUpdateOnFacebookAttribute)];
-
-                if (facebookNameAttribute == null ||
-                    facebookAttributeType == null ||
-                    canUpdateOnFacebookAttribute == null)
-                {
-                    continue;
-                }
-
-                if (canUpdateOnFacebookAttribute.Value == false)
-                {
-                    continue;
-                }
-
-                string facebookName = facebookNameAttribute.Value;
-                if (String.IsNullOrEmpty(facebookName))
-                {
-                    continue;
-                }
-
-                FacebookFieldType facebookType = facebookAttributeType.Value;
-                object currentValue = prop.GetValue(this);
-
-                if (currentValue == null)
-                {
-                    continue;
-                }
-
-                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
-                if (String.IsNullOrEmpty(currentValueString))
-                {
-                    continue;
-                }
-
-                createQuery.Add(facebookName, currentValueString);
-            }
-
+            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Update);
             return createQuery;
         }
 
@@ -536,6 +455,92 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        ///     Mount a dictionary with parameters and values to create or update
+        /// </summary>
+        /// <param name="operationType"> Operations type </param>
+        /// <returns> Dictionary with facebook name and value </returns>
+        private Dictionary<string, string> GetParamsQueryDictionary(GetParamsType operationType)
+        {
+            try
+            {
+                var createQuery = new Dictionary<string, string>();
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+                {
+
+                    if (!this.PropertyCanBeUsedInTheOperation(prop, operationType))
+                    {
+                        continue;
+                    }
+
+                    var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                    var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+
+                    if (facebookNameAttribute == null ||
+                        facebookAttributeType == null)
+                    {
+                        continue;
+                    }
+
+                    string facebookName = facebookNameAttribute.Value;
+                    if (String.IsNullOrEmpty(facebookName))
+                    {
+                        continue;
+                    }
+
+                    FacebookFieldType facebookType = facebookAttributeType.Value;
+                    object currentValue = prop.GetValue(this);
+
+                    if (currentValue == null)
+                    {
+                        continue;
+                    }
+
+                    string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
+                    if (String.IsNullOrEmpty(currentValueString))
+                    {
+                        continue;
+                    }
+
+                    createQuery.Add(facebookName, currentValueString);
+                }
+
+                return createQuery;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///     Verify if property can be used in operation
+        /// </summary>
+        /// <param name="property"> Property </param>
+        /// <param name="operationType"> Operations type </param>
+        /// <returns> Flag indicating it can be used </returns>
+        private bool PropertyCanBeUsedInTheOperation(PropertyDescriptor property, GetParamsType operationType)
+        {
+            if (operationType == GetParamsType.Create)
+            {
+                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute)property.Attributes[typeof(CanCreateOnFacebookAttribute)];
+                if (canCreateOnFacebookAttribute == null || canCreateOnFacebookAttribute.Value == false)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)property.Attributes[typeof(CanUpdateOnFacebookAttribute)];
+            if (canUpdateOnFacebookAttribute == null || canUpdateOnFacebookAttribute.Value == false)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion Private methods
