@@ -515,33 +515,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
         }
 
-        /// <summary>
-        ///     Verify if property can be used in operation
-        /// </summary>
-        /// <param name="property"> Property </param>
-        /// <param name="operationType"> Operations type </param>
-        /// <returns> Flag indicating it can be used </returns>
-        private bool PropertyCanBeUsedInTheOperation(PropertyDescriptor property, GetParamsType operationType)
-        {
-            if (operationType == GetParamsType.Create)
-            {
-                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute)property.Attributes[typeof(CanCreateOnFacebookAttribute)];
-                if (canCreateOnFacebookAttribute == null || canCreateOnFacebookAttribute.Value == false)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)property.Attributes[typeof(CanUpdateOnFacebookAttribute)];
-            if (canUpdateOnFacebookAttribute == null || canUpdateOnFacebookAttribute.Value == false)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         #endregion Private methods
     }
