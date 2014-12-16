@@ -57,6 +57,7 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAdSetRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
@@ -65,12 +66,22 @@
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignBuyingTypeEnum.cs" />
-    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />
+    <Compile Include="Domain\Enums\Global\BidInfoObjectiveType.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Enums\Global\GetParamsType.cs" />
+    <Compile Include="Domain\Enums\Targetings\GenderTypeEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\OsOptionsEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\PlacementTypeEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\SiteCategoryEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions.cs" />
@@ -110,6 +121,9 @@
     <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSet.cs" />
+    <Compile Include="Domain\Models\AdSets\PromotedObject.cs" />
+    <Compile Include="Domain\Models\Global\BidInfo.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
@@ -124,6 +138,8 @@
     <Compile Include="Domain\Models\BaseCrudObject.cs" />
     <Compile Include="Domain\Models\BaseObjectsList.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>

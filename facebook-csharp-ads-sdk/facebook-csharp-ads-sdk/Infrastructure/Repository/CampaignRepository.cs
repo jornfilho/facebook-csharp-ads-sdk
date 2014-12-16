@@ -76,7 +76,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// <returns> Ad campaign with id </returns>
         public async Task<AdCampaign> Read(long campaignId)
         {
-            var fieldList = new List<AdCampaignFieldsEnum> { AdCampaignFieldsEnum.Id };
+            var fieldList = new List<AdCampaignReadFieldsEnum> { AdCampaignReadFieldsEnum.Id };
             AdCampaign campaignResult = await this.Read(campaignId, fieldList);
             return campaignResult;
         }
@@ -88,12 +88,12 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// <param name="fields"> Field list you wish to retrieve </param>
         /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
         /// <returns> Ad campaign has passed fields </returns>
-        public async Task<AdCampaign> Read(long campaignId, IList<AdCampaignFieldsEnum> fields)
+        public async Task<AdCampaign> Read(long campaignId, IList<AdCampaignReadFieldsEnum> fields)
         {
             this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
             if (fields == null || !fields.Any())
             {
-                fields = new List<AdCampaignFieldsEnum> { AdCampaignFieldsEnum.Id };
+                fields = new List<AdCampaignReadFieldsEnum> { AdCampaignReadFieldsEnum.Id };
             }
 
             string fieldNameList = this.GetFieldNameQueryString(fields);
@@ -158,7 +158,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// </summary>
         /// <param name="fields"> Chosen fields to read </param>
         /// <returns> String with field name chose separate by comma </returns>
-        public string GetFieldNameQueryString(IList<AdCampaignFieldsEnum> fields)
+        public string GetFieldNameQueryString(IList<AdCampaignReadFieldsEnum> fields)
         {
             if (fields == null || !fields.Any())
             {

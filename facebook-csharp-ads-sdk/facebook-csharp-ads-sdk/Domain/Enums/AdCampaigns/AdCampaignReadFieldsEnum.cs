@@ -2,7 +2,7 @@
 
 namespace facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns
 {
-    public enum AdCampaignFieldsEnum
+    public enum AdCampaignReadFieldsEnum
     {
         /// <summary>
         /// <para> Id of the ad campaign </para>

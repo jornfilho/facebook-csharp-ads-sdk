@@ -16,6 +16,10 @@ using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 {
+    /// <summary>
+    ///     <para> Facebook Ad campaign </para>
+    ///     <para>https://developers.facebook.com/docs/reference/ads-api/adcampaign</para>
+    /// </summary>
     public class AdCampaign : BaseCrudObject<AdCampaign>
     {
         #region Dependencies
@@ -153,6 +157,24 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 return id.IsValidAdCampaignId() ? this.campaignRepository.Read(id).Result : this;
             }
             catch
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     <para> Read ad campaign by id </para>
+        /// </summary>
+        /// <param name="id"> Campaign id </param>
+        /// <param name="fields"> Ad campaign fields to read </param>
+        /// <returns></returns>
+        public AdCampaign ReadSingle(long id, IList<AdCampaignReadFieldsEnum> fields)
+        {
+            try
+            {
+                return id.IsValidAdCampaignId() ? this.campaignRepository.Read(id, fields).Result : this;
+            }
+            catch (Exception)
             {
                 return this;
             }

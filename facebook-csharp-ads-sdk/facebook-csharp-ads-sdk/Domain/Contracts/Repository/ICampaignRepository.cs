@@ -18,6 +18,6 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         /// <param name="fields"> Field list you wish to retrieve </param>
         /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
         /// <returns> Ad campaign has passed fields </returns>
-        Task<AdCampaign> Read(long campaignId, IList<AdCampaignFieldsEnum> fields);
+        Task<AdCampaign> Read(long campaignId, IList<AdCampaignReadFieldsEnum> fields);
     }
 }
