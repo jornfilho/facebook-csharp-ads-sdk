@@ -57,8 +57,9 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\Base\IBaseCrudRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\Base\IBaseRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAdSetRepository.cs" />
-    <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
@@ -81,6 +82,8 @@
     <Compile Include="Domain\Enums\Targetings\PlacementTypeEnum.cs" />
     <Compile Include="Domain\Enums\Targetings\SiteCategoryEnum.cs" />
     <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
@@ -140,16 +143,17 @@
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
+    <Compile Include="Domain\Utils\RepositoryUtils.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Repository\AdSetRepository.cs" />
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
-    <Compile Include="Infrastructure\Repository\CampaignRepository.cs" />
+    <Compile Include="Infrastructure\Repository\AdCampaignRepository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Domain\Models\BaseObject.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />
-    <Compile Include="Domain\Contracts\Repository\IBaseRepository.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />

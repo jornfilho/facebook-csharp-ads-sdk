@@ -146,5 +146,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models
 
             SetInvalid();
         }
+
+        /// <summary>
+        ///     Get the facebook name of the property
+        /// </summary>
+        /// <param name="propertyName"> Property name </param>
+        /// <returns> Facebook name </returns>
+        protected string GetPropertyFacebookName(string propertyName)
+        {
+            var facebookAttributeName = this.GetType().GetProperty(propertyName).GetCustomAttribute<FacebookNameAttribute>();
+            if (facebookAttributeName == null)
+            {
+                return string.Empty;
+            }
+
+            return facebookAttributeName.Value;
+        }
     }
 }

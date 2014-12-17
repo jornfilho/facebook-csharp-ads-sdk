@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
+using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using facebook_csharp_ads_sdk.Domain.Models.Global;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
 {
@@ -171,7 +176,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         public int? BudgetRemaining { get; private set; }
 
         /// <summary>
-        ///     Targeting
+        ///     The targeting specification of this ad set
         /// </summary>
         [FacebookName("targeting")]
         [DefaultValue(null)]
@@ -234,14 +239,96 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///     <para> Read ad set by id </para>
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <returns> Ad set with fields passed </returns>
         public override AdSet ReadSingle(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return id.IsValidAdSetId()
+                    ? this.adSetRepository.Read(id).Result
+                    : this;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     <para> Read ad set by id </para>
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <param name="fieldsToRead"> Fields to read </param>
+        /// <returns> Ad set with fields passed </returns>
+        public AdSet ReadSingle(long id, IList<AdSetReadFieldsEnum> fieldsToRead)
+        {
+            try
+            {
+                return id.IsValidAdSetId()
+                    ? this.adSetRepository.Read(id, fieldsToRead).Result
+                    : this;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
         }
 
         public override AdSet Update()
         {
             throw new NotImplementedException();
+        }
+
+        public override void ParseReadSingleesponse(string facebookResponse)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(facebookResponse))
+                {
+                    return;
+                }
+
+                base.ParseReadSingleesponse(facebookResponse);
+                this.GetBidTypeFromFacebookResponse(facebookResponse);
+                this.GetStatusFromFacebookResponse(facebookResponse);
+
+                /*
+                 * BidInfoArray
+                 * AdSetStatusEnum
+                 * targeting
+                 * PromotedObject
+                 */
+            }
+            catch (Exception)
+            {
+                this.BidType = null;
+            }
+        }
+
+        private void GetBidTypeFromFacebookResponse(string facebookResponse)
+        {
+            var facebookName = this.GetPropertyFacebookName("BidType");
+
+            var response = JObject.Parse(facebookResponse);
+            if (response[facebookName] != null && response[facebookName].Type == JTokenType.String)
+            {
+                this.BidType = response[facebookName].ToString().GetAdSetBidType();
+            }
+        }
+
+        private void GetStatusFromFacebookResponse(string facebookResponse)
+        {
+            var facebookName = this.GetPropertyFacebookName("Status");
+
+            var response = JObject.Parse(facebookResponse);
+            if (response[facebookName] != null && response[facebookName].Type == JTokenType.String)
+            {
+                this.Status = response[facebookName].ToString().GetAdSetStatus();
+            }
         }
     }
 }

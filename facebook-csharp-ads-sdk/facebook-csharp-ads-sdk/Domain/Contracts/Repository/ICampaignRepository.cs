@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository.Base;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
 using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;

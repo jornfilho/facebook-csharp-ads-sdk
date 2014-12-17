@@ -6,14 +6,13 @@ using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.FacebookSession;
 using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
-using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Attribute;
 using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;
-using facebook_csharp_ads_sdk.Domain.Models.Attributes;
+using facebook_csharp_ads_sdk.Domain.Utils;
 using facebook_csharp_ads_sdk._Utils.WebRequests;
 
 namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 {
-    public class CampaignRepository : ICampaignRepository
+    public class AdCampaignRepository : ICampaignRepository
     {
         #region Properties
         
@@ -30,7 +29,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// Repository constructor with an instance of Facebook Session
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public CampaignRepository(IFacebookSession facebookSession)
+        public AdCampaignRepository(IFacebookSession facebookSession)
         {
             if (facebookSession == null)
             {
@@ -96,7 +95,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
                 fields = new List<AdCampaignReadFieldsEnum> { AdCampaignReadFieldsEnum.Id };
             }
 
-            string fieldNameList = this.GetFieldNameQueryString(fields);
+            string fieldNameList = RepositoryUtils.GetFieldNameQueryString(fields);
             string campaignEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdCampaignReadEndpoint;
             campaignEndpoint = String.Format(campaignEndpoint, campaignId, this.facebookSession.GetUserAccessToken(), fieldNameList);
 
@@ -150,42 +149,5 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             campaign.ParseUpdateResponse(requestResult);
             return campaign;
         }
-
-        #region Private methods
-        
-        /// <summary>
-        ///     Get the query string of chosen fields to read
-        /// </summary>
-        /// <param name="fields"> Chosen fields to read </param>
-        /// <returns> String with field name chose separate by comma </returns>
-        public string GetFieldNameQueryString(IList<AdCampaignReadFieldsEnum> fields)
-        {
-            if (fields == null || !fields.Any())
-            {
-                return string.Empty;
-            }
-
-            string nameList = string.Empty;
-            foreach (var adCampaignFieldsEnum in fields)
-            {
-                string fieldName = adCampaignFieldsEnum.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
-                if (String.IsNullOrEmpty(fieldName))
-                {
-                    continue;
-                }
-
-                if (String.IsNullOrEmpty(nameList))
-                {
-                    nameList = fieldName;
-                    continue;
-                }
-
-                nameList += "," + fieldName;
-            }
-
-            return nameList;
-        }
-
-        #endregion Private methods
     }
 }
