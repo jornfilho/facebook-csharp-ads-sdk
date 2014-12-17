@@ -4,6 +4,7 @@ using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using facebook_csharp_ads_sdk.Domain.Models.Global;
 
@@ -53,7 +54,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("id")]
         [DefaultValue(0L)]
         [FacebookFieldType(FacebookFieldType.Int64)]
-        //[IsFacebookCreateResponse(true)]
+        [IsFacebookCreateResponseAttribute(true)]
         public long Id { get; private set; }
 
         /// <summary>
@@ -62,8 +63,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("name")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
-        //[CanCreateOnFacebook(true)]
-        //[CanUpdateOnFacebook(true)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public string Name { get; private set; }
 
         /// <summary>
@@ -72,7 +73,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("bid_type")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdSetBidTypeEnum)]
-        public AdSetBidTypeEnum? BidTypeEnum { get; private set; }
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
+        public AdSetBidTypeEnum? BidType { get; private set; }
 
         /// <summary>
         ///     Ad set bid info
@@ -80,6 +83,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("bid_info")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.BidInfoArray)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public IList<BidInfo> BidInfo { get; private set; }
 
         /// <summary>
@@ -88,6 +93,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("campaign_group_id")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.Int64)]
+        [CanCreateOnFacebook(true)]
         public long? AdCampaignId { get; private set; }
 
         /// <summary>
@@ -96,6 +102,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("campaign_status")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.AdSetStatusEnum)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public AdSetStatusEnum? Status { get; private set; }
 
         /// <summary>
@@ -104,6 +112,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("start_time")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.DateTime)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public DateTime? StartTime { get; private set; }
 
         /// <summary>
@@ -112,6 +122,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("end_time")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.DateTime)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public DateTime? EndTime { get; private set; }
 
         /// <summary>
@@ -136,6 +148,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("daily_budget")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.Int32)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public int? DailyBudget { get; private set; }
 
         /// <summary>
@@ -144,6 +158,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookName("lifetime_budget")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.Int32)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
         public int? LifetimeBudget { get; private set; }
 
         /// <summary>
@@ -154,12 +170,42 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         [FacebookFieldType(FacebookFieldType.Int32)]
         public int? BudgetRemaining { get; private set; }
 
-        // Todo: targeting
+        /// <summary>
+        ///     Targeting
+        /// </summary>
+        [FacebookName("targeting")]
+        [DefaultValue(null)]
+        [FacebookFieldType(FacebookFieldType.String)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
+        public string Targeting { get; private set; }
 
+        /// <summary>
+        ///     The object that the ad set is trying to promote and advertise
+        /// </summary>
         [FacebookName("promoted_object")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.PromotedObject)]
+        [CanCreateOnFacebook(true)]
         public PromotedObject PromotedObject { get; private set; }
+
+        /// <summary>
+        ///     Execute options on Facebook create and update
+        /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("execution_options")]
+        [FacebookFieldType(FacebookFieldType.ExecutionOptionsEnumList)]
+        [CanCreateOnFacebook(true)]
+        [CanUpdateOnFacebook(true)]
+        public IList<ExecutionOptionsEnum> ExecutionOptionsList { get; private set; }
+
+        /// <summary>
+        ///     Allows you to specify that you would like to retrieve all fields of the set in your response
+        /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("redownload")]
+        [CanCreateOnFacebook(true)]
+        public bool? Redownload { get; private set; }
 
         #endregion Properties
 
