@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
+using System.Linq;
+using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
-using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using facebook_csharp_ads_sdk.Domain.Models.Global;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
@@ -116,7 +118,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// </summary>
         [FacebookName("start_time")]
         [DefaultValue(null)]
-        [FacebookFieldType(FacebookFieldType.DateTime)]
+        [FacebookFieldType(FacebookFieldType.UnixTimestamp)]
         [CanCreateOnFacebook(true)]
         [CanUpdateOnFacebook(true)]
         public DateTime? StartTime { get; private set; }
@@ -126,7 +128,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// </summary>
         [FacebookName("end_time")]
         [DefaultValue(null)]
-        [FacebookFieldType(FacebookFieldType.DateTime)]
+        [FacebookFieldType(FacebookFieldType.UnixTimestamp)]
         [CanCreateOnFacebook(true)]
         [CanUpdateOnFacebook(true)]
         public DateTime? EndTime { get; private set; }
@@ -136,7 +138,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// </summary>
         [FacebookName("updated_time")]
         [DefaultValue(null)]
-        [FacebookFieldType(FacebookFieldType.DateTime)]
+        [FacebookFieldType(FacebookFieldType.UnixTimestamp)]
         public DateTime? UpdatedTime { get; private set; }
 
         /// <summary>
@@ -144,7 +146,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// </summary>
         [FacebookName("created_time")]
         [DefaultValue(null)]
-        [FacebookFieldType(FacebookFieldType.DateTime)]
+        [FacebookFieldType(FacebookFieldType.UnixTimestamp)]
         public DateTime? CreatedTime { get; private set; }
 
         /// <summary>
@@ -283,25 +285,44 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             throw new NotImplementedException();
         }
 
-        public override void ParseReadSingleesponse(string facebookResponse)
+        public override void ParseReadSingleResponse(string facebookResponse)
+        {
+           
+            if (String.IsNullOrEmpty(facebookResponse))
+            {
+                return;
+            }
+
+            base.ParseReadSingleResponse(facebookResponse);
+            this.GetBidTypeFromFacebookResponse(facebookResponse);
+            this.GetStatusFromFacebookResponse(facebookResponse);
+            this.GetTargetingFromFacebookResponse(facebookResponse);
+            this.GetBidInfoFromFacebookResponse(facebookResponse);
+            this.GetPromotedObjectFromFacebookResponse(facebookResponse);
+
+            /*
+            * PromotedObject
+            */
+        }
+
+        #region Private methods
+        
+        /// <summary>
+        ///     Get bid type from read Facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
+        private void GetBidTypeFromFacebookResponse(string facebookResponse)
         {
             try
             {
-                if (String.IsNullOrEmpty(facebookResponse))
+                var facebookName = this.GetPropertyFacebookName("BidType");
+                var response = JObject.Parse(facebookResponse);
+                if (response[facebookName] == null || response[facebookName].Type != JTokenType.String)
                 {
                     return;
                 }
 
-                base.ParseReadSingleesponse(facebookResponse);
-                this.GetBidTypeFromFacebookResponse(facebookResponse);
-                this.GetStatusFromFacebookResponse(facebookResponse);
-
-                /*
-                 * BidInfoArray
-                 * AdSetStatusEnum
-                 * targeting
-                 * PromotedObject
-                 */
+                this.BidType = response[facebookName].ToString().GetAdSetBidType();
             }
             catch (Exception)
             {
@@ -309,26 +330,117 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
-        private void GetBidTypeFromFacebookResponse(string facebookResponse)
-        {
-            var facebookName = this.GetPropertyFacebookName("BidType");
-
-            var response = JObject.Parse(facebookResponse);
-            if (response[facebookName] != null && response[facebookName].Type == JTokenType.String)
-            {
-                this.BidType = response[facebookName].ToString().GetAdSetBidType();
-            }
-        }
-
+        /// <summary>
+        ///     Get ad set status from read Facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
         private void GetStatusFromFacebookResponse(string facebookResponse)
         {
-            var facebookName = this.GetPropertyFacebookName("Status");
-
-            var response = JObject.Parse(facebookResponse);
-            if (response[facebookName] != null && response[facebookName].Type == JTokenType.String)
+            try
             {
+                var facebookName = this.GetPropertyFacebookName("Status");
+                var response = JObject.Parse(facebookResponse);
+                if (response[facebookName] == null || response[facebookName].Type != JTokenType.String)
+                {
+                    return;
+                }
+
                 this.Status = response[facebookName].ToString().GetAdSetStatus();
             }
+            catch (Exception)
+            {
+                this.Status = null;
+            }
         }
+
+        /// <summary>
+        ///     Get ad set targeting from read Facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
+        private void GetTargetingFromFacebookResponse(string facebookResponse)
+        {
+            try
+            {
+                var facebookName = this.GetPropertyFacebookName("Targeting");
+                var response = JObject.Parse(facebookResponse);
+                if (response[facebookName] == null || response[facebookName].Type != JTokenType.Object)
+                {
+                    return;
+                }
+
+                this.Targeting = JsonConvert.SerializeObject(response[facebookName]);
+            }
+            catch (Exception)
+            {
+                this.Targeting = null;
+            }
+        }
+        
+        /// <summary>
+        ///     Get ad set bid info from read Facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
+        private void GetBidInfoFromFacebookResponse(string facebookResponse)
+        {
+            try
+            {
+                var facebookName = this.GetPropertyFacebookName("BidInfo");
+                var response = JObject.Parse(facebookResponse);
+                if (response[facebookName] == null || response[facebookName].Type != JTokenType.Object)
+                {
+                    return;
+                }
+
+                var bInfoObject = JObject.Parse(response[facebookName].ToString());
+
+                this.BidInfo = new List<BidInfo>();
+                foreach (var bidInfoJToken in bInfoObject)
+                {
+                    BidInfoObjectiveTypeEnum bidInfoObjectiveTypeEnum = bidInfoJToken.Key.GetBidInfoType();
+                    if (bidInfoObjectiveTypeEnum == BidInfoObjectiveTypeEnum.Undefined)
+                    {
+                        continue;
+                    }
+
+                    int bidInfoValue = bidInfoJToken.Value.ToString().TryParseInt(-1);
+                    if (bidInfoValue < 0)
+                    {
+                        continue;
+                    }
+
+                    BidInfo bidInfo = new BidInfo().SetAttributes(bidInfoObjectiveTypeEnum, bidInfoValue);
+                    this.BidInfo.Add(bidInfo);
+                }
+
+                if (!this.BidInfo.Any())
+                {
+                    this.BidInfo = null;
+                }
+            }
+            catch (Exception)
+            {
+                this.BidInfo = null;
+            }
+        }
+
+        /// <summary>
+        ///     Get ad set promoted object from read Facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
+        private void GetPromotedObjectFromFacebookResponse(string facebookResponse)
+        {
+            var facebookName = this.GetPropertyFacebookName("PromotedObject");
+            var response = JObject.Parse(facebookResponse);
+            if (response[facebookName] == null || response[facebookName].Type != JTokenType.Object)
+            {
+                return;
+            }
+
+            var promotedObject = new PromotedObject();
+            promotedObject.ParseReadSingleResponse(response[facebookName]);
+            this.PromotedObject = promotedObject;
+        }
+
+        #endregion Private methods
     }
 }

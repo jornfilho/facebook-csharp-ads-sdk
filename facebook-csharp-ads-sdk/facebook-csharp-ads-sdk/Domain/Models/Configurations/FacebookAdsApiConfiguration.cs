@@ -100,7 +100,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// </summary>
         public string AdSetReadEndpoint
         {
-            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}&fields={2}"); }
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}&fields={2}&date_format=U"); }
         }
 
         #endregion Ad set

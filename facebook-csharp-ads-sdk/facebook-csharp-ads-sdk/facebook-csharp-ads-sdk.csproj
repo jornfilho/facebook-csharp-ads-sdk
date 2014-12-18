@@ -73,7 +73,7 @@
     <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />
-    <Compile Include="Domain\Enums\Global\BidInfoObjectiveType.cs" />
+    <Compile Include="Domain\Enums\Global\BidInfoObjectiveTypeEnum.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Enums\Global\GetParamsType.cs" />
@@ -84,6 +84,7 @@
     <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />

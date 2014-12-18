@@ -33,7 +33,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnFalseToDeleteWithoutParameterIfIdInvalid()
         {
             var campaign = new AdCampaign(mockCampaignRepository.Object);
-            campaign.ParseReadSingleesponse("{'id': '0'}");
+            campaign.ParseReadSingleResponse("{'id': '0'}");
 
             bool successDelete = campaign.Delete();
             mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.Never);

@@ -41,6 +41,11 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
         #endregion
 
+        /// <summary>
+        ///     Read the ad set by id
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <returns> Ad set with id passed </returns>
         public async Task<AdSet> Read(long id)
         {
             return await this.Read(id, new List<AdSetReadFieldsEnum> { AdSetReadFieldsEnum.Id });
@@ -83,7 +88,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             IRequest webRequest = new Request();
             string getRequest = await webRequest.GetAsync(adSetEndpoint);
             var adSet = new AdSet(this);
-            adSet.ParseReadSingleesponse(getRequest);
+            adSet.ParseReadSingleResponse(getRequest);
 
             return adSet;
         }

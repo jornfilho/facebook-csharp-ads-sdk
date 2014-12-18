@@ -5,7 +5,7 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.Global
     /// <summary>
     ///     Bid info objective type
     /// </summary>
-    public enum BidInfoObjectiveType
+    public enum BidInfoObjectiveTypeEnum
     {
         [FacebookName("")]
         Undefined = 0,

@@ -24,6 +24,8 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
                     return GetStringValue(jsonObject, fieldName, defaultValue);
                 case FacebookFieldType.DateTime:
                     return GetDatetimeValue(jsonObject, fieldName, defaultValue);
+                case FacebookFieldType.UnixTimestamp:
+                    return GetDatetimeValueFromUnixTimestamp(jsonObject, fieldName, defaultValue);
                 #endregion
                     
                 #region Ad account group types
@@ -102,12 +104,30 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
         /// <returns> Date </returns>
         private static object GetDatetimeValue(this JToken jsonObject, string fieldName, object defaultValue)
         {
-            if (jsonObject[fieldName] == null || jsonObject[fieldName].Type == JTokenType.Date)
+            if (jsonObject[fieldName] == null || jsonObject[fieldName].Type != JTokenType.Date)
             {
                 return defaultValue;
             }
 
             DateTime? tempResult = jsonObject[fieldName].ToString().TryParseDate();
+            return tempResult;
+        }
+
+        /// <summary>
+        ///     Get the datetime value from JToken
+        /// </summary>
+        /// <param name="jsonObject"> JToken object </param>
+        /// <param name="fieldName"> Field name </param>
+        /// <param name="defaultValue"> Default value </param>
+        /// <returns> Date </returns>
+        private static object GetDatetimeValueFromUnixTimestamp(this JToken jsonObject, string fieldName, object defaultValue)
+        {
+            if (jsonObject[fieldName] == null || jsonObject[fieldName].Type != JTokenType.Integer)
+            {
+                return defaultValue;
+            }
+
+            DateTime? tempResult = jsonObject[fieldName].TryParseLong().FromUnixTimestamp();
             return tempResult;
         }
 

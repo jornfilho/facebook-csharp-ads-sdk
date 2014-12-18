@@ -113,6 +113,8 @@
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignReadParseTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignUpdateTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />
+    <Compile Include="Domain\Models\AdSets\PromotedObjectParseTest.cs" />
+    <Compile Include="Domain\Models\Global\BidInfoTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />

@@ -83,6 +83,11 @@
         /// <summary>
         ///     Promoted object
         /// </summary>
-        PromotedObject
+        PromotedObject,
+
+        /// <summary>
+        ///     Date on unix timestamp
+        /// </summary>
+        UnixTimestamp
     }
 }
