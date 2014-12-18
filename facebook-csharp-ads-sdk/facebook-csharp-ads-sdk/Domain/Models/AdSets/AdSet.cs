@@ -311,9 +311,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///     Parse the read facebook response
+        /// </summary>
+        /// <param name="facebookResponse"> Facebook response </param>
         public override void ParseReadSingleResponse(string facebookResponse)
         {
-           
             if (String.IsNullOrEmpty(facebookResponse))
             {
                 return;
@@ -325,10 +328,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.GetTargetingFromFacebookResponse(facebookResponse);
             this.GetBidInfoFromFacebookResponse(facebookResponse);
             this.GetPromotedObjectFromFacebookResponse(facebookResponse);
+        }
 
-            /*
-            * PromotedObject
-            */
+        public AdSet SetCreateData(string name, AdSetBidTypeEnum bidType, BidInfo bidInfo, AdSetStatusEnum status, int dailyBudget,
+            IList<ExecutionOptionsEnum> executionOptionsList, int lifetimeBudget, DateTime? startTime, DateTime? endTime,
+            int adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
+        {
+
+
+
+
+            this.SetValidCreateModel();
+            return this;
         }
 
         #region Private methods
