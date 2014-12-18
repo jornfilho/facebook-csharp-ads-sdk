@@ -56,9 +56,22 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///     Delete the ad set in Facebook
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <returns> Success </returns>
         public async Task<bool> Delete(long id)
         {
-            throw new NotImplementedException();
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            string deleteEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().DeleteEndpoint;
+            deleteEndpoint = String.Format(deleteEndpoint, id, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string deleteRequest = await webRequest.DeleteAsync(deleteEndpoint);
+            var account = new AdSet(this);
+
+            return account.ParseDeleteResponse(deleteRequest);
         }
 
         public async Task<AdSet> Update(AdSet entity)

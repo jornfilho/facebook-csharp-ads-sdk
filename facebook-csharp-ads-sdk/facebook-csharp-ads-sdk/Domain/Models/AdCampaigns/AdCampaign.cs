@@ -211,7 +211,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         {
             try
             {
-                return this.Id.IsValidAdCampaignId() && this.campaignRepository.Delete(this.Id).Result;
+                bool success = this.Id.IsValidAdCampaignId() && this.campaignRepository.Delete(this.Id).Result;
+                this.SetInvalidUpdateModel();
+                return success;
             }
             catch (Exception)
             {

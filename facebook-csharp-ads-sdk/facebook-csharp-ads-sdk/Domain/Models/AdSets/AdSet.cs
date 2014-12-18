@@ -221,14 +221,40 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///     Delete tha ad set in Facebook
+        /// </summary>
+        /// <returns> Success </returns>
         public override bool Delete()
         {
-            throw new NotImplementedException();
+            try
+            {
+                bool success = this.Id.IsValidAdCampaignId() && this.adSetRepository.Delete(this.Id).Result;
+                this.SetInvalidUpdateModel();
+                return success;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
+        /// <summary>
+        ///     Delete the ad set in Facebook
+        /// </summary>
+        /// <param name="id"> Id of the ad set </param>
+        /// <returns> Sucess </returns>
         public override bool Delete(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.Id = id;
+                return this.Delete();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public override Dictionary<string, string> GetSingleCreateParams()
