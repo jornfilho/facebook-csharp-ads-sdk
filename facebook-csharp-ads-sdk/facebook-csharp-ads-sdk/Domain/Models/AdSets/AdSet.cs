@@ -8,6 +8,8 @@ using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdCampaigns;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdSet;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -330,16 +332,35 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.GetPromotedObjectFromFacebookResponse(facebookResponse);
         }
 
-        public AdSet SetCreateData(string name, AdSetBidTypeEnum bidType, BidInfo bidInfo, AdSetStatusEnum status, int dailyBudget,
-            IList<ExecutionOptionsEnum> executionOptionsList, int lifetimeBudget, DateTime? startTime, DateTime? endTime,
-            int adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
+        public AdSet SetCreateData(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status, int? dailyBudget,
+            IList<ExecutionOptionsEnum> executionOptionsList, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
+            long adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
         {
+            this.ValidateDataToCreate(name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime, endTime, adCampaignId, targeting);
+            try
+            {
+                this.Name = name;
+                this.BidType = bidType;
+                this.BidInfo = bidInfoList;
+                this.Status = status;
+                this.DailyBudget = dailyBudget;
+                this.ExecutionOptionsList = executionOptionsList;
+                this.LifetimeBudget = lifetimeBudget;
+                this.StartTime = startTime;
+                this.EndTime = endTime;
+                this.AdCampaignId = adCampaignId;
+                this.Redownload = redownload;
+                this.Targeting = targeting;
+                this.PromotedObject = promotedObject;
 
-
-
-
-            this.SetValidCreateModel();
-            return this;
+                this.SetValidCreateModel();
+                return this;
+            }
+            catch (Exception)
+            {
+                this.SetInvalidCreateModel();
+                return this;
+            }
         }
 
         #region Private methods
@@ -445,7 +466,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
                         continue;
                     }
 
-                    BidInfo bidInfo = new BidInfo().SetAttributes(bidInfoObjectiveTypeEnum, bidInfoValue);
+                    BidInfo bidInfo = new BidInfo().SetAttributesFromFacebookResponse(bidInfoObjectiveTypeEnum, bidInfoValue);
                     this.BidInfo.Add(bidInfo);
                 }
 
@@ -476,6 +497,126 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             var promotedObject = new PromotedObject();
             promotedObject.ParseReadSingleResponse(response[facebookName]);
             this.PromotedObject = promotedObject;
+        }
+
+        private void ValidateDataToCreate(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status,
+                                          int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
+                                          long adCampaignId, string targeting)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdSetNameException();
+            }
+
+            if (bidType == AdSetBidTypeEnum.Undefined)
+            {
+                throw new InvalidAdSetBidTypeException();
+            }
+
+            if (bidInfoList == null)
+            {
+                throw new InvalidAdSetBidInfoException();
+            }
+
+            if (bidInfoList.Any(b => b.Objective == null || b.Value == null))
+            {
+                throw new InvalidAdSetBidInfoDataException();
+            }
+
+            if (status == AdSetStatusEnum.Undefined || status == AdSetStatusEnum.AdCamnpaignPaused)
+            {
+                throw new InvalidAdSetStatusException();
+            }
+            
+            if (!adCampaignId.IsValidAdCampaignId())
+            {
+                throw new InvalidAdCampaignIdException();
+            }
+
+            if (String.IsNullOrEmpty(targeting))
+            {
+                throw new InvalidAdSetTargetingException();
+            }
+
+            this.ValidateBudgetRules(dailyBudget, lifetimeBudget, startTime, endTime);
+
+            // TODO: Validacao de promoted_object
+        }
+
+        private void ValidateBudgetRules(int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
+        {
+            if (dailyBudget == null && lifetimeBudget == null)
+            {
+                throw new LifetimeBudgetOrDailyBudgetRequiredException();
+            }
+
+            if (startTime == null)
+            {
+                startTime = DateTime.UtcNow;
+            }
+
+            this.VerifyIfEndTimeLessThanStartTime(startTime, endTime);
+            this.VerifyDifferenceGreaterThanStartTimeAndEndTimeIfDailyBudget(dailyBudget, startTime, endTime);
+            this.VerifyIfEndTimeIsNullForTheLifetimeBudget(lifetimeBudget, endTime);
+            this.VerifyMinDailyBudgetValue(dailyBudget);
+            this.VerifyLifetimeBudgetMinValuePerDay(lifetimeBudget, startTime, endTime);
+        }
+
+        private void VerifyLifetimeBudgetMinValuePerDay(int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
+        {
+            if (lifetimeBudget != null)
+            {
+                TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
+                double days = (int) hourDiff.TotalDays;
+                double budgetPerDay = ((int) lifetimeBudget)/days;
+
+                if (budgetPerDay < 100)
+                {
+                    throw new LifetimeBudgetMustBeGreaterThan100CentsPerDayException();
+                }
+            }
+        }
+
+        private void VerifyMinDailyBudgetValue(int? dailyBudget)
+        {
+            if (dailyBudget != null && dailyBudget < 100)
+            {
+                throw new DailyBudgetMustBeGreaterThan100CentsException();
+            }
+        }
+
+        private void VerifyIfEndTimeIsNullForTheLifetimeBudget(int? lifetimeBudget, DateTime? endTime)
+        {
+            if (lifetimeBudget != null && endTime == null)
+            {
+                throw new EndTimeRequiredInLifetimeBudgetException();
+            }
+        }
+
+        private void VerifyDifferenceGreaterThanStartTimeAndEndTimeIfDailyBudget(int? dailyBudget, DateTime? startTime, DateTime? endTime)
+        {
+            if (dailyBudget != null && endTime != null)
+            {
+                TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
+                double hours = hourDiff.TotalHours;
+
+                if (hours < 24)
+                {
+                    throw new DifferenceWithStartTimeAndEndTimeMustBe24HoursException();
+                }
+            }
+        }
+
+        private void VerifyIfEndTimeLessThanStartTime(DateTime? startTime, DateTime? endTime)
+        {
+            if (endTime != null)
+            {
+                int resultCompareDate = DateTime.Compare((DateTime) startTime, (DateTime) endTime);
+                if (resultCompareDate >= 0)
+                {
+                    throw new EndTimeMustBeGreaterThanStartTimeException();
+                }
+            }
         }
 
         #endregion Private methods

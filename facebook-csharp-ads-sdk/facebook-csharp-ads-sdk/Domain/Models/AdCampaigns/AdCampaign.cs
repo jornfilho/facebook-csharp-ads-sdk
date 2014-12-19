@@ -272,6 +272,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <exception cref="InvalidAdAccountId"></exception>
+        /// <exception cref="InvalidAdCampaignNameException"></exception>
+        /// <exception cref="InvalidAdCampaingStatusException"></exception>
+        /// <exception cref="InvalidAdCampaignBuyingTypeException"></exception>
+        /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
         /// <returns> This instance </returns>
         public AdCampaign SetCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
                                         AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
@@ -305,6 +310,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <exception cref="InvalidAdAccountId"></exception>
+        /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
+        /// <exception cref="InvalidAdCampaingStatusException"></exception>
         /// <returns> This instance </returns>
         public AdCampaign SetUpdateData(long accountId, string name, AdCampaignObjectiveEnum? objective,
                                         AdCampaignStatusEnum? status,
