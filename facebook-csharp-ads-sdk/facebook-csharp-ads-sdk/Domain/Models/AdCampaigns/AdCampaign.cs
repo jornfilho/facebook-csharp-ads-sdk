@@ -9,6 +9,8 @@ using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -184,10 +186,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Update a ad campaign on Facebook
         /// </summary>
         /// <returns> Ad campaign updated </returns>
-        public override AdCampaign Update()
+        public override AdCampaign Update(long campaignId)
         {
             try
             {
+                this.Id = campaignId;
                 if (!this.UpdateModelIsReady || !this.Id.IsValidAdCampaignId())
                 {
                     this.SetInvalid();
@@ -274,38 +277,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                                         AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
                                         IList<ExecutionOptionsEnum> executionOptionsList)
         {
+            this.ValidationCreateData(accountId, name, buyingType, objective, status);
             try
             {
-                if (!accountId.IsValidAdAccountId())
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (String.IsNullOrEmpty(name))
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (status == AdCampaignStatusEnum.Undefined || 
-                    status == AdCampaignStatusEnum.Archived || 
-                    status == AdCampaignStatusEnum.Delete)
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
-                {
-                    buyingType = null;
-                }
-
-                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
-                {
-                    objective = null;
-                }
-
                 this.AccountId = accountId;
                 this.BuyingType = buyingType;
                 this.Name = name;
@@ -336,32 +310,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                                         AdCampaignStatusEnum? status,
                                         IList<ExecutionOptionsEnum> executionOptionsList)
         {
+            this.ValidationUpdateData(accountId, objective, status);
             try
             {
-                if (!accountId.IsValidAdAccountId())
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-                
                 if (String.IsNullOrEmpty(name) &&
-                    objective == null && 
-                    status == null && 
+                    objective == null &&
+                    status == null &&
                     (executionOptionsList == null || !executionOptionsList.Any()))
                 {
-                    this.SetInvalidUpdateModel();
-                    return this;
-                }
-
-                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
-                {
-                    this.SetInvalidUpdateModel();
-                    return this;
-                }
-
-                if (status != null && status == AdCampaignStatusEnum.Undefined)
-                {
-                    this.SetInvalidUpdateModel();
                     return this;
                 }
 
@@ -539,7 +495,68 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
         }
 
-        
+        /// <summary>
+        ///     Validate the ad campaign create data
+        /// </summary>
+        /// <param name="accountId"> Account id </param>
+        /// <param name="name"> Ad campaign name </param>
+        /// <param name="buyingType"> Ad campaign buying type </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        private void ValidationCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
+                                          AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status)
+        {
+            if (!accountId.IsValidAdAccountId())
+            {
+                throw new InvalidAdAccountId();
+            }
+
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdCampaignNameException();
+            }
+
+            if (status == AdCampaignStatusEnum.Undefined ||
+                status == AdCampaignStatusEnum.Archived ||
+                status == AdCampaignStatusEnum.Delete)
+            {
+                throw new InvalidAdCampaingStatusException();
+            }
+
+            if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+            {
+                throw new InvalidAdCampaignBuyingTypeException();
+            }
+
+            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            {
+                throw new InvalidAdCampaignObjectiveException();
+            }
+        }
+
+        /// <summary>
+        ///     Validate the ad campaign update data
+        /// </summary>
+        /// <param name="accountId"> Account id </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        private void ValidationUpdateData(long accountId, AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum? status)
+        {
+            if (!accountId.IsValidAdAccountId())
+            {
+                throw new InvalidAdAccountId();
+            }
+
+            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            {
+                throw new InvalidAdCampaignObjectiveException();
+            }
+
+            if (status != null && status == AdCampaignStatusEnum.Undefined)
+            {
+                throw new InvalidAdCampaingStatusException();
+            }
+        }
 
         #endregion Private methods
     }

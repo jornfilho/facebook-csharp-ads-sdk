@@ -51,7 +51,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         ///     Update a entity on Facebook
         /// </summary>
         /// <returns> Entity updated </returns>
-        public abstract T Update();
+        public abstract T Update(long id);
 
         /// <summary>
         ///     Mount a dictionary with parameters and values to update

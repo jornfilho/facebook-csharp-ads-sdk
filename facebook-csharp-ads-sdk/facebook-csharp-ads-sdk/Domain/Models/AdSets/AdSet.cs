@@ -306,7 +306,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
-        public override AdSet Update()
+        public override AdSet Update(long id)
         {
             throw new NotImplementedException();
         }
