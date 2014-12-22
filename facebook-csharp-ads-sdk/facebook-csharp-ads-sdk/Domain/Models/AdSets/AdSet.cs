@@ -332,35 +332,46 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.GetPromotedObjectFromFacebookResponse(facebookResponse);
         }
 
+        /// <summary>
+        ///     Set attributes to create a ad set in Facebook
+        /// </summary>
+        /// <param name="name"> Ad set name </param>
+        /// <param name="bidType"> Ad set bid type </param>
+        /// <param name="bidInfoList"> Ad set bid info </param>
+        /// <param name="status"> Ad set status </param>
+        /// <param name="dailyBudget"> Ad set daily budget </param>
+        /// <param name="executionOptionsList"> Execute options list </param>
+        /// <param name="lifetimeBudget"> Ad set lifetime budget </param>
+        /// <param name="startTime"> Start time </param>
+        /// <param name="endTime"> End time </param>
+        /// <param name="adCampaignId"> Ad campaign id </param>
+        /// <param name="redownload"> Allows you to specify that you would like to retrieve all fields of the set in your response </param>
+        /// <param name="targeting"> Ad set targeting </param>
+        /// <param name="promotedObject"> The object that the ad set is trying to promote and advertise </param>
+        /// <returns> This instance </returns>
         public AdSet SetCreateData(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status, int? dailyBudget,
             IList<ExecutionOptionsEnum> executionOptionsList, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
             long adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
         {
-            this.ValidateDataToCreate(name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime, endTime, adCampaignId, targeting);
-            try
-            {
-                this.Name = name;
-                this.BidType = bidType;
-                this.BidInfo = bidInfoList;
-                this.Status = status;
-                this.DailyBudget = dailyBudget;
-                this.ExecutionOptionsList = executionOptionsList;
-                this.LifetimeBudget = lifetimeBudget;
-                this.StartTime = startTime;
-                this.EndTime = endTime;
-                this.AdCampaignId = adCampaignId;
-                this.Redownload = redownload;
-                this.Targeting = targeting;
-                this.PromotedObject = promotedObject;
+            this.ValidateDataToCreate(name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime,
+                endTime, adCampaignId, targeting);
+            
+            this.Name = name;
+            this.BidType = bidType;
+            this.BidInfo = bidInfoList;
+            this.Status = status;
+            this.DailyBudget = dailyBudget;
+            this.ExecutionOptionsList = executionOptionsList;
+            this.LifetimeBudget = lifetimeBudget;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
+            this.AdCampaignId = adCampaignId;
+            this.Redownload = redownload;
+            this.Targeting = targeting;
+            this.PromotedObject = promotedObject;
 
-                this.SetValidCreateModel();
-                return this;
-            }
-            catch (Exception)
-            {
-                this.SetInvalidCreateModel();
-                return this;
-            }
+            this.SetValidCreateModel();
+            return this;
         }
 
         #region Private methods
@@ -499,6 +510,19 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.PromotedObject = promotedObject;
         }
 
+        /// <summary>
+        ///     Validate data to create a ad set
+        /// </summary>
+        /// <param name="name"> Ad set name </param>
+        /// <param name="bidType"> Ad set bid type </param>
+        /// <param name="bidInfoList"> Ad set bid info </param>
+        /// <param name="status"> Ad set status </param>
+        /// <param name="dailyBudget"> Ad set daily budget </param>
+        /// <param name="lifetimeBudget"> Ad set lifetime budget </param>
+        /// <param name="startTime"> Start time </param>
+        /// <param name="endTime"> End time </param>
+        /// <param name="adCampaignId"> Ad campaign id </param>
+        /// <param name="targeting"> Ad set targeting </param>
         private void ValidateDataToCreate(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status,
                                           int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
                                           long adCampaignId, string targeting)
@@ -539,10 +563,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
 
             this.ValidateBudgetRules(dailyBudget, lifetimeBudget, startTime, endTime);
-
-            // TODO: Validacao de promoted_object
         }
 
+        /// <summary>
+        ///     Verify budget business rules
+        /// </summary>
+        /// <param name="dailyBudget"> Daily budget </param>
+        /// <param name="lifetimeBudget"> Lifetime budget </param>
+        /// <param name="startTime"> Start time </param>
+        /// <param name="endTime"> End time </param>
         private void ValidateBudgetRules(int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
         {
             if (dailyBudget == null && lifetimeBudget == null)
@@ -562,21 +591,33 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.VerifyLifetimeBudgetMinValuePerDay(lifetimeBudget, startTime, endTime);
         }
 
+        /// <summary>
+        ///     Verify if budget is lifetime and the value is greater than 100 cents per day 
+        /// </summary>
+        /// <param name="lifetimeBudget"> Lifetime budget </param>
+        /// <param name="startTime"> Ad set start time </param>
+        /// <param name="endTime"> Ad set end time </param>
         private void VerifyLifetimeBudgetMinValuePerDay(int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
         {
-            if (lifetimeBudget != null)
+            if (lifetimeBudget == null)
             {
-                TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
-                double days = (int) hourDiff.TotalDays;
-                double budgetPerDay = ((int) lifetimeBudget)/days;
+                return;
+            }
 
-                if (budgetPerDay < 100)
-                {
-                    throw new LifetimeBudgetMustBeGreaterThan100CentsPerDayException();
-                }
+            TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
+            double days = hourDiff.Days + 1;
+            double budgetPerDay = ((int) lifetimeBudget)/days;
+
+            if (budgetPerDay < 100)
+            {
+                throw new LifetimeBudgetMustBeGreaterThan100CentsPerDayException();
             }
         }
 
+        /// <summary>
+        ///     Verify if budget is daily and tha value is greater than 100 cents per day
+        /// </summary>
+        /// <param name="dailyBudget"></param>
         private void VerifyMinDailyBudgetValue(int? dailyBudget)
         {
             if (dailyBudget != null && dailyBudget < 100)
@@ -585,6 +626,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
+        /// <summary>
+        ///     Verify if budget is lifetime and end time is not null
+        /// </summary>
+        /// <param name="lifetimeBudget"></param>
+        /// <param name="endTime"></param>
         private void VerifyIfEndTimeIsNullForTheLifetimeBudget(int? lifetimeBudget, DateTime? endTime)
         {
             if (lifetimeBudget != null && endTime == null)
@@ -593,29 +639,44 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
+        /// <summary>
+        ///     Verify if the budget is daily and the difference between start time and end time is greater than 24 hours
+        /// </summary>
+        /// <param name="dailyBudget"> Daily budget </param>
+        /// <param name="startTime"> Ad set start time </param>
+        /// <param name="endTime"> Ad set end time </param>
         private void VerifyDifferenceGreaterThanStartTimeAndEndTimeIfDailyBudget(int? dailyBudget, DateTime? startTime, DateTime? endTime)
         {
-            if (dailyBudget != null && endTime != null)
+            if (dailyBudget == null || endTime == null)
             {
-                TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
-                double hours = hourDiff.TotalHours;
+                return;
+            }
 
-                if (hours < 24)
-                {
-                    throw new DifferenceWithStartTimeAndEndTimeMustBe24HoursException();
-                }
+            TimeSpan hourDiff = (DateTime) endTime - (DateTime) startTime;
+            double hours = hourDiff.TotalHours;
+
+            if (hours < 24)
+            {
+                throw new DifferenceWithStartTimeAndEndTimeMustBe24HoursException();
             }
         }
 
+        /// <summary>
+        ///     Verify if start time is less than end time
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
         private void VerifyIfEndTimeLessThanStartTime(DateTime? startTime, DateTime? endTime)
         {
-            if (endTime != null)
+            if (endTime == null)
             {
-                int resultCompareDate = DateTime.Compare((DateTime) startTime, (DateTime) endTime);
-                if (resultCompareDate >= 0)
-                {
-                    throw new EndTimeMustBeGreaterThanStartTimeException();
-                }
+                return;
+            }
+
+            int resultCompareDate = DateTime.Compare((DateTime) startTime, (DateTime) endTime);
+            if (resultCompareDate >= 0)
+            {
+                throw new EndTimeMustBeGreaterThanStartTimeException();
             }
         }
 

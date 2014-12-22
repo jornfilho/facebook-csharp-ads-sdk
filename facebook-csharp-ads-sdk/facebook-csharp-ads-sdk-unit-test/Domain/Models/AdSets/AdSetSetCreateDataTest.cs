@@ -18,7 +18,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         private Mock<IAdSetRepository> mockAdSetRepository;
         private string name;
         private AdSetBidTypeEnum bidType;
-        private BidInfo bidInfo;
+        private List<BidInfo> bidInfo;
         private AdSetStatusEnum status;
         private int? dailyBudget;
         private int? lifetimeBudget;
@@ -36,13 +36,17 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.mockAdSetRepository = new Mock<IAdSetRepository>();
             this.name = "ad set name";
             this.bidType = AdSetBidTypeEnum.Cpa;
-            this.bidInfo = new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.Cpc, BidInfoObjectiveTypeEnum.Clicks, 10);
+            this.bidInfo = new List<BidInfo>
+                           {
+                               new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.Cpc, BidInfoObjectiveTypeEnum.Clicks, 10)
+                           };
+
             this.status = AdSetStatusEnum.Active;
             this.executionOptionsList = null;
-            this.dailyBudget = 12;
+            this.dailyBudget = 120;
             this.lifetimeBudget = null;
             this.startTime = new DateTime(2014, 12, 1);
-            this.endTime = new DateTime(2014, 12, 2);
+            this.endTime = new DateTime(2014, 12, 3);
             this.adCampaignId = 45546546546;
             this.redownload = null;
             this.targeting = "{}";
@@ -77,7 +81,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         [ExpectedException(typeof(InvalidAdSetBidInfoDataException))]
         public void MustThrowExceptionToSetCreateDataIfAdSetBidInfoDataInvalid()
         {
-            this.bidInfo = new BidInfo();
+            this.bidInfo = new List<BidInfo>{new BidInfo()};
             this.SetAdSetDataToCreateForThrowException();
         }
 
@@ -152,6 +156,70 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
 
             this.endTime = null;
             this.SetAdSetDataToCreateForThrowException();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DailyBudgetMustBeGreaterThan100CentsException))]
+        public void MustThrowExceptionToSetCreateDataIfDailyBudgetLessThan100Cents()
+        {
+            this.dailyBudget = 99;
+            this.lifetimeBudget = null;
+
+            this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+            this.endTime = new DateTime(2014, 1, 2, 13, 0, 0);
+            this.SetAdSetDataToCreateForThrowException();
+        }
+
+        [TestMethod]
+        public void ShouldNotThrowExceptionToSetCreateDataIfDailyBudgetGreaterThan100Cents()
+        {
+            const int dailyBudgetExpected = 101;
+
+            this.dailyBudget = dailyBudgetExpected;
+            this.lifetimeBudget = null;
+
+            this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+            this.endTime = new DateTime(2014, 1, 2, 13, 0, 0);
+
+            var adSet = new AdSet(this.mockAdSetRepository.Object)
+                .SetCreateData(this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                    this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
+                    this.redownload, this.targeting, this.promotedObject);
+
+            Assert.IsNotNull(adSet);
+            Assert.IsNotNull(adSet.DailyBudget);
+            Assert.AreEqual(dailyBudgetExpected, adSet.DailyBudget);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(LifetimeBudgetMustBeGreaterThan100CentsPerDayException))]
+        public void MustThrowExceptionToSetCreateDataIfLifetimeBudgetLessThan100CentsPerDay()
+        {
+            this.lifetimeBudget = 290;
+            this.dailyBudget = null;
+
+            this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+            this.endTime = new DateTime(2014, 1, 3, 12, 0, 0);
+            this.SetAdSetDataToCreateForThrowException();
+        }
+
+        [TestMethod]
+        public void ShouldNotThrowExceptionToSetCreateDataIfLifetimeBudgetGreaterThan100CentsPerDay()
+        {
+            this.lifetimeBudget = 300;
+            this.dailyBudget = null;
+
+            this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+            this.endTime = new DateTime(2014, 1, 3, 12, 0, 0);
+            
+            var adSet = new AdSet(this.mockAdSetRepository.Object)
+                .SetCreateData(this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                    this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
+                    this.redownload, this.targeting, this.promotedObject);
+
+            Assert.IsNotNull(adSet);
+            Assert.IsNotNull(adSet.LifetimeBudget);
+            Assert.AreEqual(300, adSet.LifetimeBudget);
         }
 
         #region Private methods
