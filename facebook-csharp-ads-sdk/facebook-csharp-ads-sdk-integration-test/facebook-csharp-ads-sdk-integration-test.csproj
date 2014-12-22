@@ -26,7 +26,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\facebook-csharp-ads-sdk-integration-test.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +36,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\facebook-csharp-ads-sdk-integration-test.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,7 +55,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Infrastructure\Repository\AdAccountGroupRespository\ReadAllTest.cs" />
+    <Compile Include="Infrastructure\Repository\AdAccountGroupRespository\ReadSingleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_personalInformations\AdAccountGroup.cs" />
+    <Compile Include="_personalInformations\FacebookConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\facebook-csharp-ads-sdk\facebook-csharp-ads-sdk.csproj">
@@ -61,6 +67,7 @@
       <Name>facebook-csharp-ads-sdk</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

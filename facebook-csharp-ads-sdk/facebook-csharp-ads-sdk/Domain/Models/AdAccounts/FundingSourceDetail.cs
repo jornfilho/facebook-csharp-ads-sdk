@@ -63,7 +63,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (coupon == null)
                 throw new ArgumentNullException();
 
-            if (!coupon.IsValidData())
+            if (!coupon.IsValid)
                 throw new ArgumentException();
 
             Coupon = coupon;
@@ -101,7 +101,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             if (jsonResult["coupon"] != null && jsonResult["coupon"].Type == JTokenType.Object)
             {
                 var coupon = new FundingSourceCoupon().ParseApiResponse(jsonResult["coupon"]);
-                if (coupon.IsValidData())
+                if (coupon.IsValid)
                     SetFundingSourceCoupon(coupon);
             }
             #endregion

@@ -43,7 +43,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.Users);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.Users.Count, 1);
         }
 
@@ -55,7 +55,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.Users);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.Users.Count, 2);
         }
     }

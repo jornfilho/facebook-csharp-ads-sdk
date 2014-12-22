@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -15,16 +17,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>ID for the timezone. See at https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/851565_362033717242167_978236896_n.txt </para>
         /// </summary>
+        [DefaultValue(0)]
+        [FacebookName("timezone_id")]
         public int TimezoneId { get; private set; }
 
         /// <summary>
         /// <para>Name for the time zone</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("timezone_name")]
         public string TimezoneName { get; private set; }
 
         /// <summary>
         /// <para>Time Zone difference from UTC</para>
         /// </summary>
+        [DefaultValue(0)]
+        [FacebookName("timezone_offset_hours_utc")]
         public int TimezoneOffsetHoursUtc { get; private set; }
         #endregion
 

@@ -20,7 +20,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
                 return;
             }
 
-            if (!InvalidFundingSourceDetail1.IsValidData())
+            if (!InvalidFundingSourceDetail1.IsValid)
                 return;
 
             Assert.AreEqual(model.FundingSourceDetails.FirstOrDefault(), InvalidFundingSourceDetail1);
@@ -40,7 +40,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
                 return;
             }
 
-            if (!InvalidFundingSourceDetail2.IsValidData())
+            if (!InvalidFundingSourceDetail2.IsValid)
                 return;
 
             Assert.AreEqual(model.FundingSourceDetails.FirstOrDefault(), InvalidFundingSourceDetail2);
@@ -56,7 +56,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.FundingSourceDetails);
             Assert.AreEqual(model.FundingSourceDetails.Count, 1);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.FundingSourceDetails);
             Assert.AreEqual(model.FundingSourceDetails.Count, 2);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

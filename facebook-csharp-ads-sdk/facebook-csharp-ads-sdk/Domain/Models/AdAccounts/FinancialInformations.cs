@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
@@ -17,16 +19,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <summary>
         /// <para>Current total amount spent by the account. This can be reset.</para>
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("amount_spent")]
         public long AmountSpent { get; private set; }
 
         /// <summary>
         /// <para>Bill amount due</para>
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("balance")]
         public long Balance { get; private set; }
 
         /// <summary>
         /// <para>The account's limit for daily spend, based on the corresponding value in the account settings</para>
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("daily_spend_limit")]
         public long DailySpendLimit { get; private set; }
 
         /// <summary>
@@ -34,22 +42,30 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// <para>A value of 0 signifies no spending-cap and setting a new spend cap only applies to spend AFTER the time at which you set it.</para>
         /// <para>Value specified in basic unit of the currency, e.g. dollars for USD</para>
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("spend_cap")]
         public long SpendCap { get; private set; }
 
         /// <summary>
         /// <para>The currency used for the account, based on the corresponding value in the account settings.</para>
         /// <para>The list of supported currencies can be found at https://developers.facebook.com/docs/reference/ads-api/currencies/ </para>
         /// </summary>
+        [DefaultValue(CurrenciesEnum.UND)]
+        [FacebookName("currency")]
         public CurrenciesEnum Currency { get; private set; }
 
         /// <summary>
         /// <para>ID of the funding source</para>
         /// </summary>
+        [DefaultValue(0L)]
+        [FacebookName("funding_source")]
         public long FundingSourceId { get; private set; }
 
         /// <summary>
         /// <para>The details of funding source</para>
         /// </summary>
+        [DefaultValue(null)]
+        [FacebookName("funding_source_details")]
         public IList<FundingSourceDetail> FundingSourceDetails { get; private set; }
         #endregion
 
@@ -138,7 +154,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
 
 
-            if (!fundingSourceDetails.IsValidData())
+            if (!fundingSourceDetails.IsValid)
                 return this;
 
             if (FundingSourceDetails == null)
@@ -224,7 +240,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 for (var index = 0; index < fundingSourceDetailCount; index++)
                 {
                     var fundingSourceDetail = new FundingSourceDetail().ParseApiResponse(jsonResult["funding_source_details"]);
-                    if (fundingSourceDetail.IsValidData())
+                    if (fundingSourceDetail.IsValid)
                         SetFinancialFundingDetail(fundingSourceDetail); 
                 }
             }

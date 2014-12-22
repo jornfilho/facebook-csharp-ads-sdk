@@ -44,7 +44,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.FinancialInformations);
             Assert.AreEqual(model.FinancialInformations, ValidFinancialInformations);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

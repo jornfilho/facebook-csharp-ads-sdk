@@ -31,7 +31,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 .FundingSourceDetail()
                 .SetFundingSourceCoupon(ValidFundingSourceDetailCoupon);
             
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
     }

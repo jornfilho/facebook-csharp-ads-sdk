@@ -1,4 +1,4 @@
-﻿namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts
+﻿namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup
 {
     /// <summary>
     /// Available ad account groups status

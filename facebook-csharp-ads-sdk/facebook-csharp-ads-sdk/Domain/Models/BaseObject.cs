@@ -1,4 +1,11 @@
-﻿using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
+﻿using System;
+using System.ComponentModel;
+using System.Reflection;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
+using facebook_csharp_ads_sdk.Domain.Models.Attributes;
+using facebook_csharp_ads_sdk._Utils.Parser;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models
 {
@@ -12,31 +19,20 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Api error response model
         /// </summary>
-        private ApiErrorModelV22 ApiErrorResponseData { get; set; }
+        public ApiErrorModelV22 ApiErrorResponseData { get; private set; }
 
         /// <summary>
         /// Set true id has valid data
         /// </summary>
-        private bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
 
         #endregion
-
-        /// <summary>
-        /// Return true if has valid data 
-        /// </summary>
-        public bool IsValidData()
-        {
-            return IsValid;
-        }
 
         /// <summary>
         /// Set data valid
         /// </summary>
         public void SetValid()
         {
-            if (IsValid)
-                return;
-
             IsValid = true;
         }
 
@@ -45,18 +41,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public void SetInvalid()
         {
-            if (!IsValid)
-                return;
-
             IsValid = false;
-        }
-
-        /// <summary>
-        /// Get api error response data model
-        /// </summary>
-        public ApiErrorModelV22 GetApiErrorResonse()
-        {
-            return ApiErrorResponseData;
         }
 
         /// <summary>
@@ -64,7 +49,102 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public void SetApiErrorResonse(ApiErrorModelV22 errorResponse)
         {
+            this.SetInvalid();
             ApiErrorResponseData = errorResponse;
+        }
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public virtual void ParseReadSingleesponse(string facebookResponse)
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(facebookResponse))
+                {
+                    this.SetInvalid();
+                }
+
+                var response = JObject.Parse(facebookResponse);
+                this.ParseReadSingleesponse(response);
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+            }
+        }
+
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public virtual void ParseReadSingleesponse(JToken facebookResponse)
+        {
+            try
+            {
+                SetDefaultValues();
+
+                if (facebookResponse == null)
+                    return;
+
+                #region Api error
+
+                if (facebookResponse["error"] != null)
+                {
+                    var errorModel = new ApiErrorModelV22().ParseApiResponse(facebookResponse);
+                    this.SetApiErrorResonse(errorModel);
+                    return;
+                }
+
+                #endregion
+
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+                {
+                    var facebookAttributeName = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                    var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+                    var defaultValueAttribute = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
+                    if (facebookAttributeName == null || facebookAttributeType == null)
+                        continue;
+
+                    PropertyInfo property = this.GetType().GetProperty(prop.Name);
+                    if (property == null)
+                        continue;
+
+                    var defaultValue = defaultValueAttribute != null
+                        ? defaultValueAttribute.Value
+                        : null;
+
+                    string facebookName = facebookAttributeName.Value;
+                    FacebookFieldType facebookType = facebookAttributeType.Value;
+
+                    property.SetValue(this, facebookResponse.GetValue(facebookName, facebookType, defaultValue), null);
+                }
+
+                this.SetValid();
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+            }
+        }
+
+        /// <summary>
+        /// Set default properties value
+        /// </summary>
+        protected void SetDefaultValues()
+        {
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+            {
+                var attr = (DefaultValueAttribute)prop.Attributes[typeof(DefaultValueAttribute)];
+                if (attr == null)
+                    continue;
+
+                var attrValue = attr.Value;
+                var property = this.GetType().GetProperty(prop.Name);
+                if (property != null)
+                    property.SetValue(this, attrValue, null);
+            }
+
+            SetInvalid();
         }
     }
 }

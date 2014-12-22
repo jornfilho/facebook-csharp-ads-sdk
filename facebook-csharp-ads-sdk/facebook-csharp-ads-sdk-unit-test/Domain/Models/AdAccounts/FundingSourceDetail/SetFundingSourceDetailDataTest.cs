@@ -17,7 +17,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
         
         [TestMethod]
@@ -109,7 +109,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             Assert.AreEqual(model.Id, ValidFundingSourceDetailId);
             Assert.AreEqual(model.DisplayString, ValidFundingSourceDetailDisplayString);
             Assert.AreEqual(model.Type, ValidFundingSourceDetailType);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -118,25 +118,25 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceDetail();
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
             model.SetFundingSourceDetailData(ValidFundingSourceDetailId, InvalidFundingSourceDetailDisplayString1, ValidFundingSourceDetailType);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetFundingSourceDetailData(ValidFundingSourceDetailId, InvalidFundingSourceDetailDisplayString2, ValidFundingSourceDetailType);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetFundingSourceDetailData(ValidFundingSourceDetailId, ValidFundingSourceDetailDisplayString, ValidFundingSourceDetailType);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
         }
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.FundingSourceDetail model)
         {
             model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.FundingSourceDetail();
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
     }
 }
