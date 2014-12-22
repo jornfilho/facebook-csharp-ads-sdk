@@ -98,6 +98,8 @@
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetNameException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetStatusException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetTargetingException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidObjectIdException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidObjectStoreUrlException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetMustBeGreaterThan100CentsPerDayException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetOrDailyBudgetRequiredException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpaException.cs" />
