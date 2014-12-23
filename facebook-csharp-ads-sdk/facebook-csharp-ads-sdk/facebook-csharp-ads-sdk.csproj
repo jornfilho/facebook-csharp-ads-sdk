@@ -66,6 +66,8 @@
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\Connections\AdActivityLogEventTypesEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\Connections\AdActivityLogFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignBuyingTypeEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+    <Compile Include="Domain\Models\AdAccounts\Connections\AdActivityLogs.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
