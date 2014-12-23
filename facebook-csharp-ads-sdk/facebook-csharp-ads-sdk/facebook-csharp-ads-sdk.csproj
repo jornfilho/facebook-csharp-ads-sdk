@@ -68,6 +68,7 @@
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
+    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />

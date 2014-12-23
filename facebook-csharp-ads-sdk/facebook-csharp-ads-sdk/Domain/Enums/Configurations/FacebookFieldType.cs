@@ -16,6 +16,11 @@
         String,
 
         /// <summary>
+        /// Boolean type
+        /// </summary>
+        Boolean,
+
+        /// <summary>
         /// Integer type
         /// </summary>
         Int32,
@@ -63,6 +68,11 @@
         /// <summary>
         ///     Facebook execution options enum list
         /// </summary>
-        ExecutionOptionsEnumList
+        ExecutionOptionsEnumList,
+
+        /// <summary>
+        /// Call to action of the creative
+        /// </summary>
+        CallToActionTypeEnum
     }
 }
