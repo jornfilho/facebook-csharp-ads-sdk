@@ -117,6 +117,7 @@
     <Compile Include="Domain\Models\AdSets\AdSetSetCreateDataTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectParseTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectSetCreateDataTest.cs" />
+    <Compile Include="Domain\Models\AdSets\PromotedObjectToStringTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetCreateDataTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetFacebookResponseTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
