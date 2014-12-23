@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdSet;
@@ -95,6 +98,49 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
 
             return this;
+        }
+
+        /// <summary>
+        ///     Get promoted object definition
+        /// </summary>
+        /// <returns> String to send promoted object to create ad set </returns>
+        public override string ToString()
+        {
+            string promotedObjectDefinition = string.Empty;
+
+            var createQuery = new Dictionary<string, string>();
+            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+            {
+                var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+
+                if (facebookNameAttribute == null ||
+                    facebookAttributeType == null)
+                {
+                    continue;
+                }
+
+                string facebookName = facebookNameAttribute.Value;
+                if (String.IsNullOrEmpty(facebookName))
+                {
+                    continue;
+                }
+
+                object currentValue = prop.GetValue(this);
+                if (currentValue == null)
+                {
+                    continue;
+                }
+
+                createQuery.Add(facebookName, currentValue.ToString());
+            }
+
+            if (createQuery.Any())
+            {
+                promotedObjectDefinition = "{" + string.Join(",", createQuery.Select(u => String.Format("{0}: {1}", u.Key, u.Value))) + "}";
+            }
+
+            return promotedObjectDefinition;
         }
     }
 }

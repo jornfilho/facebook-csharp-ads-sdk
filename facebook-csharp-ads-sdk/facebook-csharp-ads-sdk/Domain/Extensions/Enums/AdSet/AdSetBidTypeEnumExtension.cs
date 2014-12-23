@@ -35,5 +35,15 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet
 
             return AdSetBidTypeEnum.Undefined;
         }
+
+        /// <summary>
+        ///     Get Facebook name of the bid type enum
+        /// </summary>
+        /// <param name="campaignObjectiveEnum"> Bid type enum </param>
+        /// <returns> Facebook name </returns>
+        public static string GetBidTypeFacebookName(this AdSetBidTypeEnum campaignObjectiveEnum)
+        {
+            return campaignObjectiveEnum.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
+        }
     }
 }

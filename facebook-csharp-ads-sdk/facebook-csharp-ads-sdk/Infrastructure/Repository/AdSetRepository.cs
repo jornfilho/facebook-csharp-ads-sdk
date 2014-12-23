@@ -51,9 +51,30 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             return await this.Read(id, new List<AdSetReadFieldsEnum> { AdSetReadFieldsEnum.Id });
         }
 
-        public async Task<AdSet> Create(AdSet entity)
+        /// <summary>
+        ///     Create a ad set on Facebook
+        /// </summary>
+        /// <param name="adSetToCreate"> Ad set </param>
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>
+        /// <returns> Ad set created with id </returns>
+        public async Task<AdSet> Create(AdSet adSetToCreate)
         {
-            throw new NotImplementedException();
+            if (adSetToCreate == null)
+            {
+                return null;
+            }
+
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            Dictionary<string, string> paramsToCreate = adSetToCreate.GetSingleCreateParams();
+
+            string campaignCreateEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdSetCreateEndpoint;
+            campaignCreateEndpoint = String.Format(campaignCreateEndpoint, adSetToCreate.AccountId, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string requestResult = await webRequest.PostAsync(campaignCreateEndpoint, paramsToCreate);
+
+            adSetToCreate.ParseCreateResponse(requestResult);
+            return adSetToCreate;
         }
 
         /// <summary>

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdSet;
+using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Models.AdSets;
 using facebook_csharp_ads_sdk.Domain.Models.Global;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -17,6 +21,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
     {
         private Mock<IAdSetRepository> mockAdSetRepository;
         private string name;
+        private long accountId;
         private AdSetBidTypeEnum bidType;
         private List<BidInfo> bidInfo;
         private AdSetStatusEnum status;
@@ -35,6 +40,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         {
             this.mockAdSetRepository = new Mock<IAdSetRepository>();
             this.name = "ad set name";
+            this.accountId = 132456789;
             this.bidType = AdSetBidTypeEnum.Cpa;
             this.bidInfo = new List<BidInfo>
                            {
@@ -49,7 +55,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.endTime = new DateTime(2014, 12, 3);
             this.adCampaignId = 45546546546;
             this.redownload = null;
-            this.targeting = "{}";
+            this.targeting = "{'flexible_spec':[],'exclusions':{},'geo_locations':{'countries':['BR'],'regions':[],'cities':[],'zips':[]},'excluded_geo_locations':{'countries':[],'regions':[],'cities':[],'zips':[]},'age_min':13,'age_max':65,'page_types':['desktopfeed']}";
             this.promotedObject = new PromotedObject();
         }
 
@@ -182,7 +188,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.endTime = new DateTime(2014, 1, 2, 13, 0, 0);
 
             var adSet = new AdSet(this.mockAdSetRepository.Object)
-                .SetCreateData(this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                .SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
                     this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
                     this.redownload, this.targeting, this.promotedObject);
 
@@ -204,6 +210,14 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         }
 
         [TestMethod]
+        [ExpectedException(typeof(StartDateMustBeGreatherThanUtcNowException))]
+        public void MustThrowExceptionToSetCreateDataIfStartTimeIsGreaterThanUtcNow()
+        {
+            this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+            this.SetAdSetDataToCreateForThrowException();
+        }
+
+        [TestMethod]
         public void ShouldNotThrowExceptionToSetCreateDataIfLifetimeBudgetGreaterThan100CentsPerDay()
         {
             this.lifetimeBudget = 300;
@@ -213,7 +227,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.endTime = new DateTime(2014, 1, 3, 12, 0, 0);
             
             var adSet = new AdSet(this.mockAdSetRepository.Object)
-                .SetCreateData(this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                .SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
                     this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
                     this.redownload, this.targeting, this.promotedObject);
 
@@ -222,16 +236,102 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             Assert.AreEqual(300, adSet.LifetimeBudget);
         }
 
+        [TestMethod]
+        public void MustSetInvalidDataIfModelNotReadyToCreate()
+        {
+            this.mockAdSetRepository.Setup(m => m.Create(It.IsAny<AdSet>()))
+                .Returns(Task.FromResult(new AdSet(this.mockAdSetRepository.Object)));
+
+            var adSet = new AdSet(this.mockAdSetRepository.Object);
+            try
+            {
+                this.lifetimeBudget = 290;
+                this.dailyBudget = null;
+
+                this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+                this.endTime = new DateTime(2014, 1, 3, 12, 0, 0);
+                adSet.SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                    this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
+                    this.redownload, this.targeting, this.promotedObject);
+            }
+            catch (Exception)
+            { }
+
+            adSet.Create();
+            this.mockAdSetRepository.Verify(m => m.Create(It.IsAny<AdSet>()), Times.Never);
+            Assert.IsFalse(adSet.IsValid);
+        }
+
+        [TestMethod]
+        public void MustCallRepositoryIfModelIsReadyToCreate()
+        {
+            this.mockAdSetRepository.Setup(m => m.Create(It.IsAny<AdSet>()))
+                .Returns(Task.FromResult(new AdSet(this.mockAdSetRepository.Object)));
+
+            var adSet = new AdSet(this.mockAdSetRepository.Object);
+            try
+            {
+                adSet.SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                    this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
+                    this.redownload, this.targeting, this.promotedObject);
+            }
+            catch (Exception)
+            { }
+
+            adSet.Create();
+            this.mockAdSetRepository.Verify(m => m.Create(It.IsAny<AdSet>()), Times.AtLeastOnce);
+        }
+
         #region Private methods
         
         private void SetAdSetDataToCreateForThrowException()
         {
             new AdSet(this.mockAdSetRepository.Object)
-                .SetCreateData(this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
+                .SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget,
                     this.executionOptionsList, this.lifetimeBudget, this.startTime, this.endTime, this.adCampaignId,
                     this.redownload, this.targeting, this.promotedObject);
         }
 
         #endregion Private methods
+
+        [TestMethod]
+        public void Teste()
+        {
+            var facebookSession = new FacebookSessionRepository();
+            facebookSession.SetUserAccessToken(
+                "CAADMSrKzEFUBAIpm5GqBA4fNNXNYdTZBqJtKxks0QSBt3k3ZBUsPLQhZB7DFvVKLZA4mZCjOTzIsJ7wx4rCZBs6ZAWrbn6GrqmMeTJZC24C46fYG764KzHAyqBQoc7PSW4SUgKFOdm8h8pdvhBwN3FLyLuqfxQhtfMndeWPl4JEOw2ZBZC426GfQuV22KPGPQJsaAL3m1i8yDH2fhVS3UAIHXe");
+
+            var adSet = new AdSet(new AdSetRepository(facebookSession));
+            this.bidInfo = new List<BidInfo>
+                           {
+                               new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.AbsoluteOcpm, BidInfoObjectiveTypeEnum.Actions, 10),
+                               new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.AbsoluteOcpm, BidInfoObjectiveTypeEnum.Reach, 10),
+                               new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.AbsoluteOcpm, BidInfoObjectiveTypeEnum.Clicks, 10),
+                               new BidInfo().SetAttributesToCreate(AdSetBidTypeEnum.AbsoluteOcpm, BidInfoObjectiveTypeEnum.Social, 10)
+                           };
+
+            this.accountId = 100690260075287;
+            this.adCampaignId = 6021626814588;
+            this.bidType = AdSetBidTypeEnum.AbsoluteOcpm;
+            this.startTime = DateTime.UtcNow.AddDays(1);
+            this.endTime = DateTime.UtcNow.AddDays(2);
+
+            //AdCampaign adCampaign = new AdCampaign(new AdCampaignRepository(facebookSession)).ReadSingle(6021626814588);
+            //adCampaign.SetUpdateData(string.Empty, AdCampaignObjectiveEnum.WebsiteConversions, null, null);
+
+            //adCampaign.Update();
+
+            long pixelId = 6018736758788;
+
+            this.promotedObject = new PromotedObject().SetDataToCreate(AdCampaignObjectiveEnum.WebsiteConversions, pixelId, string.Empty);
+
+            //this.executionOptionsList = new List<ExecutionOptionsEnum> { ExecutionOptionsEnum.ValidateOnly };
+
+            adSet.SetCreateData(this.accountId, this.name, this.bidType, this.bidInfo, this.status, this.dailyBudget, this.executionOptionsList, null,
+                this.startTime, this.endTime, this.adCampaignId, null,
+                this.targeting, this.promotedObject);
+
+            adSet.Create();
+        }
     }
 }

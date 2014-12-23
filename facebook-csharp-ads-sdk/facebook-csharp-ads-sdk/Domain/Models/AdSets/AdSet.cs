@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevUtils.DateTimeExtensions;
+using DevUtils.Enum;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdSet;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Exceptions.AdSet;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet;
@@ -218,9 +221,27 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
 
         #endregion Properties
 
+        /// <summary>
+        ///     Create a ad set in Facebook
+        /// </summary>
+        /// <returns></returns>
         public override AdSet Create()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!this.CreateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.adSetRepository.Create(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
         /// <summary>
@@ -259,14 +280,61 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
-        public override Dictionary<string, string> GetSingleCreateParams()
+        /// <summary>
+        ///     Parse object properties from facebook name
+        /// </summary>
+        /// <param name="fieldType"> Field type </param>
+        /// <param name="currentValue"> Current value of the property </param>
+        /// <returns> String value to send facebook </returns>
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
-            throw new NotImplementedException();
-        }
+            if (currentValue == null)
+            {
+                return string.Empty;
+            }
 
-        public override Dictionary<string, string> GetSingleUpdateParams()
-        {
-            throw new NotImplementedException();
+            switch (fieldType)
+            {
+                case FacebookFieldType.Int32:
+                case FacebookFieldType.Int64:
+                case FacebookFieldType.String:
+                    return currentValue.ToString();
+                case FacebookFieldType.AdSetBidTypeEnum:
+                    return currentValue.ToString().ToEnum<AdSetBidTypeEnum>().GetBidTypeFacebookName();
+                case FacebookFieldType.BidInfoArray:
+                    string bidInfoObj = "{" +
+                                        string.Join(",",
+                                            this.BidInfo.Select(
+                                                b =>
+                                                    "\"" + b.Objective.ToString()
+                                                     .ToEnum<BidInfoObjectiveTypeEnum>()
+                                                     .GetBidInfoObjectiveFacebookName() 
+                                                     + "\": " 
+                                                     + b.Value)
+                                            ) 
+                                       + "}";
+
+                    return bidInfoObj;
+                case FacebookFieldType.AdSetStatusEnum:
+                    return currentValue.ToString().ToEnum<AdSetStatusEnum>().GetAdSetStatusFacebookName();
+                case FacebookFieldType.UnixTimestamp:
+                    var date = (DateTime) currentValue;
+                    return date.ToUnixTimestamp().ToString();
+                case FacebookFieldType.PromotedObject:
+                    return this.PromotedObject == null ? string.Empty : this.PromotedObject.ToString();
+                case FacebookFieldType.ExecutionOptionsEnumList:
+                    if (this.ExecutionOptionsList == null)
+                    {
+                        return string.Empty;
+                    }
+
+                    return String.Format("[{0}]",
+                        string.Join(",",
+                            this.ExecutionOptionsList.Select(
+                                u => "\"" + u.ToEnum<ExecutionOptionsEnum>().GetExecutionOptionsFacebookName() + "\"")));
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -287,7 +355,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
                 return this;
             }
         }
-
+        
         /// <summary>
         ///     <para> Read ad set by id </para>
         /// </summary>
@@ -306,6 +374,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             {
                 return this;
             }
+        }
+
+        public override AdSet Update()
+        {
+            throw new NotImplementedException();
         }
 
         public override AdSet Update(long id)
@@ -335,6 +408,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <summary>
         ///     Set attributes to create a ad set in Facebook
         /// </summary>
+        /// <param name="accountId"> Ad account id </param>
         /// <param name="name"> Ad set name </param>
         /// <param name="bidType"> Ad set bid type </param>
         /// <param name="bidInfoList"> Ad set bid info </param>
@@ -348,14 +422,28 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="redownload"> Allows you to specify that you would like to retrieve all fields of the set in your response </param>
         /// <param name="targeting"> Ad set targeting </param>
         /// <param name="promotedObject"> The object that the ad set is trying to promote and advertise </param>
+        /// <exception cref="InvalidAdSetNameException"> Invalid ad set name </exception>
+        /// <exception cref="InvalidAdSetBidTypeException"> Invalid ad set bid type </exception>
+        /// <exception cref="InvalidAdSetBidInfoException"> Invalid ad set bid info </exception>
+        /// <exception cref="InvalidAdSetBidInfoDataException"> Invalid ad set bid info data (objective or value) </exception>
+        /// <exception cref="InvalidAdSetStatusException"> Invalid ad set status to create </exception>
+        /// <exception cref="InvalidAdCampaignIdException"> Invalid ad campaign id </exception>
+        /// <exception cref="InvalidAdSetTargetingException"> Invalid targeting </exception>
+        /// <exception cref="LifetimeBudgetOrDailyBudgetRequiredException"> Daily budget or lifetime budget is required </exception>
+        /// <exception cref="LifetimeBudgetMustBeGreaterThan100CentsPerDayException"> Lifetime minimum value is 100 cents per day </exception>
+        /// <exception cref="DailyBudgetMustBeGreaterThan100CentsException"> Budget minimum value is 100 cents </exception>
+        /// <exception cref="EndTimeRequiredInLifetimeBudgetException"> End time is required in lifetime budget </exception>
+        /// <exception cref="DifferenceWithStartTimeAndEndTimeMustBe24HoursException"> Start time and end time must be 24 hours difference </exception>
+        /// <exception cref="EndTimeMustBeGreaterThanStartTimeException"> End time must be greater than start time </exception>
         /// <returns> This instance </returns>
-        public AdSet SetCreateData(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status, int? dailyBudget,
+        public AdSet SetCreateData(long accountId, string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status, int? dailyBudget,
             IList<ExecutionOptionsEnum> executionOptionsList, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
             long adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
         {
-            this.ValidateDataToCreate(name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime,
+            this.ValidateDataToCreate(accountId, name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime,
                 endTime, adCampaignId, targeting);
-            
+
+            this.AccountId = accountId;
             this.Name = name;
             this.BidType = bidType;
             this.BidInfo = bidInfoList;
@@ -513,6 +601,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <summary>
         ///     Validate data to create a ad set
         /// </summary>
+        /// <param name="accountId"> Ad account id </param>
         /// <param name="name"> Ad set name </param>
         /// <param name="bidType"> Ad set bid type </param>
         /// <param name="bidInfoList"> Ad set bid info </param>
@@ -523,10 +612,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="endTime"> End time </param>
         /// <param name="adCampaignId"> Ad campaign id </param>
         /// <param name="targeting"> Ad set targeting </param>
-        private void ValidateDataToCreate(string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status,
+        private void ValidateDataToCreate(long accountId, string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status,
                                           int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
                                           long adCampaignId, string targeting)
         {
+            if (!accountId.IsValidAdAccountId())
+            {
+                throw new InvalidAdAccountId();
+            }
+
             if (String.IsNullOrEmpty(name))
             {
                 throw new InvalidAdSetNameException();
@@ -589,6 +683,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.VerifyIfEndTimeIsNullForTheLifetimeBudget(lifetimeBudget, endTime);
             this.VerifyMinDailyBudgetValue(dailyBudget);
             this.VerifyLifetimeBudgetMinValuePerDay(lifetimeBudget, startTime, endTime);
+            this.VerifyIfStartTimeIsGreaterThanUtcNow(startTime);
         }
 
         /// <summary>
@@ -677,6 +772,24 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             if (resultCompareDate >= 0)
             {
                 throw new EndTimeMustBeGreaterThanStartTimeException();
+            }
+        }
+
+        /// <summary>
+        ///     Verify if start time is greater than utc now
+        /// </summary>
+        /// <param name="startTime"> Ad set start time </param>
+        private void VerifyIfStartTimeIsGreaterThanUtcNow(DateTime? startTime)
+        {
+            if (startTime == null)
+            {
+                return;
+            }
+
+            int resultCompareDate = DateTime.Compare((DateTime) startTime, DateTime.UtcNow);
+            if (resultCompareDate < 0)
+            {
+                throw new StartDateMustBeGreatherThanUtcNowException();
             }
         }
 

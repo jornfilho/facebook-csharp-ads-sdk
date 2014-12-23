@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Models;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -62,23 +63,18 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         {
             throw new System.NotImplementedException();
         }
-
-        public override Dictionary<string, string> GetSingleCreateParams()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public override BaseObjectTest ReadSingle(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public override BaseObjectTest Update(long id)
+        public override BaseObjectTest Update()
         {
             throw new System.NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleUpdateParams()
+        public override BaseObjectTest Update(long id)
         {
             throw new System.NotImplementedException();
         }
@@ -89,6 +85,11 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
         }
 
         public override bool Delete(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new System.NotImplementedException();
         }

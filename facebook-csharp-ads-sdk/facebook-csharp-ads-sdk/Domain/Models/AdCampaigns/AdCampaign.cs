@@ -185,19 +185,38 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Update a ad campaign on Facebook
         /// </summary>
-        /// <returns> Ad campaign updated </returns>
-        public override AdCampaign Update(long campaignId)
+        /// <returns></returns>
+        public override AdCampaign Update()
         {
             try
             {
-                this.Id = campaignId;
-                if (!this.UpdateModelIsReady || !this.Id.IsValidAdCampaignId())
+                if (!this.UpdateModelIsReady 
+                    || !this.Id.IsValidAdCampaignId())
                 {
                     this.SetInvalid();
                     return this;
                 }
 
                 return this.campaignRepository.Update(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     Update a ad campaign on Facebook
+        /// </summary>
+        /// <param name="campaignId"> Ad campaign id </param>
+        /// <returns> Ad campaign updated </returns>
+        public override AdCampaign Update(long campaignId)
+        {
+            try
+            {
+                this.Id = campaignId;
+                return this.Update();
             }
             catch (Exception)
             {
@@ -345,35 +364,37 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
         }
 
-        /// <summary>
-        ///     Mounts string with data for creation of a new campaign
-        /// </summary>
-        public override Dictionary<string, string> GetSingleCreateParams()
+        public AdCampaign SetUpdateData(string name, AdCampaignObjectiveEnum? objective,
+                                        AdCampaignStatusEnum? status,
+                                        IList<ExecutionOptionsEnum> executionOptionsList)
         {
-            if (!this.CreateModelIsReady)
+            //this.ValidationUpdateData(accountId, objective, status);
+            try
             {
-                return null;
+                if (String.IsNullOrEmpty(name) &&
+                    objective == null &&
+                    status == null &&
+                    (executionOptionsList == null || !executionOptionsList.Any()))
+                {
+                    return this;
+                }
+
+                //this.AccountId = accountId;
+                this.Name = name;
+                this.Objective = objective;
+                this.Status = status;
+                this.ExecutionOptionsList = executionOptionsList;
+
+                this.SetValidUpdateModel();
+                return this;
             }
-
-            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Create);
-            return createQuery;
-        }
-
-        /// <summary>
-        ///     Mount a dictionary with parameters and values to update
-        /// </summary>
-        /// <returns> Dictionary with facebook name and value </returns>
-        public override Dictionary<string, string> GetSingleUpdateParams()
-        {
-            if (!this.UpdateModelIsReady)
+            catch (Exception)
             {
-                return null;
+                this.SetInvalidUpdateModel();
+                return this;
             }
-
-            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Update);
-            return createQuery;
         }
-
+        
         #region Private methods
 
         /// <summary>
@@ -412,7 +433,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Get the property value
         /// </summary>
-        private string GetObjectFacebookValue(FacebookFieldType fieldType, object currentValue)
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             switch (fieldType)
             {
@@ -444,64 +465,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             return string.Empty;
         }
-
-        /// <summary>
-        ///     Mount a dictionary with parameters and values to create or update
-        /// </summary>
-        /// <param name="operationType"> Operations type </param>
-        /// <returns> Dictionary with facebook name and value </returns>
-        private Dictionary<string, string> GetParamsQueryDictionary(GetParamsType operationType)
-        {
-            try
-            {
-                var createQuery = new Dictionary<string, string>();
-                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
-                {
-
-                    if (!this.PropertyCanBeUsedInTheOperation(prop, operationType))
-                    {
-                        continue;
-                    }
-
-                    var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
-                    var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-
-                    if (facebookNameAttribute == null ||
-                        facebookAttributeType == null)
-                    {
-                        continue;
-                    }
-
-                    string facebookName = facebookNameAttribute.Value;
-                    if (String.IsNullOrEmpty(facebookName))
-                    {
-                        continue;
-                    }
-
-                    FacebookFieldType facebookType = facebookAttributeType.Value;
-                    object currentValue = prop.GetValue(this);
-
-                    if (currentValue == null)
-                    {
-                        continue;
-                    }
-
-                    string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
-                    if (String.IsNullOrEmpty(currentValueString))
-                    {
-                        continue;
-                    }
-
-                    createQuery.Add(facebookName, currentValueString);
-                }
-
-                return createQuery;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        
 
         /// <summary>
         ///     Validate the ad campaign create data

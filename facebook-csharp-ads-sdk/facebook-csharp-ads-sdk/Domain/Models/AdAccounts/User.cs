@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.AdUsers;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using Newtonsoft.Json.Linq;
 
@@ -131,22 +132,17 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleCreateParams()
-        {
-            throw new NotImplementedException();
-        }
-
         public override User ReadSingle(long id)
         {
             throw new NotImplementedException();
         }
 
-        public override User Update(long id)
+        public override User Update()
         {
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleUpdateParams()
+        public override User Update(long id)
         {
             throw new NotImplementedException();
         }
@@ -157,6 +153,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         }
 
         public override bool Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new NotImplementedException();
         }

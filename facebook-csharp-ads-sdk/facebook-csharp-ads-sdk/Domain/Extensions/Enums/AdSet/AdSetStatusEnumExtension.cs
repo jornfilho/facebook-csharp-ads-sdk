@@ -35,5 +35,15 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdSet
 
             return AdSetStatusEnum.Undefined;
         }
+
+        /// <summary>
+        ///     Get Facebook name of the ad status
+        /// </summary>
+        /// <param name="campaignObjectiveEnum"> Ad status enum </param>
+        /// <returns> Facebook name </returns>
+        public static string GetAdSetStatusFacebookName(this AdSetStatusEnum campaignObjectiveEnum)
+        {
+            return campaignObjectiveEnum.GetCustomEnumAttributeValue<FacebookNameAttribute, string>();
+        }
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="Domain\Exceptions\AdSet\InvalidObjectStoreUrlException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetMustBeGreaterThan100CentsPerDayException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetOrDailyBudgetRequiredException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\StartDateMustBeGreatherThanUtcNowException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpaException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpcException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeOcpmException.cs" />

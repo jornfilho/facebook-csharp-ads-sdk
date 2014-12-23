@@ -103,6 +103,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
             get { return String.Format("{0}{1}", this.GraphApiUrl, "{0}?access_token={1}&fields={2}&date_format=U"); }
         }
 
+        /// <summary>
+        ///     Endpoint of the create ad set
+        /// </summary>
+        public string AdSetCreateEndpoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "act_{0}/adcampaigns?access_token={1}"); }
+        }
+
         #endregion Ad set
 
         /// <summary>

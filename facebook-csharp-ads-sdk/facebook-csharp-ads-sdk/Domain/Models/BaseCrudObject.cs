@@ -38,7 +38,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         ///     Mount a dictionary with parameters and values to create
         /// </summary>
         /// <returns> Dictionary with facebook name and value </returns>
-        public abstract Dictionary<string, string> GetSingleCreateParams();
+        public Dictionary<string, string> GetSingleCreateParams()
+        {
+            if (!this.CreateModelIsReady)
+            {
+                return null;
+            }
+
+            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Create);
+            return createQuery;
+        }
 
         /// <summary>
         ///     Read a T in Facebook
@@ -51,13 +60,28 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         ///     Update a entity on Facebook
         /// </summary>
         /// <returns> Entity updated </returns>
+        public abstract T Update();
+
+        /// <summary>
+        ///     Update a entity on Facebook
+        /// </summary>
+        /// <returns> Entity updated </returns>
         public abstract T Update(long id);
 
         /// <summary>
         ///     Mount a dictionary with parameters and values to update
         /// </summary>
         /// <returns> Dictionary with facebook name and value </returns>
-        public abstract Dictionary<string, string> GetSingleUpdateParams();
+        public Dictionary<string, string> GetSingleUpdateParams()
+        {
+            if (!this.UpdateModelIsReady)
+            {
+                return null;
+            }
+
+            Dictionary<string, string> createQuery = this.GetParamsQueryDictionary(GetParamsType.Update);
+            return createQuery;
+        }
 
         /// <summary>
         ///     Delete the object in facebook
@@ -156,6 +180,72 @@ namespace facebook_csharp_ads_sdk.Domain.Models
                 return false;
             }
         }
+
+        /// <summary>
+        ///     Mount a dictionary with parameters and values to create or update
+        /// </summary>
+        /// <param name="operationType"> Operations type </param>
+        /// <returns> Dictionary with facebook name and value </returns>
+        private Dictionary<string, string> GetParamsQueryDictionary(GetParamsType operationType)
+        {
+            try
+            {
+                var createQuery = new Dictionary<string, string>();
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+                {
+
+                    if (!this.PropertyCanBeUsedInTheOperation(prop, operationType))
+                    {
+                        continue;
+                    }
+
+                    var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
+                    var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
+
+                    if (facebookNameAttribute == null ||
+                        facebookAttributeType == null)
+                    {
+                        continue;
+                    }
+
+                    string facebookName = facebookNameAttribute.Value;
+                    if (String.IsNullOrEmpty(facebookName))
+                    {
+                        continue;
+                    }
+
+                    FacebookFieldType facebookType = facebookAttributeType.Value;
+                    object currentValue = prop.GetValue(this);
+
+                    if (currentValue == null)
+                    {
+                        continue;
+                    }
+
+                    string currentValueString = this.ParsePropertyValueToFacebookValue(facebookType, currentValue);
+                    if (String.IsNullOrEmpty(currentValueString))
+                    {
+                        continue;
+                    }
+
+                    createQuery.Add(facebookName, currentValueString);
+                }
+
+                return createQuery;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        ///     Get facebook value of the property, doing the necessary parse
+        /// </summary>
+        /// <param name="fieldType"> Field type </param>
+        /// <param name="currentValue"> Current property value </param>
+        /// <returns></returns>
+        protected abstract string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue);
 
         #region Protected methods
 
