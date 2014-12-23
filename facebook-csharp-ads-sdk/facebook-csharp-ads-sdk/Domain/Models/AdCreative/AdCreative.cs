@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 {
-    class AdCreative
+    public class AdCreative : BaseCrudObject<AdCreative>
     {
 
         #region Properties
@@ -149,5 +150,40 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         public string UrlTags { get; private set; }
 
         #endregion Properties
+
+        public override AdCreative Create()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleCreateParams()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override AdCreative ReadSingle(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override AdCreative Update()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool Delete()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool Delete(long id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

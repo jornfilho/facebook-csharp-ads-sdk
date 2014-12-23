@@ -60,6 +60,7 @@
     <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\ICreativeRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountGroupsStatusEnum.cs" />
