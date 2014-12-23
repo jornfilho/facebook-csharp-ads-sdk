@@ -141,7 +141,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
-        public override User Update()
+        public override User Update(long id)
         {
             throw new NotImplementedException();
         }

@@ -389,7 +389,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                         continue;
 
                     var groupData = new AdAccountGroup();
-                    groupData.ParseReadSingleesponse(currentGroup);
+                    groupData.ParseReadSingleResponse(currentGroup);
 
                     if (!groupData.IsValid)
                         continue;
@@ -496,7 +496,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
         }
 
-        public override AdAccount Update()
+        public override AdAccount Update(long id)
         {
             throw new NotImplementedException();
         }

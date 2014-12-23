@@ -56,7 +56,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public virtual void ParseReadSingleesponse(string facebookResponse)
+        public virtual void ParseReadSingleResponse(string facebookResponse)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
                 }
 
                 var response = JObject.Parse(facebookResponse);
-                this.ParseReadSingleesponse(response);
+                this.ParseReadSingleResponse(response);
             }
             catch (Exception)
             {
@@ -77,7 +77,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public virtual void ParseReadSingleesponse(JToken facebookResponse)
+        public virtual void ParseReadSingleResponse(JToken facebookResponse)
         {
             try
             {
@@ -145,6 +145,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models
             }
 
             SetInvalid();
+        }
+
+        /// <summary>
+        ///     Get the facebook name of the property
+        /// </summary>
+        /// <param name="propertyName"> Property name </param>
+        /// <returns> Facebook name </returns>
+        protected string GetPropertyFacebookName(string propertyName)
+        {
+            var facebookAttributeName = this.GetType().GetProperty(propertyName).GetCustomAttribute<FacebookNameAttribute>();
+            if (facebookAttributeName == null)
+            {
+                return string.Empty;
+            }
+
+            return facebookAttributeName.Value;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Contracts.Commons
             throw new System.NotImplementedException();
         }
 
-        public override BaseObjectTest Update()
+        public override BaseObjectTest Update(long id)
         {
             throw new System.NotImplementedException();
         }
