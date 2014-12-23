@@ -73,8 +73,7 @@
         /// <summary>
         /// Call to action of the creative
         /// </summary>
-        CallToActionTypeEnum
-        ExecutionOptionsEnumList,
+        CallToActionTypeEnum,
 
         /// <summary>
         ///     Ad set bid type enum
