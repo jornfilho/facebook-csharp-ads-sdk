@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Exceptions.Users;
 
-namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
+namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository.Base
 {
     /// <summary>
     ///     Repository base with basic CRUD operations

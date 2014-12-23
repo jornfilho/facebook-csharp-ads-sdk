@@ -34,13 +34,25 @@
         #region Ad campaign
 
         /// <summary>
-        /// Test if ad campaign id has a vaid value
+        /// Test if ad campaign id has a valid value
         /// </summary>
-        public static bool IsValidAdCampaignId(this long adAccountId)
+        public static bool IsValidAdCampaignId(this long adCampaignId)
         {
-            return adAccountId > 0;
+            return adCampaignId > 0;
         }
 
         #endregion Ad campaign
+
+        #region Ad set
+
+        /// <summary>
+        ///     Test if ad set id has a valid value
+        /// </summary>
+        public static bool IsValidAdSetId(this long adSetId)
+        {
+            return adSetId > 0;
+        }
+
+        #endregion Ad set
     }
 }

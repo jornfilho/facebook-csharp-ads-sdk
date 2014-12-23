@@ -114,7 +114,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
             } 
             #endregion
 
-            this.ParseReadSingleesponse(jsonObject);
+            this.ParseReadSingleResponse(jsonObject);
             return this;
         }
 
@@ -152,7 +152,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
                     continue;
 
                 var accountGroup = new AdAccountGroup();
-                accountGroup.ParseReadSingleesponse(item.ToString());
+                accountGroup.ParseReadSingleResponse(item.ToString());
                 if (!accountGroup.IsValid)
                     continue;
 

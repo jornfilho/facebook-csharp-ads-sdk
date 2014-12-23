@@ -63,6 +63,31 @@
         /// <summary>
         ///     Facebook execution options enum list
         /// </summary>
-        ExecutionOptionsEnumList
+        ExecutionOptionsEnumList,
+
+        /// <summary>
+        ///     Ad set bid type enum
+        /// </summary>
+        AdSetBidTypeEnum,
+
+        /// <summary>
+        ///     Ad set status enum
+        /// </summary>
+        AdSetStatusEnum,
+
+        /// <summary>
+        ///     Array of bid info
+        /// </summary>
+        BidInfoArray,
+
+        /// <summary>
+        ///     Promoted object
+        /// </summary>
+        PromotedObject,
+
+        /// <summary>
+        ///     Date on unix timestamp
+        /// </summary>
+        UnixTimestamp
     }
 }
