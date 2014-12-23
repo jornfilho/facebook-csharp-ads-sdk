@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -16,23 +17,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Api error response model
         /// </summary>
-        private ApiErrorModelV22 ApiErrorResponseData { get; set; }
+        public ApiErrorModelV22 ApiErrorResponseData { get; private set; }
 
         /// <summary>
         /// Set true id has valid data
         /// </summary>
-        private bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
         #endregion
 
         #region Métodos de controle de validação do modelo
-        /// <summary>
-        /// Return true if has valid data 
-        /// </summary>
-        public bool IsValidData()
-        {
-            return IsValid;
-        }
-
         /// <summary>
         /// Set data valid
         /// </summary>
@@ -54,17 +47,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
 
             IsValid = false;
         }
-        #endregion
-
-        #region Métodos para manipulação do objeto de erros do facebook
-        /// <summary>
-        /// Get api error response data model
-        /// </summary>
-        public ApiErrorModelV22 GetApiErrorResonse()
-        {
-            return ApiErrorResponseData;
-        }
-
+        
         /// <summary>
         /// Set api error response data
         /// </summary>
@@ -79,14 +62,46 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public void ParseSingleResponse(JToken jsonResult)
+        public virtual void ParseReadSingleesponse(string facebookResponse)
         {
-            SetDefaultValues();
+            try
+            {
+                if (String.IsNullOrEmpty(facebookResponse))
+                {
+                    this.SetInvalid();
+                }
 
-            if (!AutoSetResponsePropertiesValue(jsonResult, false))
-                return;
+                var response = JObject.Parse(facebookResponse);
+                this.ParseReadSingleesponse(response);
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+            }
+        }
 
-            SetValid();
+        /// <summary>
+        /// Parse Facebook Api response to model
+        /// </summary>
+        public virtual void ParseReadSingleesponse(JToken jsonResult)
+        {
+            try
+            {
+                SetDefaultValues();
+
+                if (jsonResult == null)
+                    return;
+
+                if (!AutoSetResponsePropertiesValue(jsonResult, false))
+                    return;
+
+                SetValid();
+            }
+            catch (Exception)
+            {
+                
+                this.SetInvalid();
+            }
         }
 
         /// <summary>

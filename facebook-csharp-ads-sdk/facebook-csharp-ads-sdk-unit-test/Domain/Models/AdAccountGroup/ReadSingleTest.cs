@@ -57,7 +57,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
             var result = _model.ReadSingle(ValidAdAccountGroupId, _fields, _repository);
             
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.IsValidData());
+            Assert.IsTrue(result.IsValid);
         }
     }
 }

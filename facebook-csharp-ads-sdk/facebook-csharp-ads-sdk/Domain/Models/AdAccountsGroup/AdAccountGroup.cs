@@ -209,7 +209,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
         {
             SetDefaultValues();
 
-            if (data.IsValidData())
+            if (data.IsValid)
                 this.SetValid();
 
             foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))

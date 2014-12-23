@@ -113,7 +113,6 @@
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignDeleteTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignReadParseTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignUpdateTest.cs" />
-    <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppSecretTest.cs" />
