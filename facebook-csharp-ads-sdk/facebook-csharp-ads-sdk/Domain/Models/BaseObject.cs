@@ -102,7 +102,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public bool ParseUpdateResponse(JToken jsonResult)
         {
-            if (IsValidResponse(jsonResult))
+            if (!IsValidResponse(jsonResult))
                 return false;
 
             return jsonResult["success"] != null &&
@@ -116,7 +116,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         public bool ParseDeleteResponse(JToken jsonResult)
         {
-            if (IsValidResponse(jsonResult))
+            if (!IsValidResponse(jsonResult))
                 return false;
 
             return jsonResult["success"] != null &&
@@ -130,7 +130,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         /// </summary>
         private bool AutoSetResponsePropertiesValue(JToken jsonResult, bool isCreateMethod)
         {
-            if (IsValidResponse(jsonResult))
+            if (!IsValidResponse(jsonResult))
                 return false;
 
             foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))

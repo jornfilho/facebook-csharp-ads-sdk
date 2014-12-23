@@ -80,6 +80,7 @@
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions\GetAdAccountFieldsListTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions\GetFacebookNameTest.cs" />
     <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtension\GetCustomEnumAttributeValueExtensionTest.cs" />
+    <Compile Include="Domain\Models\AdAccountGroup\ReadSingleTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\ParseSingleResultTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountBusinessInformationsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\AdAccount\SetAdAccountUserTest.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="Domain\Models\AdAccounts\User\SetUserDataTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\GetFieldsTest.cs" />
     <Compile Include="Domain\Models\AdAccounts\BusinessInformations\SetBusinessInformationsDataTest.cs" />
-    <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppSecretTest.cs" />

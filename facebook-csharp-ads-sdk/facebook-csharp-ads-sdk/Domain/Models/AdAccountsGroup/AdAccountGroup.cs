@@ -170,7 +170,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">accountGroupId menor ou igual a zero</exception>
         /// <exception cref="ArgumentNullException">repository nulo</exception>
-        public AdAccountGroup Get(long accountGroupId, IList<AdAccountGroupFieldsEnum> fields, IAccountGroupRepository repository)
+        public AdAccountGroup ReadSingle(long accountGroupId, IList<AdAccountGroupFieldsEnum> fields, IAccountGroupRepository repository)
         {
             SetDefaultValues();
 
@@ -194,9 +194,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">accountGroupId menor ou igual a zero</exception>
         /// <exception cref="ArgumentNullException">repository nulo</exception>
-        public AdAccountGroup Get(long accountGroupId, IAccountGroupRepository repository)
+        public AdAccountGroup ReadSingle(long accountGroupId, IAccountGroupRepository repository)
         {
-            Get(accountGroupId, AdAccountGroupFieldsEnumExtensions.GetAllAdAccountGroupFieldsList(), repository);
+            ReadSingle(accountGroupId, AdAccountGroupFieldsEnumExtensions.GetDefaultsAdAccountGroupFieldsList(), repository);
             return this;
         } 
         #endregion
@@ -207,6 +207,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
         private void CopyModelData(AdAccountGroup data)
         {
             SetDefaultValues();
+
+            if (data.IsValidData())
+                this.SetValid();
 
             foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
             {

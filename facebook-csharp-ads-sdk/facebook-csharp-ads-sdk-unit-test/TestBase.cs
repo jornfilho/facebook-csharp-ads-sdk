@@ -191,6 +191,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         #region Repositories
         public IFacebookSession RepositoryFacebookSession;
         public IAccountRepository RepositoryAdAccount;
+        public IAccountGroupRepository RepositoryAccountGroup;
         #endregion
 
         [TestInitialize]
@@ -449,8 +450,6 @@ namespace facebook_csharp_ads_sdk_unit_test
             RepositoryFacebookSession = new FacebookSessionRepository();
             RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
             RepositoryFacebookSession.SetAppAccessToken(ValidAccessToken);
-
-            RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession);
         }
     }
 }
