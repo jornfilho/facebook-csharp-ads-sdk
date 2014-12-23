@@ -7,6 +7,7 @@ using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
@@ -389,7 +390,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                         continue;
 
                     var groupData = new AdAccountGroup();
-                    groupData.ParseReadSingleesponse(currentGroup);
+                    groupData.ParseReadSingleResponse(currentGroup);
 
                     if (!groupData.IsValid)
                         continue;
@@ -474,11 +475,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleCreateParams()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         ///     Read a account by id
         /// </summary>
@@ -501,7 +497,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             throw new NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleUpdateParams()
+        public override AdAccount Update(long id)
         {
             throw new NotImplementedException();
         }
@@ -512,6 +508,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         }
 
         public override bool Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new NotImplementedException();
         }

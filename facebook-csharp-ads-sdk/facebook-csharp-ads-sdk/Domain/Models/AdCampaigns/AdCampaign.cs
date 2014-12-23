@@ -9,6 +9,8 @@ using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Enums.Global;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdAccounts;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -16,6 +18,10 @@ using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 {
+    /// <summary>
+    ///     <para> Facebook Ad campaign </para>
+    ///     <para>https://developers.facebook.com/docs/reference/ads-api/adcampaign</para>
+    /// </summary>
     public class AdCampaign : BaseCrudObject<AdCampaign>
     {
         #region Dependencies
@@ -159,20 +165,58 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         }
 
         /// <summary>
+        ///     <para> Read ad campaign by id </para>
+        /// </summary>
+        /// <param name="id"> Campaign id </param>
+        /// <param name="fields"> Ad campaign fields to read </param>
+        /// <returns></returns>
+        public AdCampaign ReadSingle(long id, IList<AdCampaignReadFieldsEnum> fields)
+        {
+            try
+            {
+                return id.IsValidAdCampaignId() ? this.campaignRepository.Read(id, fields).Result : this;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
+        }
+
+        /// <summary>
         ///     Update a ad campaign on Facebook
         /// </summary>
-        /// <returns> Ad campaign updated </returns>
+        /// <returns></returns>
         public override AdCampaign Update()
         {
             try
             {
-                if (!this.UpdateModelIsReady || !this.Id.IsValidAdCampaignId())
+                if (!this.UpdateModelIsReady 
+                    || !this.Id.IsValidAdCampaignId())
                 {
                     this.SetInvalid();
                     return this;
                 }
 
                 return this.campaignRepository.Update(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
+        }
+
+        /// <summary>
+        ///     Update a ad campaign on Facebook
+        /// </summary>
+        /// <param name="campaignId"> Ad campaign id </param>
+        /// <returns> Ad campaign updated </returns>
+        public override AdCampaign Update(long campaignId)
+        {
+            try
+            {
+                this.Id = campaignId;
+                return this.Update();
             }
             catch (Exception)
             {
@@ -189,7 +233,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         {
             try
             {
-                return this.Id.IsValidAdCampaignId() && this.campaignRepository.Delete(this.Id).Result;
+                bool success = this.Id.IsValidAdCampaignId() && this.campaignRepository.Delete(this.Id).Result;
+                this.SetInvalidUpdateModel();
+                return success;
             }
             catch (Exception)
             {
@@ -219,9 +265,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Overrite of the base parse method 
         /// </summary>
         /// <param name="facebookResponse"> Facebook response </param>
-        public override void ParseReadSingleesponse(string facebookResponse)
+        public override void ParseReadSingleResponse(string facebookResponse)
         {
-            base.ParseReadSingleesponse(facebookResponse);
+            base.ParseReadSingleResponse(facebookResponse);
             if (!this.IsValid)
             {
                 return;
@@ -245,43 +291,19 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <exception cref="InvalidAdAccountId"></exception>
+        /// <exception cref="InvalidAdCampaignNameException"></exception>
+        /// <exception cref="InvalidAdCampaingStatusException"></exception>
+        /// <exception cref="InvalidAdCampaignBuyingTypeException"></exception>
+        /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
         /// <returns> This instance </returns>
         public AdCampaign SetCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
                                         AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
                                         IList<ExecutionOptionsEnum> executionOptionsList)
         {
+            this.ValidationCreateData(accountId, name, buyingType, objective, status);
             try
             {
-                if (!accountId.IsValidAdAccountId())
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (String.IsNullOrEmpty(name))
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (status == AdCampaignStatusEnum.Undefined || 
-                    status == AdCampaignStatusEnum.Archived || 
-                    status == AdCampaignStatusEnum.Delete)
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-
-                if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
-                {
-                    buyingType = null;
-                }
-
-                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
-                {
-                    objective = null;
-                }
-
                 this.AccountId = accountId;
                 this.BuyingType = buyingType;
                 this.Name = name;
@@ -307,37 +329,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <param name="objective"> Ad campaign objective </param>
         /// <param name="status"> Ad campaign status </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <exception cref="InvalidAdAccountId"></exception>
+        /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
+        /// <exception cref="InvalidAdCampaingStatusException"></exception>
         /// <returns> This instance </returns>
         public AdCampaign SetUpdateData(long accountId, string name, AdCampaignObjectiveEnum? objective,
                                         AdCampaignStatusEnum? status,
                                         IList<ExecutionOptionsEnum> executionOptionsList)
         {
+            this.ValidationUpdateData(accountId, objective, status);
             try
             {
-                if (!accountId.IsValidAdAccountId())
-                {
-                    this.SetInvalidCreateModel();
-                    return this;
-                }
-                
                 if (String.IsNullOrEmpty(name) &&
-                    objective == null && 
-                    status == null && 
+                    objective == null &&
+                    status == null &&
                     (executionOptionsList == null || !executionOptionsList.Any()))
                 {
-                    this.SetInvalidUpdateModel();
-                    return this;
-                }
-
-                if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
-                {
-                    this.SetInvalidUpdateModel();
-                    return this;
-                }
-
-                if (status != null && status == AdCampaignStatusEnum.Undefined)
-                {
-                    this.SetInvalidUpdateModel();
                     return this;
                 }
 
@@ -357,116 +364,37 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
         }
 
-        /// <summary>
-        ///     Mounts string with data for creation of a new campaign
-        /// </summary>
-        public override Dictionary<string, string> GetSingleCreateParams()
+        public AdCampaign SetUpdateData(string name, AdCampaignObjectiveEnum? objective,
+                                        AdCampaignStatusEnum? status,
+                                        IList<ExecutionOptionsEnum> executionOptionsList)
         {
-            if (!this.CreateModelIsReady)
+            //this.ValidationUpdateData(accountId, objective, status);
+            try
             {
-                return null;
-            }
+                if (String.IsNullOrEmpty(name) &&
+                    objective == null &&
+                    status == null &&
+                    (executionOptionsList == null || !executionOptionsList.Any()))
+                {
+                    return this;
+                }
 
-            var createQuery = new Dictionary<string, string>();
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+                //this.AccountId = accountId;
+                this.Name = name;
+                this.Objective = objective;
+                this.Status = status;
+                this.ExecutionOptionsList = executionOptionsList;
+
+                this.SetValidUpdateModel();
+                return this;
+            }
+            catch (Exception)
             {
-                var facebookNameAttribute = (FacebookNameAttribute) prop.Attributes[typeof (FacebookNameAttribute)];
-                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute) prop.Attributes[typeof (CanCreateOnFacebookAttribute)];
-                
-                if (facebookNameAttribute == null ||
-                    facebookAttributeType == null ||
-                    canCreateOnFacebookAttribute == null)
-                {
-                    continue;
-                }
-
-                if (canCreateOnFacebookAttribute.Value == false)
-                {
-                    continue;
-                }
-
-                string facebookName = facebookNameAttribute.Value;
-                if (String.IsNullOrEmpty(facebookName))
-                {
-                    continue;
-                }
-                
-                FacebookFieldType facebookType = facebookAttributeType.Value;
-                object currentValue = prop.GetValue(this);
-                if (currentValue == null)
-                {
-                    continue;
-                }
-
-                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
-                if (String.IsNullOrEmpty(currentValueString))
-                {
-                    continue;
-                }
-
-                createQuery.Add(facebookName, currentValueString);
+                this.SetInvalidUpdateModel();
+                return this;
             }
-
-            return createQuery;
         }
-
-        /// <summary>
-        ///     Mount a dictionary with parameters and values to update
-        /// </summary>
-        /// <returns> Dictionary with facebook name and value </returns>
-        public override Dictionary<string, string> GetSingleUpdateParams()
-        {
-            if (!this.UpdateModelIsReady)
-            {
-                return null;
-            }
-
-            var createQuery = new Dictionary<string, string>();
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
-            {
-                var facebookNameAttribute = (FacebookNameAttribute)prop.Attributes[typeof(FacebookNameAttribute)];
-                var facebookAttributeType = (FacebookFieldTypeAttribute)prop.Attributes[typeof(FacebookFieldTypeAttribute)];
-                var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)prop.Attributes[typeof(CanUpdateOnFacebookAttribute)];
-
-                if (facebookNameAttribute == null ||
-                    facebookAttributeType == null ||
-                    canUpdateOnFacebookAttribute == null)
-                {
-                    continue;
-                }
-
-                if (canUpdateOnFacebookAttribute.Value == false)
-                {
-                    continue;
-                }
-
-                string facebookName = facebookNameAttribute.Value;
-                if (String.IsNullOrEmpty(facebookName))
-                {
-                    continue;
-                }
-
-                FacebookFieldType facebookType = facebookAttributeType.Value;
-                object currentValue = prop.GetValue(this);
-
-                if (currentValue == null)
-                {
-                    continue;
-                }
-
-                string currentValueString = this.GetObjectFacebookValue(facebookType, currentValue);
-                if (String.IsNullOrEmpty(currentValueString))
-                {
-                    continue;
-                }
-
-                createQuery.Add(facebookName, currentValueString);
-            }
-
-            return createQuery;
-        }
-
+        
         #region Private methods
 
         /// <summary>
@@ -505,7 +433,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Get the property value
         /// </summary>
-        private string GetObjectFacebookValue(FacebookFieldType fieldType, object currentValue)
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             switch (fieldType)
             {
@@ -536,6 +464,70 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
             }
 
             return string.Empty;
+        }
+        
+
+        /// <summary>
+        ///     Validate the ad campaign create data
+        /// </summary>
+        /// <param name="accountId"> Account id </param>
+        /// <param name="name"> Ad campaign name </param>
+        /// <param name="buyingType"> Ad campaign buying type </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        private void ValidationCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
+                                          AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status)
+        {
+            if (!accountId.IsValidAdAccountId())
+            {
+                throw new InvalidAdAccountId();
+            }
+
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdCampaignNameException();
+            }
+
+            if (status == AdCampaignStatusEnum.Undefined ||
+                status == AdCampaignStatusEnum.Archived ||
+                status == AdCampaignStatusEnum.Delete)
+            {
+                throw new InvalidAdCampaingStatusException();
+            }
+
+            if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+            {
+                throw new InvalidAdCampaignBuyingTypeException();
+            }
+
+            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            {
+                throw new InvalidAdCampaignObjectiveException();
+            }
+        }
+
+        /// <summary>
+        ///     Validate the ad campaign update data
+        /// </summary>
+        /// <param name="accountId"> Account id </param>
+        /// <param name="objective"> Ad campaign objective </param>
+        /// <param name="status"> Ad campaign status </param>
+        private void ValidationUpdateData(long accountId, AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum? status)
+        {
+            if (!accountId.IsValidAdAccountId())
+            {
+                throw new InvalidAdAccountId();
+            }
+
+            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            {
+                throw new InvalidAdCampaignObjectiveException();
+            }
+
+            if (status != null && status == AdCampaignStatusEnum.Undefined)
+            {
+                throw new InvalidAdCampaingStatusException();
+            }
         }
 
         #endregion Private methods

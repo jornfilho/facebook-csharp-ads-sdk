@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{518076B3-07A9-4C0C-8FC2-0E156BCECAB2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>facebook_csharp_ads_sdk</RootNamespace>
+    <AssemblyName>facebook-csharp-ads-sdk</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\facebook-csharp-ads-sdk.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\facebook-csharp-ads-sdk.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevUtils">
+      <HintPath>..\packages\DevUtils.1.0.4\lib\net451\DevUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
+    <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
+    <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\Base\IBaseCrudRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\Base\IBaseRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAdSetRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\ICreativeRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
+    <Compile Include="Domain\Enums\AdAccountGroup\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccountGroup\AdAccountGroupsStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignBuyingTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignReadFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
+<<<<<<< HEAD
+    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />
+=======
+    <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />
+    <Compile Include="Domain\Enums\Global\BidInfoObjectiveTypeEnum.cs" />
+>>>>>>> ad_set
+    <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
+    <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
+    <Compile Include="Domain\Enums\Global\GetParamsType.cs" />
+    <Compile Include="Domain\Enums\Targetings\GenderTypeEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\OsOptionsEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\PlacementTypeEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\SiteCategoryEnum.cs" />
+    <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignBuyingTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignIdException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignNameException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignObjectiveException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignStatusException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaingStatusException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\DailyBudgetMustBeGreaterThan100CentsException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\DifferenceWithStartTimeAndEndTimeMustBe24HoursException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\EndTimeMustBeGreaterThanStartTimeException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\EndTimeRequiredInLifetimeBudgetException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoDataException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetNameException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetStatusException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetTargetingException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidObjectIdException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidObjectStoreUrlException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetMustBeGreaterThan100CentsPerDayException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\LifetimeBudgetOrDailyBudgetRequiredException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\StartDateMustBeGreatherThanUtcNowException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpaException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpcException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeOcpmException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpaException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpcException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpmException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpmException.cs" />
+    <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeOcpmException.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
+    <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
+    <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupsStatusEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountStatusEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\CapabilitiesEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\TaxStatusEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\UserRoleEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\UserPermissionsEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\CurrenciesEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignBuyingTypeEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignObjectiveEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignStatusEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\Global\ExecutionOptionsEnumExtension.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FundingSourceCoupon.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
+    <Compile Include="Domain\Enums\AdUsers\UserRoleEnum.cs" />
+    <Compile Include="Domain\Enums\AdUsers\UserPermissionsEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\TaxStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\AdAccountStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\CapabilitiesEnum.cs" />
+    <Compile Include="Domain\Enums\AdAccounts\CurrenciesEnum.cs" />
+    <Compile Include="Domain\Enums\Configurations\FacebookAdsApiVersionsEnum.cs" />
+    <Compile Include="Domain\Enums\FacebookSession\RequiredOnFacebookSessionEnum.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppId.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppSecret.cs" />
+    <Compile Include="Domain\Exceptions\App\InvalidAppAccessToken.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountFieldsExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\Attribute\GetCustomEnumAttributeValueExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\Configurations\FacebookAdsApiVersionsExtensions.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AdAccount.cs" />
+    <Compile Include="Domain\Models\AdAccounts\User.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FundingSourceDetail.cs" />
+    <Compile Include="Domain\Models\AdAccounts\AgencyClientDeclaration.cs" />
+    <Compile Include="Domain\Models\AdAccounts\BusinessInformations.cs" />
+    <Compile Include="Domain\Models\AdAccounts\FinancialInformations.cs" />
+    <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
+    <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
+<<<<<<< HEAD
+    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />
+=======
+    <Compile Include="Domain\Models\AdSets\AdSet.cs" />
+    <Compile Include="Domain\Models\AdSets\PromotedObject.cs" />
+    <Compile Include="Domain\Models\Global\BidInfo.cs" />
+>>>>>>> ad_set
+    <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
+    <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\FacebookFieldTypeAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\IsFacebookCreateResponseAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\IsParentObjectAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\FacebookNameAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\IAttribute.cs" />
+    <Compile Include="Domain\Models\BaseCrudObject.cs" />
+    <Compile Include="Domain\Models\BaseObjectsList.cs" />
+    <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
+    <Compile Include="Domain\Utils\RepositoryUtils.cs" />
+    <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Repository\AdSetRepository.cs" />
+    <Compile Include="_Utils\Parser\FacebookParser.cs" />
+    <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
+    <Compile Include="Infrastructure\Repository\AdCampaignRepository.cs" />
+    <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
+    <Compile Include="Domain\Models\BaseObject.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Utils\WebRequests\IRequest.cs" />
+    <Compile Include="_Utils\WebRequests\Request.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
