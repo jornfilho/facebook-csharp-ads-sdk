@@ -37,7 +37,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.BusinessInf
             Assert.AreNotEqual(model.BusinessState, string.Empty);
             Assert.AreNotEqual(model.BusinessZip, string.Empty);
             Assert.AreNotEqual(model.BusinessCountryCode, string.Empty);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -45,40 +45,40 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.BusinessInf
         {
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.BusinessInformations();
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
             model.SetBusinessInformationsData("a", null, null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, "b", null, null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, null, "c", null, null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, null, null, "d", null, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, null, null, null, "e", null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, null, null, null, null, "f", null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetBusinessInformationsData(null, null, null, null, null, null, "g");
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.BusinessInformations model)
         {
             model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.BusinessInformations();
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientSummaryInformationsData(false, false, false, false);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -24,7 +24,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientSummaryInformationsData(true, false, false, false);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientSummaryInformationsData(false, true, false, false);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientSummaryInformationsData(false, false, true, false);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AgencyClien
                 .SetClientSummaryInformationsData(false, false, false, true);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

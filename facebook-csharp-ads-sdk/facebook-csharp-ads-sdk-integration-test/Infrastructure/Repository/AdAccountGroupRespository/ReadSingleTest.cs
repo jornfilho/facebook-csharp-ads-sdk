@@ -51,7 +51,7 @@ namespace facebook_csharp_ads_sdk_integration_test.Infrastructure.Repository.AdA
             var data = _accountGroupRepository.ReadSingle(AdAccountGroupId, _fields);
 
             Assert.IsNotNull(data);
-            Assert.IsTrue(data.IsValidData());
+            Assert.IsTrue(data.IsValid);
         }
     }
 }

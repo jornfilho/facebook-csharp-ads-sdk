@@ -30,5 +30,17 @@
             return adAccountId.IsValidAdAccountId() && string.Format("act_{0}", adAccountId).Equals(strId);
         } 
         #endregion
+
+        #region Ad campaign
+
+        /// <summary>
+        /// Test if ad campaign id has a vaid value
+        /// </summary>
+        public static bool IsValidAdCampaignId(this long adAccountId)
+        {
+            return adAccountId > 0;
+        }
+
+        #endregion Ad campaign
     }
 }

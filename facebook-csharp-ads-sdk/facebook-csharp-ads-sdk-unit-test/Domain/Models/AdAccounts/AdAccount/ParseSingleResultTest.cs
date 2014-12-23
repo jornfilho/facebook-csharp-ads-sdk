@@ -20,7 +20,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         public void CantParseInvalidSingleAdAccountFacebookResponse_1()
         {
             model.ParseSingleResult(InvalidAdAccountSingleResultResponse1);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
         }
 
@@ -28,7 +28,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
         public void CantParseInvalidSingleAdAccountFacebookResponse_2()
         {
             model.ParseSingleResult(InvalidAdAccountSingleResultResponse2);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
         }
 
@@ -38,8 +38,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
             model.ParseSingleResult(InvalidAdAccountSingleResultResponse3);
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
-            Assert.IsNotNull(model.GetApiErrorResonse());
+            Assert.IsFalse(model.IsValid);
+            Assert.IsNotNull(model.ApiErrorResponseData);
 
         }
 
@@ -49,8 +49,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
             model.ParseSingleResult(ValidAdAccountSingleResultResponse1);
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
-            Assert.IsNull(model.GetApiErrorResonse());
+            Assert.IsTrue(model.IsValid);
+            Assert.IsNull(model.ApiErrorResponseData);
 
         }
     }

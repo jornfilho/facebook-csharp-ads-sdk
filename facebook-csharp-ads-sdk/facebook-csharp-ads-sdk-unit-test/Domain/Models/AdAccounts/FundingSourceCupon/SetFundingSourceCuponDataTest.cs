@@ -18,7 +18,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
         
         [TestMethod]
@@ -135,25 +135,25 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FundingSour
             var model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 .FundingSourceCoupon();
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
 
             model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, null, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, ValidFundingSourceCuponExpirationDate, null);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
 
             model.SetFundingSourceCuponData(ValidFundingSourceCuponAmount, ValidFundingSourceCuponCurrency, null, ValidFundingSourceCuponDisplayAmount);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             RenewModel(out model);
         }
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.FundingSourceCoupon model)
         {
             model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.FundingSourceCoupon();
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
     }
 }

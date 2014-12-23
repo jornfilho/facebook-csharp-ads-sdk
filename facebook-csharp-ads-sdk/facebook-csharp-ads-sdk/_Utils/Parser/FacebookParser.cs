@@ -3,6 +3,7 @@ using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccountGroup;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk._Utils.Parser
@@ -26,6 +27,22 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
                 case FacebookFieldType.AdAccountGroupsStatusEnum:
                     return GetAdAccountGroupsStatusEnumValue(jsonObject, fieldName, defaultValue); 
                 #endregion
+
+                #region Ad campaign
+
+                case FacebookFieldType.AdCampaignObjectiveEnum:
+                    object stringValue = GetStringValue(jsonObject, fieldName, defaultValue);
+                    return  stringValue != null ? (object) stringValue.ToString().GetCampaignObjective() : null;
+
+                case FacebookFieldType.AdCampaignStatusEnum:
+                    object status = GetStringValue(jsonObject, fieldName, defaultValue);
+                    return status != null ? (object) status.ToString().GetCampaignStatus() : null;
+
+                case FacebookFieldType.AdCampaignBuyingTypeEnum:
+                    object buyingType = GetStringValue(jsonObject, fieldName, defaultValue);
+                    return buyingType != null ? (object) buyingType.ToString().GetBuyingTypeEnum() : null;
+
+                #endregion Ad campaign
             }
 
             return null;
@@ -71,7 +88,8 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
 
 
             return tempResult ?? defaultValue;
-        } 
+        }
+
         #endregion
 
         #region Ad account group types

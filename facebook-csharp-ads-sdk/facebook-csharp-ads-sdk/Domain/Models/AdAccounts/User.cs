@@ -126,12 +126,37 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             return this;
         }
 
+        public override User Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleCreateParams()
+        {
+            throw new NotImplementedException();
+        }
+
         public override User ReadSingle(long id)
         {
             throw new NotImplementedException();
         }
 
-        public override User ParseSingleResponse(string response)
+        public override User Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(long id)
         {
             throw new NotImplementedException();
         }

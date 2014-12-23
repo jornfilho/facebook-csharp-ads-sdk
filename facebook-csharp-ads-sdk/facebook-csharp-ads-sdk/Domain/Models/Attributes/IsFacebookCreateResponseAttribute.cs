@@ -3,7 +3,7 @@
 namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
 {
     /// <summary>
-    /// Classe para identificar propriedades que são retornadas no momento da criação de um objeto
+    ///     Class to identify properties that are returned when creating an object
     /// </summary>
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
     public class IsFacebookCreateResponseAttribute : Attribute, IAttribute<bool>
@@ -11,7 +11,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
         private readonly bool _value;
 
         /// <summary>
-        /// Construtor base com atribuição do valor
+        ///     Construtor base com atribuição do valor
         /// </summary>
         public IsFacebookCreateResponseAttribute(bool value)
         {
@@ -19,7 +19,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Attributes
         }
 
         /// <summary>
-        /// Getter base classe
+        ///     Getter base classe
         /// </summary>
         public bool Value
         {

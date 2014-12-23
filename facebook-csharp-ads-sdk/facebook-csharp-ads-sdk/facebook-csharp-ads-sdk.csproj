@@ -57,12 +57,19 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IFacebookSession.cs" />
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdAccountGroup\AdAccountGroupsStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdAccounts\AdAccountFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignBuyingTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignFieldsEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
+    <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
+    <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions.cs" />
@@ -73,6 +80,10 @@
     <Compile Include="Domain\Extensions\Enums\AdAccounts\UserRoleEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\UserPermissionsEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\CurrenciesEnumExtensions.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignBuyingTypeEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignObjectiveEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdCampaigns\AdCampaignStatusEnumExtension.cs" />
+    <Compile Include="Domain\Extensions\Enums\Global\ExecutionOptionsEnumExtension.cs" />
     <Compile Include="Domain\Models\AdAccounts\FundingSourceCoupon.cs" />
     <Compile Include="Domain\Enums\AdAccounts\SpendCapUpdateActionEnum.cs" />
     <Compile Include="Domain\Enums\AdUsers\UserRoleEnum.cs" />
@@ -97,7 +108,10 @@
     <Compile Include="Domain\Models\AdAccounts\FinancialInformations.cs" />
     <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
+    <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
+    <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencySymbolAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyOffsetAttribute.cs" />
@@ -114,6 +128,7 @@
     </Compile>
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
+    <Compile Include="Infrastructure\Repository\CampaignRepository.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepository.cs" />
     <Compile Include="Domain\Models\BaseObject.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />

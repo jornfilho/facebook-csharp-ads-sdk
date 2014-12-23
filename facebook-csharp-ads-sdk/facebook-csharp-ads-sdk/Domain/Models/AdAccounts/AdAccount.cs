@@ -234,7 +234,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public AdAccount SetAdAccountBusinessInformations(BusinessInformations businessInformations)
         {
-            if (businessInformations == null || !businessInformations.IsValidData())
+            if (businessInformations == null || !businessInformations.IsValid)
             {
                 BusinessInformations = null;
                 return this;
@@ -251,7 +251,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public AdAccount SetAdAccountTimezoneInformations(TimezoneInformations timezoneInformations)
         {
-            if (timezoneInformations == null || !timezoneInformations.IsValidData())
+            if (timezoneInformations == null || !timezoneInformations.IsValid)
             {
                 TimezoneInformations = null;
                 return this;
@@ -268,7 +268,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public AdAccount SetAdAccountFinancialInformations(FinancialInformations financialInformations)
         {
-            if (financialInformations == null || !financialInformations.IsValidData())
+            if (financialInformations == null || !financialInformations.IsValid)
             {
                 FinancialInformations = null;
                 return this;
@@ -286,7 +286,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         public AdAccount SetAdAccountAgencyDeclaration(AgencyClientDeclaration agencyClientDeclaration)
         {
-            if (agencyClientDeclaration == null || !agencyClientDeclaration.IsValidData())
+            if (agencyClientDeclaration == null || !agencyClientDeclaration.IsValid)
             {
                 AgencyClientDeclaration = null;
                 return this;
@@ -309,7 +309,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 return this;
             }
 
-            if (!accountGroup.IsValidData())
+            if (!accountGroup.IsValid)
                 return this;
 
             if (AccountGroups == null)
@@ -332,7 +332,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 return this;
             }
 
-            if (!user.IsValidData())
+            if (!user.IsValid)
                 return this;
 
             if (Users == null)
@@ -389,9 +389,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                         continue;
 
                     var groupData = new AdAccountGroup();
-                    groupData.ParseSingleResponse(currentGroup);
+                    groupData.ParseReadSingleesponse(currentGroup);
 
-                    if (!groupData.IsValidData())
+                    if (!groupData.IsValid)
                         continue;
 
                     this.SetAdAccountGroup(groupData);
@@ -404,7 +404,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                     adAccountData["agency_client_declaration"].Type == JTokenType.Object)
             {
                 var agency = new AgencyClientDeclaration().ParseApiResponse(adAccountData["agency_client_declaration"]);
-                if (agency.IsValidData())
+                if (agency.IsValid)
                     this.SetAdAccountAgencyDeclaration(agency);
             } 
             #endregion
@@ -422,7 +422,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                         continue;
 
                     var userData = new User().ParseApiResponse(currentUser);
-                    if (!userData.IsValidData())
+                    if (!userData.IsValid)
                         continue;
 
                     this.SetAdAccountUser(userData);
@@ -431,15 +431,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             #endregion
 
             var businesInformations = new BusinessInformations().ParseApiResponse(adAccountData);
-            if (businesInformations != null && businesInformations.IsValidData())
+            if (businesInformations != null && businesInformations.IsValid)
                 this.SetAdAccountBusinessInformations(businesInformations);
 
             var timezoneInformations = new TimezoneInformations().ParseApiResponse(adAccountData);
-            if (timezoneInformations != null && timezoneInformations.IsValidData())
+            if (timezoneInformations != null && timezoneInformations.IsValid)
                 this.SetAdAccountTimezoneInformations(timezoneInformations);
 
             var financialInformations = new FinancialInformations().ParseApiResponse(adAccountData);
-            if (financialInformations != null && financialInformations.IsValidData())
+            if (financialInformations != null && financialInformations.IsValid)
                 this.SetAdAccountFinancialInformations(financialInformations);
 
             this.ParseBasicDataResponse(adAccountData);
@@ -469,6 +469,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
             }
         }
 
+        public override AdAccount Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Dictionary<string, string> GetSingleCreateParams()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///     Read a account by id
         /// </summary>
@@ -485,18 +495,38 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
                 return this;
             }
         }
-        
-        /// <summary>
-        ///     Parse Facebook response to Model
-        /// </summary>
-        /// <param name="response"> Facebook response </param>
-        /// <returns> Instance with fields from Facebook response </returns>
-        public override AdAccount ParseSingleResponse(string response)
+
+        public override AdAccount Update()
         {
-            var jsonResult = JObject.Parse(response);
-            this.ParseBasicDataResponse(jsonResult);
-            return this;
+            throw new NotImplementedException();
         }
+
+        public override Dictionary<string, string> GetSingleUpdateParams()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        ///// <summary>
+        /////     Parse Facebook response to Model
+        ///// </summary>
+        ///// <param name="response"> Facebook response </param>
+        ///// <returns> Instance with fields from Facebook response </returns>
+        //public override AdAccount ParseReadSingleesponse(string response)
+        //{
+        //    var jsonResult = JObject.Parse(response);
+        //    this.ParseBasicDataResponse(jsonResult);
+        //    return this;
+        //}
 
         #region Private methods
 

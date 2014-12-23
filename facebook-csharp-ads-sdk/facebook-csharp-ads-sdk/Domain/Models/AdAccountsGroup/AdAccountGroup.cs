@@ -92,7 +92,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
         /// <summary>
         /// Parse Facebook Api response to model
         /// </summary>
-        public AdAccountGroup ParseSingleResponse(string response)
+        public AdAccountGroup ParseSingleesponse(string response)
         {
             SetDefaultValues();
 
@@ -114,7 +114,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
             } 
             #endregion
 
-            ParseSingleResponse(jsonObject);
+            this.ParseReadSingleesponse(jsonObject);
             return this;
         }
 
@@ -151,8 +151,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup
                 if (item.Type != JTokenType.Object)
                     continue;
 
-                var accountGroup = new AdAccountGroup().ParseSingleResponse(item.ToString());
-                if (accountGroup == null || !accountGroup.IsValidData())
+                var accountGroup = new AdAccountGroup();
+                accountGroup.ParseReadSingleesponse(item.ToString());
+                if (!accountGroup.IsValid)
                     continue;
 
                 objectResult.Add(accountGroup);

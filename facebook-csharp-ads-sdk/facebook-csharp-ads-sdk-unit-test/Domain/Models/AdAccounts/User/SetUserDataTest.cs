@@ -75,7 +75,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.User
             Assert.AreEqual(model.Id, ValidUserUserId);
             Assert.AreEqual(string.Join(",", model.Permissions), string.Join(",", ValidUserPermissions));
             Assert.AreEqual(model.Role,ValidUserRole);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

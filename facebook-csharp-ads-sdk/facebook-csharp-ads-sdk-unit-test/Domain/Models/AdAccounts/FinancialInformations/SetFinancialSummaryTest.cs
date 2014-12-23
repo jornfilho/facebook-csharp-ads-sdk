@@ -15,9 +15,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.AmountSpent, default(long));
             if (model.AmountSpent >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -30,9 +30,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.AmountSpent, default(long));
             if (model.AmountSpent >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.AmountSpent, ValidAdAccountAmountSpent);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -57,9 +57,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Balance, default(long));
             if (model.Balance >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -72,9 +72,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Balance, default(long));
             if (model.Balance >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.Balance, ValidAdAccountBalance);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
 
         [TestMethod]
@@ -99,9 +99,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.DailySpendLimit, default(long));
             if (model.DailySpendLimit >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -114,9 +114,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
             Assert.IsNotNull(model);
             Assert.AreEqual(model.DailySpendLimit, default(long));
             if (model.DailySpendLimit >= 0)
-                Assert.IsTrue(model.IsValidData());
+                Assert.IsTrue(model.IsValid);
             else
-                Assert.IsFalse(model.IsValidData());
+                Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.FinancialIn
 
             Assert.IsNotNull(model);
             Assert.AreEqual(model.DailySpendLimit, ValidAdAccountDailySpendLimit);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }

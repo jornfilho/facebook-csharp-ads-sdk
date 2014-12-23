@@ -16,7 +16,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.Name, default(string));
         }
 
@@ -59,7 +59,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
             Assert.AreEqual(model.Name, InvalidAdAccountGroupName2);
         }
 
@@ -74,7 +74,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsFalse(model.IsValidData());
+            Assert.IsFalse(model.IsValid);
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccountGroup
                 );
 
             Assert.IsNotNull(model);
-            Assert.IsTrue(model.IsValidData());
+            Assert.IsTrue(model.IsValid);
         }
     }
 }
