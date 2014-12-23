@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -89,10 +90,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models
             {
                 SetDefaultValues();
 
-                if (jsonResult == null)
+                if (facebookResponse == null)
                     return;
 
-                if (!AutoSetResponsePropertiesValue(jsonResult, false))
+                if (!AutoSetResponsePropertiesValue(facebookResponse, false))
                     return;
 
                 SetValid();
