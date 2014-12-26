@@ -363,37 +363,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
                 return this;
             }
         }
-
-        public AdCampaign SetUpdateData(string name, AdCampaignObjectiveEnum? objective,
-                                        AdCampaignStatusEnum? status,
-                                        IList<ExecutionOptionsEnum> executionOptionsList)
-        {
-            //this.ValidationUpdateData(accountId, objective, status);
-            try
-            {
-                if (String.IsNullOrEmpty(name) &&
-                    objective == null &&
-                    status == null &&
-                    (executionOptionsList == null || !executionOptionsList.Any()))
-                {
-                    return this;
-                }
-
-                //this.AccountId = accountId;
-                this.Name = name;
-                this.Objective = objective;
-                this.Status = status;
-                this.ExecutionOptionsList = executionOptionsList;
-
-                this.SetValidUpdateModel();
-                return this;
-            }
-            catch (Exception)
-            {
-                this.SetInvalidUpdateModel();
-                return this;
-            }
-        }
         
         #region Private methods
 

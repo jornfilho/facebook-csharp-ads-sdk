@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using DevUtils.DateTimeExtensions;
 using DevUtils.Enum;
 using DevUtils.PrimitivesExtensions;
@@ -376,14 +377,52 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
+        /// <summary>
+        ///     Update a ad set on Facebook
+        /// </summary>
+        /// <returns> Ad set updated </returns>
         public override AdSet Update()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!this.Id.IsValidAdSetId() || !this.UpdateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.adSetRepository.Update(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
+        /// <summary>
+        ///     Update a ad set on Facebook
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <returns> Ad set updated </returns>
         public override AdSet Update(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!id.IsValidAdSetId() || !this.UpdateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;    
+                }
+
+                this.Id = id;
+                return this.Update();
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
         /// <summary>
@@ -459,6 +498,54 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             this.PromotedObject = promotedObject;
 
             this.SetValidCreateModel();
+            return this;
+        }
+
+        /// <summary>
+        ///     Seta os dados do grupo de anuncios a serem atualizados
+        /// </summary>
+        /// <param name="bidType"> Tipo de bid </param>
+        /// <param name="bidInfoList"></param>
+        /// <param name="status"></param>
+        /// <param name="dailyBudget"></param>
+        /// <param name="lifetimeBudget"></param>
+        /// <param name="name"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="targeting"></param>
+        /// <param name="executionOptionsList"></param>
+        /// <returns></returns>
+        public AdSet SetUpdateData(AdSetBidTypeEnum? bidType, List<BidInfo> bidInfoList, AdSetStatusEnum? status,
+                                   int? dailyBudget, int? lifetimeBudget, string name, DateTime? startTime,
+                                   DateTime? endTime, string targeting, IList<ExecutionOptionsEnum> executionOptionsList)
+        {
+            if (bidType == null
+                && (bidInfoList == null || !bidInfoList.Any())
+                && status == null
+                && dailyBudget == null
+                && lifetimeBudget == null
+                && String.IsNullOrEmpty(name)
+                && startTime == null
+                && endTime == null
+                && String.IsNullOrEmpty(targeting))
+            {
+                this.SetInvalidUpdateModel();
+                return this;
+            }
+
+            this.ValidateBudgetRules(dailyBudget, lifetimeBudget, startTime, endTime);
+
+            this.BidType = bidType;
+            this.BidInfo = bidInfoList;
+            this.Status = status;
+            this.DailyBudget = dailyBudget;
+            this.LifetimeBudget = lifetimeBudget;
+            this.Name = name;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
+            this.Targeting = targeting;
+
+            this.SetValidUpdateModel();
             return this;
         }
 
@@ -656,6 +743,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
                 throw new InvalidAdSetTargetingException();
             }
 
+            if (dailyBudget == null && lifetimeBudget == null)
+            {
+                throw new LifetimeBudgetOrDailyBudgetRequiredException();
+            }
+
+            if (startTime == null)
+            {
+                startTime = DateTime.UtcNow;
+            }
+
             this.ValidateBudgetRules(dailyBudget, lifetimeBudget, startTime, endTime);
         }
 
@@ -668,16 +765,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="endTime"> End time </param>
         private void ValidateBudgetRules(int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
         {
-            if (dailyBudget == null && lifetimeBudget == null)
-            {
-                throw new LifetimeBudgetOrDailyBudgetRequiredException();
-            }
-
-            if (startTime == null)
-            {
-                startTime = DateTime.UtcNow;
-            }
-
             this.VerifyIfEndTimeLessThanStartTime(startTime, endTime);
             this.VerifyDifferenceGreaterThanStartTimeAndEndTimeIfDailyBudget(dailyBudget, startTime, endTime);
             this.VerifyIfEndTimeIsNullForTheLifetimeBudget(lifetimeBudget, endTime);

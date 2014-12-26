@@ -115,6 +115,7 @@
     <Compile Include="Domain\Models\AdSets\AdSetDeleteTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetSetCreateDataTest.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetUpdateTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectParseTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectSetCreateDataTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectToStringTest.cs" />
