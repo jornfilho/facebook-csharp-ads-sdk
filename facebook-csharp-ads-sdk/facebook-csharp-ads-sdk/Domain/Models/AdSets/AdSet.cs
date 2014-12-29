@@ -820,7 +820,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="endTime"></param>
         private void VerifyIfEndTimeLessThanStartTime(DateTime? startTime, DateTime? endTime)
         {
-            if (endTime == null)
+            if (startTime == null || endTime == null)
             {
                 return;
             }

@@ -167,25 +167,5 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         }
 
         #endregion Private methods
-
-        [TestMethod]
-        public void Teste()
-        {
-            var facebookSession = new FacebookSessionRepository();
-            facebookSession.SetUserAccessToken(
-                "CAADMSrKzEFUBAIpm5GqBA4fNNXNYdTZBqJtKxks0QSBt3k3ZBUsPLQhZB7DFvVKLZA4mZCjOTzIsJ7wx4rCZBs6ZAWrbn6GrqmMeTJZC24C46fYG764KzHAyqBQoc7PSW4SUgKFOdm8h8pdvhBwN3FLyLuqfxQhtfMndeWPl4JEOw2ZBZC426GfQuV22KPGPQJsaAL3m1i8yDH2fhVS3UAIHXe");
-
-            var adSet = new AdSet(new AdSetRepository(facebookSession)).ReadSingle(6021630454788);
-            
-            var updateData = new AdSetUpdateData
-                                         {
-                                             Status = AdSetStatusEnum.Active
-                                         };
-
-            adSet.SetUpdateData(updateData, null);
-            adSet.Update();
-
-        }
-
     }
 }
