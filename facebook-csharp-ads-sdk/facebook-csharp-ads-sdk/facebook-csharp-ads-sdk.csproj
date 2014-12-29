@@ -83,6 +83,7 @@
     <Compile Include="Domain\Enums\Targetings\SiteCategoryEnum.cs" />
     <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignBuyingTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignCreateDataException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignIdException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignNameException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignObjectiveException.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaignCreateData.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetCreateData.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetUpdateData.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />

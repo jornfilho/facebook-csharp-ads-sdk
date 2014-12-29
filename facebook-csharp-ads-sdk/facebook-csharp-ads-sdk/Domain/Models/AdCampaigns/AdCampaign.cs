@@ -281,15 +281,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             this.GetAdGroupIdListFromFacebookResponse(facebookResponse);
         }
-        
+
         /// <summary>
         ///     Set the attributes to create a ad campaign
         /// </summary>
-        /// <param name="accountId"> Account id </param>
-        /// <param name="name"> Ad campaign name </param>
-        /// <param name="buyingType"> Ad campaign buying type </param>
-        /// <param name="objective"> Ad campaign objective </param>
-        /// <param name="status"> Ad campaign status </param>
+        /// <param name="createData"> Ad campaign create data </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
         /// <exception cref="InvalidAdAccountId"></exception>
         /// <exception cref="InvalidAdCampaignNameException"></exception>
@@ -297,18 +293,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <exception cref="InvalidAdCampaignBuyingTypeException"></exception>
         /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
         /// <returns> This instance </returns>
-        public AdCampaign SetCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
-                                        AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status,
-                                        IList<ExecutionOptionsEnum> executionOptionsList)
+        public AdCampaign SetCreateData(AdCampaignCreateData createData, IList<ExecutionOptionsEnum> executionOptionsList)
         {
-            this.ValidationCreateData(accountId, name, buyingType, objective, status);
+            this.ValidationCreateData(createData);
             try
             {
-                this.AccountId = accountId;
-                this.BuyingType = buyingType;
-                this.Name = name;
-                this.Objective = objective;
-                this.Status = status;
+                this.AccountId = createData.AccountId;
+                this.BuyingType = createData.BuyingType;
+                this.Name = createData.Name;
+                this.Objective = createData.Objective;
+                this.Status = createData.Status;
                 this.ExecutionOptionsList = executionOptionsList;
 
                 this.SetValidCreateModel();
@@ -434,42 +428,41 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             return string.Empty;
         }
-        
 
         /// <summary>
         ///     Validate the ad campaign create data
         /// </summary>
-        /// <param name="accountId"> Account id </param>
-        /// <param name="name"> Ad campaign name </param>
-        /// <param name="buyingType"> Ad campaign buying type </param>
-        /// <param name="objective"> Ad campaign objective </param>
-        /// <param name="status"> Ad campaign status </param>
-        private void ValidationCreateData(long accountId, string name, AdCampaignBuyingTypeEnum? buyingType,
-                                          AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum status)
+        /// <param name="createData"> Ad campaign create data </param>
+        private void ValidationCreateData(AdCampaignCreateData createData)
         {
-            if (!accountId.IsValidAdAccountId())
+            if (createData == null)
+            {
+                throw new InvalidAdCampaignCreateDataException();
+            }
+
+            if (!createData.AccountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
             }
 
-            if (String.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(createData.Name))
             {
                 throw new InvalidAdCampaignNameException();
             }
 
-            if (status == AdCampaignStatusEnum.Undefined ||
-                status == AdCampaignStatusEnum.Archived ||
-                status == AdCampaignStatusEnum.Delete)
+            if (createData.Status == AdCampaignStatusEnum.Undefined ||
+                createData.Status == AdCampaignStatusEnum.Archived ||
+                createData.Status == AdCampaignStatusEnum.Delete)
             {
                 throw new InvalidAdCampaingStatusException();
             }
 
-            if (buyingType != null && buyingType == AdCampaignBuyingTypeEnum.Undefined)
+            if (createData.BuyingType != null && createData.BuyingType == AdCampaignBuyingTypeEnum.Undefined)
             {
                 throw new InvalidAdCampaignBuyingTypeException();
             }
 
-            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            if (createData.Objective != null && createData.Objective == AdCampaignObjectiveEnum.Undefined)
             {
                 throw new InvalidAdCampaignObjectiveException();
             }
