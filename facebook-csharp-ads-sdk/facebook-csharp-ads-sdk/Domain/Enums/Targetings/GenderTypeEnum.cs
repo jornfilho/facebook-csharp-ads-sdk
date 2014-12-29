@@ -8,7 +8,7 @@
         /// <summary>
         ///     Do not specify
         /// </summary>
-        Undefined = 0,
+        NotSpecified = 0,
 
         /// <summary>
         ///     Male

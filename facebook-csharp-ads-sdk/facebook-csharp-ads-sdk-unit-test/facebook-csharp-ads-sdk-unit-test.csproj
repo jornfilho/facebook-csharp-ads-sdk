@@ -121,6 +121,7 @@
     <Compile Include="Domain\Models\AdSets\PromotedObjectToStringTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetCreateDataTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetFacebookResponseTest.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingDemographicsSetCreateDataTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />
