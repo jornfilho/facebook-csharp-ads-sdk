@@ -6,6 +6,10 @@ using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 {
+    /// <summary>
+    ///     <para> Facebook Ad Creative </para>
+    ///     <para>https://developers.facebook.com/docs/reference/ads-api/adcreative/v2.2</para>
+    /// </summary>
     public class AdCreative : BaseCrudObject<AdCreative>
     {
 
@@ -156,7 +160,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             throw new System.NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleCreateParams()
+        public Dictionary<string, string> GetSingleCreateParams()
         {
             throw new System.NotImplementedException();
         }
@@ -171,7 +175,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             throw new System.NotImplementedException();
         }
 
-        public override Dictionary<string, string> GetSingleUpdateParams()
+        public override AdCreative Update(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Dictionary<string, string> GetSingleUpdateParams()
         {
             throw new System.NotImplementedException();
         }
@@ -182,6 +191,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         public override bool Delete(long id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new System.NotImplementedException();
         }

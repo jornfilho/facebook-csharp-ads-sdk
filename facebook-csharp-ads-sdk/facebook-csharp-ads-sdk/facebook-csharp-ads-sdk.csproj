@@ -71,10 +71,13 @@
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
+    <Compile Include="Domain\Enums\AdCreative\AdCreativeReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />
-    <Compile Include="Domain\Enums\Global\BidInfoObjectiveTypeEnum.cs" />    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />    <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
+    <Compile Include="Domain\Enums\Global\BidInfoObjectiveTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />
+    <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Enums\Global\GetParamsType.cs" />
     <Compile Include="Domain\Enums\Targetings\GenderTypeEnum.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\LinkData.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
@@ -156,7 +160,9 @@
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
     <Compile Include="Domain\Models\AdSets\AdSet.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObject.cs" />
-    <Compile Include="Domain\Models\Global\BidInfo.cs" />    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />    <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
+    <Compile Include="Domain\Models\Global\BidInfo.cs" />
+    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />
+    <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CurrencyGlobalNameAttribute.cs" />
