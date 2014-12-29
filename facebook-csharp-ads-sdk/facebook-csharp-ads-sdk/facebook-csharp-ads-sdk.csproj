@@ -112,6 +112,7 @@
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeOcpmException.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\Connections\AdActivityLogEventTypesEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\Connections\AdActivityLogFieldsEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />

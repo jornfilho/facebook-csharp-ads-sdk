@@ -156,7 +156,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         private void SetAdActivityLogConfigurations()
         {
-            AdActivityLogFields = AdActivityLogFieldsEnumExtensions.GetAllAdAccountGroupFieldsList();
+            AdActivityLogFields = AdActivityLogFieldsEnumExtensions.GetAllAdActivityLogFieldsList();
             AdAccountActivityLogEndpoint = GraphApiUrl + "act_{0}/activities?access_token={1}&fields={2}";
             AdSetActivityLogEndpoint = GraphApiUrl + "{0}/activities?access_token={1}&fields={2}";
         }

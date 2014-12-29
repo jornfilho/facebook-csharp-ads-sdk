@@ -12,6 +12,11 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts.Connections
     /// </summary>
     public enum AdActivityLogEventTypesEnum
     {
+        /// <summary>
+        /// Undefined fields
+        /// </summary>
+        Undefined,
+
         #region ad account
         /// <summary>
         /// <para> update the spend limit of an ad account </para>
@@ -231,7 +236,7 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts.Connections
         /// <para> delete custom audience </para>
         /// </summary>
         [FacebookName("delete_audience")]
-        DeleteAudience,
+        DeleteAudience
         #endregion
     }
 }

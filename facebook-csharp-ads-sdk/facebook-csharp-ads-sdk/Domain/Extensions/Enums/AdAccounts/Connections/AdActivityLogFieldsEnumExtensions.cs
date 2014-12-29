@@ -9,6 +9,9 @@ using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts.Connections
 {
+    /// <summary>
+    /// Extensoes do enum de log de atividades AdActivityLogFieldsEnum
+    /// </summary>
     public static class AdActivityLogFieldsEnumExtensions
     {
         /// <summary>
@@ -39,9 +42,9 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts.Connections
         }
 
         /// <summary>
-        /// Get a list of available ad account group fields
+        /// Get a list of available ad activity fields
         /// </summary>
-        public static IList<AdActivityLogFieldsEnum> GetAllAdAccountGroupFieldsList()
+        public static IList<AdActivityLogFieldsEnum> GetAllAdActivityLogFieldsList()
         {
             IList<AdActivityLogFieldsEnum> result = new List<AdActivityLogFieldsEnum>();
             foreach (AdActivityLogFieldsEnum field in Enum.GetValues(typeof(AdActivityLogFieldsEnum)))
