@@ -41,9 +41,8 @@
     <Reference Include="DevUtils">
       <HintPath>..\packages\DevUtils.1.0.4\lib\net451\DevUtils.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,6 +56,7 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAdActivityLogRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\Base\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\Base\IBaseRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAdSetRepository.cs" />
@@ -112,10 +112,11 @@
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeOcpmException.cs" />
+    <Compile Include="Domain\Extensions\Enums\AdAccounts\Connections\AdActivityLogFieldsEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
-    <Compile Include="Domain\Models\AdAccounts\Connections\AdActivityLogs.cs" />
+    <Compile Include="Domain\Models\AdAccounts\Connections\AdActivityLog.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
@@ -179,6 +180,8 @@
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Repository\AdAccountActivityLogRepository.cs" />
+    <Compile Include="Infrastructure\Repository\AdSetActivityLogRepository.cs" />
     <Compile Include="Infrastructure\Repository\AdSetRepository.cs" />
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Enums.AdAccounts.Connections;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccountGroup;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdAccounts.Connections;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 {
@@ -105,6 +107,23 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         #endregion Ad set
 
+        #region Connections Ad Activities
+        /// <summary>
+        /// Available ad account fields
+        /// </summary>
+        public IList<AdActivityLogFieldsEnum> AdActivityLogFields { get; private set; }
+
+        /// <summary>
+        /// Uri to read ad account activity log
+        /// </summary>
+        public string AdAccountActivityLogEndpoint { get; private set; }
+
+        /// <summary>
+        /// Uri to read ad set  activity log
+        /// </summary>
+        public string AdSetActivityLogEndpoint { get; private set; }
+        #endregion
+
         /// <summary>
         /// Base constructor
         /// </summary>
@@ -113,6 +132,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
             SetGlobalConfigurations();
             SetAdAccountConfigurations();
             SetAdAccountGroupConfigurations();
+            SetAdActivityLogConfigurations();
         }
 
         private void SetGlobalConfigurations()
@@ -132,6 +152,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
             AdAccountGroupFields = AdAccountGroupFieldsEnumExtensions.GetAllAdAccountGroupFieldsList();
             AdAccountGroupSingleEndpoint = GraphApiUrl + "{0}?access_token={1}&fields={2}";
             AdAccountGroupAllEndpoint = GraphApiUrl + "me/adaccountgroups?access_token={0}&fields={1}";
+        }
+
+        private void SetAdActivityLogConfigurations()
+        {
+            AdActivityLogFields = AdActivityLogFieldsEnumExtensions.GetAllAdAccountGroupFieldsList();
+            AdAccountActivityLogEndpoint = GraphApiUrl + "act_{0}/activities?access_token={1}&fields={2}";
+            AdSetActivityLogEndpoint = GraphApiUrl + "{0}/activities?access_token={1}&fields={2}";
         }
     }
 }

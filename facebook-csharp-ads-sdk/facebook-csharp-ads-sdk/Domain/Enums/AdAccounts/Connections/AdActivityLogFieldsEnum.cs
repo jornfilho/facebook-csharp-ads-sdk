@@ -8,6 +8,11 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts.Connections
     public enum AdActivityLogFieldsEnum
     {
         /// <summary>
+        /// Undefined fields
+        /// </summary>
+        Undefined,
+
+        /// <summary>
         /// <para> Name of event type </para>
         /// </summary>
         [FacebookName("event_type")]
@@ -41,6 +46,6 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdAccounts.Connections
         /// <para> timestamp of when the event occured </para>
         /// </summary>
         [FacebookName("event_time")]
-        EventTime,
+        EventTime
     }
 }
