@@ -287,6 +287,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// </summary>
         /// <param name="createData"> Ad campaign create data </param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
+        /// <exception cref="InvalidAdCampaignCreateDataException"></exception>
         /// <exception cref="InvalidAdAccountId"></exception>
         /// <exception cref="InvalidAdCampaignNameException"></exception>
         /// <exception cref="InvalidAdCampaingStatusException"></exception>
@@ -318,34 +319,36 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Set the attributes to update a ad campaign
         /// </summary>
-        /// <param name="accountId"> Account id </param>
-        /// <param name="name"> Ad campaign name </param>
-        /// <param name="objective"> Ad campaign objective </param>
-        /// <param name="status"> Ad campaign status </param>
+        /// <param name="updateData"></param>
         /// <param name="executionOptionsList"> Execute options on Facebook create and update </param>
         /// <exception cref="InvalidAdAccountId"></exception>
         /// <exception cref="InvalidAdCampaignObjectiveException"></exception>
         /// <exception cref="InvalidAdCampaingStatusException"></exception>
         /// <returns> This instance </returns>
-        public AdCampaign SetUpdateData(long accountId, string name, AdCampaignObjectiveEnum? objective,
-                                        AdCampaignStatusEnum? status,
-                                        IList<ExecutionOptionsEnum> executionOptionsList)
+        public AdCampaign SetUpdateData(AdCampaignUpdateData updateData, IList<ExecutionOptionsEnum> executionOptionsList)
         {
-            this.ValidationUpdateData(accountId, objective, status);
+            if (updateData == null)
+            {
+                this.SetInvalidUpdateModel();
+                return this;
+            }
+
+            this.ValidationUpdateData(updateData);
             try
             {
-                if (String.IsNullOrEmpty(name) &&
-                    objective == null &&
-                    status == null &&
+                if (String.IsNullOrEmpty(updateData.Name) &&
+                    updateData.Objective == null &&
+                    updateData.Status == null &&
                     (executionOptionsList == null || !executionOptionsList.Any()))
                 {
+                    this.SetInvalidUpdateModel();
                     return this;
                 }
 
-                this.AccountId = accountId;
-                this.Name = name;
-                this.Objective = objective;
-                this.Status = status;
+                this.AccountId = updateData.AccountId;
+                this.Name = updateData.Name;
+                this.Objective = updateData.Objective;
+                this.Status = updateData.Status;
                 this.ExecutionOptionsList = executionOptionsList;
 
                 this.SetValidUpdateModel();
@@ -471,22 +474,20 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         /// <summary>
         ///     Validate the ad campaign update data
         /// </summary>
-        /// <param name="accountId"> Account id </param>
-        /// <param name="objective"> Ad campaign objective </param>
-        /// <param name="status"> Ad campaign status </param>
-        private void ValidationUpdateData(long accountId, AdCampaignObjectiveEnum? objective, AdCampaignStatusEnum? status)
+        /// <param name="updateData"> Ad campaign update data </param>
+        private void ValidationUpdateData(AdCampaignUpdateData updateData)
         {
-            if (!accountId.IsValidAdAccountId())
+            if (!updateData.AccountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
             }
 
-            if (objective != null && objective == AdCampaignObjectiveEnum.Undefined)
+            if (updateData.Objective != null && updateData.Objective == AdCampaignObjectiveEnum.Undefined)
             {
                 throw new InvalidAdCampaignObjectiveException();
             }
 
-            if (status != null && status == AdCampaignStatusEnum.Undefined)
+            if (updateData.Status != null && updateData.Status == AdCampaignStatusEnum.Undefined)
             {
                 throw new InvalidAdCampaingStatusException();
             }
