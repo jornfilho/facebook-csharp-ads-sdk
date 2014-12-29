@@ -13,7 +13,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
     [TestClass]
     public class AdCampaignReadParseTest
     {
-        private CampaignRepository campaignRepository;
+        private AdCampaignRepository adCampaignRepository;
         private const string FacebookError = "{\"error\":{\"message\":\"Invalid OAuth access token.\",\"type\":\"OAuthException\",\"code\":190}}";
 
         long campaignIdExpected = 11111111111;
@@ -31,14 +31,14 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void Initialize()
         {
             IFacebookSession facebookSession = new FacebookSessionRepository();
-            campaignRepository = new CampaignRepository(facebookSession);
+            this.adCampaignRepository = new AdCampaignRepository(facebookSession);
         }
 
         [TestMethod]
         public void MustSetErrorIfFacebookReturnError()
         {
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(FacebookError);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(FacebookError);
             Assert.AreEqual(0, campaign.Id);
             Assert.IsFalse(campaign.IsValid);
             Assert.IsNotNull(campaign.ApiErrorResponseData);
@@ -49,8 +49,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustMakeTheCorrectParseIfFacebookDoesNotReturnError()
         {
             this.SetFacebookResponseOkWithAllFields();
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
 
             Assert.IsTrue(campaign.IsValid);
             Assert.IsNull(campaign.ApiErrorResponseData);
@@ -76,8 +76,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             this.campaignIdExpected = 0;
             this.SetFacebookResponseOkWithAllFields();
 
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
 
@@ -85,8 +85,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustSetInvalidDataIfFacebookResponseIsNull()
         {
             this.facebookResponseGetAdCampaign = null;
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
 
@@ -94,8 +94,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustSetInvalidDataIfFacebookResponseIsEmpty()
         {
             this.facebookResponseGetAdCampaign = string.Empty;
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
 
@@ -106,8 +106,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
                                                  "'adgroups': {" +
                                                  "'paging': {'cursors': {'before': 'NjAxOTA5MTc1NDE4OA==', 'after': 'NjAxNjE3MDE4MDE4OA=='}}}}";
 
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsTrue(campaign.IsValid);
             Assert.AreEqual(this.campaignIdExpected, campaign.Id);
             Assert.IsNull(campaign.AdGroups);
@@ -121,8 +121,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
                                                  "{'id': '" + AdGroupId1Expected + "'}," +
                                                  "'paging': {'cursors': {'before': 'NjAxOTA5MTc1NDE4OA==', 'after': 'NjAxNjE3MDE4MDE4OA=='}}}}";
 
-            var campaign = new AdCampaign(campaignRepository);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(this.adCampaignRepository);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsTrue(campaign.IsValid);
             Assert.AreEqual(this.campaignIdExpected, campaign.Id);
             Assert.IsNull(campaign.AdGroups);

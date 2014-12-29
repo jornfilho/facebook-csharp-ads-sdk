@@ -1,4 +1,6 @@
-﻿using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+﻿using System;
+using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Models.AdCampaigns;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -30,13 +32,25 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         }
 
         [TestMethod]
-        public void ShouldReturnFalseToDeleteWithoutParameterIfIdInvalid()
+        public void ShouldSetInvalidAdCampaignToUpdateToDeleteAdSet()
         {
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
-            campaign.ParseReadSingleesponse("{'id': '0'}");
+            this.mockCampaignRepository.Setup(m => m.Delete(It.IsAny<long>())).Returns(Task.FromResult(true));
+            var campaign = new AdCampaign(this.mockCampaignRepository.Object);
 
-            bool successDelete = campaign.Delete();
-            mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.Never);
+            bool successDelete = campaign.Delete(10);
+            this.mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.AtLeastOnce);
+            Assert.IsTrue(successDelete);
+            Assert.IsFalse(campaign.UpdateModelIsReady);
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseToDeleteAdSetIfIdAnExceptionThrow()
+        {
+            this.mockCampaignRepository.Setup(m => m.Delete(It.IsAny<long>())).Throws(new Exception());
+            var campaign = new AdCampaign(this.mockCampaignRepository.Object);
+
+            bool successDelete = campaign.Delete(10);
+            this.mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.AtLeastOnce);
             Assert.IsFalse(successDelete);
         }
     }

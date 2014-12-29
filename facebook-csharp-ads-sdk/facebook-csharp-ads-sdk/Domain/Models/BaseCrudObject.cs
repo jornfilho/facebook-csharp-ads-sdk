@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Reflection;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using facebook_csharp_ads_sdk._Utils.Parser;
@@ -50,7 +51,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         ///     Update a entity on Facebook
         /// </summary>
         /// <returns> Entity updated </returns>
-        public abstract T Update();
+        public abstract T Update(long id);
 
         /// <summary>
         ///     Mount a dictionary with parameters and values to update
@@ -188,6 +189,34 @@ namespace facebook_csharp_ads_sdk.Domain.Models
         protected void SetValidUpdateModel()
         {
             this.UpdateModelIsReady = true;
+        }
+
+        /// <summary>
+        ///     Verify if property can be used in operation
+        /// </summary>
+        /// <param name="property"> Property </param>
+        /// <param name="operationType"> Operations type </param>
+        /// <returns> Flag indicating it can be used </returns>
+        protected bool PropertyCanBeUsedInTheOperation(PropertyDescriptor property, GetParamsType operationType)
+        {
+            if (operationType == GetParamsType.Create)
+            {
+                var canCreateOnFacebookAttribute = (CanCreateOnFacebookAttribute)property.Attributes[typeof(CanCreateOnFacebookAttribute)];
+                if (canCreateOnFacebookAttribute == null || canCreateOnFacebookAttribute.Value == false)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            var canUpdateOnFacebookAttribute = (CanUpdateOnFacebookAttribute)property.Attributes[typeof(CanUpdateOnFacebookAttribute)];
+            if (canUpdateOnFacebookAttribute == null || canUpdateOnFacebookAttribute.Value == false)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion Protected methods
