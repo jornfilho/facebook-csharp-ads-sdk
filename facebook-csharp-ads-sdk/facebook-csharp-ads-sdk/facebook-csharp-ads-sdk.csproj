@@ -95,6 +95,7 @@
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoDataException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetCreateDataException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetNameException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetStatusException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetTargetingException.cs" />
@@ -114,6 +115,8 @@
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetCreateData.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetUpdateData.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />

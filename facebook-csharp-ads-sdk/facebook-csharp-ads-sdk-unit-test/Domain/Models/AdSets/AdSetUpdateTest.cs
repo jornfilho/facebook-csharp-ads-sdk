@@ -16,6 +16,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
     public class AdSetUpdateTest
     {
         private Mock<IAdSetRepository> mockAdSetRepository;
+
+        private AdSetUpdateData updateData;
         private AdSetBidTypeEnum? bidType;
         private List<BidInfo> bidInfoList;
         private AdSetStatusEnum? status;
@@ -46,8 +48,20 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         [TestMethod]
         public void MustSetInvalidUpdateModelIfNoPropertyUpdated()
         {
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
+
+            Assert.IsNotNull(adSetToUpdate);
+            Assert.IsFalse(adSetToUpdate.UpdateModelIsReady);
+        }
+
+        [TestMethod]
+        public void MustSetInvalidUpdateModelIfAdSetUpdateDataNull()
+        {
+            this.InitializeAdSetUpdateData();
+            var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
+            adSetToUpdate.SetUpdateData(null, executionOptionsList);
 
             Assert.IsNotNull(adSetToUpdate);
             Assert.IsFalse(adSetToUpdate.UpdateModelIsReady);
@@ -63,8 +77,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
             this.endTime = new DateTime(2014, 1, 3, 12, 0, 0);
 
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
         [TestMethod]
@@ -77,8 +92,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
             this.endTime = new DateTime(2014, 1, 2, 13, 0, 0);
 
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
         [TestMethod]
@@ -91,8 +107,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
             this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
             this.endTime = new DateTime(2014, 1, 1, 13, 0, 0);
 
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
         [TestMethod]
@@ -101,10 +118,11 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         {
             this.dailyBudget = null;
             this.lifetimeBudget = 100;
-
             this.endTime = null;
+
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
         [TestMethod]
@@ -113,8 +131,10 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         {
             this.startTime = new DateTime(2014, 2, 1);
             this.endTime = new DateTime(2014, 1, 1);
+
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
         [TestMethod]
@@ -122,10 +142,31 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
         public void MustThrowExceptionToSetCreateDataIfStartTimeIsGreaterThanUtcNow()
         {
             this.startTime = new DateTime(2014, 1, 1, 12, 0, 0);
+
+            this.InitializeAdSetUpdateData();
             var adSetToUpdate = new AdSet(mockAdSetRepository.Object);
-            adSetToUpdate.SetUpdateData(bidType, bidInfoList, status, dailyBudget, lifetimeBudget, name, startTime, endTime, targeting, executionOptionsList);
+            adSetToUpdate.SetUpdateData(this.updateData, executionOptionsList);
         }
 
+        #region Private methods
+
+        public void InitializeAdSetUpdateData()
+        {
+            this.updateData = new AdSetUpdateData
+                              {
+                                  BidInfoList = this.bidInfoList,
+                                  BidType = this.bidType,
+                                  DailyBudget = this.dailyBudget,
+                                  EndTime = this.endTime,
+                                  LifetimeBudget = this.lifetimeBudget,
+                                  Name = this.name,
+                                  StartTime = this.startTime,
+                                  Status = this.status,
+                                  Targeting = this.targeting
+                              };
+        }
+
+        #endregion Private methods
 
         [TestMethod]
         public void Teste()
@@ -136,7 +177,12 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdSets
 
             var adSet = new AdSet(new AdSetRepository(facebookSession)).ReadSingle(6021630454788);
             
-            adSet.SetUpdateData(null, null, AdSetStatusEnum.Paused, null, null, null, null, null, null, null);
+            var updateData = new AdSetUpdateData
+                                         {
+                                             Status = AdSetStatusEnum.Active
+                                         };
+
+            adSet.SetUpdateData(updateData, null);
             adSet.Update();
 
         }
