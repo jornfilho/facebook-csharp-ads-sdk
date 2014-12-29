@@ -6,7 +6,8 @@ using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
 {
     /// <summary>
-    ///     Targeting mobile model
+    ///     <para> Targeting mobile model </para>
+    ///     <para> https://developers.facebook.com/docs/reference/ads-api/targeting-specs/#mobile </para>
     /// </summary>
     public class TargetingMobile
     {
@@ -14,11 +15,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         ///     User operating system mobile
         /// </summary>
         [FacebookName("user_os")]
-        [DefaultValue(null)]
+        [DefaultValue(OsOptionsEnum.Undefined)]
         public OsOptionsEnum UserOs { get; private set; }
 
-        // todo: user_device
-
+        /// <summary>
+        ///     Devices listed here must match the value specified in user_os. 
+        /// </summary>
+        [FacebookName("user_device")]
+        [DefaultValue(null)]
+        public IList<TargetingUserDevice> UserDevice { get; private set; }
+        
         /// <summary>
         ///     Targeting wireless carrier
         /// </summary>

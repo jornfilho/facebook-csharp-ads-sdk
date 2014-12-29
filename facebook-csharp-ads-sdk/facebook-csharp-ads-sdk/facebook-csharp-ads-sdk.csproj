@@ -181,6 +181,7 @@
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingUserDevice.cs" />
     <Compile Include="Domain\Utils\RepositoryUtils.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
