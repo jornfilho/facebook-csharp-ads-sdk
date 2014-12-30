@@ -121,6 +121,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         #endregion Ad set
 
+        #region Targeting search
+
+        /// <summary>
+        ///     Get targeting user device
+        /// </summary>
+        public string TargetingUserDeviceReadEndpoint { get { return String.Format("{0}{1}", this.GraphApiUrl, "search?type=adTargetingCategory&class=user_device&access_token={0}"); } }
+
+        #endregion Targeting search
+
         /// <summary>
         /// Base constructor
         /// </summary>

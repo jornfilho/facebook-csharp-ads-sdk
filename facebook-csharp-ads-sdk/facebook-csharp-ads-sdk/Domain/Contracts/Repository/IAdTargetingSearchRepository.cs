@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Models.Targetings;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
@@ -12,6 +13,6 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.Repository
         ///     Get tha user device list
         /// </summary>
         /// <returns> List of the user device </returns>
-        IList<TargetingUserDevice> ReadUserDeviceList();
+        Task<IList<TargetingUserDevice>> ReadUserDeviceList();
     }
 }

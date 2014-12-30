@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
+using facebook_csharp_ads_sdk.Domain.Models;
+using facebook_csharp_ads_sdk.Domain.Models.Targetings;
+using facebook_csharp_ads_sdk._Utils.WebRequests;
+
+namespace facebook_csharp_ads_sdk.Infrastructure.Repository
+{
+    public class AdTargetingSearchRepository : IAdTargetingSearchRepository
+    {
+        #region Properties
+
+        /// <summary>
+        ///     Instance of the facebook session
+        /// </summary>
+        private readonly IFacebookSession facebookSession;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Repository constructor with an instance of Facebook Session
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        public AdTargetingSearchRepository(IFacebookSession facebookSession)
+        {
+            if (facebookSession == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            this.facebookSession = facebookSession;
+        } 
+
+        #endregion
+
+        /// <summary>
+        ///     Get tha user device list
+        /// </summary>
+        /// <returns> List of the user device </returns>
+        public async Task<IList<TargetingUserDevice>> ReadUserDeviceList()
+        {
+            string readUserDeviceEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().TargetingUserDeviceReadEndpoint;
+            readUserDeviceEndpoint = String.Format(readUserDeviceEndpoint, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new FacebookRequest(this.facebookSession);
+            string getRequest = await webRequest.GetAsync(readUserDeviceEndpoint);
+
+            BaseObjectsList<TargetingUserDevice> userDeviceList = new TargetingUserDevice().ParseMultipleResponse(getRequest);
+            if (userDeviceList == null)
+            {
+                return new List<TargetingUserDevice>();
+            }
+
+            return userDeviceList.Data;
+        }
+    }
+}

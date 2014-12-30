@@ -125,7 +125,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// </summary>
         /// <param name="adId"> Id of the ad set </param>
         /// <param name="fields"> Field list you wish to retrieve </param>
-        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>/// 
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>//
         /// <returns> Ad set </returns>
         public async Task<AdSet> Read(long adId, IList<AdSetReadFieldsEnum> fields)
         {
