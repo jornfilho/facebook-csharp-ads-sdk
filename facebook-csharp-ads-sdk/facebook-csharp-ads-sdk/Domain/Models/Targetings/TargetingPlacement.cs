@@ -5,6 +5,9 @@ using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
 {
+    /// <summary>
+    ///     Targeting placement model
+    /// </summary>
     public class TargetingPlacement
     {
         /// <summary>
@@ -13,5 +16,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         [FacebookName("page_types")]
         [DefaultValue(null)]
         public IList<PlacementTypeEnum> PageTypes { get; private set; }
+
+        /// <summary>
+        ///     Set attributes to create a targeting placement
+        /// </summary>
+        /// <param name="pageTypes"> Page types list </param>
+        public TargetingPlacement SetAttributesToCreate(IList<PlacementTypeEnum> pageTypes)
+        {
+            this.PageTypes = pageTypes;
+            return this;
+        }
     }
 }
