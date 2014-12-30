@@ -19,7 +19,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         public OsOptionsEnum UserOs { get; private set; }
 
         /// <summary>
-        ///     Devices listed here must match the value specified in user_os. 
+        ///     Devices listed here must match the value specified in user_os
         /// </summary>
         [FacebookName("user_device")]
         [DefaultValue(null)]
@@ -38,5 +38,24 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         [FacebookName("site_category")]
         [DefaultValue(null)]
         public IList<SiteCategoryEnum> SiteCategory { get; private set; }
+
+        /// <summary>
+        ///     Set attributes to create a targeting mobile
+        /// </summary>
+        /// <param name="siteCategory"> Targeting site category </param>
+        /// <param name="userDevice"> Devices listed here must match the value specified in user_os </param>
+        /// <param name="userOs"> User operating system mobile </param>
+        /// <param name="wirelessCarrier"> Targeting wireless carrier </param>
+        /// <returns> This instance </returns>
+        public TargetingMobile SetAttributesToCreate(IList<SiteCategoryEnum> siteCategory, IList<TargetingUserDevice> userDevice,
+                               OsOptionsEnum userOs, IList<WirelessCarrierEnum> wirelessCarrier)
+        {
+            this.SiteCategory = siteCategory;
+            this.UserDevice = userDevice;
+            this.UserOs = userOs;
+            this.WirelessCarrier = wirelessCarrier;
+
+            return this;
+        }
     }
 }
