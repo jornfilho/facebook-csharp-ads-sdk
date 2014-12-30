@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Models;
 using facebook_csharp_ads_sdk.Domain.Models.Targetings;
@@ -58,7 +57,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
                     break;
 
                 BaseObjectsList<TargetingUserDevice> userDeviceParseResult = new TargetingUserDevice().ParseMultipleResponse(getRequest);
-                if (userDeviceParseResult == null)
+                if (userDeviceParseResult == null || !userDeviceParseResult.IsValid)
                     break;
 
                 userDeviceList.AddRange(userDeviceParseResult.Data);
