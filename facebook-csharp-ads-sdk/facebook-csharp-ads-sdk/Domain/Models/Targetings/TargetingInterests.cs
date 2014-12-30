@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
+using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
+using Newtonsoft.Json.Linq;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
 {
@@ -85,6 +88,63 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         public IList<TargetingInterests> ReadInterestsList(string autoComplete)
         {
             return this.adTargetingSearchRepository.ReadInterestsList(autoComplete);
+        }
+
+        /// <summary>
+        ///     Parse read multiple user device
+        /// </summary>
+        public BaseObjectsList<TargetingInterests> ParseMultipleResponse(string response)
+        {
+            var objectResult = new BaseObjectsList<TargetingInterests>();
+            if (String.IsNullOrEmpty(response))
+            {
+                return objectResult;
+            }
+
+            var jsonObject = JObject.Parse(response);
+            if (jsonObject == null)
+            {
+                return objectResult;
+            }
+
+            #region Error
+
+            if (jsonObject["error"] != null)
+            {
+                var errorModel = new ApiErrorModelV22().ParseApiResponse(jsonObject);
+                objectResult.SetInvalid();
+                objectResult.SetApiErrorResonse(errorModel);
+
+                return objectResult;
+            }
+
+            #endregion Error
+
+            if (jsonObject["data"] == null)
+            {
+                return objectResult;
+            }
+
+            foreach (var item in jsonObject["data"])
+            {
+                if (item.Type != JTokenType.Object)
+                {
+                    continue;
+                }
+
+                var userDevice = new TargetingInterests(this.adTargetingSearchRepository);
+                userDevice.ParseReadSingleResponse(item.ToString());
+                if (!userDevice.IsValid)
+                {
+                    continue;
+                }
+
+                objectResult.Add(userDevice);
+            }
+
+            objectResult.SetValid();
+
+            return objectResult;
         }
     }
 }

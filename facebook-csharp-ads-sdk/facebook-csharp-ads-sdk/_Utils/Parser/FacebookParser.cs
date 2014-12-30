@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DevUtils.DateTimeExtensions;
 using DevUtils.PrimitivesExtensions;
 using facebook_csharp_ads_sdk.Domain.Enums.AdAccountGroup;
@@ -22,6 +24,8 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
                     return GetLongValue(jsonObject, fieldName, defaultValue);
                 case FacebookFieldType.String:
                     return GetStringValue(jsonObject, fieldName, defaultValue);
+                case FacebookFieldType.StringArray:
+                    return GetStringArrayValue(jsonObject, fieldName, defaultValue);
                 case FacebookFieldType.DateTime:
                     return GetDatetimeValue(jsonObject, fieldName, defaultValue);
                 case FacebookFieldType.UnixTimestamp:
@@ -96,6 +100,26 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
         }
 
         /// <summary>
+        ///     Get the string array value from JToken
+        /// </summary>
+        /// <param name="jsonObject"> JToken object </param>
+        /// <param name="fieldName"> Field name </param>
+        /// <param name="defaultValue"> Default value </param>
+        /// <returns> Array of strings </returns>
+        private static object GetStringArrayValue(this JToken jsonObject, string fieldName, object defaultValue)
+        {
+            if (jsonObject[fieldName] == null || jsonObject[fieldName].Type != JTokenType.Array)
+            {
+                return defaultValue;
+            }
+
+            var stringList = jsonObject[fieldName];
+            List<string> result = (from strValue in stringList where strValue != null select strValue.ToString()).ToList();
+
+            return result;
+        }
+
+        /// <summary>
         ///     Get the datetime value from JToken
         /// </summary>
         /// <param name="jsonObject"> JToken object </param>
@@ -130,7 +154,7 @@ namespace facebook_csharp_ads_sdk._Utils.Parser
             DateTime? tempResult = jsonObject[fieldName].TryParseLong().FromUnixTimestamp();
             return tempResult;
         }
-
+        
         #endregion
 
         #region Ad account group types

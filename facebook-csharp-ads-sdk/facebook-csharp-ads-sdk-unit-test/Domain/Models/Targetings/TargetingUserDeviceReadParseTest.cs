@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.Targetings
 {
     [TestClass]
-    public class TargetingUserDeviceParseTest
+    public class TargetingUserDeviceReadParseTest
     {
         private const string FacebookResponse = "{ 'data': [{ 'name': 'iPad', 'description': 'iPads (all)', 'audience_size': 107437237, 'type': 'user_device' }, { 'name': 'iPhone', 'description': 'iPhones (all)', 'audience_size': 241701983, 'type': 'user_device' }, { 'name': 'iPod', 'description': 'iPods (all)', 'audience_size': 10781306, 'type': 'user_device' }]}";
         private const string FacebookErrorResponse = "{'error':{'message':'An error occurred','type':'GraphMethodException','code':999}}";
