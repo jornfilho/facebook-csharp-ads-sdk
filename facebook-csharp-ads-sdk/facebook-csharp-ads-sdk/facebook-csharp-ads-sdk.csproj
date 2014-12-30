@@ -180,6 +180,7 @@
     <Compile Include="Domain\Models\BaseCrudObject.cs" />
     <Compile Include="Domain\Models\BaseObjectsList.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingInterests.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingUserDevice.cs" />

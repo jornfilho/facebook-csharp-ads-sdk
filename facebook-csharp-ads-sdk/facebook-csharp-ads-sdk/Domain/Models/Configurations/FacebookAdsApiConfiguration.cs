@@ -128,6 +128,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
         /// </summary>
         public string TargetingUserDeviceReadEndpoint { get { return String.Format("{0}{1}", this.GraphApiUrl, "search?type=adTargetingCategory&class=user_device&access_token={0}"); } }
 
+        /// <summary>
+        ///     Get targeting interests
+        /// </summary>
+        public string TargetingInterestsReadEndpoint { get { return String.Format("{0}{1}", this.GraphApiUrl, "search?type=adinterest&q={0}&access_token={1}"); } }
+
         #endregion Targeting search
 
         /// <summary>

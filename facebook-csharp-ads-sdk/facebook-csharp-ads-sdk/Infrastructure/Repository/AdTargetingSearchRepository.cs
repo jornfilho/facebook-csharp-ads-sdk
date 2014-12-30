@@ -62,7 +62,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
                 userDeviceList.AddRange(userDeviceParseResult.Data);
 
-                var nextPage = getRequest.GetNextPage();
+                string nextPage = getRequest.GetNextPage();
                 if (String.IsNullOrEmpty(nextPage) || nextPage.Equals(readUserDeviceEndpoint))
                     break;
 
@@ -70,6 +70,42 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             }
 
             return userDeviceList;
+        }
+
+        /// <summary>
+        ///     Get tha user device list
+        /// </summary>
+        /// <param name="autoComplete"> The string for which you want autocomplete values. </param>
+        /// <returns> List of the interests </returns>
+        public IList<TargetingInterests> ReadInterestsList(string autoComplete)
+        {
+            //string readTargetingInterestsEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().TargetingInterestsReadEndpoint;
+            //readTargetingInterestsEndpoint = String.Format(readTargetingInterestsEndpoint, autoComplete, this.facebookSession.GetUserAccessToken());
+            //IRequest webRequest = new FacebookRequest(this.facebookSession);
+
+            //var interestsList = new List<TargetingInterests>();
+            //while (true)
+            //{
+            //    string getRequest = webRequest.Get(readTargetingInterestsEndpoint);
+
+            //    if (String.IsNullOrEmpty(getRequest))
+            //        break;
+
+            //    BaseObjectsList<TargetingInterests> targetingInterestsParseResult = new TargetingInterests().ParseMultipleResponse(getRequest);
+            //    if (targetingInterestsParseResult == null || !targetingInterestsParseResult.IsValid)
+            //        break;
+
+            //    interestsList.AddRange(targetingInterestsParseResult.Data);
+
+            //    string nextPage = getRequest.GetNextPage();
+            //    if (String.IsNullOrEmpty(nextPage) || nextPage.Equals(readTargetingInterestsEndpoint))
+            //        break;
+
+            //    readTargetingInterestsEndpoint = nextPage;
+            //}
+
+            //return interestsList;
+            return null;
         }
     }
 }

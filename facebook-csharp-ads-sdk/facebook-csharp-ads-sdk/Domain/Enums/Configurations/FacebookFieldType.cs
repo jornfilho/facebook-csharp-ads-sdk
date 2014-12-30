@@ -16,6 +16,11 @@
         String,
 
         /// <summary>
+        ///     String type array
+        /// </summary>
+        StringArray,
+
+        /// <summary>
         /// Integer type
         /// </summary>
         Int32,
