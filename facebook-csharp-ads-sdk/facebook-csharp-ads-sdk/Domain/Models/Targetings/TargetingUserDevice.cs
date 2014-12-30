@@ -73,7 +73,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Targetings
         /// <returns> List of the user device </returns>
         public IList<TargetingUserDevice> ReadAll()
         {
-            return this.adTargetingSearchRepository.ReadUserDeviceList().Result;
+            return this.adTargetingSearchRepository.ReadUserDeviceList();
         }
 
         /// <summary>
