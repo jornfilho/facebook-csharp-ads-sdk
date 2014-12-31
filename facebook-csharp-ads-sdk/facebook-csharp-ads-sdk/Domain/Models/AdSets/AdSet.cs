@@ -376,14 +376,52 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
             }
         }
 
+        /// <summary>
+        ///     Update a ad set on Facebook
+        /// </summary>
+        /// <returns> Ad set updated </returns>
         public override AdSet Update()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!this.Id.IsValidAdSetId() || !this.UpdateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.adSetRepository.Update(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
+        /// <summary>
+        ///     Update a ad set on Facebook
+        /// </summary>
+        /// <param name="id"> Ad set id </param>
+        /// <returns> Ad set updated </returns>
         public override AdSet Update(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!id.IsValidAdSetId() || !this.UpdateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;    
+                }
+
+                this.Id = id;
+                return this.Update();
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
         /// <summary>
@@ -408,20 +446,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <summary>
         ///     Set attributes to create a ad set in Facebook
         /// </summary>
-        /// <param name="accountId"> Ad account id </param>
-        /// <param name="name"> Ad set name </param>
-        /// <param name="bidType"> Ad set bid type </param>
-        /// <param name="bidInfoList"> Ad set bid info </param>
-        /// <param name="status"> Ad set status </param>
-        /// <param name="dailyBudget"> Ad set daily budget </param>
+        /// <param name="createData"> Ad set create data </param>
         /// <param name="executionOptionsList"> Execute options list </param>
-        /// <param name="lifetimeBudget"> Ad set lifetime budget </param>
-        /// <param name="startTime"> Start time </param>
-        /// <param name="endTime"> End time </param>
-        /// <param name="adCampaignId"> Ad campaign id </param>
         /// <param name="redownload"> Allows you to specify that you would like to retrieve all fields of the set in your response </param>
-        /// <param name="targeting"> Ad set targeting </param>
-        /// <param name="promotedObject"> The object that the ad set is trying to promote and advertise </param>
+        /// <exception cref="InvalidAdSetCreateDataException"> Invalid ad set create data </exception>
         /// <exception cref="InvalidAdSetNameException"> Invalid ad set name </exception>
         /// <exception cref="InvalidAdSetBidTypeException"> Invalid ad set bid type </exception>
         /// <exception cref="InvalidAdSetBidInfoException"> Invalid ad set bid info </exception>
@@ -436,29 +464,65 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <exception cref="DifferenceWithStartTimeAndEndTimeMustBe24HoursException"> Start time and end time must be 24 hours difference </exception>
         /// <exception cref="EndTimeMustBeGreaterThanStartTimeException"> End time must be greater than start time </exception>
         /// <returns> This instance </returns>
-        public AdSet SetCreateData(long accountId, string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status, int? dailyBudget,
-            IList<ExecutionOptionsEnum> executionOptionsList, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
-            long adCampaignId, bool? redownload, string targeting, PromotedObject promotedObject)
+        public AdSet SetCreateData(AdSetCreateData createData, IList<ExecutionOptionsEnum> executionOptionsList, bool? redownload)
         {
-            this.ValidateDataToCreate(accountId, name, bidType, bidInfoList, status, dailyBudget, lifetimeBudget, startTime,
-                endTime, adCampaignId, targeting);
+            this.ValidateDataToCreate(createData);
 
-            this.AccountId = accountId;
-            this.Name = name;
-            this.BidType = bidType;
-            this.BidInfo = bidInfoList;
-            this.Status = status;
-            this.DailyBudget = dailyBudget;
+            this.AccountId = createData.AccountId;
+            this.Name = createData.Name;
+            this.BidType = createData.BidType;
+            this.BidInfo = createData.BidInfoList;
+            this.Status = createData.Status;
+            this.DailyBudget = createData.DailyBudget;
             this.ExecutionOptionsList = executionOptionsList;
-            this.LifetimeBudget = lifetimeBudget;
-            this.StartTime = startTime;
-            this.EndTime = endTime;
-            this.AdCampaignId = adCampaignId;
+            this.LifetimeBudget = createData.LifetimeBudget;
+            this.StartTime = createData.StartTime;
+            this.EndTime = createData.EndTime;
+            this.AdCampaignId = createData.AdCampaignId;
             this.Redownload = redownload;
-            this.Targeting = targeting;
-            this.PromotedObject = promotedObject;
+            this.Targeting = createData.Targeting;
+            this.PromotedObject = createData.PromotedObject;
 
             this.SetValidCreateModel();
+            return this;
+        }
+
+        /// <summary>
+        ///     Seta os dados do grupo de anuncios a serem atualizados
+        /// </summary>
+        /// <param name="updateData"> Data to update </param>
+        /// <param name="executionOptionsList"></param>
+        /// <returns></returns>
+        public AdSet SetUpdateData(AdSetUpdateData updateData, IList<ExecutionOptionsEnum> executionOptionsList)
+        {
+            if (updateData == null ||
+                updateData.BidType == null
+                && (updateData.BidInfoList == null || !updateData.BidInfoList.Any())
+                && updateData.Status == null
+                && updateData.DailyBudget == null
+                && updateData.LifetimeBudget == null
+                && String.IsNullOrEmpty(updateData.Name)
+                && updateData.StartTime == null
+                && updateData.EndTime == null
+                && String.IsNullOrEmpty(updateData.Targeting))
+            {
+                this.SetInvalidUpdateModel();
+                return this;
+            }
+
+            this.ValidateBudgetRules(updateData.DailyBudget, updateData.LifetimeBudget, updateData.StartTime, updateData.EndTime);
+
+            this.BidType = updateData.BidType;
+            this.BidInfo = updateData.BidInfoList;
+            this.Status = updateData.Status;
+            this.DailyBudget = updateData.DailyBudget;
+            this.LifetimeBudget = updateData.LifetimeBudget;
+            this.Name = updateData.Name;
+            this.StartTime = updateData.StartTime;
+            this.EndTime = updateData.EndTime;
+            this.Targeting = updateData.Targeting;
+
+            this.SetValidUpdateModel();
             return this;
         }
 
@@ -601,62 +665,65 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <summary>
         ///     Validate data to create a ad set
         /// </summary>
-        /// <param name="accountId"> Ad account id </param>
-        /// <param name="name"> Ad set name </param>
-        /// <param name="bidType"> Ad set bid type </param>
-        /// <param name="bidInfoList"> Ad set bid info </param>
-        /// <param name="status"> Ad set status </param>
-        /// <param name="dailyBudget"> Ad set daily budget </param>
-        /// <param name="lifetimeBudget"> Ad set lifetime budget </param>
-        /// <param name="startTime"> Start time </param>
-        /// <param name="endTime"> End time </param>
-        /// <param name="adCampaignId"> Ad campaign id </param>
-        /// <param name="targeting"> Ad set targeting </param>
-        private void ValidateDataToCreate(long accountId, string name, AdSetBidTypeEnum bidType, List<BidInfo> bidInfoList, AdSetStatusEnum status,
-                                          int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime,
-                                          long adCampaignId, string targeting)
+        /// <param name="createData"> Ad set create data </param>
+        private void ValidateDataToCreate(AdSetCreateData createData)
         {
-            if (!accountId.IsValidAdAccountId())
+            if (createData == null)
+            {
+                throw new InvalidAdSetCreateDataException();
+            }
+
+            if (!createData.AccountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
             }
 
-            if (String.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(createData.Name))
             {
                 throw new InvalidAdSetNameException();
             }
 
-            if (bidType == AdSetBidTypeEnum.Undefined)
+            if (createData.BidType == AdSetBidTypeEnum.Undefined)
             {
                 throw new InvalidAdSetBidTypeException();
             }
 
-            if (bidInfoList == null)
+            if (createData.BidInfoList == null)
             {
                 throw new InvalidAdSetBidInfoException();
             }
 
-            if (bidInfoList.Any(b => b.Objective == null || b.Value == null))
+            if (createData.BidInfoList.Any(b => b.Objective == null || b.Value == null))
             {
                 throw new InvalidAdSetBidInfoDataException();
             }
 
-            if (status == AdSetStatusEnum.Undefined || status == AdSetStatusEnum.AdCamnpaignPaused)
+            if (createData.Status == AdSetStatusEnum.Undefined || createData.Status == AdSetStatusEnum.AdCamnpaignPaused)
             {
                 throw new InvalidAdSetStatusException();
             }
-            
-            if (!adCampaignId.IsValidAdCampaignId())
+
+            if (!createData.AdCampaignId.IsValidAdCampaignId())
             {
                 throw new InvalidAdCampaignIdException();
             }
 
-            if (String.IsNullOrEmpty(targeting))
+            if (String.IsNullOrEmpty(createData.Targeting))
             {
                 throw new InvalidAdSetTargetingException();
             }
 
-            this.ValidateBudgetRules(dailyBudget, lifetimeBudget, startTime, endTime);
+            if (createData.DailyBudget == null && createData.LifetimeBudget == null)
+            {
+                throw new LifetimeBudgetOrDailyBudgetRequiredException();
+            }
+
+            if (createData.StartTime == null)
+            {
+                createData.StartTime = DateTime.UtcNow;
+            }
+
+            this.ValidateBudgetRules(createData.DailyBudget, createData.LifetimeBudget, createData.StartTime, createData.EndTime);
         }
 
         /// <summary>
@@ -668,16 +735,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="endTime"> End time </param>
         private void ValidateBudgetRules(int? dailyBudget, int? lifetimeBudget, DateTime? startTime, DateTime? endTime)
         {
-            if (dailyBudget == null && lifetimeBudget == null)
-            {
-                throw new LifetimeBudgetOrDailyBudgetRequiredException();
-            }
-
-            if (startTime == null)
-            {
-                startTime = DateTime.UtcNow;
-            }
-
             this.VerifyIfEndTimeLessThanStartTime(startTime, endTime);
             this.VerifyDifferenceGreaterThanStartTimeAndEndTimeIfDailyBudget(dailyBudget, startTime, endTime);
             this.VerifyIfEndTimeIsNullForTheLifetimeBudget(lifetimeBudget, endTime);
@@ -763,7 +820,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdSets
         /// <param name="endTime"></param>
         private void VerifyIfEndTimeLessThanStartTime(DateTime? startTime, DateTime? endTime)
         {
-            if (endTime == null)
+            if (startTime == null || endTime == null)
             {
                 return;
             }

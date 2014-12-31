@@ -16,9 +16,15 @@
         String,
 
         /// <summary>
+<<<<<<< HEAD
         /// Boolean type
         /// </summary>
         Boolean,
+=======
+        ///     String type array
+        /// </summary>
+        StringArray,
+>>>>>>> ad_set
 
         /// <summary>
         /// Integer type
@@ -71,11 +77,11 @@
         ExecutionOptionsEnumList,
 
         /// <summary>
-<<<<<<< HEAD
         /// Call to action of the creative
         /// </summary>
-        CallToActionTypeEnum
-=======
+        CallToActionTypeEnum,
+
+        /// <summary>
         ///     Ad set bid type enum
         /// </summary>
         AdSetBidTypeEnum,
@@ -99,6 +105,5 @@
         ///     Date on unix timestamp
         /// </summary>
         UnixTimestamp
->>>>>>> ad_set
     }
 }

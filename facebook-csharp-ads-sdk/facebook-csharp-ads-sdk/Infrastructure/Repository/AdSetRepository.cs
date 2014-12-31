@@ -95,9 +95,29 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             return account.ParseDeleteResponse(deleteRequest);
         }
 
+        /// <summary>
+        ///     Update a ad set on Facebook
+        /// </summary>
+        /// <param name="entity"> Ad set to update </param>
+        /// <returns> Ad set updated </returns>
         public async Task<AdSet> Update(AdSet entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                return new AdSet(this);
+            }
+
+            this.facebookSession.ValidateFacebookSessionRequirements(new[] { RequiredOnFacebookSessionEnum.UserAccessToken });
+            Dictionary<string, string> paramsToUpdate = entity.GetSingleUpdateParams();
+
+            string adSetUpdateEndpoint = this.facebookSession.GetFacebookAdsApiConfiguration().AdSetUpdateEndpoint;
+            adSetUpdateEndpoint = String.Format(adSetUpdateEndpoint, entity.Id, this.facebookSession.GetUserAccessToken());
+
+            IRequest webRequest = new Request();
+            string requestResult = await webRequest.PostAsync(adSetUpdateEndpoint, paramsToUpdate);
+
+            entity.ParseUpdateResponse(requestResult);
+            return entity;
         }
 
         /// <summary>
@@ -105,7 +125,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// </summary>
         /// <param name="adId"> Id of the ad set </param>
         /// <param name="fields"> Field list you wish to retrieve </param>
-        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>/// 
+        /// <exception cref="InvalidUserAccessToken"> Invalid token exception </exception>//
         /// <returns> Ad set </returns>
         public async Task<AdSet> Read(long adId, IList<AdSetReadFieldsEnum> fields)
         {

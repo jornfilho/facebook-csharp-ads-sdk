@@ -16,6 +16,11 @@
         String,
 
         /// <summary>
+        ///     String type array
+        /// </summary>
+        StringArray,
+
+        /// <summary>
         /// Boolean type
         /// </summary>
         Boolean,

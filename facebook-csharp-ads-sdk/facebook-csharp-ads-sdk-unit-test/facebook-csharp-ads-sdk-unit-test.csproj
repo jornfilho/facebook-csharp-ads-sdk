@@ -115,10 +115,15 @@
     <Compile Include="Domain\Models\AdSets\AdSetDeleteTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetSetCreateDataTest.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetUpdateTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectParseTest.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObjectSetCreateDataTest.cs" />
+    <Compile Include="Domain\Models\AdSets\PromotedObjectToStringTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetCreateDataTest.cs" />
     <Compile Include="Domain\Models\BidInfos\BidInfoSetFacebookResponseTest.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingDemographicsSetCreateDataTest.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingInterestsReadParseTest.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingUserDeviceReadParseTest.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespositoryTest\ReadTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetUserAccessTokenTest.cs" />
     <Compile Include="Infrastructure\Repository\FacebookSessionRepositoryTest\GetAppAccessTokenTest.cs" />

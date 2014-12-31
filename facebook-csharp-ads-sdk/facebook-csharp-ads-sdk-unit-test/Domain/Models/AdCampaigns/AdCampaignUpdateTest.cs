@@ -18,17 +18,24 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
     public class AdCampaignUpdateTest
     {
         private Mock<ICampaignRepository> mockCampaignRepository;
+        private AdCampaignUpdateData updateData;
+
         private long accountId = 123456789;
         private long campaignId = 9879789789;
-        private string campaignName = "Campaign 1";
-        private AdCampaignObjectiveEnum? campaignObjective = AdCampaignObjectiveEnum.None;
-        private AdCampaignStatusEnum? campaignStatus = AdCampaignStatusEnum.Active;
-        private IList<ExecutionOptionsEnum> executionOptions = null;
+        private string campaignName;
+        private AdCampaignObjectiveEnum? campaignObjective;
+        private AdCampaignStatusEnum? campaignStatus;
+        private IList<ExecutionOptionsEnum> executionOptions;
 
         [TestInitialize]
         public void Initialize()
         {
             this.mockCampaignRepository = new Mock<ICampaignRepository>();
+
+            campaignName = "Campaign 1";
+            campaignObjective = AdCampaignObjectiveEnum.None;
+            campaignStatus = AdCampaignStatusEnum.Active;
+            executionOptions = null;
         }
 
         [TestMethod]
@@ -36,7 +43,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignIdInvalidToSetUpdateData()
         {
             this.accountId = -1;
-            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, executionOptions);
         }
 
         [TestMethod]
@@ -47,8 +55,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             campaignStatus = null;
             executionOptions = null;
 
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
-                campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, executionOptions);
 
             Assert.IsNotNull(campaign);
             Assert.IsFalse(campaign.UpdateModelIsReady);
@@ -59,7 +67,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignObjectiveIsUndefinedToSetUpdateData()
         {
             campaignObjective = AdCampaignObjectiveEnum.Undefined;
-            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, executionOptions);
         }
 
         [TestMethod]
@@ -67,7 +76,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignStatusIsUndefinedToSetUpdateData()
         {
             campaignStatus = AdCampaignStatusEnum.Undefined;
-            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, executionOptions);
         }
 
         [TestMethod]
@@ -78,7 +88,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
 
             mockCampaignRepository.Setup(m => m.Update(It.IsAny<AdCampaign>())).Throws<Exception>();
-            campaign.SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            campaign.SetUpdateData(this.updateData, executionOptions);
 
             campaign = campaign.Update(campaignId);
             mockCampaignRepository.Verify(m => m.Update(It.IsAny<AdCampaign>()), Times.AtLeastOnce);
@@ -89,7 +100,13 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         [TestMethod]
         public void ShouldReturnErrorIfUpdateModelIsNotReady()
         {
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(32132131, string.Empty, null, null, null);
+            this.campaignName = string.Empty;
+            campaignObjective = null;
+            campaignStatus = null;
+            executionOptions = null;
+
+            this.InitializeUpdateData();
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, null);
             campaign = campaign.Update(campaignId);
 
             mockCampaignRepository.Verify(m => m.Update(It.IsAny<AdCampaign>()), Times.Never);
@@ -102,8 +119,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         {
             campaignId = -1;
 
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
-                campaignObjective, campaignStatus, executionOptions);
+            this.InitializeUpdateData();
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(this.updateData, executionOptions);
 
             campaign = campaign.Update(campaignId);
 
@@ -111,5 +128,20 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             Assert.IsNotNull(campaign);
             Assert.IsFalse(campaign.IsValid);
         }
+
+        #region private methods
+
+        private void InitializeUpdateData()
+        {
+            this.updateData = new AdCampaignUpdateData
+                              {
+                                  AccountId = this.accountId,
+                                  Name = this.campaignName,
+                                  Objective = this.campaignObjective,
+                                  Status = this.campaignStatus
+                              };
+        }
+
+        #endregion private methods
     }
 }

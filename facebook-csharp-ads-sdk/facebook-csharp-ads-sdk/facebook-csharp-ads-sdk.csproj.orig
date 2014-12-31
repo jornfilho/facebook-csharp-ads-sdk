@@ -60,6 +60,7 @@
     <Compile Include="Domain\Contracts\Repository\Base\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\Base\IBaseRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAdSetRepository.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAdTargetingSearchRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICreativeRepository.cs" />
@@ -71,14 +72,12 @@
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignObjectiveEnum.cs" />
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
-<<<<<<< HEAD
-    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />
-=======
+    <Compile Include="Domain\Enums\AdCreative\AdCreativeReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />
     <Compile Include="Domain\Enums\Global\BidInfoObjectiveTypeEnum.cs" />
->>>>>>> ad_set
+    <Compile Include="Domain\Enums\AdCreative\CallToActionTypeEnum.cs" />
     <Compile Include="Domain\Enums\Configurations\FacebookFieldType.cs" />
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Enums\Global\GetParamsType.cs" />
@@ -88,6 +87,7 @@
     <Compile Include="Domain\Enums\Targetings\SiteCategoryEnum.cs" />
     <Compile Include="Domain\Enums\Targetings\WirelessCarrierEnum.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignBuyingTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignCreateDataException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignIdException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignNameException.cs" />
     <Compile Include="Domain\Exceptions\AdCampaigns\InvalidAdCampaignObjectiveException.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoDataException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidInfoException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetBidTypeException.cs" />
+    <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetCreateDataException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetNameException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetStatusException.cs" />
     <Compile Include="Domain\Exceptions\AdSet\InvalidAdSetTargetingException.cs" />
@@ -116,9 +117,24 @@
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoObjectiveForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeCpmException.cs" />
     <Compile Include="Domain\Exceptions\BidInfo\InvalidBidInfoValueForBidTypeOcpmException.cs" />
+    <Compile Include="Domain\Exceptions\Targetings\TargetingDemographicsAgeMaxMustBeLessThan65Exception.cs" />
+    <Compile Include="Domain\Exceptions\Targetings\TargetingDemographicsAgeMinMustBeGreatherThan13Exception.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetBidTypeEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\AdSet\AdSetStatusEnumExtension.cs" />
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
+<<<<<<< HEAD
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\ChildAttachments.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\LinkData.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\OfferData.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\PhotoData.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\TextData.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\VideoData.cs" />
+=======
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaignCreateData.cs" />
+    <Compile Include="Domain\Models\AdCampaigns\AdCampaignUpdateData.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetCreateData.cs" />
+    <Compile Include="Domain\Models\AdSets\AdSetUpdateData.cs" />
+>>>>>>> ad_set
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
@@ -159,13 +175,10 @@
     <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
-<<<<<<< HEAD
-    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />
-=======
     <Compile Include="Domain\Models\AdSets\AdSet.cs" />
     <Compile Include="Domain\Models\AdSets\PromotedObject.cs" />
     <Compile Include="Domain\Models\Global\BidInfo.cs" />
->>>>>>> ad_set
+    <Compile Include="Domain\Models\AdCreative\AdCreative.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />
@@ -180,13 +193,17 @@
     <Compile Include="Domain\Models\BaseCrudObject.cs" />
     <Compile Include="Domain\Models\BaseObjectsList.cs" />
     <Compile Include="Domain\Models\Configurations\FacebookAdsApiConfiguration.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingInterests.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingMobile.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingPlacement.cs" />
+    <Compile Include="Domain\Models\Targetings\TargetingUserDevice.cs" />
     <Compile Include="Domain\Utils\RepositoryUtils.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Repository\AdCreativeRepository.cs" />
     <Compile Include="Infrastructure\Repository\AdSetRepository.cs" />
+    <Compile Include="Infrastructure\Repository\AdTargetingSearchRepository.cs" />
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\AdCampaignRepository.cs" />
@@ -195,6 +212,7 @@
     <Compile Include="Domain\Contracts\Repository\IAccountRepository.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Utils\WebRequests\FacebookRequest.cs" />
     <Compile Include="_Utils\WebRequests\IRequest.cs" />
     <Compile Include="_Utils\WebRequests\Request.cs" />
   </ItemGroup>
