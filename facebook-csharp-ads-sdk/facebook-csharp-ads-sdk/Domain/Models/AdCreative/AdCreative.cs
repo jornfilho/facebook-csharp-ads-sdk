@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -12,6 +14,28 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
     /// </summary>
     public class AdCreative : BaseCrudObject<AdCreative>
     {
+
+        #region Dependencies
+
+        /// <summary>
+        ///     Interface of creative repository
+        /// </summary>
+        private readonly ICreativeRepository creativeRepository;
+
+        #endregion Dependencies
+
+        #region Constructor
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="creativeRepository">Interface of the creative repository</param>
+        public AdCreative(ICreativeRepository creativeRepository)
+        {
+            this.creativeRepository = creativeRepository;
+        }
+
+        #endregion Constructor
 
         #region Properties
 
@@ -157,7 +181,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 
         public override AdCreative Create()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (!this.CreateModelIsReady)
+                {
+                    this.SetInvalid();
+                    return this;
+                }
+
+                return this.creativeRepository.Create(this).Result;
+            }
+            catch (Exception)
+            {
+                this.SetInvalid();
+                return this;
+            }
         }
 
         public Dictionary<string, string> GetSingleCreateParams()

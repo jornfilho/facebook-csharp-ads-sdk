@@ -187,6 +187,7 @@
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Repository\AdCreativeRepository.cs" />
     <Compile Include="Infrastructure\Repository\AdSetRepository.cs" />
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
