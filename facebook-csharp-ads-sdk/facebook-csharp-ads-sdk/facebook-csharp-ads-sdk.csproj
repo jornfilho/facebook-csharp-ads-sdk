@@ -57,6 +57,7 @@
     <Compile Include="Domain\BusinessRules\AdAccounts\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
+    <Compile Include="Domain\Contracts\AdStatistics\IAdStatisticsQueryable.cs" />
     <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Domain\Enums\Global\ExecutionOptionsEnum.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
+    <Compile Include="Domain\Extensions\AdStatistics\AdStatisticsExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupFieldsEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccountGroup\AdAccountGroupsStatusEnumExtensions.cs" />
     <Compile Include="Domain\Extensions\Enums\AdAccounts\AdAccountStatusEnumExtensions.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Domain\Models\AdAccountsGroup\AdAccountGroup.cs" />
     <Compile Include="Domain\Models\AdAccounts\TimezoneInformations.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaign.cs" />
+    <Compile Include="Domain\Models\AdStatistics\AdStatistics.cs" />
     <Compile Include="Domain\Models\ApiErrors\ApiErrorModelV22.cs" />
     <Compile Include="Domain\Models\Attributes\CanCreateOnFacebookAttribute.cs" />
     <Compile Include="Domain\Models\Attributes\CanUpdateOnFacebookAttribute.cs" />

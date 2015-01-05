@@ -84,7 +84,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         {
             string facebookResponseGetAdCampaign = "{'id': '546546546'}";
             var campaign = new AdCampaign(mockCampaignRepository.Object);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
 
             mockCampaignRepository.Setup(m => m.Update(It.IsAny<AdCampaign>())).Throws<Exception>();
             campaign.SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);

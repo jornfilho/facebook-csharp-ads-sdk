@@ -103,7 +103,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
             IRequest webRequest = new Request();
             string getRequest = await webRequest.GetAsync(campaignEndpoint);
             var account = new AdCampaign(this);
-            account.ParseReadSingleesponse(getRequest);
+            account.ParseReadSingleResponse(getRequest);
             return account;
         }
         

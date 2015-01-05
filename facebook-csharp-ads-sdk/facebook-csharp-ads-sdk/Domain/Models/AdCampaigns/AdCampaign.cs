@@ -219,9 +219,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Overrite of the base parse method 
         /// </summary>
         /// <param name="facebookResponse"> Facebook response </param>
-        public override void ParseReadSingleesponse(string facebookResponse)
+        public override void ParseReadSingleResponse(string facebookResponse)
         {
-            base.ParseReadSingleesponse(facebookResponse);
+            base.ParseReadSingleResponse(facebookResponse);
             if (!this.IsValid)
             {
                 return;
