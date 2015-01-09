@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
 using facebook_csharp_ads_sdk.Domain.Enums.Configurations;
@@ -46,7 +47,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
         [IsFacebookCreateResponseAttribute(true)]
-        public string Id { get; private set; }
+        public long Id { get; private set; }
 
         /// <summary>
         /// The Facebook object ID that is the actor for a link ad
@@ -179,6 +180,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 
         #endregion Properties
 
+        /// <summary>
+        ///     Create a ad creative in Facebook
+        /// </summary>
+        /// <returns></returns>
         public override AdCreative Create()
         {
             try
@@ -197,15 +202,85 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return this;
             }
         }
+        
+        /// <summary>
+        ///     Delet the ad creative in Facebook
+        /// </summary>
+        /// <returns></returns>
+        public override bool Delete()
+        {
+            try
+            {
+                bool success = this.Id.IsValidAdCreativeId() && this.creativeRepository.Delete(Id).Result;
+                SetInvalidUpdateModel();
+                return success;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Delete the ad creative in Facebook
+        /// </summary>
+        /// <param name="id">Id of the ad creative</param>
+        /// <returns></returns>
+        public override bool Delete(long id)
+        {
+            try
+            {
+                Id = id;
+                return Delete();
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
 
         public Dictionary<string, string> GetSingleCreateParams()
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        ///     Read ad creative by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A single ad creative</returns>
         public override AdCreative ReadSingle(long id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return id.IsValidAdCreativeId()
+                    ? creativeRepository.Read(id).Result
+                    : this;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
+        }
+        
+        /// <summary>
+        ///     Read ad creative by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Ad creative with the fields passed</returns>
+        public AdCreative ReadSingle(long id, IList<AdCreativeReadFieldsEnum> fields)
+        {
+            try
+            {
+                return id.IsValidAdCreativeId()
+                    ? creativeRepository.Read(id, fields).Result
+                    : this;
+            }
+            catch (Exception)
+            {
+                return this;
+            }
         }
 
         public override AdCreative Update()
@@ -222,17 +297,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         {
             throw new System.NotImplementedException();
         }
-
-        public override bool Delete()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override bool Delete(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new System.NotImplementedException();

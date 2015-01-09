@@ -54,5 +54,19 @@
         }
 
         #endregion Ad set
+
+        #region Ad creative
+
+        /// <summary>
+        ///     Test if ad creative id has a valid value
+        /// </summary>
+        /// <param name="adCreativeId"></param>
+        /// <returns></returns>
+        public static bool IsValidAdCreativeId(this long adCreativeId)
+        {
+            return adCreativeId > 0;
+        }
+
+        #endregion Ad creative
     }
 }
