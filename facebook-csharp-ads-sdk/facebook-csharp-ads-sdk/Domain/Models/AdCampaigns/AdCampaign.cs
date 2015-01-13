@@ -13,10 +13,13 @@ using facebook_csharp_ads_sdk.Domain.Extensions.Enums.AdCampaigns;
 using facebook_csharp_ads_sdk.Domain.Extensions.Enums.Global;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
+using facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics;
+using facebook_csharp_ads_sdk.Domain.Extensions.AdStatistics;
+using System.Threading.Tasks;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 {
-    public class AdCampaign : BaseCrudObject<AdCampaign>
+    public class AdCampaign : BaseCrudObject<AdCampaign>, IAdStatisticsQueryable
     {
         #region Dependencies
 
@@ -24,6 +27,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Interface of the campaign repository
         /// </summary>
         private readonly ICampaignRepository campaignRepository;
+
+        /// <summary>
+        ///     Repository of the ad statistics interface
+        /// </summary>
+        public IAdStatisticsRepository _adStatisticsRepository { get; private set; }
 
         #endregion Dependencies
 
@@ -33,9 +41,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Constructor
         /// </summary>
         /// <param name="campaignRepository"> Interface of the campaign repository </param>
-        public AdCampaign(ICampaignRepository campaignRepository)
+        /// <param name="adStatisticsRepository"> Interface of the ad statistics repository </param>
+        public AdCampaign(ICampaignRepository campaignRepository, IAdStatisticsRepository adStatisticsRepository)
         {
             this.campaignRepository = campaignRepository;
+            this._adStatisticsRepository = adStatisticsRepository;
         }
 
         #endregion Constructor
@@ -219,9 +229,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
         ///     Overrite of the base parse method 
         /// </summary>
         /// <param name="facebookResponse"> Facebook response </param>
-        public override void ParseReadSingleesponse(string facebookResponse)
+        public override void ParseReadSingleResponse(string facebookResponse)
         {
-            base.ParseReadSingleesponse(facebookResponse);
+            base.ParseReadSingleResponse(facebookResponse);
             if (!this.IsValid)
             {
                 return;
@@ -466,6 +476,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCampaigns
 
             return createQuery;
         }
+
+        #region Ad Statistics
+        /// <summary>
+        /// Query statistics of a Facebook ad object. When no date is provided, lifetime stats are returned. 
+        /// With only start time provided, stats are returned since that date, and when both start and end time 
+        /// are provided, stats are returned for the date interval.
+        /// </summary>
+        /// <param name="startTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
+        /// <param name="endTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
+        /// <returns>list of base objects of type AdStatistics</returns>
+        public async Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> GetStatistics(DateTime? startDateUtc, DateTime? endDateUtc)
+        {
+            return await this.GetStatistics(Id, startDateUtc, endDateUtc);
+        }
+        #endregion
 
         #region Private methods
 

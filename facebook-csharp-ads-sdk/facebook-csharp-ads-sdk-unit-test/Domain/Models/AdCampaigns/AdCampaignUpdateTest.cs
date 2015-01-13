@@ -22,18 +22,20 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         private AdCampaignObjectiveEnum? campaignObjective = AdCampaignObjectiveEnum.None;
         private AdCampaignStatusEnum? campaignStatus = AdCampaignStatusEnum.Active;
         private IList<ExecutionOptionsEnum> executionOptions = null;
+        private Mock<IAdStatisticsRepository> mockAdStatisticsRepository; 
 
         [TestInitialize]
         public void Initialize()
         {
             this.mockCampaignRepository = new Mock<ICampaignRepository>();
+            this.mockAdStatisticsRepository = new Mock<IAdStatisticsRepository>();
         }
 
         [TestMethod]
         public void ShouldReturnErrorIfCampaignIdInvalidToSetUpdateData()
         {
             this.accountId = -1;
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
             campaign.SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNotNull(campaign);
@@ -48,7 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             campaignStatus = null;
             executionOptions = null;
 
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetUpdateData(accountId, campaignName,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNotNull(campaign);
@@ -60,7 +62,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         {
             campaignObjective = AdCampaignObjectiveEnum.Undefined;
 
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetUpdateData(accountId, campaignName,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNotNull(campaign);
@@ -72,7 +74,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         {
             campaignStatus = AdCampaignStatusEnum.Undefined;
 
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetUpdateData(accountId, campaignName,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNotNull(campaign);
@@ -83,8 +85,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfAnUnexpectedExceptionOccurWhenCallingRepository()
         {
             string facebookResponseGetAdCampaign = "{'id': '546546546'}";
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
-            campaign.ParseReadSingleesponse(facebookResponseGetAdCampaign);
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
+            campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
 
             mockCampaignRepository.Setup(m => m.Update(It.IsAny<AdCampaign>())).Throws<Exception>();
             campaign.SetUpdateData(accountId, campaignName, campaignObjective, campaignStatus, executionOptions);
@@ -98,7 +100,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         [TestMethod]
         public void ShouldReturnErrorIfUpdateModelIsNotReady()
         {
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(0, campaignName,
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetUpdateData(0, campaignName,
                 campaignObjective, campaignStatus, executionOptions);
 
             campaign = campaign.Update();
@@ -111,7 +113,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         [TestMethod]
         public void ShouldReturnErrorIfAdCampaignIdIsInvalid()
         {
-            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object).SetUpdateData(accountId, campaignName,
+            AdCampaign campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetUpdateData(accountId, campaignName,
                 campaignObjective, campaignStatus, executionOptions);
 
             campaign = campaign.Update();

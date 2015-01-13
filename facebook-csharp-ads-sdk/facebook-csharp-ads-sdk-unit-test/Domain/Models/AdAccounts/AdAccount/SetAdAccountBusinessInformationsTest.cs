@@ -7,13 +7,15 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     [TestClass]
     public class SetAdAccountBusinessInformationsTest : TestBase
     {
-        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        readonly IAccountRepository accountRepository = new AdAccountRepository(new FacebookSessionRepository());
+        readonly IAdStatisticsRepository adStatisticsRepository = new AdStatisticsRepository(new FacebookSessionRepository());
+
         private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
 
         [TestInitialize]
         public void Initialize()
         {
-            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository);
+            this.model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(accountRepository, adStatisticsRepository);
         }
 
         [TestMethod]

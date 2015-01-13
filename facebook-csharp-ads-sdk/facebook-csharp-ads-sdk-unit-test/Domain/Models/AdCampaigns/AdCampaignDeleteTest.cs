@@ -12,17 +12,19 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
     public class AdCampaignDeleteTest
     {
         private Mock<ICampaignRepository> mockCampaignRepository;
+        private Mock<IAdStatisticsRepository> mockAdStatisticsRepository; 
 
         [TestInitialize]
         public void Initialize()
         {
             mockCampaignRepository = new Mock<ICampaignRepository>();
+            mockAdStatisticsRepository = new Mock<IAdStatisticsRepository>();
         }
 
         [TestMethod]
         public void ShouldReturnFalseToDeleteWithParameterIfIdInvalid()
         {
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
 
             bool successDelete = campaign.Delete(0);
             mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.Never);
@@ -32,8 +34,8 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         [TestMethod]
         public void ShouldReturnFalseToDeleteWithoutParameterIfIdInvalid()
         {
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
-            campaign.ParseReadSingleesponse("{'id': '0'}");
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
+            campaign.ParseReadSingleResponse("{'id': '0'}");
 
             bool successDelete = campaign.Delete();
             mockCampaignRepository.Verify(m => m.Delete(It.IsAny<long>()), Times.Never);

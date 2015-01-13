@@ -14,7 +14,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
     /// <summary>
     /// Implement Facebook AdAccount interface methods
     /// </summary>
-    public class AdAccountRespository : IAccountRepository
+    public class AdAccountRepository : IAccountRepository
     {
         #region Properties
         
@@ -31,7 +31,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
         /// Repository constructor with an instance of Facebook Session
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public AdAccountRespository(IFacebookSession facebookSession)
+        public AdAccountRepository(IFacebookSession facebookSession)
         {
             if (facebookSession == null)
                 throw new ArgumentNullException();
@@ -71,8 +71,8 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
             IRequest webRequest = new Request();
             var getRequest = await webRequest.GetAsync(accountEndpoint);
-            var account = new AdAccount(this);
-            account.ParseReadSingleesponse(getRequest);
+            var account = new AdAccount(this, new AdStatisticsRepository(this._facebookSession));
+            account.ParseReadSingleResponse(getRequest);
             return account;
         }
     }

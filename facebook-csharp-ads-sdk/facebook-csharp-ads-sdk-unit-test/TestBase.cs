@@ -450,7 +450,7 @@ namespace facebook_csharp_ads_sdk_unit_test
             RepositoryFacebookSession.SetDefaultApplication(ValidAppId, ValidAppSecret);
             RepositoryFacebookSession.SetAppAccessToken(ValidAccessToken);
 
-            RepositoryAdAccount = new AdAccountRespository(RepositoryFacebookSession);
+            RepositoryAdAccount = new AdAccountRepository(RepositoryFacebookSession);
         }
     }
 }
