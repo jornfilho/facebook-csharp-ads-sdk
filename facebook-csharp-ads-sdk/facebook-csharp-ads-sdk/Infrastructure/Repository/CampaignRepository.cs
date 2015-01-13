@@ -102,7 +102,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
             IRequest webRequest = new Request();
             string getRequest = await webRequest.GetAsync(campaignEndpoint);
-            var account = new AdCampaign(this);
+            var account = new AdCampaign(this, new AdStatisticsRepository(this.facebookSession));
             account.ParseReadSingleResponse(getRequest);
             return account;
         }
@@ -120,7 +120,7 @@ namespace facebook_csharp_ads_sdk.Infrastructure.Repository
 
             IRequest webRequest = new Request();
             string deleteRequest = await webRequest.DeleteAsync(deleteEndpoint);
-            var account = new AdCampaign(this);
+            var account = new AdCampaign(this, new AdStatisticsRepository(this.facebookSession));
             
             return account.ParseDeleteResponse(deleteRequest);
         }

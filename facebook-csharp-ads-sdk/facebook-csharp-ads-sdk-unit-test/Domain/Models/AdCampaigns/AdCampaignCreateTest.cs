@@ -26,18 +26,20 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         private AdCampaignObjectiveEnum? campaignObjective = AdCampaignObjectiveEnum.None;
         private AdCampaignStatusEnum campaignStatus = AdCampaignStatusEnum.Active;
         private IList<ExecutionOptionsEnum> executionOptions = null;
+        private Mock<IAdStatisticsRepository> mockAdStatisticsRepository; 
 
         [TestInitialize]
         public void Initialize()
         {
             this.mockCampaignRepository = new Mock<ICampaignRepository>();
+            this.mockAdStatisticsRepository = new Mock<IAdStatisticsRepository>();
         }
 
         [TestMethod]
         public void ShouldReturnErrorIfCampaignIdInvalidToSetCreationData()
         {
             this.accountId = -1;
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
             campaign.SetCreateData(accountId, campaignName, campaignBuyingType, campaignObjective, campaignStatus, executionOptions);
 
             Assert.AreEqual(0, campaign.Id);
@@ -48,7 +50,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignNameEmptyToSetCreationData()
         {
             this.campaignName = string.Empty;
-            var campaign = new AdCampaign(mockCampaignRepository.Object);
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object);
             campaign.SetCreateData(accountId, campaignName, campaignBuyingType, campaignObjective, campaignStatus, executionOptions);
 
             Assert.AreEqual(0, campaign.Id);
@@ -59,7 +61,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignStatusUndefinedToSetCreationData()
         {
             this.campaignStatus = AdCampaignStatusEnum.Undefined;
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.AreEqual(0, campaign.Id);
@@ -70,7 +72,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignStatusArchivedToSetCreationData()
         {
             this.campaignStatus = AdCampaignStatusEnum.Archived;
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.AreEqual(0, campaign.Id);
@@ -81,7 +83,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldReturnErrorIfCampaignStatusDeleteToSetCreationData()
         {
             this.campaignStatus = AdCampaignStatusEnum.Delete;
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.AreEqual(0, campaign.Id);
@@ -92,7 +94,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustAssignAdCampaignBuyingTypeNullIfParemeterUndefined()
         {
             this.campaignBuyingType = AdCampaignBuyingTypeEnum.Undefined;
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNull(campaign.BuyingType);
@@ -104,7 +106,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         {
             this.campaignObjective = AdCampaignObjectiveEnum.Undefined;
 
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             Assert.IsNull(campaign.Objective);
@@ -115,7 +117,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void ShouldNotCreateAdCampaignIfModelNotValidToCreate()
         {
             campaignName = string.Empty;
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                 campaignObjective, campaignStatus, executionOptions);
 
             AdCampaign campaignCreated = campaign.Create();
@@ -135,7 +137,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
                     executionOptions.Select(
                         u => "\"" + u.ToEnum<ExecutionOptionsEnum>().GetExecutionOptionsFacebookName() + "\"")));
 
-            var campaign = new AdCampaign(mockCampaignRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
+            var campaign = new AdCampaign(mockCampaignRepository.Object, mockAdStatisticsRepository.Object).SetCreateData(accountId, campaignName, campaignBuyingType,
                    campaignObjective, campaignStatus, executionOptions);
 
             Dictionary<string, string> dictionaryWithParams = campaign.GetSingleCreateParams();

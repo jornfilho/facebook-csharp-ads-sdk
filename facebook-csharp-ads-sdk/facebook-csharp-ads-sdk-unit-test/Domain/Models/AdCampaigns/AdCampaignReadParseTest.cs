@@ -27,17 +27,20 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         private const AdCampaignStatusEnum CampaignStatusExpected = AdCampaignStatusEnum.Paused;
         string facebookResponseGetAdCampaign = string.Empty;
 
+        private AdStatisticsRepository adStatisticsRepository; 
+
         [TestInitialize]
         public void Initialize()
         {
             IFacebookSession facebookSession = new FacebookSessionRepository();
             campaignRepository = new CampaignRepository(facebookSession);
+            adStatisticsRepository = new AdStatisticsRepository(facebookSession);
         }
 
         [TestMethod]
         public void MustSetErrorIfFacebookReturnError()
         {
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(FacebookError);
             Assert.AreEqual(0, campaign.Id);
             Assert.IsFalse(campaign.IsValid);
@@ -49,7 +52,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustMakeTheCorrectParseIfFacebookDoesNotReturnError()
         {
             this.SetFacebookResponseOkWithAllFields();
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
 
             Assert.IsTrue(campaign.IsValid);
@@ -76,7 +79,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
             this.campaignIdExpected = 0;
             this.SetFacebookResponseOkWithAllFields();
 
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
@@ -85,7 +88,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustSetInvalidDataIfFacebookResponseIsNull()
         {
             this.facebookResponseGetAdCampaign = null;
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
@@ -94,7 +97,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
         public void MustSetInvalidDataIfFacebookResponseIsEmpty()
         {
             this.facebookResponseGetAdCampaign = string.Empty;
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsFalse(campaign.IsValid);
         }
@@ -106,7 +109,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
                                                  "'adgroups': {" +
                                                  "'paging': {'cursors': {'before': 'NjAxOTA5MTc1NDE4OA==', 'after': 'NjAxNjE3MDE4MDE4OA=='}}}}";
 
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsTrue(campaign.IsValid);
             Assert.AreEqual(this.campaignIdExpected, campaign.Id);
@@ -121,7 +124,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCampaigns
                                                  "{'id': '" + AdGroupId1Expected + "'}," +
                                                  "'paging': {'cursors': {'before': 'NjAxOTA5MTc1NDE4OA==', 'after': 'NjAxNjE3MDE4MDE4OA=='}}}}";
 
-            var campaign = new AdCampaign(campaignRepository);
+            var campaign = new AdCampaign(campaignRepository, adStatisticsRepository);
             campaign.ParseReadSingleResponse(facebookResponseGetAdCampaign);
             Assert.IsTrue(campaign.IsValid);
             Assert.AreEqual(this.campaignIdExpected, campaign.Id);

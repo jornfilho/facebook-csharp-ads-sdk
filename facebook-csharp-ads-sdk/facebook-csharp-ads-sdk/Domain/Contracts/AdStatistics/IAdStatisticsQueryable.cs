@@ -14,8 +14,8 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics
     /// </summary>
     public interface IAdStatisticsQueryable
     {
-        //IAdStatisticsRepository _adStatisticsRepository {get;}
+        IAdStatisticsRepository _adStatisticsRepository { get; }
 
-        //BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics> stats(DateTime startDateUtc, DateTime endDateUtc);
+        Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> GetStatistics(DateTime? startDateUtc, DateTime? endDateUtc);
     }
 }

@@ -24,10 +24,9 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.AdStatistics
         /// <param name="startTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
         /// <param name="endTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
         /// <returns>list of base objects of type AdStatistics</returns>
-        public static async Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> stats(this IAdStatisticsQueryable adObject, long adObjectId, DateTime? startTimeUtc, DateTime? endTimeUtc)
+        public static async Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> GetStatistics(this IAdStatisticsQueryable adObject, long adObjectId, DateTime? startTimeUtc, DateTime? endTimeUtc)
         {
-            var _repository = new AdStatisticsRepository(new FacebookSessionRepository());
-            return await _repository.Read(adObjectId, startTimeUtc, endTimeUtc);
+            return await adObject._adStatisticsRepository.Read(adObjectId, startTimeUtc, endTimeUtc);
         }
     }
 }

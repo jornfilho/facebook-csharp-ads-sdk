@@ -13,6 +13,8 @@ using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
 using facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics;
+using facebook_csharp_ads_sdk.Domain.Extensions.AdStatistics;
+using System.Threading.Tasks;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
@@ -28,6 +30,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         /// </summary>
         private readonly IAccountRepository _repository;
 
+        /// <summary>
+        ///     Repository of the ad statistics interface
+        /// </summary>
+        public IAdStatisticsRepository _adStatisticsRepository { get; private set; }
+
         #endregion Dependencies
 
         #region Constructor
@@ -36,9 +43,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         ///     Constructor
         /// </summary>
         /// <param name="repository"> Implementation of the account interface repository </param>
-        public AdAccount(IAccountRepository repository)
+        /// <param name="adStatisticsRepository"> Implementation of the ad statistics interface repository </param>
+        public AdAccount(IAccountRepository repository, IAdStatisticsRepository adStatisticsRepository)
         {
             this._repository = repository;
+            this._adStatisticsRepository = adStatisticsRepository;
         }
 
         #endregion Constructor
@@ -516,6 +525,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
         {
             throw new NotImplementedException();
         }
+
+        #region Ad Statistics
+        /// <summary>
+        /// Query statistics of a Facebook ad object. When no date is provided, lifetime stats are returned. 
+        /// With only start time provided, stats are returned since that date, and when both start and end time 
+        /// are provided, stats are returned for the date interval.
+        /// </summary>
+        /// <param name="startTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
+        /// <param name="endTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
+        /// <returns>list of base objects of type AdStatistics</returns>
+        public async Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> GetStatistics(DateTime? startDateUtc, DateTime? endDateUtc) 
+        {
+            return await this.GetStatistics(AccountId, startDateUtc, endDateUtc);
+        }
+        #endregion
 
         ///// <summary>
         /////     Parse Facebook response to Model
