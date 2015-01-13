@@ -134,47 +134,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdStatistics
         /// <summary>
         /// Método para parse multiplo dos dados de uma lista de grupo de contas
         /// </summary>
-        public BaseObjectsList<AdStatistics> ParseMultipleResponse(string response)
+        public static BaseObjectsList<AdStatistics> ParseMultipleResponse(string response)
         {
-            var objectResult = new BaseObjectsList<AdStatistics>();
-
-            if (String.IsNullOrEmpty(response))
-                return objectResult;
-
-            var jsonObject = JObject.Parse(response);
-            if (jsonObject == null)
-                return objectResult;
-
-            #region Error
-            if (jsonObject["error"] != null)
-            {
-                var errorModel = new ApiErrorModelV22().ParseApiResponse(jsonObject);
-                objectResult.SetInvalid();
-                objectResult.SetApiErrorResonse(errorModel);
-
-                return objectResult;
-            }
-            #endregion
-
-            if (jsonObject["data"] == null)
-                return objectResult;
-
-            foreach (var item in jsonObject["data"])
-            {
-                if (item.Type != JTokenType.Object)
-                    continue;
-
-                var adStats = new AdStatistics();
-                adStats.ParseReadSingleResponse(item.ToString());
-                if (!adStats.IsValid)
-                    continue;
-
-                objectResult.Add(adStats);
-            }
-
-            objectResult.SetValid();
-
-            return objectResult;
+            return new BaseObjectsList<AdStatistics>().ParseReadMultipleResponse(response);
         }
         #endregion
     }

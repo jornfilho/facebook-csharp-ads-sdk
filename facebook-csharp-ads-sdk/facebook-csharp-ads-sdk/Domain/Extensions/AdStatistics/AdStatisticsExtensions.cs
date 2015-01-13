@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics;
 using facebook_csharp_ads_sdk.Domain.Models.AdStatistics;
+using facebook_csharp_ads_sdk.Domain.Models;
+using facebook_csharp_ads_sdk.Infrastructure.Repository;
 
 namespace facebook_csharp_ads_sdk.Domain.Extensions.AdStatistics
 {
@@ -18,12 +20,14 @@ namespace facebook_csharp_ads_sdk.Domain.Extensions.AdStatistics
         /// With only start time provided, stats are returned since that date, and when both start and end time 
         /// are provided, stats are returned for the date interval.
         /// </summary>
+        /// <param name="adObjectId"> Id of Ad, Ad Set, Ad Campaign or Ad Account</param>
         /// <param name="startTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
         /// <param name="endTimeUtc">(optional) start time of statistics in UTC in the ad account timezone</param>
-        /// <returns></returns>
-        public static IList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics> stats(this IAdStatisticsQueryable adObject, DateTime startTimeUtc, DateTime endTimeUtc)
+        /// <returns>list of base objects of type AdStatistics</returns>
+        public static async Task<BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>> stats(this IAdStatisticsQueryable adObject, long adObjectId, DateTime? startTimeUtc, DateTime? endTimeUtc)
         {
-            return new List<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics>();
+            var _repository = new AdStatisticsRepository(new FacebookSessionRepository());
+            return await _repository.Read(adObjectId, startTimeUtc, endTimeUtc);
         }
     }
 }

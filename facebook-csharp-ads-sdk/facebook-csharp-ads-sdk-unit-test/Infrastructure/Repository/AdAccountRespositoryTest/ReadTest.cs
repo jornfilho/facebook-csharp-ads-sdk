@@ -12,7 +12,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Infrastructure.Repository.AdAccountR
         [ExpectedException(typeof(ArgumentNullException))]
         public void CantCreateARepositoryInstanceWhenSendInvalidFacebookSessionOnConstructor()
         {
-            RepositoryAdAccount = new AdAccountRespository(null);
+            RepositoryAdAccount = new AdAccountRepository(null);
         }
     }
 }

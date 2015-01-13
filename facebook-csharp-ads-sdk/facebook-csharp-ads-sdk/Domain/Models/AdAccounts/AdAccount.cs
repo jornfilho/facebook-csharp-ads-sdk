@@ -12,13 +12,14 @@ using facebook_csharp_ads_sdk.Domain.Models.AdAccountsGroup;
 using facebook_csharp_ads_sdk.Domain.Models.ApiErrors;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 using Newtonsoft.Json.Linq;
+using facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdAccounts
 {
     /// <summary>
     /// https://developers.facebook.com/docs/reference/ads-api/adaccount#read
     /// </summary>
-    public class AdAccount : BaseCrudObject<AdAccount>
+    public class AdAccount : BaseCrudObject<AdAccount>, IAdStatisticsQueryable
     {
         #region Dependencies
 

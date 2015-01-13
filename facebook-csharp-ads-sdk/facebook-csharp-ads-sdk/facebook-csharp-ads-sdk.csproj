@@ -58,6 +58,7 @@
     <Compile Include="Domain\BusinessRules\App\BasicData.cs" />
     <Compile Include="Domain\BusinessRules\Users\UserAccessToken.cs" />
     <Compile Include="Domain\Contracts\AdStatistics\IAdStatisticsQueryable.cs" />
+    <Compile Include="Domain\Contracts\Repository\IAdStatisticsRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IBaseCrudRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\ICampaignRepository.cs" />
     <Compile Include="Domain\Contracts\Repository\IAccountGroupRepository.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Infrastructure\Repository\AdAccountGroupRespository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Repository\AdStatisticsRepository.cs" />
     <Compile Include="_Utils\Parser\FacebookParser.cs" />
     <Compile Include="Infrastructure\Repository\AdAccountRespository.cs" />
     <Compile Include="Infrastructure\Repository\CampaignRepository.cs" />

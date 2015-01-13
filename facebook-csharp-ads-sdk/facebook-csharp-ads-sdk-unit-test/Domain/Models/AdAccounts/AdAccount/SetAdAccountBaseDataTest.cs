@@ -7,7 +7,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
     [TestClass]
     public class SetAdAccountBaseDataTest : TestBase
     {
-        readonly IAccountRepository accountRepository = new AdAccountRespository(new FacebookSessionRepository());
+        readonly IAccountRepository accountRepository = new AdAccountRepository(new FacebookSessionRepository());
         private facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model;
 
         [TestInitialize]
@@ -480,7 +480,7 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdAccounts.AdAccount
 
         private static void RenewModel(out facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount model)
         {
-            model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(new AdAccountRespository(new FacebookSessionRepository()));
+            model = new facebook_csharp_ads_sdk.Domain.Models.AdAccounts.AdAccount(new AdAccountRepository(new FacebookSessionRepository()));
             Assert.IsFalse(model.IsValid);
         }
     }

@@ -93,6 +93,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         #endregion Ad campaign
 
+        #region Ad Statistics
+        /// <summary>
+        /// Uri to read as statistics data
+        /// </summary>
+        public string AdStatisticsEndpoint { get; private set; }
+        #endregion
+
         /// <summary>
         /// Base constructor
         /// </summary>
@@ -101,6 +108,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
             SetGlobalConfigurations();
             SetAdAccountConfigurations();
             SetAdAccountGroupConfigurations();
+            SetAdStatisticsConfigurations();
         }
 
         private void SetGlobalConfigurations()
@@ -120,6 +128,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
             AdAccountGroupFields = AdAccountGroupFieldsEnumExtensions.GetAllAdAccountGroupFieldsList();
             AdAccountGroupSingleEndpoint = GraphApiUrl + "{0}?access_token={1}&fields={2}";
             AdAccountGroupAllEndpoint = GraphApiUrl + "me/adaccountgroups?access_token={0}&fields={1}";
+        }
+
+        private void SetAdStatisticsConfigurations() {
+            AdStatisticsEndpoint = GraphApiUrl + "stats?access_token={0}&ids={1}&start_time={2}&end_time={3}";
         }
     }
 }

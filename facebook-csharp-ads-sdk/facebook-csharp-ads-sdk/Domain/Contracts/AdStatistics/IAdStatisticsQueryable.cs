@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using facebook_csharp_ads_sdk.Domain.Models;
+using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 
 namespace facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics
 {
@@ -12,6 +14,8 @@ namespace facebook_csharp_ads_sdk.Domain.Contracts.AdStatistics
     /// </summary>
     public interface IAdStatisticsQueryable
     {
-        IList<AdStatistics> stats(DateTime startDateUtc, DateTime endDateUtc);
+        //IAdStatisticsRepository _adStatisticsRepository {get;}
+
+        //BaseObjectsList<facebook_csharp_ads_sdk.Domain.Models.AdStatistics.AdStatistics> stats(DateTime startDateUtc, DateTime endDateUtc);
     }
 }
