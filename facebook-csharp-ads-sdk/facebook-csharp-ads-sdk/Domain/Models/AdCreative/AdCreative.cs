@@ -201,7 +201,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="id"> Id of the ad creative </param>
         /// <param name="accountId"> Account id of the ad creative </param>
         /// <param name="title"> Title of the ad creative </param>
-        /// <param name="body"> Body of the ad creative</param>
+        /// <param name="body"> Body of the ad creative </param>
         /// <param name="objectUrl"> Object url of the ad creative</param>
         /// <param name="name"> Name of the ad creative in the creative library </param>
         /// <param name="actorId">Actor id of the ad creative </param>
@@ -220,6 +220,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return this;
             if (String.IsNullOrEmpty(objectUrl))
                 return this;
+            Type = AdCreativeTypeEnum.LinkAd;
             Id = id;
             AccountId = accountId;
             Title = title;
@@ -234,6 +235,45 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             return this;
         }
 
+        /// <summary>
+        ///     Set Page Like Ad creative data
+        /// </summary>
+        /// <param name="id"> Id of the ad creative </param>
+        /// <param name="accountId"> Account id of the ad creative </param>
+        /// <param name="objectId"> Object Id of the ad creative </param>
+        /// <param name="body"> Body of the ad creative </param>
+        /// <param name="name"> Name of the ad creative in the creative library </param>
+        /// <param name="linkUrl"> Link Url of the ad creative </param>
+        /// <param name="imageCrops"> Image Crops of the ad creative </param>
+        /// <param name="title"> Title of the ad creative </param>
+        /// <returns> Ad Creative with the Pag Link ad Parameters </returns>
+        public AdCreative SetPageLikeAdData(long id, long accountId, string objectId, string body, string name, string linkUrl, string imageCrops, string title)
+        {
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            if (String.IsNullOrEmpty(objectId))
+                return this;
+            if (String.IsNullOrEmpty(body))
+                return this;
+            Type = AdCreativeTypeEnum.PageLikeAd;
+            Id = id;
+            AccountId = accountId;
+            ObjectId = objectId;
+            Body = body;
+            if (!String.IsNullOrEmpty(name)) 
+                Name = name;
+            if (!String.IsNullOrEmpty(linkUrl)) 
+                LinkUrl = linkUrl;
+            if (!String.IsNullOrEmpty(imageCrops)) 
+                ImageCrops = imageCrops;
+            if (!String.IsNullOrEmpty(title)) 
+                Title = title;
+            SetValid();
+            return this;
+        }
+        
         /// <summary>
         ///     Create a ad creative in Facebook
         /// </summary>
