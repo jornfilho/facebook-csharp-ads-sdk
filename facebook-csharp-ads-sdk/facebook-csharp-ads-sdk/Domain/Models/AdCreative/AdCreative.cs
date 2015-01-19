@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevUtils.ObjectExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
@@ -194,10 +195,43 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 
         #endregion Properties
 
+        /// <summary>
+        ///     Set Link Ad creative data
+        /// </summary>
+        /// <param name="id"> Id of the ad creative </param>
+        /// <param name="accountId"> Account id of the ad creative </param>
+        /// <param name="title"> Title of the ad creative </param>
+        /// <param name="body"> Body of the ad creative</param>
+        /// <param name="objectUrl"> Object url of the ad creative</param>
+        /// <param name="name"> Name of the ad creative in the creative library </param>
+        /// <param name="actorId">Actor id of the ad creative </param>
+        /// <param name="followRedirect">Follow Redirect of the ad creative</param>
+        /// <returns> Ad Creative with the Link Ad Parameters </returns>
         public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string name,
             string actorId, bool? followRedirect)
         {
-            
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            if (String.IsNullOrEmpty(title))
+                return this;
+            if (String.IsNullOrEmpty(body))
+                return this;
+            if (String.IsNullOrEmpty(objectUrl))
+                return this;
+            Id = id;
+            AccountId = accountId;
+            Title = title;
+            Body = body;
+            ObjectUrl = objectUrl;
+            if (!String.IsNullOrEmpty(name))
+                Name = name;
+            if (!String.IsNullOrEmpty(actorId))
+                ActorId = actorId;
+            if (followRedirect != null) FollowRedirect = (bool) followRedirect;
+            SetValid();
+            return this;
         }
 
         /// <summary>
@@ -317,10 +351,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         {
             throw new System.NotImplementedException();
         }
-        
+
+        #region Private methods
+
         protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new System.NotImplementedException();
         }
+
+        #endregion Private methods
     }
 }
