@@ -48,6 +48,13 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [FacebookFieldType(FacebookFieldType.String)]
         [IsFacebookCreateResponseAttribute(true)]
         public long Id { get; private set; }
+        
+        /// <summary>
+        ///     The account id of the creative
+        /// </summary>
+        [DefaultValue(null)]
+        [FacebookFieldType(FacebookFieldType.String)]
+        public long AccountId { get; private set; }
 
         /// <summary>
         /// The Facebook object ID that is the actor for a link ad
@@ -127,6 +134,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [FacebookName("name")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
+        [CanUpdateOnFacebook(true)]
         public string Name { get; private set; }
 
         /// <summary>
@@ -178,7 +186,19 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [FacebookFieldType(FacebookFieldType.String)]
         public string UrlTags { get; private set; }
 
+        /// <summary>
+        /// Type of the ad creative
+        /// </summary>
+        [DefaultValue(null)]
+        public AdCreativeTypeEnum Type { get; private set; }
+
         #endregion Properties
+
+        public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string name,
+            string actorId, bool? followRedirect)
+        {
+            
+        }
 
         /// <summary>
         ///     Create a ad creative in Facebook

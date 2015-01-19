@@ -121,6 +121,18 @@ namespace facebook_csharp_ads_sdk.Domain.Models.Configurations
 
         #endregion Ad set
 
+        #region Ad Creative
+
+        /// <summary>
+        ///     Endpoint of the create ad creative
+        /// </summary>
+        public string AdCreativeCreateEndPoint
+        {
+            get { return String.Format("{0}{1}", this.GraphApiUrl, "act_{0}/adcreatives?access_token={1}"); }
+        }
+
+        #endregion Ad Creative
+
         #region Targeting search
 
         /// <summary>
