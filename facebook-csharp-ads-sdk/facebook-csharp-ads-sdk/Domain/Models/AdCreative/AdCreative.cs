@@ -351,6 +351,33 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         /// <summary>
+        ///     Set Page photo ad creative data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="accountId"></param>
+        /// <param name="pageId"></param>
+        /// <param name="url"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public AdCreative SetPagePhotoAdData(long id, long accountId, long pageId, string url, string imageHash, string caption)
+        {
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            var objectStorySpec = new ObjectStorySpec();
+            objectStorySpec = objectStorySpec.SetPagePhotoAd(pageId, url, imageHash, caption);
+            if (objectStorySpec == null)
+                return this;
+            Type = AdCreativeTypeEnum.PagePhotoAd;
+            Id = id;
+            AccountId = accountId;
+            ObjectStorySpec = objectStorySpec;
+            return this;
+        }
+        
+        /// <summary>
         ///     Create a ad creative in Facebook
         /// </summary>
         /// <returns></returns>

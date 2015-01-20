@@ -204,6 +204,33 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             ImageCrops = imageCrops;
             return this;
         }
-        
+
+        /// <summary>
+        ///     Set Object story spec to Page Photo ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="url"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public ObjectStorySpec SetPagePhotoAd(long pageId, string url, string imageHash, string caption)
+        {
+            if(!pageId.IsValidPageId())
+                return null;
+            if (String.IsNullOrEmpty(url) && String.IsNullOrEmpty(imageHash))
+                return null;
+            if (String.IsNullOrEmpty(caption))
+                return null;
+
+            Type = ObjectStorySpecType.PhotoPageData;
+            PageId = pageId;
+            if (url != null)
+                Url = url;
+            else ImageHash = imageHash;
+            Caption = caption;
+            
+            return this;
+        }
+
     }
 }
