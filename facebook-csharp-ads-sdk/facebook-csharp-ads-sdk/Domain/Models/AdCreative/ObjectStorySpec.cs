@@ -272,6 +272,63 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             CallToAction = callToAction;
             return this;
         }
-        
+
+        /// <summary>
+        ///     Set object story spec to Page Offer ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="couponType"></param>
+        /// <param name="expirationTime"></param>
+        /// <param name="reminderTime"></param>
+        /// <param name="claimLimit"></param>
+        /// <param name="redemptionLink"></param>
+        /// <param name="redemptionCode"></param>
+        /// <param name="barcodeType"></param>
+        /// <param name="barcode"></param>
+        /// <returns></returns>
+        public ObjectStorySpec SetPageOfferAd(long pageId, string title, string message, string imageUrl, string couponType,
+            DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
+            string barcodeType, string barcode)
+        {
+            if (!pageId.IsValidPageId())
+                return null;
+            if (String.IsNullOrEmpty(title))
+                return null;
+            if (String.IsNullOrEmpty(message))
+                return null;
+            if (String.IsNullOrEmpty(imageUrl))
+                return null;
+            if (String.IsNullOrEmpty(couponType))
+                return null;
+            if (claimLimit < 0)
+                return null;
+            if (String.IsNullOrEmpty(redemptionLink))
+                return null;
+            if (String.IsNullOrEmpty(redemptionCode))
+                return null;
+            if (String.IsNullOrEmpty(barcodeType))
+                return null;
+            if (String.IsNullOrEmpty(barcode))
+                return null;
+
+            Type = ObjectStorySpecType.OfferPageData;
+            PageId = pageId;
+            Title = title;
+            Message = message;
+            ImageUrl = imageUrl;
+            CouponType = couponType;
+            ExpirationTime = expirationTime;
+            ReminderTime = reminderTime;
+            ClaimLimit = claimLimit;
+            RedemptionLink = redemptionLink;
+            RedemptionCode = redemptionCode;
+            BarcodeType = barcodeType;
+            Barcode = barcode;
+
+            return this;
+        }
     }
 }

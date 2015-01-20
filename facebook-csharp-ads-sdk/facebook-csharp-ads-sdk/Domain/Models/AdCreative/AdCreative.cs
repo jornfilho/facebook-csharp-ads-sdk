@@ -416,6 +416,47 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         /// <summary>
+        ///     Set Page Offer ad creative data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="accountId"></param>
+        /// <param name="pageId"></param>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="couponType"></param>
+        /// <param name="expirationTime"></param>
+        /// <param name="reminderTime"></param>
+        /// <param name="claimLimit"></param>
+        /// <param name="redemptionLink"></param>
+        /// <param name="redemptionCode"></param>
+        /// <param name="barcodeType"></param>
+        /// <param name="barcode"></param>
+        /// <returns></returns>
+        public AdCreative SetPageOfferAdData(long id, long accountId, long pageId, string title, string message, string imageUrl, string couponType,
+            DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
+            string barcodeType, string barcode)
+        {
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            var objectStorySpec = new ObjectStorySpec();
+            objectStorySpec = objectStorySpec.SetPageOfferAd(pageId, title, message, imageUrl, couponType,
+                expirationTime, reminderTime, claimLimit, redemptionLink, redemptionCode, barcodeType, barcode);
+            if (objectStorySpec == null)
+                return this;
+
+            Type = AdCreativeTypeEnum.PageOfferAd;
+            Id = id;
+            AccountId = accountId;
+            ObjectStorySpec = objectStorySpec;
+
+            SetValid();
+            return this;
+        }
+
+        /// <summary>
         ///     Create a ad creative in Facebook
         /// </summary>
         /// <returns></returns>
