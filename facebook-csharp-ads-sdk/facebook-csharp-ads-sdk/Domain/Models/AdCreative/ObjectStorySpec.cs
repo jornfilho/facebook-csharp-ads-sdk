@@ -330,5 +330,25 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
 
             return this;
         }
+
+        /// <summary>
+        ///     Set object story spec to Page Text ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public ObjectStorySpec SetPageTextAd(long pageId, string message)
+        {
+            if (!pageId.IsValidPageId())
+                return null;
+            if (String.IsNullOrEmpty(message))
+                return null;
+
+            Type = ObjectStorySpecType.TextPageData;
+            PageId = pageId;
+            Message = message;
+
+            return this;
+        }
     }
 }

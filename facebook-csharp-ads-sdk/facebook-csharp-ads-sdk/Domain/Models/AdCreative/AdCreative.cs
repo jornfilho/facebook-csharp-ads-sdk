@@ -321,23 +321,25 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="pageId"></param>
         /// <param name="link"></param>
         /// <param name="message"></param>
-        /// <param name="name"></param>
+        /// <param name="postName"></param>
         /// <param name="caption"></param>
         /// <param name="description"></param>
         /// <param name="picture"></param>
         /// <param name="imageHash"></param>
         /// <param name="callToAction"></param>
         /// <param name="imageCrops"></param>
+        /// <param name="urlTags"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public AdCreative SetPageLinkAdData(long id, long accountId, long pageId, string link, string message, string name, string caption,
-            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops)
+        public AdCreative SetPageLinkAdData(long id, long accountId, long pageId, string link, string message, string postName, string caption,
+            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
             if (!accountId.IsValidAdAccountId())
                 return this;
             var objectStorySpec = new ObjectStorySpec();
-            objectStorySpec = objectStorySpec.SetPageLinkAd(pageId, link, message, name, caption, description, picture,
+            objectStorySpec = objectStorySpec.SetPageLinkAd(pageId, link, message, postName, caption, description, picture,
                 imageHash, callToAction, imageCrops);
             if (objectStorySpec == null)
                 return this;
@@ -345,6 +347,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
+            if (urlTags != null)
+                UrlTags = urlTags;
+            if (name != null)
+                Name = name;
+
             SetValid();
             return this;
 
@@ -359,8 +366,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="url"></param>
         /// <param name="imageHash"></param>
         /// <param name="caption"></param>
+        /// <param name="urlTags"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
-        public AdCreative SetPagePhotoAdData(long id, long accountId, long pageId, string url, string imageHash, string caption)
+        public AdCreative SetPagePhotoAdData(long id, long accountId, long pageId, string url, string imageHash, string caption, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
@@ -375,6 +384,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
+            if (urlTags != null)
+                UrlTags = urlTags;
+            if (name != null)
+                Name = name;
 
             SetValid();
             return this;
@@ -392,9 +405,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="imageUrl"></param>
         /// <param name="imageHash"></param>
         /// <param name="callToAction"></param>
+        /// <param name="urlTags"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
         public AdCreative SetPageVideoAdData(long id, long accountId, long pageId, long videoId, string title, string description, string imageUrl,
-            string imageHash, CallToActionTypeEnum callToAction)
+            string imageHash, CallToActionTypeEnum callToAction, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
@@ -410,6 +425,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
+            if (urlTags != null)
+                UrlTags = urlTags;
+            if (name != null)
+                Name = name;
 
             SetValid();
             return this;
@@ -432,10 +451,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="redemptionCode"></param>
         /// <param name="barcodeType"></param>
         /// <param name="barcode"></param>
+        /// <param name="urlTags"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
         public AdCreative SetPageOfferAdData(long id, long accountId, long pageId, string title, string message, string imageUrl, string couponType,
             DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
-            string barcodeType, string barcode)
+            string barcodeType, string barcode, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
@@ -451,6 +472,44 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
+            if (urlTags != null)
+                UrlTags = urlTags;
+            if (name != null)
+                Name = name;
+
+            SetValid();
+            return this;
+        }
+
+        /// <summary>
+        ///     Set Page Text ad creative data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="accountId"></param>
+        /// <param name="pageId"></param>
+        /// <param name="message"></param>
+        /// <param name="urlTags"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public AdCreative SetPageTextAdData(long id, long accountId, long pageId, string message, string urlTags, string name)
+        {
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            var objectStorySpec = new ObjectStorySpec();
+            objectStorySpec = objectStorySpec.SetPageTextAd(pageId, message);
+            if (objectStorySpec == null)
+                return this;
+
+            Type = AdCreativeTypeEnum.PageTextAd;
+            Id = id;
+            AccountId = accountId;
+            ObjectStorySpec = objectStorySpec;
+            if (urlTags != null)
+                UrlTags = urlTags;
+            if (name != null)
+                Name = name;
 
             SetValid();
             return this;
