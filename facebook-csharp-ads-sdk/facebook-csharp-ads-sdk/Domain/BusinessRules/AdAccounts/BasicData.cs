@@ -77,6 +77,16 @@
             return pageId > 0;
         }
 
+        /// <summary>
+        ///     Test if video id has a valid value
+        /// </summary>
+        /// <param name="videoId"></param>
+        /// <returns></returns>
+        public static bool IsValidVideoId(this long videoId)
+        {
+            return videoId > 0;
+        }
+
         #endregion Ad creative
     }
 }

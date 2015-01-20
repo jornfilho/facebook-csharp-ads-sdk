@@ -370,13 +370,51 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             objectStorySpec = objectStorySpec.SetPagePhotoAd(pageId, url, imageHash, caption);
             if (objectStorySpec == null)
                 return this;
+
             Type = AdCreativeTypeEnum.PagePhotoAd;
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
+
+            SetValid();
             return this;
         }
-        
+
+        /// <summary>
+        ///     Set Page Video ad creative data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="accountId"></param>
+        /// <param name="pageId"></param>
+        /// <param name="videoId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="callToAction"></param>
+        /// <returns></returns>
+        public AdCreative SetPageVideoAdData(long id, long accountId, long pageId, long videoId, string title, string description, string imageUrl,
+            string imageHash, CallToActionTypeEnum callToAction)
+        {
+            if (!id.IsValidAdCreativeId())
+                return this;
+            if (!accountId.IsValidAdAccountId())
+                return this;
+            var objectStorySpec = new ObjectStorySpec();
+            objectStorySpec = objectStorySpec.SetPageVideoAd(pageId, videoId, title, description, imageUrl, imageHash,
+                callToAction);
+            if (objectStorySpec == null)
+                return this;
+
+            Type = AdCreativeTypeEnum.PageVideoAd;
+            Id = id;
+            AccountId = accountId;
+            ObjectStorySpec = objectStorySpec;
+
+            SetValid();
+            return this;
+        }
+
         /// <summary>
         ///     Create a ad creative in Facebook
         /// </summary>

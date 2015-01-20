@@ -12,6 +12,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
     public class ObjectStorySpec
     {
 
+        #region Properties
+
         /// <summary>
         /// Id of a Facebook Page
         /// </summary>
@@ -155,6 +157,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// </summary>
         public ObjectStorySpecType Type { get; private set; }
 
+        #endregion Properties
+
         /// <summary>
         ///     Set Object story spec to Page link ad
         /// </summary>
@@ -232,5 +236,42 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             return this;
         }
 
+        /// <summary>
+        ///     Set object story spec to Page Video ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="videoId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="imageUrl"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="callToAction"></param>
+        /// <returns></returns>
+        public ObjectStorySpec SetPageVideoAd(long pageId, long videoId, string title, string description, string imageUrl,
+            string imageHash, CallToActionTypeEnum callToAction)
+        {
+            if (!pageId.IsValidPageId())
+                return null;
+            if (!videoId.IsValidVideoId())
+                return null;
+            if (String.IsNullOrEmpty(title))
+                return null;
+            if (String.IsNullOrEmpty(description))
+                return null;
+            if (String.IsNullOrEmpty(imageUrl))
+                return null;
+            if (String.IsNullOrEmpty(imageHash))
+                return null;
+
+            PageId = pageId;
+            VideoId = videoId;
+            Title = title;
+            Description = description;
+            ImageUrl = imageUrl;
+            ImageHash = imageHash;
+            CallToAction = callToAction;
+            return this;
+        }
+        
     }
 }
