@@ -74,6 +74,7 @@
     <Compile Include="Domain\Enums\AdCampaigns\AdCampaignStatusEnum.cs" />
     <Compile Include="Domain\Enums\AdCreative\AdCreativeReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdCreative\AdCreativeTypeEnum.cs" />
+    <Compile Include="Domain\Enums\AdCreative\ObjectStorySpecType.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetBidTypeEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetReadFieldsEnum.cs" />
     <Compile Include="Domain\Enums\AdSet\AdSetStatusEnum.cs" />

@@ -145,18 +145,65 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         public string Barcode { get; private set; }
 
         /// <summary>
-        /// A three element Array of link objects required for multi product ads
+        ///     A three element Array of link objects required for multi product ads
         /// </summary>
         [FacebookName("child_attachments")]
-        public IList<ChildAttachments> ChilAttachments { get; private set; }
+        public IList<ChildAttachments> ChildAttachments { get; private set; }
 
+        /// <summary>
+        ///     Type of object story spec
+        /// </summary>
+        public ObjectStorySpecType Type { get; private set; }
+
+        /// <summary>
+        ///     Set Object story spec to Page link ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="link"></param>
+        /// <param name="message"></param>
+        /// <param name="name"></param>
+        /// <param name="caption"></param>
+        /// <param name="description"></param>
+        /// <param name="picture"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="callToAction"></param>
+        /// <param name="imageCrops"></param>
+        /// <returns></returns>
         public ObjectStorySpec SetPageLinkAd(long pageId, string link, string message, string name, string caption,
-            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops,
-            ChildAttachments childAttachments)
+            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops)
         {
             if (!pageId.IsValidPageId())
+                return null;
+            if (String.IsNullOrEmpty(link))
+                return null;
+            if (String.IsNullOrEmpty(message))
+                return null;
+            if (String.IsNullOrEmpty(name))
+                return null;
+            if (String.IsNullOrEmpty(caption))
+                return null;
+            if (String.IsNullOrEmpty(description))
+                return null;
+            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
+                return null;
+            if (String.IsNullOrEmpty(imageCrops))
+                return null;
+
+            Type = ObjectStorySpecType.LinkPageData;
+            PageId = pageId;
+            Link = link;
+            Message = message;
+            Name = name;
+            Caption = caption;
+            Description = description;
+            if (picture != null)
+                Picture = picture;
+            else 
+                ImageHash = imageHash;
+            CallToAction = callToAction;
+            ImageCrops = imageCrops;
             return this;
         }
-
+        
     }
 }
