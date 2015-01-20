@@ -160,7 +160,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [FacebookName("object_story_spec")]
         [DefaultValue(null)]
         [FacebookFieldType(FacebookFieldType.String)]
-        public string ObjectStorySpec { get; private set; }
+        public ObjectStorySpec ObjectStorySpec { get; private set; }
 
         /// <summary>
         /// Destination URL for a link ad

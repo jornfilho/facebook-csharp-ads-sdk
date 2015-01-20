@@ -67,6 +67,16 @@
             return adCreativeId > 0;
         }
 
+        /// <summary>
+        ///     Test if page id has a valid value
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
+        public static bool IsValidPageId(this long pageId)
+        {
+            return pageId > 0;
+        }
+
         #endregion Ad creative
     }
 }

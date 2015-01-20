@@ -125,14 +125,10 @@
     <Compile Include="Domain\Extensions\Enums\Global\BidInfoObjectiveTypeEnumExtension.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignCreateData.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignUpdateData.cs" />
+    <Compile Include="Domain\Models\AdCreative\ChildAttachments.cs" />
+    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetCreateData.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetUpdateData.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\ChildAttachments.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\LinkData.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\OfferData.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\PhotoData.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\TextData.cs" />
-    <Compile Include="Domain\Models\AdCreative\ObjectStorySpec\VideoData.cs" />
     <Compile Include="Domain\Models\Targetings\TargetingDemographics.cs" />
     <Compile Include="Domain\Exceptions\AdAccounts\InvalidAdAccountId.cs" />
     <Compile Include="Domain\Exceptions\Users\InvalidUserAccessToken.cs" />
