@@ -352,6 +352,21 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             return this;
         }
 
+        /// <summary>
+        ///     Set object story spec to a Page Multi Product ad
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <param name="link"></param>
+        /// <param name="message"></param>
+        /// <param name="name"></param>
+        /// <param name="caption"></param>
+        /// <param name="description"></param>
+        /// <param name="picture"></param>
+        /// <param name="imageHash"></param>
+        /// <param name="callToAction"></param>
+        /// <param name="imageCrops"></param>
+        /// <param name="childAttachments"></param>
+        /// <returns></returns>
         public ObjectStorySpec SetPageMultiProductAd(long pageId, string link, string message, string name, string caption,
             string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, IList<ChildAttachments> childAttachments)
         {
@@ -390,5 +405,9 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             ChildAttachments = childAttachments;
             return this;
         }
+
+        #region Private methods
+
+        #endregion Private methods
     }
 }

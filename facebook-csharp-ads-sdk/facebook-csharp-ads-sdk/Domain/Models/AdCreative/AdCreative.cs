@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Remoting.Messaging;
 using DevUtils.ObjectExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
@@ -314,7 +315,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         /// <summary>
-        ///     Set page link ad creative data
+        ///     Set a Page Post Ad Criative to inline creation
         /// </summary>
         /// <param name="id"></param>
         /// <param name="accountId"></param>
@@ -322,47 +323,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="urlTags"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public AdCreative SetPageLinkAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
+        public AdCreative SetPagePostAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
             if (!accountId.IsValidAdAccountId())
                 return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.LinkPageData)
-                return this;
-            Type = AdCreativeTypeEnum.PageLinkAd;
-            Id = id;
-            AccountId = accountId;
-            ObjectStorySpec = objectStorySpec;
-            if (urlTags != null)
-                UrlTags = urlTags;
-            if (name != null)
-                Name = name;
-
-            SetValid();
-            return this;
-
-        }
-
-        /// <summary>
-        ///     Set Page photo ad creative data
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public AdCreative SetPagePhotoAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
-        {
-            if (!id.IsValidAdCreativeId())
-                return this;
-            if (!accountId.IsValidAdAccountId())
-                return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.PhotoPageData)
+            if (objectStorySpec == null)
                 return this;
 
-            Type = AdCreativeTypeEnum.PagePhotoAd;
+            Type = SetAdCreativeTypeByObjectStorySpec(objectStorySpec);
             Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
@@ -376,27 +346,26 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         /// <summary>
-        ///     Set Page Video ad creative data
+        ///     Set a Page Post Ad Criative using an existing page post
         /// </summary>
         /// <param name="id"></param>
         /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
+        /// <param name="objectStoryId"></param>
         /// <param name="urlTags"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public AdCreative SetPageVideoAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
+        public AdCreative SetPagePostAdData(long id, long accountId, string objectStoryId, string urlTags, string name)
         {
             if (!id.IsValidAdCreativeId())
                 return this;
             if (!accountId.IsValidAdAccountId())
                 return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.VideoPageData)
+            if (String.IsNullOrEmpty(objectStoryId))
                 return this;
 
-            Type = AdCreativeTypeEnum.PageVideoAd;
             Id = id;
             AccountId = accountId;
-            ObjectStorySpec = objectStorySpec;
+            ObjectStoryId = objectStoryId;
             if (urlTags != null)
                 UrlTags = urlTags;
             if (name != null)
@@ -406,100 +375,6 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             return this;
         }
 
-        /// <summary>
-        ///     Set Page Offer ad creative data
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public AdCreative SetPageOfferAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
-        {
-            if (!id.IsValidAdCreativeId())
-                return this;
-            if (!accountId.IsValidAdAccountId())
-                return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.OfferPageData)
-                return this;
-
-            Type = AdCreativeTypeEnum.PageOfferAd;
-            Id = id;
-            AccountId = accountId;
-            ObjectStorySpec = objectStorySpec;
-            if (urlTags != null)
-                UrlTags = urlTags;
-            if (name != null)
-                Name = name;
-
-            SetValid();
-            return this;
-        }
-
-        /// <summary>
-        ///     Set Page Text ad creative data
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public AdCreative SetPageTextAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
-        {
-            if (!id.IsValidAdCreativeId())
-                return this;
-            if (!accountId.IsValidAdAccountId())
-                return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.TextPageData)
-                return this;
-
-            Type = AdCreativeTypeEnum.PageTextAd;
-            Id = id;
-            AccountId = accountId;
-            ObjectStorySpec = objectStorySpec;
-            if (urlTags != null)
-                UrlTags = urlTags;
-            if (name != null)
-                Name = name;
-
-            SetValid();
-            return this;
-        }
-
-        /// <summary>
-        ///     Set Page Multi products ad creative data
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public AdCreative SetPageMultiProductAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
-        {
-
-            if (!id.IsValidAdCreativeId())
-                return this;
-            if (!accountId.IsValidAdAccountId())
-                return this;
-            if (objectStorySpec == null || objectStorySpec.Type != ObjectStorySpecType.MultiProductData)
-                return this;
-
-            Type = AdCreativeTypeEnum.PageMultiProductAd;
-            Id = id;
-            AccountId = accountId;
-            ObjectStorySpec = objectStorySpec;
-            if (urlTags != null)
-                UrlTags = urlTags;
-            if (name != null)
-                Name = name;
-
-            SetValid();
-            return this;
-            
-        }
         /// <summary>
         ///     Create a ad creative in Facebook
         /// </summary>
@@ -623,6 +498,26 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         protected override string ParsePropertyValueToFacebookValue(FacebookFieldType fieldType, object currentValue)
         {
             throw new System.NotImplementedException();
+        }
+
+        private AdCreativeTypeEnum SetAdCreativeTypeByObjectStorySpec(ObjectStorySpec objectStorySpec)
+        {
+
+            switch (objectStorySpec.Type)
+            {
+                case ObjectStorySpecType.PhotoPageData:
+                    return AdCreativeTypeEnum.PagePhotoAd;
+                case ObjectStorySpecType.LinkPageData:
+                    return AdCreativeTypeEnum.PageLinkAd;
+                case ObjectStorySpecType.VideoPageData:
+                    return AdCreativeTypeEnum.PageVideoAd;
+                case ObjectStorySpecType.OfferPageData:
+                    return AdCreativeTypeEnum.PageOfferAd;
+                case ObjectStorySpecType.MultiProductData:
+                    return AdCreativeTypeEnum.PageMultiProductAd;
+                default:
+                    return AdCreativeTypeEnum.PageTextAd;
+            }
         }
 
         #endregion Private methods
