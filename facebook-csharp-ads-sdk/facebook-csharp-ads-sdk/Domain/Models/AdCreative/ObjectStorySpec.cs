@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
@@ -348,6 +349,45 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             PageId = pageId;
             Message = message;
 
+            return this;
+        }
+
+        public ObjectStorySpec SetPageMultiProductAd(long pageId, string link, string message, string name, string caption,
+            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, IList<ChildAttachments> childAttachments)
+        {
+            if (!pageId.IsValidPageId())
+                return null;
+            if (String.IsNullOrEmpty(link))
+                return null;
+            if (String.IsNullOrEmpty(message))
+                return null;
+            if (String.IsNullOrEmpty(name))
+                return null;
+            if (String.IsNullOrEmpty(caption))
+                return null;
+            if (String.IsNullOrEmpty(description))
+                return null;
+            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
+                return null;
+            if (String.IsNullOrEmpty(imageCrops))
+                return null;
+            if (!childAttachments.Any() || childAttachments != null)
+                return null;
+            
+            Type = ObjectStorySpecType.MultiProductData;
+            PageId = pageId;
+            Link = link;
+            Message = message;
+            Name = name;
+            Caption = caption;
+            Description = description;
+            if (picture != null)
+                Picture = picture;
+            else
+                ImageHash = imageHash;
+            CallToAction = callToAction;
+            ImageCrops = imageCrops;
+            ChildAttachments = childAttachments;
             return this;
         }
     }
