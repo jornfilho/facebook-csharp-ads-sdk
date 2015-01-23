@@ -10,7 +10,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
     /// <summary>
     /// The page id and the content to create a new unpublished page post
     /// </summary>
-    public class ObjectStorySpec
+    public class ObjectStorySpec : BaseObject
     {
 
         #region Properties
@@ -207,6 +207,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 ImageHash = imageHash;
             CallToAction = callToAction;
             ImageCrops = imageCrops;
+            SetValid();
             return this;
         }
 
@@ -233,7 +234,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 Url = url;
             else ImageHash = imageHash;
             Caption = caption;
-            
+            SetValid();
             return this;
         }
 
@@ -271,6 +272,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             ImageUrl = imageUrl;
             ImageHash = imageHash;
             CallToAction = callToAction;
+            SetValid();
             return this;
         }
 
@@ -328,7 +330,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             RedemptionCode = redemptionCode;
             BarcodeType = barcodeType;
             Barcode = barcode;
-
+            SetValid();
             return this;
         }
 
@@ -348,7 +350,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Type = ObjectStorySpecType.TextPageData;
             PageId = pageId;
             Message = message;
-
+            SetValid();
             return this;
         }
 
@@ -386,7 +388,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return null;
             if (String.IsNullOrEmpty(imageCrops))
                 return null;
-            if (!childAttachments.Any() || childAttachments != null)
+            if (!IsValidChildAttachmentsList(childAttachments))
                 return null;
             
             Type = ObjectStorySpecType.MultiProductData;
@@ -403,10 +405,22 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             CallToAction = callToAction;
             ImageCrops = imageCrops;
             ChildAttachments = childAttachments;
+            SetValid();
             return this;
         }
 
         #region Private methods
+
+        private bool IsValidChildAttachmentsList(IList<ChildAttachments> childAttachments)
+        {
+            if (childAttachments == null || !childAttachments.Any())
+                return false;
+
+            if (childAttachments.ToArray().Length < 3 || childAttachments.ToArray().Length > 5)
+                return false;
+
+            return true;
+        }
 
         #endregion Private methods
     }

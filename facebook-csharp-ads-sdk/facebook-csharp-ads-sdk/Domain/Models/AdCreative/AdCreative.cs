@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.Remoting.Messaging;
-using DevUtils.ObjectExtensions;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
@@ -23,7 +21,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Interface of creative repository
         /// </summary>
-        private readonly ICreativeRepository creativeRepository;
+        private readonly ICreativeRepository _creativeRepository;
 
         #endregion Dependencies
 
@@ -35,7 +33,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="creativeRepository">Interface of the creative repository</param>
         public AdCreative(ICreativeRepository creativeRepository)
         {
-            this.creativeRepository = creativeRepository;
+            _creativeRepository = creativeRepository;
         }
 
         #endregion Constructor
@@ -203,12 +201,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="accountId"> Account id of the ad creative </param>
         /// <param name="title"> Title of the ad creative </param>
         /// <param name="body"> Body of the ad creative </param>
-        /// <param name="objectUrl"> Object url of the ad creative</param>
+        /// <param name="objectUrl"> Object url of the ad creative </param>
+        /// <param name="imageFile"> Reference to a local image file to upload for use in creatives </param>
+        /// <param name="imageHash"> Image id for an image you can use in creatives </param>
         /// <param name="name"> Name of the ad creative in the creative library </param>
         /// <param name="actorId">Actor id of the ad creative </param>
         /// <param name="followRedirect">Follow Redirect of the ad creative</param>
         /// <returns> Ad Creative with the Link Ad Parameters </returns>
-        public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string name,
+        public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string imageFile, string imageHash, string name,
             string actorId, bool? followRedirect)
         {
             if (!id.IsValidAdCreativeId())
@@ -221,12 +221,19 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return this;
             if (String.IsNullOrEmpty(objectUrl))
                 return this;
+            if (String.IsNullOrEmpty(imageFile) || String.IsNullOrEmpty(ImageHash))
+                return this;
+
             Type = AdCreativeTypeEnum.LinkAd;
             Id = id;
             AccountId = accountId;
             Title = title;
             Body = body;
             ObjectUrl = objectUrl;
+            if (!String.IsNullOrEmpty(imageFile))
+                ImageFile = imageFile;
+            else
+                ImageHash = imageHash;
             if (!String.IsNullOrEmpty(name))
                 Name = name;
             if (!String.IsNullOrEmpty(actorId))
@@ -389,7 +396,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                     return this;
                 }
 
-                return this.creativeRepository.Create(this).Result;
+                return this._creativeRepository.Create(this).Result;
             }
             catch (Exception)
             {
@@ -406,7 +413,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         {
             try
             {
-                bool success = this.Id.IsValidAdCreativeId() && this.creativeRepository.Delete(Id).Result;
+                bool success = this.Id.IsValidAdCreativeId() && this._creativeRepository.Delete(Id).Result;
                 SetInvalidUpdateModel();
                 return success;
             }
@@ -450,7 +457,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             try
             {
                 return id.IsValidAdCreativeId()
-                    ? creativeRepository.Read(id).Result
+                    ? _creativeRepository.Read(id).Result
                     : this;
             }
             catch (Exception)
@@ -469,7 +476,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             try
             {
                 return id.IsValidAdCreativeId()
-                    ? creativeRepository.Read(id, fields).Result
+                    ? _creativeRepository.Read(id, fields).Result
                     : this;
             }
             catch (Exception)

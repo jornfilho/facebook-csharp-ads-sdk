@@ -6,7 +6,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
     /// <summary>
     ///     A three elements array of link objects required for multi products ads
     /// </summary>
-    public class ChildAttachments
+    public class ChildAttachments : BaseObject
     {
         /// <summary>
         /// The URL of a link to attach to the post
@@ -65,7 +65,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 ImageHash = imageHash;
             Name = name;
             Description = description;
-            
+            SetValid();
             return this;
         }
     }
