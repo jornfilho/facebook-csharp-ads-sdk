@@ -53,6 +53,11 @@
         /// <summary>
         ///     Multi Product Ad connected to a page
         /// </summary>
-        PageMultiProductAd
+        PageMultiProductAd,
+
+        /// <summary>
+        ///     Undefined type
+        /// </summary>
+        Undefined
     }
 }

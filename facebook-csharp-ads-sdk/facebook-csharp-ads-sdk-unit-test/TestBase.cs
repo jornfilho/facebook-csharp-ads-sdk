@@ -91,6 +91,12 @@ namespace facebook_csharp_ads_sdk_unit_test
         public AdAccountGroup ValidAdAccountGroup;
         #endregion
 
+        #region AdCreative
+
+        public long ValidAdCreativeId;
+
+        #endregion AdCreative
+
         #region BusinessInformations
         public BusinessInformations ValidBusinessInformations;
         #endregion
@@ -199,6 +205,7 @@ namespace facebook_csharp_ads_sdk_unit_test
             WebRequests();
             FacebookSessionData();
             AdAccountAndRelateds();
+            AdCreative();
             Repositories();
         }
 
@@ -280,6 +287,11 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdAccountSingleResultResponse1 = null;
             InvalidAdAccountSingleResultResponse2 = "";
             InvalidAdAccountSingleResultResponse3 = "{\"error\": {\"message\": \"Unsupported get request. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\",\"type\": \"GraphMethodException\",\"code\": 100}}";
+        }
+
+        private void AdCreative()
+        {
+            ValidAdCreativeId = 1;
         }
 
         private void AdAccountGroup()

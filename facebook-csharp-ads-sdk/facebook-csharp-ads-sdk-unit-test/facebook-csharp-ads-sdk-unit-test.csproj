@@ -112,6 +112,7 @@
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignDeleteTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignReadParseTest.cs" />
     <Compile Include="Domain\Models\AdCampaigns\AdCampaignUpdateTest.cs" />
+    <Compile Include="Domain\Models\AdCreatives\AdCreative\SetLinkAdDataTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetDeleteTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetSetCreateDataTest.cs" />
@@ -147,7 +148,10 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Domain\Models\AdCreatives\ChildAttachments\" />
+    <Folder Include="Domain\Models\AdCreatives\ObjectStorySpec\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

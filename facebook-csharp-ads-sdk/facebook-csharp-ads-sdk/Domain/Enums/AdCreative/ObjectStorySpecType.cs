@@ -33,6 +33,12 @@
         /// <summary>
         ///     Content for creating a status page post
         /// </summary>
-        MultiProductData
+        MultiProductData,
+
+        /// <summary>
+        ///     Undefined type
+        /// </summary>
+        Undefined
+        
     }
 }

@@ -4,6 +4,9 @@ namespace facebook_csharp_ads_sdk.Domain.Enums.AdCreative
 {
     public enum CallToActionTypeEnum
     {
+        
+        Undefined = 0,
+
         [FacebookName("OPEN_LINK")]
         OpenLink = 1,
 
