@@ -1,4 +1,5 @@
 ﻿using System;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdCreatives;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
@@ -49,14 +50,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <returns></returns>
         public ChildAttachments SetData(string link, string picture, string imageHash, string name, string description)
         {
-            if (String.IsNullOrEmpty(link))
-                return null;
-            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
-                return null;
-            if (String.IsNullOrEmpty(name))
-                return null;
-            if (String.IsNullOrEmpty(description))
-                return null;
+
+            ValidateDataToSetChildAttachment(link, picture, imageHash, name, description);
 
             Link = link;
             if (!String.IsNullOrEmpty(picture))
@@ -67,6 +62,30 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             Description = description;
             SetValid();
             return this;
+        }
+
+        private void ValidateDataToSetChildAttachment(string link, string picture, string imageHash, string name, string description)
+        {
+            if (String.IsNullOrEmpty(link))
+            {
+                throw new InvalidAdCreativeLinkException();
+            }
+
+            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdCreativeNameException();
+            }
+
+            if (String.IsNullOrEmpty(description))
+            {
+                throw new InvalidAdCreativeDescriptionException();
+            }
+            
         }
     }
 }

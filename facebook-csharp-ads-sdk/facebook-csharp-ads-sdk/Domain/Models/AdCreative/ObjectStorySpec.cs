@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
+using facebook_csharp_ads_sdk.Domain.Exceptions.AdCreatives;
 using facebook_csharp_ads_sdk.Domain.Models.Attributes;
 
 namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
@@ -177,23 +178,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         public ObjectStorySpec SetPageLinkAd(long pageId, string link, string message, string name, string caption,
             string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops)
         {
-            if (!pageId.IsValidPageId())
-                return null;
-            if (String.IsNullOrEmpty(link))
-                return null;
-            if (String.IsNullOrEmpty(message))
-                return null;
-            if (String.IsNullOrEmpty(name))
-                return null;
-            if (String.IsNullOrEmpty(caption))
-                return null;
-            if (String.IsNullOrEmpty(description))
-                return null;
-            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
-                return null;
-            if (String.IsNullOrEmpty(imageCrops))
-                return null;
-
+            ValidateDataToSetPageLinkObject(pageId, link, message, name, caption, description, picture, imageHash, callToAction, imageCrops);
+            
             Type = ObjectStorySpecType.LinkPageData;
             PageId = pageId;
             Link = link;
@@ -221,12 +207,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <returns></returns>
         public ObjectStorySpec SetPagePhotoAd(long pageId, string url, string imageHash, string caption)
         {
-            if(!pageId.IsValidPageId())
-                return null;
-            if (String.IsNullOrEmpty(url) && String.IsNullOrEmpty(imageHash))
-                return null;
-            if (String.IsNullOrEmpty(caption))
-                return null;
+
+            ValidateDataToSetPagePhotoObject(pageId, url, imageHash, caption);
 
             Type = ObjectStorySpecType.PhotoPageData;
             PageId = pageId;
@@ -252,18 +234,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         public ObjectStorySpec SetPageVideoAd(long pageId, long videoId, string title, string description, string imageUrl,
             string imageHash, CallToActionTypeEnum callToAction)
         {
-            if (!pageId.IsValidPageId())
-                return null;
-            if (!videoId.IsValidVideoId())
-                return null;
-            if (String.IsNullOrEmpty(title))
-                return null;
-            if (String.IsNullOrEmpty(description))
-                return null;
-            if (String.IsNullOrEmpty(imageUrl))
-                return null;
-            if (String.IsNullOrEmpty(imageHash))
-                return null;
+
+            ValidateDataToSetPageVideoObject(pageId, videoId, title, description, imageUrl, imageHash, callToAction);
 
             PageId = pageId;
             VideoId = videoId;
@@ -296,27 +268,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
             string barcodeType, string barcode)
         {
-            if (!pageId.IsValidPageId())
-                return null;
-            if (String.IsNullOrEmpty(title))
-                return null;
-            if (String.IsNullOrEmpty(message))
-                return null;
-            if (String.IsNullOrEmpty(imageUrl))
-                return null;
-            if (String.IsNullOrEmpty(couponType))
-                return null;
-            if (claimLimit < 0)
-                return null;
-            if (String.IsNullOrEmpty(redemptionLink))
-                return null;
-            if (String.IsNullOrEmpty(redemptionCode))
-                return null;
-            if (String.IsNullOrEmpty(barcodeType))
-                return null;
-            if (String.IsNullOrEmpty(barcode))
-                return null;
-
+            ValidateDataToSetPageOfferObject(pageId, title, message, imageUrl, couponType, expirationTime, reminderTime, claimLimit, redemptionLink, redemptionCode, barcodeType, barcode);
+            
             Type = ObjectStorySpecType.OfferPageData;
             PageId = pageId;
             Title = title;
@@ -342,10 +295,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <returns></returns>
         public ObjectStorySpec SetPageTextAd(long pageId, string message)
         {
-            if (!pageId.IsValidPageId())
-                return null;
-            if (String.IsNullOrEmpty(message))
-                return null;
+            ValidateDataToSetPageTextObject(pageId, message);
 
             Type = ObjectStorySpecType.TextPageData;
             PageId = pageId;
@@ -372,24 +322,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         public ObjectStorySpec SetPageMultiProductAd(long pageId, string link, string message, string name, string caption,
             string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, IList<ChildAttachments> childAttachments)
         {
-            if (!pageId.IsValidPageId())
-                return null;
-            if (String.IsNullOrEmpty(link))
-                return null;
-            if (String.IsNullOrEmpty(message))
-                return null;
-            if (String.IsNullOrEmpty(name))
-                return null;
-            if (String.IsNullOrEmpty(caption))
-                return null;
-            if (String.IsNullOrEmpty(description))
-                return null;
-            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
-                return null;
-            if (String.IsNullOrEmpty(imageCrops))
-                return null;
-            if (!IsValidChildAttachmentsList(childAttachments))
-                return null;
+            ValidateDataToSetPageMultiProductObject(pageId, link, message, name, caption, description, picture, imageHash, callToAction, imageCrops, childAttachments);
             
             Type = ObjectStorySpecType.MultiProductData;
             PageId = pageId;
@@ -420,6 +353,246 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return false;
 
             return true;
+        }
+
+        private void ValidateDataToSetPageLinkObject(long pageId, string link, string message, string name, string caption,
+            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops)
+        {
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (String.IsNullOrEmpty(link))
+            {
+                throw new InvalidAdCreativeLinkException();
+            }
+
+            if (String.IsNullOrEmpty(message))
+            {
+                throw new InvalidAdCreativeMessageException();
+            }
+
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdCreativeNameException();
+            }
+
+            if (String.IsNullOrEmpty(caption))
+            {
+                throw new InvalidAdCreativeCaptionException();
+            }
+
+            if (String.IsNullOrEmpty(description))
+            {
+                throw new InvalidAdCreativeDescriptionException();
+            }
+
+            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (callToAction == CallToActionTypeEnum.Undefined)
+            {
+                throw new InvalidAdCreativeCallToActionTypeException();
+            }
+
+            if (String.IsNullOrEmpty(imageCrops))
+            {
+                throw new InvalidAdCreativeImageCropsException();
+            }
+        }
+
+        private void ValidateDataToSetPagePhotoObject(long pageId, string url, string imageHash, string caption)
+        {
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (String.IsNullOrEmpty(url) && String.IsNullOrEmpty(imageHash))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (String.IsNullOrEmpty(caption))
+            {
+                throw new InvalidAdCreativeCaptionException();
+            }
+        }
+
+        private void ValidateDataToSetPageVideoObject(long pageId, long videoId, string title, string description, string imageUrl,
+            string imageHash, CallToActionTypeEnum callToAction)
+        {
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (!videoId.IsValidVideoId())
+            {
+                throw new InvalidAdCreativeVideoIdException();
+            }
+
+            if (String.IsNullOrEmpty(title))
+            {
+                throw new InvalidAdCreativeTitleException();
+            }
+
+            if (String.IsNullOrEmpty(description))
+            {
+                throw new InvalidAdCreativeDescriptionException();
+            }
+
+            if (String.IsNullOrEmpty(imageUrl))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (String.IsNullOrEmpty(imageHash))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (callToAction == CallToActionTypeEnum.Undefined)
+            {
+                throw new InvalidAdCreativeCallToActionTypeException();
+            }
+            
+        }
+
+        private void ValidateDataToSetPageOfferObject(long pageId, string title, string message, string imageUrl, string couponType,
+            DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
+            string barcodeType, string barcode)
+        {
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (String.IsNullOrEmpty(title))
+            {
+                throw new InvalidAdCreativeTitleException();
+            }
+
+            if (String.IsNullOrEmpty(message))
+            {
+                throw new InvalidAdCreativeMessageException();
+            }
+
+            if (String.IsNullOrEmpty(imageUrl))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (String.IsNullOrEmpty(couponType))
+            {
+                throw new InvalidAdCreativeCouponTypeException();
+            }
+
+            if (expirationTime < DateTime.UtcNow)
+            {
+                throw new InvalidAdCreativeExpirationTimeException();
+            }
+
+            if (reminderTime < DateTime.UtcNow || reminderTime > expirationTime)
+            {
+                throw new InvalidAdCreativeReminderTimeException();
+            }
+
+            if (claimLimit < 0)
+            {
+                throw new InvalidAdCreativeClaimLimitException();
+            }
+
+            if (String.IsNullOrEmpty(redemptionLink))
+            {
+                throw new InvalidAdCreativeRedemptionLinkException();
+            }
+
+            if (String.IsNullOrEmpty(redemptionCode))
+            {
+                throw new InvalidAdCreativeRedemptionCodeException();
+            }
+
+            if (String.IsNullOrEmpty(barcodeType))
+            {
+                throw new InvalidAdCreativeBarcodeTypeException();
+            }
+            if (String.IsNullOrEmpty(barcode))
+            {
+                throw new InvalidAdCreativeBarcodeException();
+            }
+            
+        }
+
+        private void ValidateDataToSetPageTextObject(long pageId, string message)
+        {
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (String.IsNullOrEmpty(message))
+            {
+                throw new InvalidAdCreativeMessageException();
+            }
+        }
+
+        private void ValidateDataToSetPageMultiProductObject(long pageId, string link, string message, string name, string caption,
+            string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, IList<ChildAttachments> childAttachments)
+        {
+
+            if (!pageId.IsValidPageId())
+            {
+                throw new InvalidAdCreativePageIdException();
+            }
+
+            if (String.IsNullOrEmpty(link))
+            {
+                throw new InvalidAdCreativeLinkException();
+            }
+
+            if (String.IsNullOrEmpty(message))
+            {
+                throw new InvalidAdCreativeMessageException();
+            }
+
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new InvalidAdCreativeNameException();
+            }
+
+            if (String.IsNullOrEmpty(caption))
+            {
+                throw new InvalidAdCreativeCaptionException();
+            }
+
+            if (String.IsNullOrEmpty(description))
+            {
+                throw new InvalidAdCreativeDescriptionException();
+            }
+
+            if (String.IsNullOrEmpty(picture) && String.IsNullOrEmpty(imageHash))
+            {
+                throw new InvalidAdCreativeImageException();
+            }
+
+            if (callToAction == CallToActionTypeEnum.Undefined)
+            {
+                throw new InvalidAdCreativeCallToActionTypeException();
+            }
+
+            if (String.IsNullOrEmpty(imageCrops))
+            {
+                throw new InvalidAdCreativeImageCropsException();
+            }
+
+            if (!IsValidChildAttachmentsList(childAttachments))
+            {
+                throw new InvalidAdCreativeChildAttachmentsException();
+            }
         }
 
         #endregion Private methods
