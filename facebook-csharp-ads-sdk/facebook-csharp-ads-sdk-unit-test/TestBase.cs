@@ -42,6 +42,7 @@ namespace facebook_csharp_ads_sdk_unit_test
         #endregion
 
         #region AdAccount and related
+
         #region AdAccount
         public long InvalidAdAccountId1;
         public long InvalidAdAccountId2;
@@ -94,6 +95,23 @@ namespace facebook_csharp_ads_sdk_unit_test
         #region AdCreative
 
         public long ValidAdCreativeId;
+        public long InvalidAdCreativeId;
+        public string ValidAdCreativeTitle;
+        public string InvalidAdCreativeTitle;
+        public string ValidAdCreativeBody;
+        public string InvalidAdCreativeBody;
+        public string ValidAdCreativeObjectUrl;
+        public string InvalidAdCreativeObjectUrl;
+        public string ValidAdCreativeImageFile;
+        public string InvalidAdCreativeImageFile;
+        public string ValidAdCreativeImageHash;
+        public string InvalidAdCreativeImageHash;
+        public string ValidAdCreativeName;
+        public string ValidAdCreativeActorId;
+        public string ValidAdCreativeObjectId;
+        public string InvalidAdCreativeObjectId;
+        public string ValidAdCreativeLinkUrl;
+        public string ValidAdCreativeImageCrops;
 
         #endregion AdCreative
 
@@ -292,6 +310,23 @@ namespace facebook_csharp_ads_sdk_unit_test
         private void AdCreative()
         {
             ValidAdCreativeId = 1;
+            InvalidAdCreativeId = 0;
+            ValidAdCreativeTitle = "title";
+            InvalidAdCreativeTitle = "";
+            ValidAdCreativeBody = "body";
+            InvalidAdCreativeBody = "";
+            ValidAdCreativeObjectUrl = "www.object.com";
+            InvalidAdCreativeObjectUrl = "";
+            ValidAdCreativeImageFile = "imagefile";
+            InvalidAdCreativeImageFile = "";
+            ValidAdCreativeImageHash = "imageHash";
+            InvalidAdCreativeImageHash = "";
+            ValidAdCreativeName = "name";
+            ValidAdCreativeActorId = "actorId";
+            ValidAdCreativeObjectId = "objectId";
+            InvalidAdCreativeObjectId = "";
+            ValidAdCreativeLinkUrl = "linkurl";
+            ValidAdCreativeImageCrops = "imagecrops";
         }
 
         private void AdAccountGroup()

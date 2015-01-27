@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using facebook_csharp_ads_sdk.Domain.BusinessRules.AdAccounts;
 using facebook_csharp_ads_sdk.Domain.Contracts.Repository;
 using facebook_csharp_ads_sdk.Domain.Enums.AdCreative;
@@ -89,7 +90,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         [FacebookName("follow_redirect")]
         [DefaultValue(false)]
         [FacebookFieldType(FacebookFieldType.Boolean)]
-        public bool FollowRedirect { get; private set; }
+        public bool? FollowRedirect { get; private set; }
 
         /// <summary>
         /// A JSON object defining crop dimensions for the image specified
@@ -251,6 +252,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="body"> Body of the ad creative </param>
         /// <param name="name"> Name of the ad creative in the creative library </param>
         /// <param name="linkUrl"> Link Url of the ad creative </param>
+        /// <param name="imageFile"> Reference to a local image file </param>
+        /// <param name="imageHash"> Image Id for an image </param>
         /// <param name="imageCrops"> Image Crops of the ad creative </param>
         /// <param name="title"> Title of the ad creative </param>
         /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
@@ -258,7 +261,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdCreativeObjectIdException"> Invalid ad creative object id </exception>
         /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
         /// <returns> Ad Creative with the Page Link ad Parameters </returns>
-        public AdCreative SetPageLikeAdData(long id, long accountId, string objectId, string body, string name, string linkUrl, string imageCrops, string title)
+        public AdCreative SetPageLikeAdData(long id, long accountId, string objectId, string body, string name, string linkUrl, string imageFile, string imageHash, string imageCrops, string title)
         {
             ValidateDataToSetPageLikeAdCreative(id, accountId, objectId, body);
             
@@ -271,6 +274,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 Name = name;
             if (!String.IsNullOrEmpty(linkUrl)) 
                 LinkUrl = linkUrl;
+            if (!String.IsNullOrEmpty(imageFile))
+                ImageFile = imageFile;
+            else if (!String.IsNullOrEmpty(imageHash))
+                ImageHash = imageHash;
             if (!String.IsNullOrEmpty(imageCrops)) 
                 ImageCrops = imageCrops;
             if (!String.IsNullOrEmpty(title)) 
