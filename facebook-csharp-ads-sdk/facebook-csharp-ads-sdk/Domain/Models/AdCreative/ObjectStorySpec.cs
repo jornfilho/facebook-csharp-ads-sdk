@@ -164,17 +164,26 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set Object story spec to Page link ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="link"></param>
-        /// <param name="message"></param>
-        /// <param name="name"></param>
-        /// <param name="caption"></param>
-        /// <param name="description"></param>
-        /// <param name="picture"></param>
-        /// <param name="imageHash"></param>
-        /// <param name="callToAction"></param>
-        /// <param name="imageCrops"></param>
-        /// <returns></returns>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="link"> Link url </param>
+        /// <param name="message"> Story message </param>
+        /// <param name="name"> Name of the link </param>
+        /// <param name="caption"> Link caption </param>
+        /// <param name="description">Link description </param>
+        /// <param name="picture"> Url of a picture to use in the post </param>
+        /// <param name="imageHash"> Hash of an image in your image library with Facebook </param>
+        /// <param name="callToAction"> An optional call to action </param>
+        /// <param name="imageCrops"> How to display the image </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeLinkException"> Invalid ad creative Link </exception>
+        /// <exception cref="InvalidAdCreativeMessageException"> Invalid ad creative Message </exception>
+        /// <exception cref="InvalidAdCreativeNameException"> Invalid ad creative Name </exception>
+        /// <exception cref="InvalidAdCreativeCaptionException"> Invalid ad creative Caption </exception>
+        /// <exception cref="InvalidAdCreativeDescriptionException"> Invalid ad creative Description </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative Image </exception>
+        /// <exception cref="InvalidAdCreativeCallToActionTypeException"> Invalid ad creative Call to action </exception>
+        /// <exception cref="InvalidAdCreativeImageCropsException"> Invalid ad creative Image crops </exception>
+        /// <returns> A Object with Page Link parameters </returns>
         public ObjectStorySpec SetPageLinkAd(long pageId, string link, string message, string name, string caption,
             string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops)
         {
@@ -200,11 +209,14 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set Object story spec to Page Photo ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="url"></param>
-        /// <param name="imageHash"></param>
-        /// <param name="caption"></param>
-        /// <returns></returns>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="url"> Url of an image to use in the post</param>
+        /// <param name="imageHash"> Hash of an image in your image library with Facebook </param>
+        /// <param name="caption"> Photo caption </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative image </exception>
+        /// <exception cref="InvalidAdCreativeCaptionException"> Invalid ad creative caption </exception>
+        /// <returns> A Object with Page Photo parameters </returns>
         public ObjectStorySpec SetPagePhotoAd(long pageId, string url, string imageHash, string caption)
         {
 
@@ -223,14 +235,20 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set object story spec to Page Video ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="videoId"></param>
-        /// <param name="title"></param>
-        /// <param name="description"></param>
-        /// <param name="imageUrl"></param>
-        /// <param name="imageHash"></param>
-        /// <param name="callToAction"></param>
-        /// <returns></returns>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="videoId"> Id of video </param>
+        /// <param name="title"> Title for video </param>
+        /// <param name="description"> Description of the video </param>
+        /// <param name="imageUrl"> Url of image to use as thumbnail </param>
+        /// <param name="imageHash"> Hash of an image in your image library with Facebook to use as thumbnail </param>
+        /// <param name="callToAction"> An optional call to action </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeVideoIdException"> Invalid ad creative Video id </exception>
+        /// <exception cref="InvalidAdCreativeTitleException"> Invalid ad creative Title </exception>
+        /// <exception cref="InvalidAdCreativeDescriptionException"> Invalid ad creative Description </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative Image </exception>
+        /// <exception cref="InvalidAdCreativeCallToActionTypeException"> Invalid ad creative Call to action </exception>
+        /// <returns> A Object with Page Video parameters </returns>
         public ObjectStorySpec SetPageVideoAd(long pageId, long videoId, string title, string description, string imageUrl,
             string imageHash, CallToActionTypeEnum callToAction)
         {
@@ -251,18 +269,30 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set object story spec to Page Offer ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="title"></param>
-        /// <param name="message"></param>
-        /// <param name="imageUrl"></param>
-        /// <param name="couponType"></param>
-        /// <param name="expirationTime"></param>
-        /// <param name="reminderTime"></param>
-        /// <param name="claimLimit"></param>
-        /// <param name="redemptionLink"></param>
-        /// <param name="redemptionCode"></param>
-        /// <param name="barcodeType"></param>
-        /// <param name="barcode"></param>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="title"> The title of the offer </param>
+        /// <param name="message"> The description text of the offer </param>
+        /// <param name="imageUrl"> The url for the offer's image </param>
+        /// <param name="couponType"> The type of offer </param>
+        /// <param name="expirationTime"> The expiration time of the offer </param>
+        /// <param name="reminderTime"> The reminder time of the offer </param>
+        /// <param name="claimLimit"> The maximum number of times the offer can be claimed </param>
+        /// <param name="redemptionLink"> The url where the offer may be redeemed </param>
+        /// <param name="redemptionCode"> A code to receive the discount or promotion </param>
+        /// <param name="barcodeType"> The barcode type of the offer </param>
+        /// <param name="barcode"> The barcode of the offer </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeTitleException"> Invalid ad creative title </exception>
+        /// <exception cref="InvalidAdCreativeMessageException"> Invalid ad creative message </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative image </exception>
+        /// <exception cref="InvalidAdCreativeCouponTypeException"> Invalid ad creative coupon type </exception>
+        /// <exception cref="InvalidAdCreativeExpirationTimeException"> Invalid ad creative expiration time </exception>
+        /// <exception cref="InvalidAdCreativeReminderTimeException"> Invalid ad creative reminder time </exception>
+        /// <exception cref="InvalidAdCreativeClaimLimitException"> Invalid ad creative claim limit </exception>
+        /// <exception cref="InvalidAdCreativeRedemptionLinkException"> Invalid ad creative redemption link </exception>
+        /// <exception cref="InvalidAdCreativeRedemptionCodeException"> Invalid ad creative redemption code </exception>
+        /// <exception cref="InvalidAdCreativeBarcodeTypeException"> Invalid ad creative barcode type </exception>
+        /// <exception cref="InvalidAdCreativeBarcodeException"> Invalid ad creative barcode </exception>
         /// <returns></returns>
         public ObjectStorySpec SetPageOfferAd(long pageId, string title, string message, string imageUrl, string couponType,
             DateTime expirationTime, DateTime reminderTime, int claimLimit, string redemptionLink, string redemptionCode,
@@ -290,9 +320,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set object story spec to Page Text ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="message"> Status message </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeMessageException"> Invalid ad creative Message </exception>
+        /// <returns> A object with Page Text parameters </returns>
         public ObjectStorySpec SetPageTextAd(long pageId, string message)
         {
             ValidateDataToSetPageTextObject(pageId, message);
@@ -305,20 +337,30 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         }
 
         /// <summary>
-        ///     Set object story spec to a Page Multi Product ad
+        ///     Set Object story spec to Page link ad
         /// </summary>
-        /// <param name="pageId"></param>
-        /// <param name="link"></param>
-        /// <param name="message"></param>
-        /// <param name="name"></param>
-        /// <param name="caption"></param>
-        /// <param name="description"></param>
-        /// <param name="picture"></param>
-        /// <param name="imageHash"></param>
-        /// <param name="callToAction"></param>
-        /// <param name="imageCrops"></param>
-        /// <param name="childAttachments"></param>
-        /// <returns></returns>
+        /// <param name="pageId"> Id of a Facebook page </param>
+        /// <param name="link"> Link url </param>
+        /// <param name="message"> Story message </param>
+        /// <param name="name"> Name of the link </param>
+        /// <param name="caption"> Link caption </param>
+        /// <param name="description">Link description </param>
+        /// <param name="picture"> Url of a picture to use in the post </param>
+        /// <param name="imageHash"> Hash of an image in your image library with Facebook </param>
+        /// <param name="callToAction"> An optional call to action </param>
+        /// <param name="imageCrops"> How to display the image </param>
+        /// <param name="childAttachments"> A element array of link objects </param>
+        /// <exception cref="InvalidAdCreativePageIdException"> Invalid ad creative Page id </exception>
+        /// <exception cref="InvalidAdCreativeLinkException"> Invalid ad creative Link </exception>
+        /// <exception cref="InvalidAdCreativeMessageException"> Invalid ad creative Message </exception>
+        /// <exception cref="InvalidAdCreativeNameException"> Invalid ad creative Name </exception>
+        /// <exception cref="InvalidAdCreativeCaptionException"> Invalid ad creative Caption </exception>
+        /// <exception cref="InvalidAdCreativeDescriptionException"> Invalid ad creative Description </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative Image </exception>
+        /// <exception cref="InvalidAdCreativeCallToActionTypeException"> Invalid ad creative Call to action </exception>
+        /// <exception cref="InvalidAdCreativeImageCropsException"> Invalid ad creative Image crops </exception>
+        /// <exception cref="InvalidAdCreativeChildAttachmentsException"> Invalid ad creative Child Attachments </exception>
+        /// <returns> A object with Multi product parameters </returns>
         public ObjectStorySpec SetPageMultiProductAd(long pageId, string link, string message, string name, string caption,
             string description, string picture, string imageHash, CallToActionTypeEnum callToAction, string imageCrops, IList<ChildAttachments> childAttachments)
         {

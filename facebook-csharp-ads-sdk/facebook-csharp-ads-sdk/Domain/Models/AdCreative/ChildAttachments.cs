@@ -42,12 +42,16 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set data to a element of multi product ads
         /// </summary>
-        /// <param name="link"></param>
-        /// <param name="picture"></param>
-        /// <param name="imageHash"></param>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
+        /// <param name="link"> The Url of a link to attach to the post </param>
+        /// <param name="picture"> Determines the preview image associated with the link </param>
+        /// <param name="imageHash"> Hash of a preview image associated with the link from your image library </param>
+        /// <param name="name"> The title of the link preview </param>
+        /// <param name="description"> Used to show either a price, discount or website domain </param>
+        /// <exception cref="InvalidAdCreativeLinkException"> Invalid ad creative link </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative image </exception>
+        /// <exception cref="InvalidAdCreativeNameException"> Invalid ad creative name </exception>
+        /// <exception cref="InvalidAdCreativeDescriptionException"> Invalid ad creative description </exception>
+        /// <returns> A child with the valid parameters </returns>
         public ChildAttachments SetData(string link, string picture, string imageHash, string name, string description)
         {
 

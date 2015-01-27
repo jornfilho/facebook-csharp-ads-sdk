@@ -209,6 +209,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="name"> Name of the ad creative in the creative library </param>
         /// <param name="actorId">Actor id of the ad creative </param>
         /// <param name="followRedirect">Follow Redirect of the ad creative</param>
+        /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
+        /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
+        /// <exception cref="InvalidAdCreativeTitleException"> Invalid ad creative title </exception>
+        /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
+        /// <exception cref="InvalidAdCreativeObjectUrlException"> Invalid ad creative object url </exception>
+        /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative image </exception>
         /// <returns> Ad Creative with the Link Ad Parameters </returns>
         public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string imageFile, string imageHash, string name,
             string actorId, bool? followRedirect)
@@ -247,7 +253,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="linkUrl"> Link Url of the ad creative </param>
         /// <param name="imageCrops"> Image Crops of the ad creative </param>
         /// <param name="title"> Title of the ad creative </param>
-        /// <returns> Ad Creative with the Pag Link ad Parameters </returns>
+        /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
+        /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
+        /// <exception cref="InvalidAdCreativeObjectIdException"> Invalid ad creative object id </exception>
+        /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
+        /// <returns> Ad Creative with the Page Link ad Parameters </returns>
         public AdCreative SetPageLikeAdData(long id, long accountId, string objectId, string body, string name, string linkUrl, string imageCrops, string title)
         {
             ValidateDataToSetPageLikeAdCreative(id, accountId, objectId, body);
@@ -280,7 +290,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <param name="imageFile"> Image File of the ad creative </param>
         /// <param name="imageCrops"> Image Crops of the ad creative </param>
         /// <param name="title"> Title of the ad creative </param>
-        /// <returns></returns>
+        /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
+        /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
+        /// <exception cref="InvalidAdCreativeObjectIdException"> Invalid ad creative object id </exception>
+        /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
+        /// <returns> Ad Creative with Event ad Parameters </returns>
         public AdCreative SetEventAdData(long id, long accountId, string objectId, string body, string name, string imageFile, string imageCrops, string title)
         {
             ValidateDataToSetEventAdCreative(id, accountId, objectId, body);
@@ -305,12 +319,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set a Page Post Ad Criative to inline creation
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStorySpec"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="id"> Id of the ad creative </param>
+        /// <param name="accountId"> Account id of the ad creative </param>
+        /// <param name="objectStorySpec"> The page id and the content to create a new unpublished page post</param>
+        /// <param name="urlTags"> A set of query string parameters </param>
+        /// <param name="name"> Name of the ad creative in the creative library </param>
+        /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
+        /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
+        /// <exception cref="InvalidAdCreativeObjectStorySpecException"> Invalid ad creative object story spec </exception>
+        /// <returns> Ad Creative with Page Post ad Parameters </returns>
         public AdCreative SetPagePostAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
         {
             ValidateDataToSetPagePostAdCreative(id, accountId, objectStorySpec);
@@ -331,12 +348,15 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <summary>
         ///     Set a Page Post Ad Criative using an existing page post
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <param name="objectStoryId"></param>
-        /// <param name="urlTags"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="id"> Id of the ad creative </param>
+        /// <param name="accountId"> Account id of the ad creative </param>
+        /// <param name="objectStoryId"> The ID of a page post to use in an ad </param>
+        /// <param name="urlTags"> A set of query string parameters </param>
+        /// <param name="name"> Name of the ad creative in the creative library </param>
+        /// <exception cref="InvalidAdCreativeIdException"> Invalid ad creative id </exception>
+        /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
+        /// <exception cref="InvalidAdCreativeObjectStoryIdException"> Invalid ad creative object story id </exception>
+        /// <returns> Ad Creative with Page Post ad Parameters </returns>
         public AdCreative SetPagePostAdData(long id, long accountId, string objectStoryId, string urlTags, string name)
         {
 
