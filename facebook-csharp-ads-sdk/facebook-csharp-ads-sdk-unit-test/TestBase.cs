@@ -137,10 +137,16 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidSpecPicture;
         public string ValidSpecImageHash;
         public string InvalidSpecImageHash;
+        public string ValidSpecImageUrl;
+        public string InvalidSpecImageUrl;
         public string ValidSpecImageCrops;
         public string InvalidSpecImageCrops;
         public string ValidSpecUrl;
         public string InvalidSpecUrl;
+        public long ValidSpecVideoId;
+        public long InvalidSpecVideoId;
+        public string ValidSpecTitle;
+        public string InvalidSpecTitle;
 
         #endregion ObjectStorySpec
 
@@ -381,10 +387,16 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidSpecPicture = "";
             ValidSpecImageHash= "imagehash";
             InvalidSpecImageHash= "";
+            ValidSpecImageUrl= "imageurl";
+            InvalidSpecImageUrl= "";
             ValidSpecImageCrops = "imagecrops";
             InvalidSpecImageCrops = "";
             ValidSpecUrl = "url";
             InvalidSpecUrl = "";
+            ValidSpecVideoId = 1;
+            InvalidSpecVideoId = 0;
+            ValidSpecTitle = "title";
+            InvalidSpecTitle = "";
         }
 
         private void AdAccountGroup()
