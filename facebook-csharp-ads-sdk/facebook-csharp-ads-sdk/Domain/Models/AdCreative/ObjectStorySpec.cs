@@ -543,7 +543,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 throw new InvalidAdCreativeReminderTimeException();
             }
 
-            if (claimLimit < 0)
+            if (claimLimit <= 0)
             {
                 throw new InvalidAdCreativeClaimLimitException();
             }

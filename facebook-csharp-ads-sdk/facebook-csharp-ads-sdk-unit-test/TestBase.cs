@@ -147,6 +147,17 @@ namespace facebook_csharp_ads_sdk_unit_test
         public long InvalidSpecVideoId;
         public string ValidSpecTitle;
         public string InvalidSpecTitle;
+        public string ValidSpecCouponType;
+        public string InvalidSpecCouponType;
+        public string ValidRedemptionLink;
+        public string InvalidRedemptionLink;
+        public string ValidRedemptionCode;
+        public string InvalidRedemptionCode;
+        public string ValidBarcodeType;
+        public string InvalidBarcodeType;
+        public string ValidBarcode;
+        public string InvalidBarcode;
+
 
         #endregion ObjectStorySpec
 
@@ -397,6 +408,16 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidSpecVideoId = 0;
             ValidSpecTitle = "title";
             InvalidSpecTitle = "";
+            ValidSpecCouponType = "coupontype";
+            InvalidSpecCouponType = "";
+            ValidRedemptionLink = "redemptionlink";
+            InvalidRedemptionLink = "";
+            ValidRedemptionCode = "redemptioncode";
+            InvalidRedemptionCode = "";
+            ValidBarcodeType = "barcodetype";
+            InvalidBarcodeType = "";
+            ValidBarcode = "barcode";
+            InvalidBarcode = "";
         }
 
         private void AdAccountGroup()
