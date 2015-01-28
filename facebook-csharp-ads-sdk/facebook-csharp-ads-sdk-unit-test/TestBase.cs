@@ -139,6 +139,8 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidSpecImageHash;
         public string ValidSpecImageCrops;
         public string InvalidSpecImageCrops;
+        public string ValidSpecUrl;
+        public string InvalidSpecUrl;
 
         #endregion ObjectStorySpec
 
@@ -381,6 +383,8 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidSpecImageHash= "";
             ValidSpecImageCrops = "imagecrops";
             InvalidSpecImageCrops = "";
+            ValidSpecUrl = "url";
+            InvalidSpecUrl = "";
         }
 
         private void AdAccountGroup()
