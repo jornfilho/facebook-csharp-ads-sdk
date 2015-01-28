@@ -22,77 +22,77 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.ObjectStor
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativePageIdException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfPageIdIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfPageIdIsInvalid()
         {
             _model.SetPageVideoAd(InvalidPageId, ValidSpecVideoId, null, null, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeVideoIdException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfVideoIdIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfVideoIdIsInvalid()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, InvalidSpecVideoId, null, null, null, null, CallToActionTypeEnum.Undefined);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeTitleException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfTitleIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfTitleIsInvalid()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, InvalidSpecTitle, null, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeTitleException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfTitleIsNull()
+        public void MustThrowExceptionToSetPageVideoObjectIfTitleIsNull()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, null, null, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeDescriptionException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfDescriptionIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfDescriptionIsInvalid()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, InvalidSpecDescription, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeDescriptionException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfDescriptionIsNull()
+        public void MustThrowExceptionToSetPageVideoObjectIfDescriptionIsNull()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, null, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfImageUrlIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfImageUrlIsInvalid()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, ValidSpecDescription, InvalidSpecImageUrl, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfImageUrlIsNull()
+        public void MustThrowExceptionToSetPageVideoObjectIfImageUrlIsNull()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, ValidSpecDescription, null, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfImageHashIsInvalid()
+        public void MustThrowExceptionToSetPageVideoObjectIfImageHashIsInvalid()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, ValidSpecDescription, ValidSpecImageUrl, InvalidSpecImageHash, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfImageHashIsNull()
+        public void MustThrowExceptionToSetPageVideoObjectIfImageHashIsNull()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, ValidSpecDescription, ValidSpecImageUrl, null, CallToActionTypeEnum.Undefined);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeCallToActionTypeException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfCallToActionIsUndefined()
+        public void MustThrowExceptionToSetPageVideoObjectIfCallToActionIsUndefined()
         {
             _model.SetPageVideoAd(ValidAdCreativePageId, ValidSpecVideoId, ValidSpecTitle, ValidSpecDescription, ValidSpecImageUrl, ValidSpecImageHash, CallToActionTypeEnum.Undefined);
         }

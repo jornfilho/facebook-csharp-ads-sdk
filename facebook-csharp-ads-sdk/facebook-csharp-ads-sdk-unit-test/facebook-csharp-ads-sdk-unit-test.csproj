@@ -118,6 +118,7 @@
     <Compile Include="Domain\Models\AdCreatives\AdCreative\SetPagePostAdDataTest.cs" />
     <Compile Include="Domain\Models\AdCreatives\ObjectStorySpec\SetPageLinkAdTest.cs" />
     <Compile Include="Domain\Models\AdCreatives\ObjectStorySpec\SetPagePhotoAdTest.cs" />
+    <Compile Include="Domain\Models\AdCreatives\ObjectStorySpec\SetPageTextAdTest.cs" />
     <Compile Include="Domain\Models\AdCreatives\ObjectStorySpec\SetPageVideoAdTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetDeleteTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />

@@ -16,49 +16,49 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.ObjectStor
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativePageIdException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfPageIdIsInvalid()
+        public void MustThrowExceptionToSetPagePhotoObjectIfPageIdIsInvalid()
         {
             _model.SetPagePhotoAd(InvalidPageId, null, null, null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfUrlAndImageHashIsInvalid()
+        public void MustThrowExceptionToSetPagePhotoObjectIfUrlAndImageHashIsInvalid()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, InvalidSpecUrl, InvalidSpecImageHash, null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfUrlIsInvalidAndImageHashIsNull()
+        public void MustThrowExceptionToSetPagePhotoObjectIfUrlIsInvalidAndImageHashIsNull()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, InvalidSpecUrl, null, null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfUrlIsNullAndImageHashIsInvalid()
+        public void MustThrowExceptionToSetPagePhotoObjectIfUrlIsNullAndImageHashIsInvalid()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, null, InvalidSpecImageHash, null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeImageException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfUrlAndImageHashIsNull()
+        public void MustThrowExceptionToSetPagePhotoObjectIfUrlAndImageHashIsNull()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, null, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeCaptionException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfCaptionIsInvalid()
+        public void MustThrowExceptionToSetPagePhotoObjectIfCaptionIsInvalid()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, ValidSpecUrl, null, InvalidSpecCaption);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeCaptionException))]
-        public void MustThrowExceptionToSetPageLinkObjectIfCaptionIsNull()
+        public void MustThrowExceptionToSetPagePhotoObjectIfCaptionIsNull()
         {
             _model.SetPagePhotoAd(ValidAdCreativePageId, ValidSpecUrl, null, null);
         }
