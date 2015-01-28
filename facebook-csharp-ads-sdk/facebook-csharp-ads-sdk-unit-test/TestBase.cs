@@ -112,6 +112,11 @@ namespace facebook_csharp_ads_sdk_unit_test
         public string InvalidAdCreativeObjectId;
         public string ValidAdCreativeLinkUrl;
         public string ValidAdCreativeImageCrops;
+        public string ValidAdCreativeObjectStoryId;
+        public string InvalidAdCreativeObjectStoryId;
+        public string ValidAdCreativeUrlTags;
+        public long ValidAdCreativePageId;
+        public string ValidAdCreativeMessage;
 
         #endregion AdCreative
 
@@ -327,6 +332,11 @@ namespace facebook_csharp_ads_sdk_unit_test
             InvalidAdCreativeObjectId = "";
             ValidAdCreativeLinkUrl = "linkurl";
             ValidAdCreativeImageCrops = "imagecrops";
+            ValidAdCreativeObjectStoryId = "objectstoryid";
+            InvalidAdCreativeObjectStoryId = "";
+            ValidAdCreativeUrlTags = "urltags";
+            ValidAdCreativePageId = 1;
+            ValidAdCreativeMessage = "message";
         }
 
         private void AdAccountGroup()

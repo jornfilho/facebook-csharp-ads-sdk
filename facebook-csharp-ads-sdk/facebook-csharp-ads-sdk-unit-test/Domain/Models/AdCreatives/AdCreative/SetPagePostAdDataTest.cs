@@ -17,30 +17,122 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.AdCreative
     {
         readonly ICreativeRepository _creativeRepository = new AdCreativeRepository(new FacebookSessionRepository());
         private facebook_csharp_ads_sdk.Domain.Models.AdCreative.AdCreative _model;
+        private ObjectStorySpec objectStorySpec;
 
         [TestInitialize]
         public void Initialize()
         {
             _model = new facebook_csharp_ads_sdk.Domain.Models.AdCreative.AdCreative(_creativeRepository);
+            objectStorySpec = new ObjectStorySpec().SetPageTextAd(ValidAdCreativePageId, ValidAdCreativeMessage);
         }
 
         #region Object Story Spec
-
-
+        
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeIdException))]
-        public void MustThrowExceptionToSetEventAdDataIfCreativeIdIsInvalid()
+        public void MustThrowExceptionToSetPagePostSpecAdDataIfCreativeIdIsInvalid()
         {
             _model.SetPagePostAdData(InvalidAdCreativeId, ValidAdAccountId, null as ObjectStorySpec, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdAccountId))]
-        public void MustThrowExceptionToSetEventAdDataIfAccountIdIsInvalid()
+        public void MustThrowExceptionToSetPagePostSpecAdDataIfAccountIdIsInvalid()
         {
             _model.SetPagePostAdData(ValidAdCreativeId, InvalidAdAccountId1, null as ObjectStorySpec, null, null);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAdCreativeObjectStorySpecException))]
+        public void MustThrowExceptionToSetPagePostSpecAdDataIfObjectStorySpecIsNull()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, null as ObjectStorySpec, null, null);
+        }
+
+        [TestMethod]
+        public void CanSetJustRequiredParameters1()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, objectStorySpec, null, null);
+            Assert.IsNotNull(_model);
+            Assert.IsTrue(_model.IsValid);
+            Assert.AreEqual(_model.Id, ValidAdCreativeId);
+            Assert.AreEqual(_model.AccountId, ValidAdAccountId);
+            Assert.AreEqual(_model.ObjectStorySpec, objectStorySpec);
+            Assert.IsNull(_model.UrlTags);
+            Assert.IsNull(_model.Name);
+        }
+        
+        [TestMethod]
+        public void CanSetAllParameters2()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, objectStorySpec, ValidAdCreativeUrlTags, ValidAdCreativeName);
+            Assert.IsNotNull(_model);
+            Assert.IsTrue(_model.IsValid);
+            Assert.AreEqual(_model.Id, ValidAdCreativeId);
+            Assert.AreEqual(_model.AccountId, ValidAdAccountId);
+            Assert.AreEqual(_model.ObjectStorySpec, objectStorySpec);
+            Assert.AreEqual(_model.UrlTags, ValidAdCreativeUrlTags);
+            Assert.AreEqual(_model.Name, ValidAdCreativeName);
+        }
+
         #endregion
+
+        #region Object Story Id
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAdCreativeIdException))]
+        public void MustThrowExceptionToSetPagePostIdAdDataIfCreativeIdIsInvalid()
+        {
+            _model.SetPagePostAdData(InvalidAdCreativeId, ValidAdAccountId, null as string, null, null);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAdAccountId))]
+        public void MustThrowExceptionToSetPagePostIdAdDataIfAccountIdIsInvalid()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, InvalidAdAccountId1, null as string, null, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAdCreativeObjectStoryIdException))]
+        public void MustThrowExceptionToSetPagePostIdAdDataIfObjectStoryIdIsInvalid()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, InvalidAdCreativeObjectStoryId, null, null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAdCreativeObjectStoryIdException))]
+        public void MustThrowExceptionToSetPagePostIdAdDataIfObjectStoryIdIsNull()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, null as string, null, null);
+        }
+
+        [TestMethod]
+        public void CanSetJustRequiredParameters2()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectStoryId, null, null);
+            Assert.IsNotNull(_model);
+            Assert.IsTrue(_model.IsValid);
+            Assert.AreEqual(_model.Id, ValidAdCreativeId);
+            Assert.AreEqual(_model.AccountId, ValidAdAccountId);
+            Assert.AreEqual(_model.ObjectStoryId, ValidAdCreativeObjectStoryId);
+            Assert.IsNull(_model.UrlTags);
+            Assert.IsNull(_model.Name);
+        }
+
+        [TestMethod]
+        public void CanSetAllParameters()
+        {
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectStoryId, ValidAdCreativeUrlTags, ValidAdCreativeName);
+            Assert.IsNotNull(_model);
+            Assert.IsTrue(_model.IsValid);
+            Assert.AreEqual(_model.Id, ValidAdCreativeId);
+            Assert.AreEqual(_model.AccountId, ValidAdAccountId);
+            Assert.AreEqual(_model.ObjectStoryId, ValidAdCreativeObjectStoryId);
+            Assert.AreEqual(_model.UrlTags, ValidAdCreativeUrlTags);
+            Assert.AreEqual(_model.Name, ValidAdCreativeName);
+        }
+
+        #endregion Object Story Id
     }
 }
