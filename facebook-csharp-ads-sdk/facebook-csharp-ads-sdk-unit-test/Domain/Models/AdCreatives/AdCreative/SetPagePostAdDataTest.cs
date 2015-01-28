@@ -17,13 +17,13 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.AdCreative
     {
         readonly ICreativeRepository _creativeRepository = new AdCreativeRepository(new FacebookSessionRepository());
         private facebook_csharp_ads_sdk.Domain.Models.AdCreative.AdCreative _model;
-        private ObjectStorySpec objectStorySpec;
+        private facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec objectStorySpec;
 
         [TestInitialize]
         public void Initialize()
         {
             _model = new facebook_csharp_ads_sdk.Domain.Models.AdCreative.AdCreative(_creativeRepository);
-            objectStorySpec = new ObjectStorySpec().SetPageTextAd(ValidAdCreativePageId, ValidAdCreativeMessage);
+            objectStorySpec = new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec().SetPageTextAd(ValidAdCreativePageId, ValidAdCreativeMessage);
         }
 
         #region Object Story Spec
@@ -32,21 +32,21 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.AdCreative
         [ExpectedException(typeof(InvalidAdCreativeIdException))]
         public void MustThrowExceptionToSetPagePostSpecAdDataIfCreativeIdIsInvalid()
         {
-            _model.SetPagePostAdData(InvalidAdCreativeId, ValidAdAccountId, null as ObjectStorySpec, null, null);
+            _model.SetPagePostAdData(InvalidAdCreativeId, ValidAdAccountId, null as facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdAccountId))]
         public void MustThrowExceptionToSetPagePostSpecAdDataIfAccountIdIsInvalid()
         {
-            _model.SetPagePostAdData(ValidAdCreativeId, InvalidAdAccountId1, null as ObjectStorySpec, null, null);
+            _model.SetPagePostAdData(ValidAdCreativeId, InvalidAdAccountId1, null as facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeObjectStorySpecException))]
         public void MustThrowExceptionToSetPagePostSpecAdDataIfObjectStorySpecIsNull()
         {
-            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, null as ObjectStorySpec, null, null);
+            _model.SetPagePostAdData(ValidAdCreativeId, ValidAdAccountId, null as facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec, null, null);
         }
 
         [TestMethod]

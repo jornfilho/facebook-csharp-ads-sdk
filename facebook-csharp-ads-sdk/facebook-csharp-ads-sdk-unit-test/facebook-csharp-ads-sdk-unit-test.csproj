@@ -116,6 +116,7 @@
     <Compile Include="Domain\Models\AdCreatives\AdCreative\SetLinkAdDataTest.cs" />
     <Compile Include="Domain\Models\AdCreatives\AdCreative\SetPageLikeAdDataTest.cs" />
     <Compile Include="Domain\Models\AdCreatives\AdCreative\SetPagePostAdDataTest.cs" />
+    <Compile Include="Domain\Models\AdCreatives\ObjectStorySpec\SetPageLinkAdTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetDeleteTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetReadTest.cs" />
     <Compile Include="Domain\Models\AdSets\AdSetSetCreateDataTest.cs" />
@@ -153,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\Models\AdCreatives\ChildAttachments\" />
-    <Folder Include="Domain\Models\AdCreatives\ObjectStorySpec\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

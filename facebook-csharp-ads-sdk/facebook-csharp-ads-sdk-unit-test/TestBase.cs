@@ -120,6 +120,28 @@ namespace facebook_csharp_ads_sdk_unit_test
 
         #endregion AdCreative
 
+        #region ObjectStorySpec
+
+        public long InvalidPageId;
+        public string ValidSpecLink;
+        public string InvalidSpecLink;
+        public string ValidSpecMessage;
+        public string InvalidSpecMessage;
+        public string ValidSpecName;
+        public string InvalidSpecName;
+        public string ValidSpecCaption;
+        public string InvalidSpecCaption;
+        public string ValidSpecDescription;
+        public string InvalidSpecDescription;
+        public string ValidSpecPicture;
+        public string InvalidSpecPicture;
+        public string ValidSpecImageHash;
+        public string InvalidSpecImageHash;
+        public string ValidSpecImageCrops;
+        public string InvalidSpecImageCrops;
+
+        #endregion ObjectStorySpec
+
         #region BusinessInformations
         public BusinessInformations ValidBusinessInformations;
         #endregion
@@ -229,6 +251,7 @@ namespace facebook_csharp_ads_sdk_unit_test
             FacebookSessionData();
             AdAccountAndRelateds();
             AdCreative();
+            ObjectStorySpec();
             Repositories();
         }
 
@@ -337,6 +360,27 @@ namespace facebook_csharp_ads_sdk_unit_test
             ValidAdCreativeUrlTags = "urltags";
             ValidAdCreativePageId = 1;
             ValidAdCreativeMessage = "message";
+        }
+
+        private void ObjectStorySpec()
+        {
+            InvalidPageId = 0;
+            ValidSpecLink = "link";
+            InvalidSpecLink = "";
+            ValidSpecMessage = "message";
+            InvalidSpecMessage = "";
+            ValidSpecName = "name";
+            InvalidSpecName = "";
+            ValidSpecCaption = "caption";
+            InvalidSpecCaption = "";
+            ValidSpecDescription = "description";
+            InvalidSpecDescription = "";
+            ValidSpecPicture = "picture";
+            InvalidSpecPicture = "";
+            ValidSpecImageHash= "imagehash";
+            InvalidSpecImageHash= "";
+            ValidSpecImageCrops = "imagecrops";
+            InvalidSpecImageCrops = "";
         }
 
         private void AdAccountGroup()
