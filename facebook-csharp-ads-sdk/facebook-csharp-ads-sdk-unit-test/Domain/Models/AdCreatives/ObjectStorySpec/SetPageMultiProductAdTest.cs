@@ -10,34 +10,34 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.ObjectStor
     public class SetPageMultiProductAdTest : TestBase
     {
         private facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec _model;
-        private IList<ChildAttachments> _validChildAttachments;
-        private IList<ChildAttachments> _invalidChildAttachments1;
-        private IList<ChildAttachments> _invalidChildAttachments2;
+        private IList<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments> _validChildAttachments;
+        private IList<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments> _invalidChildAttachments1;
+        private IList<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments> _invalidChildAttachments2;
 
         [TestInitialize]
         public void Initialize()
         {
             _model = new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ObjectStorySpec();
-            _validChildAttachments = new List<ChildAttachments>
+            _validChildAttachments = new List<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments>
             {
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription)
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription)
             };
 
-            _invalidChildAttachments1 = new List<ChildAttachments>
+            _invalidChildAttachments1 = new List<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments>
             {
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
             };
 
-            _invalidChildAttachments2 = new List<ChildAttachments>
+            _invalidChildAttachments2 = new List<facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments>
             {
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
-                new ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription)
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription),
+                new facebook_csharp_ads_sdk.Domain.Models.AdCreative.ChildAttachments().SetData(ValidSpecLink, ValidSpecPicture, ValidSpecImageHash, ValidSpecName, ValidSpecDescription)
             };
         }
 
