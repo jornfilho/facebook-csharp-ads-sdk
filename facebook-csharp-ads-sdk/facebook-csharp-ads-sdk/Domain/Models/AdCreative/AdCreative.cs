@@ -217,13 +217,12 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdCreativeObjectUrlException"> Invalid ad creative object url </exception>
         /// <exception cref="InvalidAdCreativeImageException"> Invalid ad creative image </exception>
         /// <returns> Ad Creative with the Link Ad Parameters </returns>
-        public AdCreative SetLinkAdData(long id, long accountId, string title, string body, string objectUrl, string imageFile, string imageHash, string name,
+        public AdCreative SetLinkAdData(long accountId, string title, string body, string objectUrl, string imageFile, string imageHash, string name,
             string actorId, bool? followRedirect)
         {
-            ValidateDataToSetLinkAdCreative(id, accountId, title, body, objectUrl, imageFile, imageHash);
+            ValidateDataToSetLinkAdCreative(accountId, title, body, objectUrl, imageFile, imageHash);
             
             Type = AdCreativeTypeEnum.LinkAd;
-            Id = id;
             AccountId = accountId;
             Title = title;
             Body = body;
@@ -261,12 +260,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdCreativeObjectIdException"> Invalid ad creative object id </exception>
         /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
         /// <returns> Ad Creative with the Page Link ad Parameters </returns>
-        public AdCreative SetPageLikeAdData(long id, long accountId, string objectId, string body, string name, string linkUrl, string imageFile, string imageHash, string imageCrops, string title)
+        public AdCreative SetPageLikeAdData(long accountId, string objectId, string body, string name, string linkUrl, string imageFile, string imageHash, string imageCrops, string title)
         {
-            ValidateDataToSetPageLikeAdCreative(id, accountId, objectId, body);
+            ValidateDataToSetPageLikeAdCreative(accountId, objectId, body);
             
             Type = AdCreativeTypeEnum.PageLikeAd;
-            Id = id;
             AccountId = accountId;
             ObjectId = objectId;
             Body = body;
@@ -302,12 +300,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdCreativeObjectIdException"> Invalid ad creative object id </exception>
         /// <exception cref="InvalidAdCreativeBodyException"> Invalid ad creative body </exception>
         /// <returns> Ad Creative with Event ad Parameters </returns>
-        public AdCreative SetEventAdData(long id, long accountId, string objectId, string body, string name, string imageFile, string imageCrops, string title)
+        public AdCreative SetEventAdData(long accountId, string objectId, string body, string name, string imageFile, string imageCrops, string title)
         {
-            ValidateDataToSetEventAdCreative(id, accountId, objectId, body);
+            ValidateDataToSetEventAdCreative(accountId, objectId, body);
 
             Type = AdCreativeTypeEnum.EventAd;
-            Id = id;
             AccountId = accountId;
             ObjectId = objectId;
             Body = body;
@@ -335,12 +332,11 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
         /// <exception cref="InvalidAdCreativeObjectStorySpecException"> Invalid ad creative object story spec </exception>
         /// <returns> Ad Creative with Page Post ad Parameters </returns>
-        public AdCreative SetPagePostAdData(long id, long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
+        public AdCreative SetPagePostAdData(long accountId, ObjectStorySpec objectStorySpec, string urlTags, string name)
         {
-            ValidateDataToSetPagePostAdCreative(id, accountId, objectStorySpec);
+            ValidateDataToSetPagePostAdCreative(accountId, objectStorySpec);
             
             Type = SetAdCreativeTypeByObjectStorySpec(objectStorySpec);
-            Id = id;
             AccountId = accountId;
             ObjectStorySpec = objectStorySpec;
             if (urlTags != null)
@@ -364,12 +360,10 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
         /// <exception cref="InvalidAdAccountId"> Invalid ad account id </exception>
         /// <exception cref="InvalidAdCreativeObjectStoryIdException"> Invalid ad creative object story id </exception>
         /// <returns> Ad Creative with Page Post ad Parameters </returns>
-        public AdCreative SetPagePostAdData(long id, long accountId, string objectStoryId, string urlTags, string name)
+        public AdCreative SetPagePostAdData(long accountId, string objectStoryId, string urlTags, string name)
         {
 
-            ValidateDataToSetPagePostAdCreative(id, accountId, objectStoryId);
-          
-            Id = id;
+            ValidateDataToSetPagePostAdCreative(accountId, objectStoryId);
             AccountId = accountId;
             ObjectStoryId = objectStoryId;
             if (urlTags != null)
@@ -440,12 +434,7 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
                 return false;
             }
         }
-
-        public Dictionary<string, string> GetSingleCreateParams()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         /// <summary>
         ///     Read ad creative by ID
         /// </summary>
@@ -526,13 +515,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             }
         }
 
-        private void ValidateDataToSetLinkAdCreative(long id, long accountId, string title, string body, string objectUrl, string imageFile, string imageHash)
+        private void ValidateDataToSetLinkAdCreative(long accountId, string title, string body, string objectUrl, string imageFile, string imageHash)
         {
-            if (!id.IsValidAdCreativeId())
-            {
-                throw new InvalidAdCreativeIdException();
-            }
-
             if (!accountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
@@ -559,13 +543,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             }
         }
 
-        private void ValidateDataToSetPageLikeAdCreative(long id, long accountId, string objectId, string body)
+        private void ValidateDataToSetPageLikeAdCreative(long accountId, string objectId, string body)
         {
-            if (!id.IsValidAdCreativeId())
-            {
-                throw new InvalidAdCreativeIdException();
-            }
-
             if (!accountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
@@ -582,13 +561,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             }
         }
 
-        private void ValidateDataToSetEventAdCreative(long id, long accountId, string objectId, string body)
+        private void ValidateDataToSetEventAdCreative(long accountId, string objectId, string body)
         {
-            if (!id.IsValidAdCreativeId())
-            {
-                throw new InvalidAdCreativeIdException();
-            }
-
             if (!accountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
@@ -605,13 +579,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             }
         }
 
-        private void ValidateDataToSetPagePostAdCreative(long id, long accountId, ObjectStorySpec objectStorySpec)
+        private void ValidateDataToSetPagePostAdCreative(long accountId, ObjectStorySpec objectStorySpec)
         {
-            if (!id.IsValidAdCreativeId())
-            {
-                throw new InvalidAdCreativeIdException();
-            }
-
             if (!accountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();
@@ -624,13 +593,8 @@ namespace facebook_csharp_ads_sdk.Domain.Models.AdCreative
             
         }
 
-        private void ValidateDataToSetPagePostAdCreative(long id, long accountId, string objectStoryId)
+        private void ValidateDataToSetPagePostAdCreative(long accountId, string objectStoryId)
         {
-            if (!id.IsValidAdCreativeId())
-            {
-                throw new InvalidAdCreativeIdException();
-            }
-
             if (!accountId.IsValidAdAccountId())
             {
                 throw new InvalidAdAccountId();

@@ -19,54 +19,46 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.AdCreative
         }
         
         [TestMethod]
-        [ExpectedException(typeof(InvalidAdCreativeIdException))]
-        public void MustThrowExceptionToSetEventAdDataIfCreativeIdIsInvalid()
-        {
-            _model.SetEventAdData(InvalidAdCreativeId, ValidAdAccountId, null, null, null, null, null, null);
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(InvalidAdAccountId))]
         public void MustThrowExceptionToSetEventAdDataIfAccountIdIsInvalid()
         {
-            _model.SetEventAdData(ValidAdCreativeId, InvalidAdAccountId1, null, null, null, null, null, null);
+            _model.SetEventAdData(InvalidAdAccountId1, null, null, null, null, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeObjectIdException))]
         public void MustThrowExceptionToSetEventAdDataIfObjectIdIsInvalid()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, InvalidAdCreativeObjectId, null, null, null, null, null);
+            _model.SetEventAdData(ValidAdAccountId, InvalidAdCreativeObjectId, null, null, null, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeObjectIdException))]
         public void MustThrowExceptionToSetEventAdDataIfObjectIdIsNull()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, null, null, null, null, null, null);
+            _model.SetEventAdData(ValidAdAccountId, null, null, null, null, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeBodyException))]
         public void MustThrowExceptionToSetPageLikeAdDataIfBodyIsInvalid()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectId, InvalidAdCreativeBody, null, null, null, null);
+            _model.SetEventAdData(ValidAdAccountId, ValidAdCreativeObjectId, InvalidAdCreativeBody, null, null, null, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidAdCreativeBodyException))]
         public void MustThrowExceptionToSetPageLikeAdDataIfBodyIsNull()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectId, null, null, null, null, null);
+            _model.SetEventAdData(ValidAdAccountId, ValidAdCreativeObjectId, null, null, null, null, null);
         }
         
         [TestMethod]
         public void CanSetJustRequiredProperties()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectId, ValidAdCreativeBody, null, null, null, null);
+            _model.SetEventAdData(ValidAdAccountId, ValidAdCreativeObjectId, ValidAdCreativeBody, null, null, null, null);
             Assert.IsNotNull(_model);
             Assert.IsTrue(_model.IsValid);
-            Assert.AreEqual(_model.Id, ValidAdCreativeId);
             Assert.AreEqual(_model.AccountId, ValidAdAccountId);
             Assert.AreEqual(_model.ObjectId, ValidAdCreativeObjectId);
             Assert.AreEqual(_model.Body, ValidAdCreativeBody);
@@ -79,10 +71,9 @@ namespace facebook_csharp_ads_sdk_unit_test.Domain.Models.AdCreatives.AdCreative
         [TestMethod]
         public void CanSetAllParameters()
         {
-            _model.SetEventAdData(ValidAdCreativeId, ValidAdAccountId, ValidAdCreativeObjectId, ValidAdCreativeBody, ValidAdCreativeName, ValidAdCreativeImageFile, ValidAdCreativeImageCrops, ValidAdCreativeTitle);
+            _model.SetEventAdData(ValidAdAccountId, ValidAdCreativeObjectId, ValidAdCreativeBody, ValidAdCreativeName, ValidAdCreativeImageFile, ValidAdCreativeImageCrops, ValidAdCreativeTitle);
             Assert.IsNotNull(_model);
             Assert.IsTrue(_model.IsValid);
-            Assert.AreEqual(_model.Id, ValidAdCreativeId);
             Assert.AreEqual(_model.AccountId, ValidAdAccountId);
             Assert.AreEqual(_model.ObjectId, ValidAdCreativeObjectId);
             Assert.AreEqual(_model.Body, ValidAdCreativeBody);
